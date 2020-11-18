@@ -9,6 +9,7 @@ import com.example.ISA2020.security.auth.JwtAuthenticationRequest;
 public interface AuthService {
 
     Set<Authority> findById(Long id);
+    
     Set<Authority> findByName(String name);
 
 }

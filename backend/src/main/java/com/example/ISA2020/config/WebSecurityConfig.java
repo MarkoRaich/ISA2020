@@ -19,6 +19,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import com.example.ISA2020.security.TokenUtils;
 import com.example.ISA2020.security.auth.RestAuthenticationEntryPoint;
 import com.example.ISA2020.security.auth.TokenAuthenticationFilter;
+import com.example.ISA2020.serviceImpl.NormalUserServiceImpl;
 
 
 
@@ -27,11 +28,9 @@ import com.example.ISA2020.security.auth.TokenAuthenticationFilter;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	/*
-	 * @Autowired private AdminServiceImpl jwtAdminDetailsService;
-	 * 
-	 * @Autowired private NormalUserServiceImpl jwtUserDetailsService;
-	 */
+
+	 @Autowired 
+	 private NormalUserServiceImpl jwtUserDetailsService;
 
 
     @Autowired
@@ -53,12 +52,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		/*
-		 * auth.userDetailsService(jwtAdminDetailsService).passwordEncoder(
-		 * passwordEncoder());
-		 * auth.userDetailsService(jwtUserDetailsService).passwordEncoder(
-		 * passwordEncoder());
-		 */
+		
+		 auth.userDetailsService(jwtUserDetailsService).passwordEncoder(
+		 passwordEncoder());
+		 
     }
 
     @Override
@@ -77,20 +74,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .authenticated()
             .and()
             .cors()
-            .and();
-            /*.addFilterBefore(
-            		new TokenAuthenticationFilter(tokenUtils, jwtUserDetailsService),
-            		BasicAuthenticationFilter.class
-            		)
-            
-            .addFilterBefore(
-                    new TokenAuthenticationFilter(tokenUtils, jwtAdminDetailsService),
-                    BasicAuthenticationFilter.class
-            )
-            .addFilterBefore(
-                    new TokenAuthenticationFilter(tokenUtils, jwtAgentDetailsService),
-                    BasicAuthenticationFilter.class
-            );*/
+            .and()
+        	.addFilterBefore(
+        		new TokenAuthenticationFilter(tokenUtils, jwtUserDetailsService),
+        		BasicAuthenticationFilter.class
+        	);
 
         http.csrf().disable();
     }
