@@ -20,6 +20,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.example.ISA2020.dto.NormalUserDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -30,13 +31,11 @@ public class NormalUser implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "Username cannot be empty.")
     @NotNull(message = "Username cannot be null.")
     @Column(nullable = false)
     private String username;
 
     @JsonIgnore
-    @NotEmpty(message = "Password cannot be empty.")
     @NotNull(message = "Password cannot be null.")
     @Column(nullable = false)
     private String password;
@@ -82,7 +81,7 @@ public class NormalUser implements UserDetails {
 			@NotEmpty(message = "Username cannot be empty.") @NotNull(message = "Username cannot be null.") String username,
 			@NotEmpty(message = "Password cannot be empty.") @NotNull(message = "Password cannot be null.") String password,
 			String firstName, String lastName, @Email String email, String country, String phoneNumber, String address,
-			String city, Set<com.example.ISA2020.entity.Authority> authorities) {
+			String city) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -94,9 +93,31 @@ public class NormalUser implements UserDetails {
 		this.phoneNumber = phoneNumber;
 		this.address = address;
 		this.city = city;
-		this.authorities = authorities;
 	}
-
+	
+	
+	public NormalUser(
+			@NotNull(message = "Username cannot be null.") String username,
+			@NotNull(message = "Password cannot be null.") String password,
+			String firstName, String lastName, @Email String email, String country, String phoneNumber, String address,
+			String city) {
+		this.username = username;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.country = country;
+		this.phoneNumber = phoneNumber;
+		this.address = address;
+		this.city = city;
+	}
+	
+	public NormalUser(NormalUserDTO userDTO) {
+		this(userDTO.getUsername(), userDTO.getPassword(), userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(),
+				userDTO.getCountry(), userDTO.getPhoneNumber(), userDTO.getAddress(), userDTO.getCity());
+	}
+	
+	
 
 
 

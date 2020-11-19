@@ -3,14 +3,22 @@ package com.example.ISA2020.serviceImpl;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.aspectj.weaver.loadtime.Agent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Admin;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.example.ISA2020.dto.LoggedInUserDTO;
 import com.example.ISA2020.entity.Authority;
 import com.example.ISA2020.entity.NormalUser;
+import com.example.ISA2020.entity.UserTokenState;
 import com.example.ISA2020.repository.AuthRepository;
 import com.example.ISA2020.security.TokenUtils;
+import com.example.ISA2020.security.auth.JwtAuthenticationRequest;
 import com.example.ISA2020.service.AuthService;
 
 @Service
@@ -47,6 +55,52 @@ public class AuthServiceImpl implements AuthService {
             return ((NormalUser) object).getUsername();
         } 
         return null;
+    }
+    
+    @Override
+    public LoggedInUserDTO login(JwtAuthenticationRequest jwtAuthenticationRequest) {
+        final Authentication authentication = authManager.authenticate(
+            new UsernamePasswordAuthenticationToken(
+                jwtAuthenticationRequest.getUsername(),
+                jwtAuthenticationRequest.getPassword()
+            )
+        );
+        
+        System.out.println("authentication");
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String username = returnUsername(authentication.getPrincipal());
+        if (username == null) {
+            return null;
+        }
+        
+        System.out.println("authentication2");
+        
+        String jwtToken = tokenUtils.generateToken(username);
+        int expiresIn = tokenUtils.getExpiredIn();
+        
+        System.out.println("authentication3");
+        
+        return returnLoggedInUser(
+            authentication.getPrincipal(),
+            new UserTokenState(jwtToken, expiresIn)
+        );
+    }
+
+
+    private LoggedInUserDTO returnLoggedInUser(Object object, UserTokenState userTokenState) {
+        if (object instanceof NormalUser) {
+            NormalUser normalUser = (NormalUser) object;
+            return new LoggedInUserDTO(
+                normalUser.getId(),
+                normalUser.getUsername(),
+                "ROLE_NORMAL_USER",
+                userTokenState
+            );
+        } 
+  
+        return null;
+        
     }
 
 }
