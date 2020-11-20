@@ -1,4 +1,4 @@
-package com.example.ISA2020.serviceImpl;
+package com.example.ISA2020.service.serviceImpl;
 
 import java.util.HashSet;
 import java.util.Set;
