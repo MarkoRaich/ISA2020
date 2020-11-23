@@ -1,4 +1,4 @@
-package com.example.ISA2020.service.serviceImpl;
+package com.example.ISA2020.serviceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -52,7 +52,7 @@ public class NormalUserServiceImpl implements UserDetailsService, NormalUserServ
     public NormalUserDTO createNormalUser(NormalUserDTO normalUserDTO) {
         if (normalUserRepository.findByUsername(normalUserDTO.getUsername()) != null) {
             return null;
-        } //findByUsername vraca null ao ga nadje
+        } //findByUsername vraca null ako ga nadje
 
         String hashedPassword = passwordEncoder.encode(normalUserDTO.getPassword());
 

@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import com.example.ISA2020.security.TokenUtils;
 import com.example.ISA2020.security.auth.RestAuthenticationEntryPoint;
 import com.example.ISA2020.security.auth.TokenAuthenticationFilter;
-import com.example.ISA2020.service.serviceImpl.NormalUserServiceImpl;
+import com.example.ISA2020.serviceImpl.NormalUserServiceImpl;
 
 
 
