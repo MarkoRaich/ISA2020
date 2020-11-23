@@ -1,5 +1,8 @@
 package com.example.ISA2020.serviceImpl;
 
+import java.util.List;
+
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,9 +48,31 @@ public class HospitalServiceImpl implements HospitalService {
 				hospitalDTO.getCity(),
 				hospitalDTO.getAddress());
 		
+		List<Hospital> hospitals = hospitalRepository.findAll();
+		
+		for(Hospital h : hospitals) {
+			if(newHospital.getApiKey() == h.getApiKey()) {
+				String newString = randomStringGenerator();
+				newHospital.setApiKey(newString);
+				System.out.println("Izgenerisao je postojeci apiKey. Funkcija je pozvana jos jednom.");
+			}
+		}
 		
 		return hospitalRepository.save(newHospital);
 				
+	}
+	
+	
+	public String randomStringGenerator() {
+		 
+	    int length = 15;
+	    boolean useLetters = true;
+	    boolean useNumbers = true;
+	    String generatedString = RandomStringUtils.random(length, useLetters, useNumbers);
+	 
+	    System.out.println(generatedString);
+	    
+	    return generatedString;
 	}
 	
 }

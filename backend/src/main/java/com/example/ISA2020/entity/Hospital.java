@@ -51,7 +51,7 @@ public class Hospital {
 	
 	public String randomStringGenerator() {
 		 
-	    int length = 10;
+	    int length = 15;
 	    boolean useLetters = true;
 	    boolean useNumbers = true;
 	    String generatedString = RandomStringUtils.random(length, useLetters, useNumbers);
