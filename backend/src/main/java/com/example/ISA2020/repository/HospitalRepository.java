@@ -15,4 +15,6 @@ public interface HospitalRepository extends JpaRepository<Hospital, Long>{
     Hospital findByApiKey(String apiKey);
     
     List<Hospital> findAll();
+    
+    List<Hospital> findByCity(String city);
 }

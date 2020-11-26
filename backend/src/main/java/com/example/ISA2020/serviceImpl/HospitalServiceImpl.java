@@ -1,5 +1,6 @@
 package com.example.ISA2020.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -65,6 +66,18 @@ public class HospitalServiceImpl implements HospitalService {
 	@Override
 	public List<Hospital> getAllHospitals() {
 		return hospitalRepository.findAll();
+	}
+	
+	@Override
+	public List<Hospital> findAllHospitalsInOneCity(String city) {
+		List<Hospital> hospitals = hospitalRepository.findAll();
+		List<Hospital> hospitalsInOneCity = new ArrayList<>();
+		for(Hospital h : hospitals) {
+			if(h.getCity().equals(city)) {
+				hospitalsInOneCity.add(h);
+			}
+		}
+		return hospitalsInOneCity;
 	}
 	
 	

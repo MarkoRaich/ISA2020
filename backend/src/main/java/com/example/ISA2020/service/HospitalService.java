@@ -16,4 +16,6 @@ public interface HospitalService {
 	Hospital findOneByApiKey(String apiKey);
 	
 	List<Hospital> getAllHospitals();
+	
+	List<Hospital> findAllHospitalsInOneCity(String city);
 }
