@@ -62,6 +62,11 @@ public class HospitalServiceImpl implements HospitalService {
 				
 	}
 	
+	@Override
+	public List<Hospital> getAllHospitals() {
+		return hospitalRepository.findAll();
+	}
+	
 	
 	public String randomStringGenerator() {
 		 
