@@ -49,6 +49,19 @@ public class Hospital {
 	}
 	
 	
+	
+	// samo za potrebe testiranja
+	public Hospital(Long id, @NotNull(message = "Name cannot be null.") String name,
+			@NotNull(message = "City cannot be null.") String city,
+			@NotNull(message = "Address cannot be null.") String address, String apiKey) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.city = city;
+		this.address = address;
+		this.apiKey = apiKey;
+	}
+
 	public String randomStringGenerator() {
 		 
 	    int length = 15;
