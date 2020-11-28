@@ -1,5 +1,6 @@
 package com.example.ISA2020.controller;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -12,14 +13,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -81,6 +82,13 @@ public class HospitalControllerTest {
 		
 		mockMvc.perform(get(URL_PREFIX + "/getAll").sessionAttrs(sessionattr)).andExpect(status().isOk());
 		
+		/*
+		 * MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(uri)
+		 * .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn(); String content =
+		 * mvcResult.getResponse().getContentAsString(); Hospital[] hospitalList =
+		 * super.mapFromJson(content, Hospital[].class); assertTrue(hospitalList.length >
+		 * 0);
+		 */
 	}
 	
 }

@@ -1,0 +1,34 @@
+<div class="container">
+    <title>Add a new Hospital into the system</title>
+    <form fxLayout="column" [formGroup]="createNewHospitalForm">
+        <table class="form-full-width">
+            <tr>
+                <td>
+                    <label>Name</label>
+                    <input formControlName="name" required><br><br>
+                </td>
+                <td>
+                    <label>City</label>
+                    <input formControlName="city" required><br><br>
+                </td>
+                <td>
+                    <label>Address</label>
+                    <input formControlName="address" required><br><br>
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <button color="primary" (click)="addNewHospital()">
+                        Add new Hospital
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <button >Ispisi sve bolnice</button>
+
+      
+</div>
+
