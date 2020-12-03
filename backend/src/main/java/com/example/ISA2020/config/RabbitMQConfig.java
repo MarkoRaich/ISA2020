@@ -35,10 +35,10 @@ public class RabbitMQConfig {
 		return new DirectExchange(exchange);
 	}
 
-	@Bean
-	Binding binding(Queue queue, DirectExchange exchange) {
-		return BindingBuilder.bind(queue).to(exchange).with(routingkey);
-	}
+	/*
+	 * @Bean Binding binding(Queue queue, DirectExchange exchange) { return
+	 * BindingBuilder.bind(queue).to(exchange).with(routingkey); }
+	 */
 
 	@Bean
 	public MessageConverter jsonMessageConverter() {

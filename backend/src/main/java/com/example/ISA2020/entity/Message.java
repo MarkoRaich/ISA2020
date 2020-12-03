@@ -3,53 +3,52 @@ package com.example.ISA2020.entity;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@subject", scope = Message.class)
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class/* , property = "@subject" */, scope = Message.class)
 public class Message {
 	
-	private String messageSubject;
-	private String messageText;
+	private String subject;
+	private String message;
 	
 	
+
+	public Message(String subject, String message) {
+		super();
+		this.subject = subject;
+		this.message = message;
+	}
+
+
 	public Message() {
 		super();
 	}
 
 
-	public Message(String messageSubject, String messageText) {
-		super();
-		this.messageSubject = messageSubject;
-		this.messageText = messageText;
+	public String getSubject() {
+		return subject;
 	}
 
 
-	public String getMessageSubject() {
-		return messageSubject;
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 
 
-	public void setMessageSubject(String messageSubject) {
-		this.messageSubject = messageSubject;
+	public String getMessage() {
+		return message;
 	}
 
 
-	public String getMessageText() {
-		return messageText;
-	}
-
-
-	public void setMessageText(String messageText) {
-		this.messageText = messageText;
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 
 	@Override
 	public String toString() {
-		return "Message [messageSubject=" + messageSubject + ", messageText=" + messageText + "]";
+		return "Message [subject=" + subject + ", message=" + message + "]";
 	}
 
 
-	
-	
 	
 	
 }

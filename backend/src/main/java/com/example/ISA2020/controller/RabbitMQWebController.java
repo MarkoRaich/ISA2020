@@ -8,6 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ISA2020.entity.Message;
 import com.example.ISA2020.service.RabbitMQSender;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rabbitmq.client.BuiltinExchangeType;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
 
 @RestController
 @RequestMapping(value = "/rabbitmq/")
@@ -20,14 +26,30 @@ public class RabbitMQWebController {
 	public String producer(/*
 							 * @RequestParam("msgText") String messageText,@RequestParam("msgSubject")
 							 * String messageSubject
-							 */ @RequestBody Message message) {
+							 */ @RequestBody Message message) throws JsonProcessingException {
 	
 	Message msg = new Message();
-	msg.setMessageSubject(message.getMessageSubject());
-	msg.setMessageText(message.getMessageText());
+	msg.setSubject(message.getSubject());
+	msg.setMessage(message.getMessage());
 	
-	rabbitMQSender.send(msg);
+	/* rabbitMQSender.send(msg); */
+	
+	ObjectMapper mapper = new ObjectMapper();
+    String send = mapper.writeValueAsString(msg);
+    
+	ConnectionFactory factory = new ConnectionFactory();
+    factory.setHost("localhost");
+    try (Connection connection = factory.newConnection();
+         Channel channel = connection.createChannel()) {
 
-	return "Message sent to the RabbitMQ Successfully";
+        channel.exchangeDeclare("exchange", BuiltinExchangeType.FANOUT);
+
+
+        channel.basicPublish("exchange", "", null, send.getBytes("UTF-8"));
+    } catch (Exception ex) {
+    	
+    }
+
+	return send;
 	}
 }
