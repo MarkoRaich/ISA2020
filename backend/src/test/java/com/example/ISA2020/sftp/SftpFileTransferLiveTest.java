@@ -23,12 +23,12 @@ public class SftpFileTransferLiveTest {
     private String remoteHost = "192.168.56.1";
     private String username = "tester";
     private String password = "password";
-    private String localFile = "src/main/resources/input.txt";
-    private String remoteFile = "welcome.txt";
+    private String localFile = "src/main/resources/input.txt"; //upload
+    private String remoteFile = "PSW-uploads/2020-12-06-to-2020-12-16-report.json";
     private String localDir = "src/main/resources/";
-    private String remoteDir = "remote_sftp_test/";
-    private String knownHostsFileLoc = "C:/Users/dioni/OneDrive/Desktop/Rebex/data";
-
+    private String remoteDir = "remote_sftp_test/"; //upload
+    //private String knownHostsFileLoc = "C:/Users/dioni/OneDrive/Desktop/Rebex/data";
+    //  C:\Users\dioni\eclipse\java-2020-09\eclipse\eclipse.exe
     @Test
     public void whenUploadFileUsingJsch_thenSuccess() throws JSchException, SftpException {
         ChannelSftp channelSftp = setupJsch();
