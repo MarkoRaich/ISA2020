@@ -123,6 +123,28 @@
 			<version>5.10.0</version> 
 		</dependency>
 		
+		<!-- sftp dependencies -->
+		<dependency>
+		    <groupId>com.jcraft</groupId>
+		    <artifactId>jsch</artifactId>
+		    <version>0.1.55</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.hierynomus</groupId>
+		    <artifactId>sshj</artifactId>
+		    <version>0.27.0</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-vfs2</artifactId>
+		    <version>2.4</version>
+		</dependency>
+		
+		<!-- ______  -->
+		
+		
 	</dependencies>
 
 	<build>
