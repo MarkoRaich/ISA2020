@@ -1,4 +1,3 @@
-insert into user(id, name) values (1, 'Aca');
 
 -- AUTHORITIES
 INSERT INTO authority (name) VALUES ('ROLE_NORMAL_USER');
