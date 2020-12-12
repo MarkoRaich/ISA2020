@@ -39,11 +39,19 @@ public class Pharmacy {
 	private Set<PharmacyDrugDetails> details;
 	
 	private String apiKey;
+	
+	
 
-	public Pharmacy(@NotNull(message = "Name cannot be null.") String name, String apiKey) {
+	public Pharmacy() {
+		super();
+	}
+
+	public Pharmacy(String name, String apiKey) {
 		super();
 		this.name = name;
 		this.apiKey = apiKey;
+		this.drugs = null;
+		this.details = null;
 //		this.drugs = null;
 	}
 

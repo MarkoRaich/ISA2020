@@ -10,20 +10,28 @@ public class DrugDTO {
 	private Long id;
 
     private String name;
+    
+    private String code;
 
     
 	public DrugDTO() {
 		super();
 	}
 
-	public DrugDTO(Long id, String name) {
+	public DrugDTO(Long id, String name, String code) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.code = code;
+	}
+	
+	public DrugDTO(String name, String code) {
+		this.name = name;
+		this.code = code;
 	}
 	
 	public DrugDTO(Drug drug) {
-		this(drug.getId(), drug.getName());
+		this(drug.getId(), drug.getName(), drug.getCode());
 	}
 
 	public Long getId() {
@@ -41,5 +49,15 @@ public class DrugDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+	
+	
     
 }

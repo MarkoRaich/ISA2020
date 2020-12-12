@@ -1,5 +1,7 @@
 package com.example.ISA2020.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,13 +28,23 @@ public class DrugServiceImpl implements DrugService {
 
 	@Override
 	public Drug createDrug(DrugDTO drugDTO) {
-		if (drugRepository.findOneByName(drugDTO.getName()) != null) {
+		if (drugRepository.findOneByCode(drugDTO.getCode()) != null) {
             return null;
         } //findByName vraca null ako ga nadje
 		
-		Drug newDrug = new Drug(drugDTO.getName());
+		Drug newDrug = new Drug(drugDTO.getName(), drugDTO.getCode());
 		
 		return drugRepository.save(newDrug);
+	}
+
+	@Override
+	public Drug findByCode(String code) {
+		return drugRepository.findOneByCode(code);
+	}
+
+	@Override
+	public List<Drug> getAllDrugs() {
+		return drugRepository.findAll();
 	}
 	
 

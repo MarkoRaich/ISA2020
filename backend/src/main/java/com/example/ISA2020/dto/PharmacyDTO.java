@@ -25,6 +25,11 @@ public class PharmacyDTO {
 		this.apiKey = apiKey;
 	}
 	
+	public PharmacyDTO(String name, String apiKey) {
+		this.name = name;
+		this.apiKey = apiKey;
+	}
+	
 	public PharmacyDTO(Pharmacy p) {
 		this(p.getId(), p.getName(), p.getApiKey());
 	}

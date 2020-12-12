@@ -1,9 +1,13 @@
 package com.example.ISA2020.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ISA2020.dto.DrugDTO;
 import com.example.ISA2020.entity.Drug;
+import com.example.ISA2020.entity.Hospital;
 import com.example.ISA2020.service.DrugService;
 
 @RestController
@@ -34,4 +39,29 @@ public class DrugController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+	
+	@GetMapping(value="/getAll")
+	public ResponseEntity<List<Drug>> getAllDrugs() {
+		List<Drug> drugs = drugService.getAllDrugs();
+	
+		return new ResponseEntity<>(drugs, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<Drug> getOneById(@PathVariable Long id){
+		Drug drug = drugService.findById(id);
+		if(drug == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(drug, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/getByCode/{code}")
+	public ResponseEntity<Drug> getOneByCode(@PathVariable String code){
+		Drug drug = drugService.findByCode(code);
+		if(drug == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(drug, HttpStatus.OK);
+	}
 }

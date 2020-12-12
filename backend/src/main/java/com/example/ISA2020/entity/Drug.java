@@ -23,6 +23,10 @@ public class Drug {
     @Column(nullable = false)
     private String name;
     
+    @NotNull(message = "Code cannot be null.")
+    @Column(nullable = false)
+    private String code;
+    
 	
  	@ManyToMany(mappedBy = "drugs") 
  	private Set<Pharmacy> pharmacies;
@@ -31,9 +35,17 @@ public class Drug {
     @OneToMany(mappedBy = "drug")
     private Set<PharmacyDrugDetails> details;
     
-	public Drug(@NotNull(message = "Name cannot be null.") String name) {
+    
+	public Drug() {
+		super();
+	}
+
+	public Drug(String name,  String code) {
 		super();
 		this.name = name;
+		this.code = code;
+		this.pharmacies = null;
+		this.details = null;
 //		this.pharmacies = null;
 	}
 
@@ -52,5 +64,15 @@ public class Drug {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+	
+	
   
 }

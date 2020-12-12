@@ -1,5 +1,7 @@
 package com.example.ISA2020.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +36,11 @@ public class PharmacyServiceImpl implements PharmacyService {
 		Pharmacy newPharmacy = new Pharmacy(pharmacyDTO.getName(), pharmacyDTO.getApiKey());
 		
 		return pharmacyRepository.save(newPharmacy);
+	}
+
+	@Override
+	public List<Pharmacy> getAllPharmacies() {
+		return pharmacyRepository.findAll();
 	}
 
 }
