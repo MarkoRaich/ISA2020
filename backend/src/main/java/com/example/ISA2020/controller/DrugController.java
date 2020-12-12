@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ISA2020.dto.DrugDTO;
+import com.example.ISA2020.dto.DrugNameAndCodeDTO;
 import com.example.ISA2020.entity.Drug;
-import com.example.ISA2020.entity.Hospital;
 import com.example.ISA2020.service.DrugService;
 
 @RestController
@@ -63,5 +63,15 @@ public class DrugController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(drug, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/getByCodeInfo/{code}")
+	public ResponseEntity<DrugNameAndCodeDTO> getOneByCodeInfo(@PathVariable String code){
+		Drug drug = drugService.findByCode(code);
+		DrugNameAndCodeDTO drugDTO = new DrugNameAndCodeDTO(drug.getName(), drug.getCode());
+		if(drugDTO == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(drugDTO, HttpStatus.OK);
 	}
 }
