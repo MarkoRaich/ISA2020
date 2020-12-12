@@ -7,7 +7,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 
 @Entity
-class PharmacyDrugDetails {
+public class PharmacyDrugDetails {
 
     @EmbeddedId
     private PharmacyDrugKey id;

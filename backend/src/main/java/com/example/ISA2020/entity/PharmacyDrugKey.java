@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-class PharmacyDrugKey implements Serializable {
+public class PharmacyDrugKey implements Serializable {
 
     @Column(name = "pharmacy_id")
     Long pharmacyId;
