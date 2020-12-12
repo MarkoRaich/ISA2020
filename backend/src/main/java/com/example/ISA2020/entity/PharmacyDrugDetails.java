@@ -10,19 +10,19 @@ import javax.persistence.MapsId;
 class PharmacyDrugDetails {
 
     @EmbeddedId
-    PharmacyDrugKey id;
+    private PharmacyDrugKey id;
 
     @ManyToOne
     @MapsId("pharmacyId")
     @JoinColumn(name = "pharmacy_id")
-    Pharmacy pharmacy;
+    private Pharmacy pharmacy;
 
     @ManyToOne
     @MapsId("drugId")
     @JoinColumn(name = "drug_id")
-    Drug drug;
+    private Drug drug;
 
-    int quantity;
+    private int quantity;
 
     
 	public PharmacyDrugDetails() {

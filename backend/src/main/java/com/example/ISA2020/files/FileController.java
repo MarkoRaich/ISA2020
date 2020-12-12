@@ -24,7 +24,8 @@ public class FileController {
 
     @Autowired
     private FileStorageService fileStorageService;
-    
+
+	/* , @RequestParam("apiKey") String apiKey */
     @PostMapping("/uploadFile")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
         String fileName = fileStorageService.storeFile(file);

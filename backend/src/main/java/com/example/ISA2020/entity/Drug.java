@@ -24,11 +24,12 @@ public class Drug {
     private String name;
     
 	
- 	@ManyToMany(mappedBy = "drugs") private Set<Pharmacy> pharmacies;
+ 	@ManyToMany(mappedBy = "drugs") 
+ 	private Set<Pharmacy> pharmacies;
 	 
 
     @OneToMany(mappedBy = "drug")
-    Set<PharmacyDrugDetails> details;
+    private Set<PharmacyDrugDetails> details;
     
 	public Drug(@NotNull(message = "Name cannot be null.") String name) {
 		super();

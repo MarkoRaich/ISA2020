@@ -30,17 +30,20 @@ public class Pharmacy {
 	
 	@ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinTable( name = "pharmacy_drug", joinColumns = @JoinColumn(name =
-	"pharmacy_id", referencedColumnName = "id"), inverseJoinColumns
-	= @JoinColumn(name = "drug_id", referencedColumnName = "id")) private
-	Set<Drug> drugs;
+				"pharmacy_id", referencedColumnName = "id"), inverseJoinColumns
+				= @JoinColumn(name = "drug_id", referencedColumnName = "id"))
+	private Set<Drug> drugs;
 
 
 	@OneToMany(mappedBy = "pharmacy")
-	Set<PharmacyDrugDetails> details;
+	private Set<PharmacyDrugDetails> details;
+	
+	private String apiKey;
 
-	public Pharmacy(@NotNull(message = "Name cannot be null.") String name) {
+	public Pharmacy(@NotNull(message = "Name cannot be null.") String name, String apiKey) {
 		super();
 		this.name = name;
+		this.apiKey = apiKey;
 //		this.drugs = null;
 	}
 
@@ -59,5 +62,15 @@ public class Pharmacy {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public String getApiKey() {
+		return apiKey;
+	}
+
+	public void setApiKey(String apiKey) {
+		this.apiKey = apiKey;
+	}
+	
+	
 
 }
