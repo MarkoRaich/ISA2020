@@ -87,6 +87,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers(HttpMethod.POST, "/api/**");
         web.ignoring().antMatchers(HttpMethod.PUT, "/api/auth");
+        web.ignoring().antMatchers(HttpMethod.GET, "/api/noAuth/**");
+        web.ignoring().antMatchers(HttpMethod.POST, "/file/**");
+        web.ignoring().antMatchers(HttpMethod.GET, "/file/**");
     }
 
 }

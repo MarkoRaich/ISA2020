@@ -20,7 +20,7 @@ import com.example.ISA2020.service.DrugService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "/api/auth/drug")
+@RequestMapping(value = "/api/noAuth/drug")
 public class DrugController {
 	
 	@Autowired 

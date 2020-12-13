@@ -15,7 +15,7 @@ import com.example.ISA2020.entity.PharmacyDrugKey;
 import com.example.ISA2020.service.PharmacyDrugDetailsService;
 
 @RestController
-@RequestMapping(value = "/api/auth/pharmacyDrugDetails")
+@RequestMapping(value = "/api/noAuth/pharmacyDrugDetails")
 public class PharmacyDrugDetailsController {
 	
 	

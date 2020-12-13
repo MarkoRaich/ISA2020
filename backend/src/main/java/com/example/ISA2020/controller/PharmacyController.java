@@ -21,7 +21,7 @@ import com.example.ISA2020.service.PharmacyService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "/api/auth/pharmacy")
+@RequestMapping(value = "/api/noAuth/pharmacy")
 public class PharmacyController {
 	
 	@Autowired 

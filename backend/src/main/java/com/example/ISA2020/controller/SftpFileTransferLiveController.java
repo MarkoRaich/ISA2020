@@ -13,7 +13,7 @@ import com.example.ISA2020.dto.SftpDTO;
 import com.example.ISA2020.service.SftpFileTransferLiveService;
 
 @RestController
-@RequestMapping(value = "/api/auth/sftp")
+@RequestMapping(value = "/api/noAuth/sftp")
 public class SftpFileTransferLiveController {
 	
 	@Autowired
