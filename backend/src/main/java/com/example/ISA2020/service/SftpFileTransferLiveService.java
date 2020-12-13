@@ -7,7 +7,7 @@ import com.jcraft.jsch.SftpException;
 
 public interface SftpFileTransferLiveService {
 	
-	void whenUploadFileUsingJsch_thenSuccess(String nameOfFile) throws JSchException, SftpException;
+	void whenUploadFileUsingJsch_thenSuccess(Long id) throws JSchException, SftpException, Exception;
 	
 	void whenDownloadFileUsingJsch_thenSuccess(String nameOfFile) throws JSchException, SftpException;
 	
@@ -18,4 +18,6 @@ public interface SftpFileTransferLiveService {
 	void whenUploadFileUsingApacheVfs_thenSuccess(String nameOfFile) throws IOException;
 	
 	void whenDownloadFileUsingApacheVfs_thenSuccess(String nameOfFile) throws IOException;
+	
+	String getUploadDirectory();
 }

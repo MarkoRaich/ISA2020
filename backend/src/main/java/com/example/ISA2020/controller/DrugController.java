@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -173,33 +174,33 @@ public class DrugController {
 	}
 	
 	@RequestMapping(method = { RequestMethod.GET },value = "/multipartdata/getById/{id}", produces=MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity<MultiValueMap<String, Object>> getFileById(@PathVariable Long id) throws IOException{
-		Drug drug = drugService.findById(id);
-		if(drug == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		
-		File file = new File("./Resources/response" + id + ".txt"); 
-		  
-		//Create the file
-		if (file.createNewFile())
-		{
-		    System.out.println("File is created!");
-		} else {
-		    System.out.println("File already exists.");
-		}
-		
-		//Write Content
-		FileWriter writer = new FileWriter(file);
-		writer.write("Sifra leka: " + drug.getCode());
-		writer.write(System.getProperty( "line.separator" ));
-		writer.write("Ime leka: " + drug.getName());
-		writer.write(System.getProperty( "line.separator" ));
-		writer.close();
-		
-		MultiValueMap<String, Object> formData = new LinkedMultiValueMap<String, Object>();
-		formData.add(drug.getCode(),  file);
-		
-		return new ResponseEntity<MultiValueMap<String, Object>>(formData, HttpStatus.OK);
-	}
+    public ResponseEntity<MultiValueMap<String, Object>> getFileById(@PathVariable Long id) throws IOException{
+        Drug drug = drugService.findById(id);
+        if(drug == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        
+        File file = new File("./Resources/response" + id + ".txt"); 
+          
+        //Create the file
+        if (file.createNewFile())
+        {
+            System.out.println("File is created!");
+        } else {
+            System.out.println("File already exists.");
+        }
+        
+        //Write Content
+        FileWriter writer = new FileWriter(file);
+        writer.write("Sifra leka: " + drug.getCode());
+        writer.write(System.getProperty( "line.separator" ));
+        writer.write("Ime leka: " + drug.getName());
+        writer.write(System.getProperty( "line.separator" ));
+        writer.close();
+        
+        MultiValueMap<String, Object> formData = new LinkedMultiValueMap<String, Object>();
+        formData.add("file",  new FileSystemResource("./Resources/response" + id + ".txt"));
+        
+        return new ResponseEntity<MultiValueMap<String, Object>>(formData, HttpStatus.OK);
+    }
 }

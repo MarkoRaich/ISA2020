@@ -3,6 +3,8 @@ package com.example.ISA2020.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ISA2020.dto.NormalUserDTO;
 import com.example.ISA2020.dto.SftpDTO;
+import com.example.ISA2020.entity.Drug;
+import com.example.ISA2020.service.DrugService;
 import com.example.ISA2020.service.SftpFileTransferLiveService;
 
 @RestController
@@ -19,21 +23,26 @@ public class SftpFileTransferLiveController {
 	@Autowired
 	public SftpFileTransferLiveService sftpService;
 	
+	/*
+	 * @Autowired public DrugService drugService;
+	 */
+	
 	
 	//1
-	@PostMapping(value = "/uploadJsch")
-    public ResponseEntity<SftpDTO> uploadJsch(@RequestBody SftpDTO sftpFile) {
+	@GetMapping(value = "/uploadJsch/{id}")
+    public ResponseEntity<String> uploadJsch(@PathVariable Long id) {
 		try {
-			if(sftpFile == null) {
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-			}
-			sftpService.whenUploadFileUsingJsch_thenSuccess(sftpFile.getNameOfFile());
+			sftpService.whenUploadFileUsingJsch_thenSuccess(id);
+
 		} catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-		SftpDTO sftpDTO = new SftpDTO(sftpFile);
-		return new ResponseEntity<>(sftpDTO, HttpStatus.OK);
+		
+		
+		String putanja = sftpService.getUploadDirectory();
+		
+		return new ResponseEntity<>(putanja, HttpStatus.OK);
 	}
 	
 	//2
