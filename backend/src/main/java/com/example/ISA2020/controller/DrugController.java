@@ -52,7 +52,7 @@ public class DrugController {
 	public ResponseEntity<List<Drug>> getAllDrugs() throws IOException {
 		List<Drug> drugs = drugService.getAllDrugs();
 		
-		File file = new File("c://Users//dioni//OneDrive//Desktop//Fajlovi//response" + "AllDrugs" + ".txt"); //C:\Users\dioni\OneDrive\Desktop
+		File file = new File("./Resources/response" + "AllDrugs" + ".txt"); //C:\Users\dioni\OneDrive\Desktop
 		  
 		//Create the file
 		if (file.createNewFile())
@@ -83,7 +83,7 @@ public class DrugController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
-		File file = new File("c://Users//dioni//OneDrive//Desktop//Fajlovi//response" + id + ".txt"); //C:\Users\dioni\OneDrive\Desktop
+		File file = new File("./Resources/response" + id + ".txt"); //C:\Users\dioni\OneDrive\Desktop
 		  
 		//Create the file
 		if (file.createNewFile())
@@ -111,7 +111,7 @@ public class DrugController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
-		File file = new File("c://Users//dioni//OneDrive//Desktop//Fajlovi//response" + code + ".txt"); 
+		File file = new File("./Resources/response" + code + ".txt"); 
 		  
 		//Create the file
 		if (file.createNewFile())
