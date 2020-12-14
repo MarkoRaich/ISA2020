@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ISA2020.dto.DrugDTO;
@@ -134,6 +135,27 @@ public class DrugController {
 		
 		return new ResponseEntity<>(drug, HttpStatus.OK);
 	}
+	
+	
+	@GetMapping(value = "/getAllWithSameName")
+	public ResponseEntity<List<Drug>> getListOfDrugsByName(@RequestParam("name") String name) throws Exception{
+		List<Drug> drugs = drugService.getAllDrugs();
+		
+		if(drugs == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		List<Drug> drugsWithSameName = new ArrayList<>();
+		
+		for(Drug d : drugs) {
+			if(d.getName().equals(name)) {
+				drugsWithSameName.add(d);
+			}
+		}
+		
+		return new ResponseEntity<List<Drug>>(drugsWithSameName, HttpStatus.OK);
+	}
+	
 	
 	@GetMapping(value = "/getByCodeInfo/{code}")
 	public ResponseEntity<DrugNameAndCodeDTO> getOneByCodeInfo(@PathVariable String code){

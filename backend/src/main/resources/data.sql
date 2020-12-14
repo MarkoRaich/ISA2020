@@ -13,6 +13,8 @@ INSERT INTO drug (id, code, name) VALUES (2, '20033', 'Aspirin');
 INSERT INTO drug (id, code, name) VALUES (3, '20044', 'Andol');
 INSERT INTO drug (id, code, name) VALUES (4, '20055', 'Paracetamol');
 INSERT INTO drug (id, code, name) VALUES (5, '20066', 'Bromazepam');
+INSERT INTO drug (id, code, name) VALUES (6, '200221', 'Brufen');
+INSERT INTO drug (id, code, name) VALUES (7, '200222', 'Brufen');
 
 INSERT INTO pharmacy (id, api_key, name) values (1, '123ssdasda', 'Jankovic');
 INSERT INTO pharmacy (id, api_key, name) values (2, '4654saddas', 'Zegin');
