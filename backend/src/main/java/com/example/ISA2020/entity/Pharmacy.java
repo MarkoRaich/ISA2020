@@ -38,7 +38,7 @@ public class Pharmacy {
 	@OneToMany(mappedBy = "pharmacy")
 	private Set<PharmacyDrugDetails> details;
 	
-	private String apiKey;
+	/* private String apiKey; */
 	
 	
 
@@ -46,10 +46,10 @@ public class Pharmacy {
 		super();
 	}
 
-	public Pharmacy(String name, String apiKey) {
+	public Pharmacy(String name) {
 		super();
 		this.name = name;
-		this.apiKey = apiKey;
+		/* this.apiKey = apiKey; */
 		this.drugs = null;
 		this.details = null;
 //		this.drugs = null;
@@ -71,14 +71,11 @@ public class Pharmacy {
 		this.name = name;
 	}
 
-	public String getApiKey() {
-		return apiKey;
-	}
-
-	public void setApiKey(String apiKey) {
-		this.apiKey = apiKey;
-	}
-	
+	/*
+	 * public String getApiKey() { return apiKey; }
+	 * 
+	 * public void setApiKey(String apiKey) { this.apiKey = apiKey; }
+	 */
 	
 
 }

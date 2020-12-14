@@ -16,9 +16,9 @@ INSERT INTO drug (id, code, name) VALUES (5, '20066', 'Bromazepam');
 INSERT INTO drug (id, code, name) VALUES (6, '200221', 'Brufen');
 INSERT INTO drug (id, code, name) VALUES (7, '200222', 'Brufen');
 
-INSERT INTO pharmacy (id, api_key, name) values (1, '123ssdasda', 'Jankovic');
-INSERT INTO pharmacy (id, api_key, name) values (2, '4654saddas', 'Zegin');
-INSERT INTO pharmacy (id, api_key, name) values (3, '787qwqeqqq', 'Benu');
+INSERT INTO pharmacy (id, name) values (1, 'Jankovic');
+INSERT INTO pharmacy (id, name) values (2, 'Zegin');
+INSERT INTO pharmacy (id, name) values (3, 'Benu');
 
 -- INSERT INTO pharmacy_drug(drug_id, pharmacy_id) values (1, 1);
 -- INSERT INTO pharmacy_drug(drug_id, pharmacy_id) values (1, 2);

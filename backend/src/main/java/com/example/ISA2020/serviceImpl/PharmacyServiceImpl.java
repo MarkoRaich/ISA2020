@@ -33,7 +33,7 @@ public class PharmacyServiceImpl implements PharmacyService {
             return null;
         } //findByName vraca null ako ga nadje
 		
-		Pharmacy newPharmacy = new Pharmacy(pharmacyDTO.getName(), pharmacyDTO.getApiKey());
+		Pharmacy newPharmacy = new Pharmacy(pharmacyDTO.getName());
 		
 		return pharmacyRepository.save(newPharmacy);
 	}
