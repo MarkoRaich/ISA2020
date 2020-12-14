@@ -62,7 +62,7 @@ public class PharmacyDrugDetailsController {
 		List<DrugSearchDTO> drugsWithSameName = new ArrayList<>();
 		
 		for(PharmacyDrugDetails p : pharmacyDrugDetails) {
-			if(p.getDrug().getName().equals(name)) {
+			if(p.getDrug().getName().toLowerCase().contains(name.toLowerCase())) {
 				DrugSearchDTO dto = new DrugSearchDTO();
 				dto.setId(p.getDrug().getId());
 				dto.setName(p.getDrug().getName());

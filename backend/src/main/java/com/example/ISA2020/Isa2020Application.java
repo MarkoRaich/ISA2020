@@ -17,7 +17,7 @@ import io.grpc.ServerBuilder;
     FileStorageProperties.class
 })
 public class Isa2020Application {
-
+	
 	public static void main(String[] args) {
 		SpringApplication.run(Isa2020Application.class, args);
 		
