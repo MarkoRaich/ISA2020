@@ -19,3 +19,13 @@ INSERT INTO drug (id, code, name) VALUES (7, '200222', 'Brufen');
 INSERT INTO pharmacy (id, api_key, name) values (1, '123ssdasda', 'Jankovic');
 INSERT INTO pharmacy (id, api_key, name) values (2, '4654saddas', 'Zegin');
 INSERT INTO pharmacy (id, api_key, name) values (3, '787qwqeqqq', 'Benu');
+
+-- INSERT INTO pharmacy_drug(drug_id, pharmacy_id) values (1, 1);
+-- INSERT INTO pharmacy_drug(drug_id, pharmacy_id) values (1, 2);
+-- INSERT INTO pharmacy_drug(drug_id, pharmacy_id) values (2, 3);
+
+INSERT INTO pharmacy_drug_details(drug_id, pharmacy_id, quantity) values (1, 1, 15);
+INSERT INTO pharmacy_drug_details(drug_id, pharmacy_id, quantity) values (1, 2, 20);
+INSERT INTO pharmacy_drug_details(drug_id, pharmacy_id, quantity) values (2, 3, 22);
+
+
