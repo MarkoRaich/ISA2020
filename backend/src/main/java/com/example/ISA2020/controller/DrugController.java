@@ -3,10 +3,12 @@ package com.example.ISA2020.controller;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +35,7 @@ public class DrugController {
 	
 	@Autowired 
 	private DrugService drugService;
+
 	
 	@PostMapping(value = "/create")
     public ResponseEntity<Drug> create(@RequestBody DrugDTO drugDTO) {
@@ -173,8 +176,8 @@ public class DrugController {
 		return new ResponseEntity<MultiValueMap<String, Object>>(formData, HttpStatus.OK);
 	}
 	
-	@RequestMapping(method = { RequestMethod.GET },value = "/multipartdata/getById/{id}", produces=MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<MultiValueMap<String, Object>> getFileById(@PathVariable Long id) throws IOException{
+	@RequestMapping(method = { RequestMethod.GET },value = "/multipartdata/getById/{id}")
+    public ResponseEntity<List<String>> getFileById(@PathVariable Long id) throws IOException{
         Drug drug = drugService.findById(id);
         if(drug == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -198,9 +201,13 @@ public class DrugController {
         writer.write(System.getProperty( "line.separator" ));
         writer.close();
         
-        MultiValueMap<String, Object> formData = new LinkedMultiValueMap<String, Object>();
-        formData.add("file",  new FileSystemResource("./Resources/response" + id + ".txt"));
+        byte[] fileContent = FileUtils.readFileToByteArray(file);
+        String encodedString = Base64.getEncoder().encodeToString(fileContent);
+        List<String> ret = new ArrayList<String>();
+        ret.add("response" + id + ".txt");
+        ret.add(encodedString);
         
-        return new ResponseEntity<MultiValueMap<String, Object>>(formData, HttpStatus.OK);
+        return new ResponseEntity<List<String>>(ret, HttpStatus.OK);
     }
+	
 }
