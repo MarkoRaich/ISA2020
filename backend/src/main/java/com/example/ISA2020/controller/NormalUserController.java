@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ISA2020.dto.NormalUserDTO;
-import com.example.ISA2020.entity.NormalUser;
+import com.example.ISA2020.entity.users.NormalUser;
 import com.example.ISA2020.service.NormalUserService;
 
 @RestController

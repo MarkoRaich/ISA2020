@@ -1,4 +1,4 @@
-package com.example.ISA2020.entity;
+package com.example.ISA2020.entity.users;
 
 import java.util.Collection;
 import java.util.Set;
@@ -21,11 +21,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.ISA2020.dto.NormalUserDTO;
+import com.example.ISA2020.entity.Authority;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class NormalUser implements UserDetails {
-
+// Deni probao test klasa treba obrisati
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)

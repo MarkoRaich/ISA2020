@@ -48,6 +48,7 @@ public class HospitalController {
 		return new ResponseEntity<>(hospitals, HttpStatus.OK);
 	}
 	
+	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Hospital> getOneById(@PathVariable Long id){
 		Hospital hospital = hospitalService.findById(id);

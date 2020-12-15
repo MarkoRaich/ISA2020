@@ -2,7 +2,7 @@ package com.example.ISA2020.dto;
 
 import javax.validation.constraints.NotEmpty;
 
-import com.example.ISA2020.entity.NormalUser;
+import com.example.ISA2020.entity.users.NormalUser;
 
 public class NormalUserDTO {
 	

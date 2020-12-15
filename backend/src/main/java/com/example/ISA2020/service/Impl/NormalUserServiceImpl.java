@@ -1,4 +1,4 @@
-package com.example.ISA2020.serviceImpl;
+package com.example.ISA2020.service.Impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,14 +9,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.ISA2020.dto.NormalUserDTO;
-import com.example.ISA2020.entity.NormalUser;
+import com.example.ISA2020.entity.users.NormalUser;
 import com.example.ISA2020.repository.NormalUserRepository;
 import com.example.ISA2020.service.AuthService;
 import com.example.ISA2020.service.NormalUserService;
 
 
 @Service
-public class NormalUserServiceImpl implements UserDetailsService, NormalUserService {
+public class NormalUserServiceImpl implements NormalUserService {
 
     @Autowired
     private AuthService authService;
@@ -38,15 +38,7 @@ public class NormalUserServiceImpl implements UserDetailsService, NormalUserServ
         return normalUserRepository.findByUsername(username);
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        NormalUser normalUser = findOneByUsername(username);
-        if (normalUser == null) {
-            throw new UsernameNotFoundException(String.format("User %s not found", username));
-        } else {
-            return normalUser;
-        }
-    }
+    
     
     @Override
     public NormalUserDTO createNormalUser(NormalUserDTO normalUserDTO) {

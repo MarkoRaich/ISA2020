@@ -1,5 +1,6 @@
 package com.example.ISA2020.security.auth;
 
+//DTO klasa za login
 public class JwtAuthenticationRequest {
 
     private String username;

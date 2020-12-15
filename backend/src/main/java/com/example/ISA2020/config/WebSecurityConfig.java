@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import com.example.ISA2020.security.TokenUtils;
 import com.example.ISA2020.security.auth.RestAuthenticationEntryPoint;
 import com.example.ISA2020.security.auth.TokenAuthenticationFilter;
-import com.example.ISA2020.serviceImpl.NormalUserServiceImpl;
+import com.example.ISA2020.service.Impl.UserServiceImpl;
 
 
 
@@ -28,22 +28,24 @@ import com.example.ISA2020.serviceImpl.NormalUserServiceImpl;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    // Hesiranje lozinke korisnika pomocu BCrypt funkcije.
+ 	// BCrypt po defalt-u radi 10 rundi hesiranja prosledjene vrednosti.
+    // Kod punjenja podacima u data.sql napisati u komentaru lozinku jer pamti njen hes, a ne original!!!
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-	 @Autowired 
-	 private NormalUserServiceImpl jwtUserDetailsService;
-
+	@Autowired 
+	private UserServiceImpl jwtUserDetailsService;
 
     @Autowired
     private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
     @Autowired
     private TokenUtils tokenUtils;
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
+    
+    // Registrujemo authentication manager koji ce da uradi autentifikaciju korisnika za nas
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -53,29 +55,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		
-		 auth.userDetailsService(jwtUserDetailsService).passwordEncoder(
-		 passwordEncoder());
+		 auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
 		 
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-            .exceptionHandling()
-            .authenticationEntryPoint(restAuthenticationEntryPoint)
-            .and()
+        	//stateless komuikacija klijent server
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+            
+            //401 greska za neautorizovane zahteve, moze i nazad na login stranicu
+            .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and()
+            
+            //ovim putanjama mogu svi korisnici da pristupe
             .authorizeRequests()
-            .antMatchers("/api/**")
-            .permitAll()
-            .anyRequest()
-            .authenticated()
-            .and()
-            .cors()
-            .and()
-        	.addFilterBefore(
+            					.antMatchers("/api/**").permitAll() //OVO IZMENITI DA BUDE SAMO HOME I RESURSI KOJE SME!
+            
+            //svaki zahtev mora biti autorizovan					
+            .anyRequest().authenticated().and()
+            
+            //ubacivanje CORS filtera u lanac filtera
+            .cors().and()
+        	
+            //ubacivanje filtera za proveru tokena u lanac filtera
+            .addFilterBefore(
         		new TokenAuthenticationFilter(tokenUtils, jwtUserDetailsService),
         		BasicAuthenticationFilter.class
         	);

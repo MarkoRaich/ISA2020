@@ -1,4 +1,4 @@
-package com.example.ISA2020.serviceImpl;
+package com.example.ISA2020.service.Impl;
 
 import java.util.ArrayList;
 import java.util.List;

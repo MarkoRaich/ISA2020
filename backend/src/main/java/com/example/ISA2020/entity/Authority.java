@@ -27,10 +27,13 @@ public class Authority implements GrantedAuthority {
     @Column(unique = true, nullable = false)
     private String name;
 
+
     @Override
     public String getAuthority() {
         return name;
     }
+    
+    
 
     public void setId(Long id) {
         this.id = id;

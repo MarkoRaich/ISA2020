@@ -1,4 +1,4 @@
-package com.example.ISA2020.serviceImpl;
+package com.example.ISA2020.service.Impl;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.ISA2020.dto.LoggedInUserDTO;
 import com.example.ISA2020.entity.Authority;
-import com.example.ISA2020.entity.NormalUser;
+import com.example.ISA2020.entity.users.NormalUser;
 import com.example.ISA2020.entity.UserTokenState;
 import com.example.ISA2020.repository.AuthRepository;
 import com.example.ISA2020.security.TokenUtils;
@@ -53,22 +53,24 @@ public class AuthServiceImpl implements AuthService {
     private String returnUsername(Object object) {
         if (object instanceof NormalUser) {
             return ((NormalUser) object).getUsername();
-        } 
+        } // else if (object instance of ) ovde za sve vrste korisnika
         return null;
     }
     
     @Override
     public LoggedInUserDTO login(JwtAuthenticationRequest jwtAuthenticationRequest) {
-        final Authentication authentication = authManager.authenticate(
+        
+    	final Authentication authentication = authManager.authenticate(
             new UsernamePasswordAuthenticationToken(
                 jwtAuthenticationRequest.getUsername(),
                 jwtAuthenticationRequest.getPassword()
             )
         );
         
-        System.out.println("authentication");
+        System.out.println("autentifikovanje...");
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
+        //kreiranje tokena za korsnika
         String username = returnUsername(authentication.getPrincipal());
         if (username == null) {
             return null;

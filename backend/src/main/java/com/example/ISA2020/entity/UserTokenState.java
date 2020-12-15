@@ -1,5 +1,7 @@
 package com.example.ISA2020.entity;
 
+
+//DTO klasa enkapsulira generisani JWT i njegovo trajanje koji se vracaju klijentu
 public class UserTokenState {
 
     private String jwtAccessToken;
