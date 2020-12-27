@@ -26,4 +26,9 @@ public class PharmacyDrugDetailsServiceImpl implements PharmacyDrugDetailsServic
 		return pharmacyDrugDetailsRepository.findAll();
 	}
 
+	@Override
+	public void save(PharmacyDrugDetails pharmacyDrugDetails) {
+		pharmacyDrugDetailsRepository.save(pharmacyDrugDetails);
+	}
+
 }

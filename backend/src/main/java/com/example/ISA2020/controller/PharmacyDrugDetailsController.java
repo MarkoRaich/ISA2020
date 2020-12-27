@@ -8,10 +8,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.ISA2020.dto.DrugSearchDTO;
 import com.example.ISA2020.dto.PharmacyDTO;
 import com.example.ISA2020.entity.PharmacyDrugDetails;
 import com.example.ISA2020.entity.PharmacyDrugKey;
@@ -75,5 +77,35 @@ public class PharmacyDrugDetailsController {
 		
 		
 		return new ResponseEntity<>(drugsWithSameName, HttpStatus.OK);
+	}
+	
+	@PutMapping(value="/getAllByDrugCode")
+	public ResponseEntity<Boolean> getAllByDrugCode(@RequestParam("code") String code, 
+																@RequestParam("quantity") String quantity) {
+		
+		List<PharmacyDrugDetails> pharmacyDrugDetails = pharmacyDrugDetailsService.getAllPharmacyDrugDetails();
+		if(pharmacyDrugDetails.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		List<DrugSearchDTO> drugsWithSameCode = new ArrayList<>();
+		int oldQuantity = 0;
+		int newQuantity = 0;
+		int q = Integer.parseInt(quantity);
+		
+		for(PharmacyDrugDetails p : pharmacyDrugDetails) {
+			if(p.getDrug().getCode().equals(code)) {
+				if(p.getQuantity() >= q) {
+					oldQuantity = p.getQuantity();
+					newQuantity = oldQuantity - q;
+					p.setQuantity(newQuantity);
+					pharmacyDrugDetailsService.save(p);
+					return new ResponseEntity<>(true, HttpStatus.OK);
+				}
+			}
+		}
+		
+		
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 }

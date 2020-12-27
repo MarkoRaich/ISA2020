@@ -10,4 +10,6 @@ public interface PharmacyDrugDetailsService {
 	PharmacyDrugDetails findById(PharmacyDrugKey id);
 	
 	List<PharmacyDrugDetails> getAllPharmacyDrugDetails();
+	
+	void save(PharmacyDrugDetails pharmacyDrugDetails);
 }

@@ -12,4 +12,6 @@ public interface PharmacyDrugDetailsRepository extends JpaRepository<PharmacyDru
 	PharmacyDrugDetails findOneById(PharmacyDrugKey id);
 	
 	List<PharmacyDrugDetails> findAll();
+	
+//	PharmacyDrugDetails save(Pha)
 }

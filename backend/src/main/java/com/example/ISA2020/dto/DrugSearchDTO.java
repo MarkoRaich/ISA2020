@@ -1,6 +1,4 @@
-package com.example.ISA2020.controller;
-
-import com.example.ISA2020.dto.PharmacyDTO;
+package com.example.ISA2020.dto;
 
 public class DrugSearchDTO {
 	
