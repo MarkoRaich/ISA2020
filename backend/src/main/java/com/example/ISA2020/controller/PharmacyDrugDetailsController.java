@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ISA2020.dto.DrugSearchDTO;
 import com.example.ISA2020.dto.PharmacyDTO;
+import com.example.ISA2020.entity.Pharmacy;
 import com.example.ISA2020.entity.PharmacyDrugDetails;
 import com.example.ISA2020.entity.PharmacyDrugKey;
 import com.example.ISA2020.service.DrugService;
@@ -79,8 +80,9 @@ public class PharmacyDrugDetailsController {
 		return new ResponseEntity<>(drugsWithSameName, HttpStatus.OK);
 	}
 	
-	@PutMapping(value="/getAllByDrugCode")
-	public ResponseEntity<PharmacyDrugDetails> getAllByDrugCode(@RequestParam("code") String code, 
+	@PutMapping(value="/getAllByDrugIdAndPharmacyId")
+	public ResponseEntity<PharmacyDrugDetails> getAllByDrugCode(@RequestParam("idPharmacy") String idPharmacy, 
+																@RequestParam("idDrug") String idDrug, 
 																@RequestParam("quantity") String quantity) {
 		
 		List<PharmacyDrugDetails> pharmacyDrugDetails = pharmacyDrugDetailsService.getAllPharmacyDrugDetails();
@@ -93,14 +95,21 @@ public class PharmacyDrugDetailsController {
 		int newQuantity = 0;
 		int q = Integer.parseInt(quantity);
 		
+	
+		
 		for(PharmacyDrugDetails p : pharmacyDrugDetails) {
-			if(p.getDrug().getCode().equals(code)) {
-				if(p.getQuantity() >= q) {
-					oldQuantity = p.getQuantity();
-					newQuantity = oldQuantity - q;
-					p.setQuantity(newQuantity);
-					pharmacyDrugDetailsService.save(p);
-					return new ResponseEntity<>(p, HttpStatus.OK);
+			if(p.getPharmacy().getId().toString().equals(idPharmacy)) {
+				System.out.println("1");
+				if(p.getDrug().getId().toString().equals(idDrug)) {
+					System.out.println("2");
+					if(p.getQuantity() >= q) {
+						System.out.println("3");
+						oldQuantity = p.getQuantity();
+						newQuantity = oldQuantity - q;
+						p.setQuantity(newQuantity);
+						pharmacyDrugDetailsService.save(p);
+						return new ResponseEntity<>(p, HttpStatus.OK);
+					}
 				}
 			}
 		}
