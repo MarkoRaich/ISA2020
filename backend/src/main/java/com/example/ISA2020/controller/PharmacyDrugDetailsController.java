@@ -95,7 +95,6 @@ public class PharmacyDrugDetailsController {
 		int newQuantity = 0;
 		int q = Integer.parseInt(quantity);
 		
-	
 		
 		for(PharmacyDrugDetails p : pharmacyDrugDetails) {
 			if(p.getPharmacy().getId().toString().equals(idPharmacy)) {
@@ -109,6 +108,8 @@ public class PharmacyDrugDetailsController {
 						p.setQuantity(newQuantity);
 						pharmacyDrugDetailsService.save(p);
 						return new ResponseEntity<>(p, HttpStatus.OK);
+					}else {
+						return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 					}
 				}
 			}
