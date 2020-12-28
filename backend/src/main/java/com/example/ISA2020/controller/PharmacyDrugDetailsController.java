@@ -80,7 +80,7 @@ public class PharmacyDrugDetailsController {
 	}
 	
 	@PutMapping(value="/getAllByDrugCode")
-	public ResponseEntity<Boolean> getAllByDrugCode(@RequestParam("code") String code, 
+	public ResponseEntity<PharmacyDrugDetails> getAllByDrugCode(@RequestParam("code") String code, 
 																@RequestParam("quantity") String quantity) {
 		
 		List<PharmacyDrugDetails> pharmacyDrugDetails = pharmacyDrugDetailsService.getAllPharmacyDrugDetails();
@@ -100,7 +100,7 @@ public class PharmacyDrugDetailsController {
 					newQuantity = oldQuantity - q;
 					p.setQuantity(newQuantity);
 					pharmacyDrugDetailsService.save(p);
-					return new ResponseEntity<>(true, HttpStatus.OK);
+					return new ResponseEntity<>(p, HttpStatus.OK);
 				}
 			}
 		}
