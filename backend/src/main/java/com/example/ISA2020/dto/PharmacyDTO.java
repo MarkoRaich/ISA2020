@@ -9,6 +9,8 @@ public class PharmacyDTO {
 
 	private String name;
 	
+	private String address;
+	
 	/* private String apiKey; */
 
 	
@@ -18,20 +20,27 @@ public class PharmacyDTO {
 	}
 
 
-	public PharmacyDTO(Long id, String name) {
+	public PharmacyDTO(Long id, String name, String address) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.address = address;
+		/* this.apiKey = apiKey; */
+	}
+	
+	public PharmacyDTO(String name, String address) {
+		this.name = name;
+		this.address = address;
 		/* this.apiKey = apiKey; */
 	}
 	
 	public PharmacyDTO(String name) {
 		this.name = name;
-		/* this.apiKey = apiKey; */
 	}
 	
+	
 	public PharmacyDTO(Pharmacy p) {
-		this(p.getId(), p.getName());
+		this(p.getId(), p.getName(), p.getAddress());
 	}
 	
 
@@ -56,12 +65,17 @@ public class PharmacyDTO {
 	}
 
 
-	/*
-	 * public String getApiKey() { return apiKey; }
-	 * 
-	 * 
-	 * public void setApiKey(String apiKey) { this.apiKey = apiKey; }
-	 */
+	public String getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+	
 	
 	
 	

@@ -11,6 +11,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Drug {
 	
@@ -27,11 +29,11 @@ public class Drug {
     @Column(nullable = false)
     private String code;
     
-	
+    @JsonIgnore
  	@ManyToMany(mappedBy = "drugs") 
  	private Set<Pharmacy> pharmacies;
 	 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "drug")
     private Set<PharmacyDrugDetails> details;
     

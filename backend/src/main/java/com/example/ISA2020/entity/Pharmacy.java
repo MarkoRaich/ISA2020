@@ -15,6 +15,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Pharmacy {
 
@@ -26,19 +28,22 @@ public class Pharmacy {
 	@NotNull(message = "Name cannot be null.")
 	@Column(nullable = false)
 	private String name;
-
 	
+	@NotNull(message = "Address cannot be null.")
+	@Column(nullable = false)
+	private String address;
+
+	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinTable( name = "pharmacy_drug", joinColumns = @JoinColumn(name =
 				"pharmacy_id", referencedColumnName = "id"), inverseJoinColumns
 				= @JoinColumn(name = "drug_id", referencedColumnName = "id"))
 	private Set<Drug> drugs;
 
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "pharmacy")
 	private Set<PharmacyDrugDetails> details;
 	
-	/* private String apiKey; */
 	
 	
 
@@ -46,10 +51,19 @@ public class Pharmacy {
 		super();
 	}
 
+	public Pharmacy(String name, String address) {
+		super();
+		this.name = name;
+		this.address = address;
+		this.drugs = null;
+		this.details = null;
+//		this.drugs = null;
+	}
+	
 	public Pharmacy(String name) {
 		super();
 		this.name = name;
-		/* this.apiKey = apiKey; */
+		this.address = null;
 		this.drugs = null;
 		this.details = null;
 //		this.drugs = null;
@@ -71,11 +85,30 @@ public class Pharmacy {
 		this.name = name;
 	}
 
-	/*
-	 * public String getApiKey() { return apiKey; }
-	 * 
-	 * public void setApiKey(String apiKey) { this.apiKey = apiKey; }
-	 */
-	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public Set<Drug> getDrugs() {
+		return drugs;
+	}
+
+	public void setDrugs(Set<Drug> drugs) {
+		this.drugs = drugs;
+	}
+
+	public Set<PharmacyDrugDetails> getDetails() {
+		return details;
+	}
+
+	public void setDetails(Set<PharmacyDrugDetails> details) {
+		this.details = details;
+	}
+
+
 
 }
