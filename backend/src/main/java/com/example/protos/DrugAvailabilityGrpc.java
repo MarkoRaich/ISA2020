@@ -19,12 +19,12 @@ import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.34.0)",
-    comments = "Source: drugAvailability.proto")
+    comments = "Source: PharmacySystemApi_Id1.proto")
 public final class DrugAvailabilityGrpc {
 
   private DrugAvailabilityGrpc() {}
 
-  public static final String SERVICE_NAME = "protos.DrugAvailability";
+  public static final String SERVICE_NAME = "DrugAvailability";
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<com.example.protos.FindDrugRequest,
@@ -56,6 +56,37 @@ public final class DrugAvailabilityGrpc {
       }
     }
     return getFindDrugMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<com.example.protos.OrderDrugRequest,
+      com.example.protos.OrderDrugResponse> getOrderDrugMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "OrderDrug",
+      requestType = com.example.protos.OrderDrugRequest.class,
+      responseType = com.example.protos.OrderDrugResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.example.protos.OrderDrugRequest,
+      com.example.protos.OrderDrugResponse> getOrderDrugMethod() {
+    io.grpc.MethodDescriptor<com.example.protos.OrderDrugRequest, com.example.protos.OrderDrugResponse> getOrderDrugMethod;
+    if ((getOrderDrugMethod = DrugAvailabilityGrpc.getOrderDrugMethod) == null) {
+      synchronized (DrugAvailabilityGrpc.class) {
+        if ((getOrderDrugMethod = DrugAvailabilityGrpc.getOrderDrugMethod) == null) {
+          DrugAvailabilityGrpc.getOrderDrugMethod = getOrderDrugMethod =
+              io.grpc.MethodDescriptor.<com.example.protos.OrderDrugRequest, com.example.protos.OrderDrugResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "OrderDrug"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.example.protos.OrderDrugRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.example.protos.OrderDrugResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new DrugAvailabilityMethodDescriptorSupplier("OrderDrug"))
+              .build();
+        }
+      }
+    }
+    return getOrderDrugMethod;
   }
 
   /**
@@ -113,6 +144,13 @@ public final class DrugAvailabilityGrpc {
       asyncUnimplementedUnaryCall(getFindDrugMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void orderDrug(com.example.protos.OrderDrugRequest request,
+        io.grpc.stub.StreamObserver<com.example.protos.OrderDrugResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getOrderDrugMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -122,6 +160,13 @@ public final class DrugAvailabilityGrpc {
                 com.example.protos.FindDrugRequest,
                 com.example.protos.FindDrugResponse>(
                   this, METHODID_FIND_DRUG)))
+          .addMethod(
+            getOrderDrugMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.example.protos.OrderDrugRequest,
+                com.example.protos.OrderDrugResponse>(
+                  this, METHODID_ORDER_DRUG)))
           .build();
     }
   }
@@ -147,6 +192,14 @@ public final class DrugAvailabilityGrpc {
       asyncUnaryCall(
           getChannel().newCall(getFindDrugMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void orderDrug(com.example.protos.OrderDrugRequest request,
+        io.grpc.stub.StreamObserver<com.example.protos.OrderDrugResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getOrderDrugMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -168,6 +221,13 @@ public final class DrugAvailabilityGrpc {
     public com.example.protos.FindDrugResponse findDrug(com.example.protos.FindDrugRequest request) {
       return blockingUnaryCall(
           getChannel(), getFindDrugMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.example.protos.OrderDrugResponse orderDrug(com.example.protos.OrderDrugRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getOrderDrugMethod(), getCallOptions(), request);
     }
   }
 
@@ -192,9 +252,18 @@ public final class DrugAvailabilityGrpc {
       return futureUnaryCall(
           getChannel().newCall(getFindDrugMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.example.protos.OrderDrugResponse> orderDrug(
+        com.example.protos.OrderDrugRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getOrderDrugMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_FIND_DRUG = 0;
+  private static final int METHODID_ORDER_DRUG = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -216,6 +285,10 @@ public final class DrugAvailabilityGrpc {
         case METHODID_FIND_DRUG:
           serviceImpl.findDrug((com.example.protos.FindDrugRequest) request,
               (io.grpc.stub.StreamObserver<com.example.protos.FindDrugResponse>) responseObserver);
+          break;
+        case METHODID_ORDER_DRUG:
+          serviceImpl.orderDrug((com.example.protos.OrderDrugRequest) request,
+              (io.grpc.stub.StreamObserver<com.example.protos.OrderDrugResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -239,7 +312,7 @@ public final class DrugAvailabilityGrpc {
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
-      return com.example.protos.DrugAvailabilityOuterClass.getDescriptor();
+      return com.example.protos.PharmacySystemApiId1.getDescriptor();
     }
 
     @java.lang.Override
@@ -279,6 +352,7 @@ public final class DrugAvailabilityGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new DrugAvailabilityFileDescriptorSupplier())
               .addMethod(getFindDrugMethod())
+              .addMethod(getOrderDrugMethod())
               .build();
         }
       }

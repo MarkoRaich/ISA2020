@@ -3,8 +3,8 @@
 
 package com.example.protos;
 
-public interface FindDrugRequestOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:FindDrugRequest)
+public interface OrderDrugRequestOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:OrderDrugRequest)
     com.google.protobuf.MessageOrBuilder {
 
   /**
@@ -20,14 +20,20 @@ public interface FindDrugRequestOrBuilder extends
       getApiKeyBytes();
 
   /**
-   * <code>string name = 2;</code>
-   * @return The name.
+   * <code>int32 idPharmacy = 2;</code>
+   * @return The idPharmacy.
    */
-  java.lang.String getName();
+  int getIdPharmacy();
+
   /**
-   * <code>string name = 2;</code>
-   * @return The bytes for name.
+   * <code>int32 idDrug = 3;</code>
+   * @return The idDrug.
    */
-  com.google.protobuf.ByteString
-      getNameBytes();
+  int getIdDrug();
+
+  /**
+   * <code>int32 quantity = 4;</code>
+   * @return The quantity.
+   */
+  int getQuantity();
 }

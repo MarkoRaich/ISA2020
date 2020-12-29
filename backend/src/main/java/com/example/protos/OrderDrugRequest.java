@@ -4,27 +4,26 @@
 package com.example.protos;
 
 /**
- * Protobuf type {@code FindDrugRequest}
+ * Protobuf type {@code OrderDrugRequest}
  */
-public final class FindDrugRequest extends
+public final class OrderDrugRequest extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:FindDrugRequest)
-    FindDrugRequestOrBuilder {
+    // @@protoc_insertion_point(message_implements:OrderDrugRequest)
+    OrderDrugRequestOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use FindDrugRequest.newBuilder() to construct.
-  private FindDrugRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use OrderDrugRequest.newBuilder() to construct.
+  private OrderDrugRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private FindDrugRequest() {
+  private OrderDrugRequest() {
     apiKey_ = "";
-    name_ = "";
   }
 
   @java.lang.Override
   @SuppressWarnings({"unused"})
   protected java.lang.Object newInstance(
       UnusedPrivateParameter unused) {
-    return new FindDrugRequest();
+    return new OrderDrugRequest();
   }
 
   @java.lang.Override
@@ -32,7 +31,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private FindDrugRequest(
+  private OrderDrugRequest(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -56,10 +55,19 @@ private static final long serialVersionUID = 0L;
             apiKey_ = s;
             break;
           }
-          case 18: {
-            java.lang.String s = input.readStringRequireUtf8();
+          case 16: {
 
-            name_ = s;
+            idPharmacy_ = input.readInt32();
+            break;
+          }
+          case 24: {
+
+            idDrug_ = input.readInt32();
+            break;
+          }
+          case 32: {
+
+            quantity_ = input.readInt32();
             break;
           }
           default: {
@@ -83,15 +91,15 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return com.example.protos.PharmacySystemApiId1.internal_static_FindDrugRequest_descriptor;
+    return com.example.protos.PharmacySystemApiId1.internal_static_OrderDrugRequest_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return com.example.protos.PharmacySystemApiId1.internal_static_FindDrugRequest_fieldAccessorTable
+    return com.example.protos.PharmacySystemApiId1.internal_static_OrderDrugRequest_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            com.example.protos.FindDrugRequest.class, com.example.protos.FindDrugRequest.Builder.class);
+            com.example.protos.OrderDrugRequest.class, com.example.protos.OrderDrugRequest.Builder.class);
   }
 
   public static final int APIKEY_FIELD_NUMBER = 1;
@@ -132,42 +140,37 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int NAME_FIELD_NUMBER = 2;
-  private volatile java.lang.Object name_;
+  public static final int IDPHARMACY_FIELD_NUMBER = 2;
+  private int idPharmacy_;
   /**
-   * <code>string name = 2;</code>
-   * @return The name.
+   * <code>int32 idPharmacy = 2;</code>
+   * @return The idPharmacy.
    */
   @java.lang.Override
-  public java.lang.String getName() {
-    java.lang.Object ref = name_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
-    } else {
-      com.google.protobuf.ByteString bs = 
-          (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
-      name_ = s;
-      return s;
-    }
+  public int getIdPharmacy() {
+    return idPharmacy_;
   }
+
+  public static final int IDDRUG_FIELD_NUMBER = 3;
+  private int idDrug_;
   /**
-   * <code>string name = 2;</code>
-   * @return The bytes for name.
+   * <code>int32 idDrug = 3;</code>
+   * @return The idDrug.
    */
   @java.lang.Override
-  public com.google.protobuf.ByteString
-      getNameBytes() {
-    java.lang.Object ref = name_;
-    if (ref instanceof java.lang.String) {
-      com.google.protobuf.ByteString b = 
-          com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
-      name_ = b;
-      return b;
-    } else {
-      return (com.google.protobuf.ByteString) ref;
-    }
+  public int getIdDrug() {
+    return idDrug_;
+  }
+
+  public static final int QUANTITY_FIELD_NUMBER = 4;
+  private int quantity_;
+  /**
+   * <code>int32 quantity = 4;</code>
+   * @return The quantity.
+   */
+  @java.lang.Override
+  public int getQuantity() {
+    return quantity_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -187,8 +190,14 @@ private static final long serialVersionUID = 0L;
     if (!getApiKeyBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 1, apiKey_);
     }
-    if (!getNameBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, name_);
+    if (idPharmacy_ != 0) {
+      output.writeInt32(2, idPharmacy_);
+    }
+    if (idDrug_ != 0) {
+      output.writeInt32(3, idDrug_);
+    }
+    if (quantity_ != 0) {
+      output.writeInt32(4, quantity_);
     }
     unknownFields.writeTo(output);
   }
@@ -202,8 +211,17 @@ private static final long serialVersionUID = 0L;
     if (!getApiKeyBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, apiKey_);
     }
-    if (!getNameBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, name_);
+    if (idPharmacy_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(2, idPharmacy_);
+    }
+    if (idDrug_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(3, idDrug_);
+    }
+    if (quantity_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(4, quantity_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -215,15 +233,19 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof com.example.protos.FindDrugRequest)) {
+    if (!(obj instanceof com.example.protos.OrderDrugRequest)) {
       return super.equals(obj);
     }
-    com.example.protos.FindDrugRequest other = (com.example.protos.FindDrugRequest) obj;
+    com.example.protos.OrderDrugRequest other = (com.example.protos.OrderDrugRequest) obj;
 
     if (!getApiKey()
         .equals(other.getApiKey())) return false;
-    if (!getName()
-        .equals(other.getName())) return false;
+    if (getIdPharmacy()
+        != other.getIdPharmacy()) return false;
+    if (getIdDrug()
+        != other.getIdDrug()) return false;
+    if (getQuantity()
+        != other.getQuantity()) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -237,76 +259,80 @@ private static final long serialVersionUID = 0L;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + APIKEY_FIELD_NUMBER;
     hash = (53 * hash) + getApiKey().hashCode();
-    hash = (37 * hash) + NAME_FIELD_NUMBER;
-    hash = (53 * hash) + getName().hashCode();
+    hash = (37 * hash) + IDPHARMACY_FIELD_NUMBER;
+    hash = (53 * hash) + getIdPharmacy();
+    hash = (37 * hash) + IDDRUG_FIELD_NUMBER;
+    hash = (53 * hash) + getIdDrug();
+    hash = (37 * hash) + QUANTITY_FIELD_NUMBER;
+    hash = (53 * hash) + getQuantity();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static com.example.protos.FindDrugRequest parseFrom(
+  public static com.example.protos.OrderDrugRequest parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.example.protos.FindDrugRequest parseFrom(
+  public static com.example.protos.OrderDrugRequest parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.example.protos.FindDrugRequest parseFrom(
+  public static com.example.protos.OrderDrugRequest parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.example.protos.FindDrugRequest parseFrom(
+  public static com.example.protos.OrderDrugRequest parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.example.protos.FindDrugRequest parseFrom(byte[] data)
+  public static com.example.protos.OrderDrugRequest parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.example.protos.FindDrugRequest parseFrom(
+  public static com.example.protos.OrderDrugRequest parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.example.protos.FindDrugRequest parseFrom(java.io.InputStream input)
+  public static com.example.protos.OrderDrugRequest parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.example.protos.FindDrugRequest parseFrom(
+  public static com.example.protos.OrderDrugRequest parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.example.protos.FindDrugRequest parseDelimitedFrom(java.io.InputStream input)
+  public static com.example.protos.OrderDrugRequest parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static com.example.protos.FindDrugRequest parseDelimitedFrom(
+  public static com.example.protos.OrderDrugRequest parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.example.protos.FindDrugRequest parseFrom(
+  public static com.example.protos.OrderDrugRequest parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.example.protos.FindDrugRequest parseFrom(
+  public static com.example.protos.OrderDrugRequest parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -319,7 +345,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(com.example.protos.FindDrugRequest prototype) {
+  public static Builder newBuilder(com.example.protos.OrderDrugRequest prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -335,26 +361,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code FindDrugRequest}
+   * Protobuf type {@code OrderDrugRequest}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:FindDrugRequest)
-      com.example.protos.FindDrugRequestOrBuilder {
+      // @@protoc_insertion_point(builder_implements:OrderDrugRequest)
+      com.example.protos.OrderDrugRequestOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.example.protos.PharmacySystemApiId1.internal_static_FindDrugRequest_descriptor;
+      return com.example.protos.PharmacySystemApiId1.internal_static_OrderDrugRequest_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.example.protos.PharmacySystemApiId1.internal_static_FindDrugRequest_fieldAccessorTable
+      return com.example.protos.PharmacySystemApiId1.internal_static_OrderDrugRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.example.protos.FindDrugRequest.class, com.example.protos.FindDrugRequest.Builder.class);
+              com.example.protos.OrderDrugRequest.class, com.example.protos.OrderDrugRequest.Builder.class);
     }
 
-    // Construct using com.example.protos.FindDrugRequest.newBuilder()
+    // Construct using com.example.protos.OrderDrugRequest.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -374,7 +400,11 @@ private static final long serialVersionUID = 0L;
       super.clear();
       apiKey_ = "";
 
-      name_ = "";
+      idPharmacy_ = 0;
+
+      idDrug_ = 0;
+
+      quantity_ = 0;
 
       return this;
     }
@@ -382,17 +412,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return com.example.protos.PharmacySystemApiId1.internal_static_FindDrugRequest_descriptor;
+      return com.example.protos.PharmacySystemApiId1.internal_static_OrderDrugRequest_descriptor;
     }
 
     @java.lang.Override
-    public com.example.protos.FindDrugRequest getDefaultInstanceForType() {
-      return com.example.protos.FindDrugRequest.getDefaultInstance();
+    public com.example.protos.OrderDrugRequest getDefaultInstanceForType() {
+      return com.example.protos.OrderDrugRequest.getDefaultInstance();
     }
 
     @java.lang.Override
-    public com.example.protos.FindDrugRequest build() {
-      com.example.protos.FindDrugRequest result = buildPartial();
+    public com.example.protos.OrderDrugRequest build() {
+      com.example.protos.OrderDrugRequest result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -400,10 +430,12 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public com.example.protos.FindDrugRequest buildPartial() {
-      com.example.protos.FindDrugRequest result = new com.example.protos.FindDrugRequest(this);
+    public com.example.protos.OrderDrugRequest buildPartial() {
+      com.example.protos.OrderDrugRequest result = new com.example.protos.OrderDrugRequest(this);
       result.apiKey_ = apiKey_;
-      result.name_ = name_;
+      result.idPharmacy_ = idPharmacy_;
+      result.idDrug_ = idDrug_;
+      result.quantity_ = quantity_;
       onBuilt();
       return result;
     }
@@ -442,23 +474,28 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof com.example.protos.FindDrugRequest) {
-        return mergeFrom((com.example.protos.FindDrugRequest)other);
+      if (other instanceof com.example.protos.OrderDrugRequest) {
+        return mergeFrom((com.example.protos.OrderDrugRequest)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(com.example.protos.FindDrugRequest other) {
-      if (other == com.example.protos.FindDrugRequest.getDefaultInstance()) return this;
+    public Builder mergeFrom(com.example.protos.OrderDrugRequest other) {
+      if (other == com.example.protos.OrderDrugRequest.getDefaultInstance()) return this;
       if (!other.getApiKey().isEmpty()) {
         apiKey_ = other.apiKey_;
         onChanged();
       }
-      if (!other.getName().isEmpty()) {
-        name_ = other.name_;
-        onChanged();
+      if (other.getIdPharmacy() != 0) {
+        setIdPharmacy(other.getIdPharmacy());
+      }
+      if (other.getIdDrug() != 0) {
+        setIdDrug(other.getIdDrug());
+      }
+      if (other.getQuantity() != 0) {
+        setQuantity(other.getQuantity());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -475,11 +512,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      com.example.protos.FindDrugRequest parsedMessage = null;
+      com.example.protos.OrderDrugRequest parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (com.example.protos.FindDrugRequest) e.getUnfinishedMessage();
+        parsedMessage = (com.example.protos.OrderDrugRequest) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -565,78 +602,95 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object name_ = "";
+    private int idPharmacy_ ;
     /**
-     * <code>string name = 2;</code>
-     * @return The name.
+     * <code>int32 idPharmacy = 2;</code>
+     * @return The idPharmacy.
      */
-    public java.lang.String getName() {
-      java.lang.Object ref = name_;
-      if (!(ref instanceof java.lang.String)) {
-        com.google.protobuf.ByteString bs =
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        name_ = s;
-        return s;
-      } else {
-        return (java.lang.String) ref;
-      }
+    @java.lang.Override
+    public int getIdPharmacy() {
+      return idPharmacy_;
     }
     /**
-     * <code>string name = 2;</code>
-     * @return The bytes for name.
-     */
-    public com.google.protobuf.ByteString
-        getNameBytes() {
-      java.lang.Object ref = name_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        name_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    /**
-     * <code>string name = 2;</code>
-     * @param value The name to set.
+     * <code>int32 idPharmacy = 2;</code>
+     * @param value The idPharmacy to set.
      * @return This builder for chaining.
      */
-    public Builder setName(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
-      name_ = value;
+    public Builder setIdPharmacy(int value) {
+      
+      idPharmacy_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string name = 2;</code>
+     * <code>int32 idPharmacy = 2;</code>
      * @return This builder for chaining.
      */
-    public Builder clearName() {
+    public Builder clearIdPharmacy() {
       
-      name_ = getDefaultInstance().getName();
+      idPharmacy_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private int idDrug_ ;
+    /**
+     * <code>int32 idDrug = 3;</code>
+     * @return The idDrug.
+     */
+    @java.lang.Override
+    public int getIdDrug() {
+      return idDrug_;
+    }
+    /**
+     * <code>int32 idDrug = 3;</code>
+     * @param value The idDrug to set.
+     * @return This builder for chaining.
+     */
+    public Builder setIdDrug(int value) {
+      
+      idDrug_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string name = 2;</code>
-     * @param value The bytes for name to set.
+     * <code>int32 idDrug = 3;</code>
      * @return This builder for chaining.
      */
-    public Builder setNameBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
+    public Builder clearIdDrug() {
       
-      name_ = value;
+      idDrug_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private int quantity_ ;
+    /**
+     * <code>int32 quantity = 4;</code>
+     * @return The quantity.
+     */
+    @java.lang.Override
+    public int getQuantity() {
+      return quantity_;
+    }
+    /**
+     * <code>int32 quantity = 4;</code>
+     * @param value The quantity to set.
+     * @return This builder for chaining.
+     */
+    public Builder setQuantity(int value) {
+      
+      quantity_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int32 quantity = 4;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearQuantity() {
+      
+      quantity_ = 0;
       onChanged();
       return this;
     }
@@ -653,41 +707,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:FindDrugRequest)
+    // @@protoc_insertion_point(builder_scope:OrderDrugRequest)
   }
 
-  // @@protoc_insertion_point(class_scope:FindDrugRequest)
-  private static final com.example.protos.FindDrugRequest DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:OrderDrugRequest)
+  private static final com.example.protos.OrderDrugRequest DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new com.example.protos.FindDrugRequest();
+    DEFAULT_INSTANCE = new com.example.protos.OrderDrugRequest();
   }
 
-  public static com.example.protos.FindDrugRequest getDefaultInstance() {
+  public static com.example.protos.OrderDrugRequest getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<FindDrugRequest>
-      PARSER = new com.google.protobuf.AbstractParser<FindDrugRequest>() {
+  private static final com.google.protobuf.Parser<OrderDrugRequest>
+      PARSER = new com.google.protobuf.AbstractParser<OrderDrugRequest>() {
     @java.lang.Override
-    public FindDrugRequest parsePartialFrom(
+    public OrderDrugRequest parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new FindDrugRequest(input, extensionRegistry);
+      return new OrderDrugRequest(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<FindDrugRequest> parser() {
+  public static com.google.protobuf.Parser<OrderDrugRequest> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<FindDrugRequest> getParserForType() {
+  public com.google.protobuf.Parser<OrderDrugRequest> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.example.protos.FindDrugRequest getDefaultInstanceForType() {
+  public com.example.protos.OrderDrugRequest getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 
