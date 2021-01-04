@@ -1,18 +1,19 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
+import { ProductListComponent } from './components/product-list/product-list.component';
 import { AddHospitalComponent } from './components/add-hospital/add-hospital.component';
 
 
 const routes: Routes = [
   {
     path: '',
-    component: AppComponent
+    component: ProductListComponent
   },
 
   {
-    path: 'hopsital',
-    component: AddHospitalComponent
+    path: 'hospital',
+    component: AddHospitalComponent,
+    pathMatch: 'full'
   }
 ];
 

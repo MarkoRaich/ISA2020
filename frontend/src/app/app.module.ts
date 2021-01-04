@@ -6,17 +6,31 @@ import { AppComponent } from './app.component';
 import { AddHospitalComponent } from './components/add-hospital/add-hospital.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HomeComponent } from './components/home/home.component';
+import { AngularMaterialModule } from './angular-material/angular-material.module';
+import { ProductListComponent } from './components/product-list/product-list.component';
+import { HeaderComponent } from './components/header/header.component';
+import {FlexLayoutModule} from '@angular/flex-layout';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    AddHospitalComponent
+    AddHospitalComponent,
+    HomeComponent,
+    ProductListComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    AngularMaterialModule,
+    FlexLayoutModule
+  
   ],
   providers: [],
   bootstrap: [AppComponent]

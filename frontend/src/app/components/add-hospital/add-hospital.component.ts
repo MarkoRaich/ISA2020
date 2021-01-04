@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Hospital } from 'src/app/model/hospital';
+import { Hospital } from 'src/app/models/hospital';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HospitalService } from 'src/app/services/hospital-service.service';
 
