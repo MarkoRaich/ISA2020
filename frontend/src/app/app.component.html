@@ -1,1 +1,52 @@
-<app-home></app-home>
+<!-- NAVIGACIJA SA LEVE STRANE -->
+
+<mat-sidenav-container class="sidenav-container">
+
+    <mat-sidenav #drawer class="sidenav"  fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'side' : 'side'" [opened]="!(isHandset$ | async)">
+      
+      <mat-toolbar color="primary">Sadržaj</mat-toolbar>
+      <mat-nav-list>
+        <a mat-list-item routerLink="/hospital">Interfejs Bolnice</a>
+        <a mat-list-item href="#">Link 2</a>
+        <a mat-list-item href="#">Link 3</a>
+      </mat-nav-list>
+
+    </mat-sidenav>
+    
+    <mat-sidenav-content>
+      
+      <mat-toolbar color="primary">
+        <span>
+          <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+          *ngIf="isHandset$ | async">
+              <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+          </button>
+          <button type="button"  mat-icon-button >
+              <img class="app-angular-logo" src="assets/images/logo2.png">
+          </button>
+          APOTEKE.RS
+        </span>    
+             
+        <button  mat-button mat-ripple routerLink="/login">
+          <span>Prijava</span>
+        </button>
+        <button  mat-button mat-ripple routerLink="/register">
+          <span>Registracija</span>
+        </button>
+            
+          
+
+      </mat-toolbar>
+
+      <!-- Ovde rutiranjem menjas sadrzaj u glavnom prozoru! -->
+      <div class="container">
+          
+          <router-outlet></router-outlet>
+      
+        </div>
+
+
+    </mat-sidenav-content>
+
+</mat-sidenav-container>

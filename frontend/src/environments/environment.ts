@@ -7,8 +7,10 @@ export const environment = {
   hmr                 : false,
   itemsPerPage        : 5,
   baseUrl             : "http://localhost:8080",
+  
   login               : "/api/auth/login",
   register            : "/api/auth/user/register",
+
   createNewHospital   : "/api/auth/hospital/create",
   getAllHospitals     : "/api/auth/hospital/getAll",
   getOneHospital      : "/api/auth/hospital/",

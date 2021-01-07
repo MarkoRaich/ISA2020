@@ -4,14 +4,17 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddHospitalComponent } from './components/add-hospital/add-hospital.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './components/home/home.component';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
-import { ProductListComponent } from './components/product-list/product-list.component';
-import { HeaderComponent } from './components/header/header.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+//import { JwtInterceptor } from './interceptors/jwt.interceptor';
+//import { ErrorInterceptor } from './interceptors/error.interceptor';
+
 
 
 @NgModule({
@@ -19,8 +22,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     AppComponent,
     AddHospitalComponent,
     HomeComponent,
-    ProductListComponent,
-    HeaderComponent
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,10 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     FlexLayoutModule
   
   ],
-  providers: [],
+  providers: [
+    //{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    //{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

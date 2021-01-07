@@ -1,34 +1,35 @@
-<div class="container">
-    <title>Add a new Hospital into the system</title>
-    <form fxLayout="column" [formGroup]="createNewHospitalForm">
-        <table class="form-full-width">
-            <tr>
-                <td>
-                    <label>Name</label>
-                    <input formControlName="name" required><br><br>
-                </td>
-                <td>
-                    <label>City</label>
-                    <input formControlName="city" required><br><br>
-                </td>
-                <td>
-                    <label>Address</label>
-                    <input formControlName="address" required><br><br>
-                </td>
-
-            </tr>
-            <tr>
-                <td>
-                    <button color="primary" (click)="addNewHospital()">
-                        Add new Hospital
-                    </button>
-                </td>
-            </tr>
-        </table>
-    </form>
-
-    <button >Ispisi sve bolnice</button>
-
+<div class="col-md-6 offset-md-3 mt-5">
+  
+    <div class="card">
+        <h4 class="card-header" >Dodajte novu bolnicu u sistem</h4>
+        <h6 class="card-title" class="text-center">za potrebe povezivanja sa kursom PSW</h6>
+    
+        <div class="card-body">
+            <form [formGroup]="createNewHospitalForm">
+                <div class="form-group">
+                     <label for="name">Naziv</label>
+                     <input type="text" formControlName="name" class="form-control" required>
+                </div>
+                    
+                <div class="form-group">
+                    <label for="city">Grad</label>
+                    <input type="text" formControlName="city" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Adresa</label>
+                    <input type="text" formControlName="address" class="form-control" required>
+                </div>
+           
+                <button class="btn btn-primary" (click)="addNewHospital()">
+                    Dodaj novu bolnicu
+                </button>
+               
+            </form>
+        </div>
+    </div>
+    
       
 </div>
+
 

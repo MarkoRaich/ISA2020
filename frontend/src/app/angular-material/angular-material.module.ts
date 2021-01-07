@@ -12,6 +12,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import {MatListModule} from '@angular/material/list';
+import {MatCardModule} from '@angular/material/card';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule( {
@@ -21,7 +24,10 @@ import {MatListModule} from '@angular/material/list';
         MatSidenavModule,
         MatBadgeModule,
         MatToolbarModule,
-        MatListModule
+        MatListModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatProgressSpinnerModule
        
 
     ],
@@ -31,7 +37,10 @@ import {MatListModule} from '@angular/material/list';
         MatIconModule,
         MatSidenavModule,
         MatTableModule,
-        MatListModule
+        MatListModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatProgressSpinnerModule
        
     ],
     providers: [

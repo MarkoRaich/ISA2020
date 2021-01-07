@@ -1,15 +1,27 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ProductListComponent } from './components/product-list/product-list.component';
 import { AddHospitalComponent } from './components/add-hospital/add-hospital.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { HomeComponent } from './components/home/home.component';
 
 
 const routes: Routes = [
   {
     path: '',
-    component: ProductListComponent
+    component: HomeComponent
   },
 
+  {
+    path: 'login',
+    component: LoginComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
+    pathMatch: 'full'
+  },
   {
     path: 'hospital',
     component: AddHospitalComponent,
