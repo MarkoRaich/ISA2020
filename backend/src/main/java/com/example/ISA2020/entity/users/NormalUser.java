@@ -27,11 +27,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class NormalUser implements UserDetails {
 // Deni probao test klasa treba obrisati
+	
+	
+	
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
+    
+    //USERNAME JE U STVARI EMAIL!! ZBOG JEDNOSTAVNOSTI LOGINA OSTAVITI
     @NotNull(message = "Username cannot be null.")
     @Column(nullable = false)
     private String username;

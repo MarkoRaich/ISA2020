@@ -29,9 +29,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	}
 
 	//trazi Usera u svim repozitorijumima
+	//dopuni sa trazenjem po svim repozitorijumima case patient, case admin itd...
 	private UserDetails searchUserInAllRepositories(String username) {
 		
-		return null;
+		return normalUserRepository.findByUsername(username);
 	}
 
 }

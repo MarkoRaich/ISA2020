@@ -75,8 +75,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             					.antMatchers("/api/**").permitAll() //OVO IZMENITI DA BUDE SAMO HOME I RESURSI KOJE SME!
             
-            //svaki zahtev mora biti autorizovan					
-            .anyRequest().authenticated().and()
+            					//svaki zahtev mora biti autorizovan					
+            					.anyRequest().authenticated().and()
             
             //ubacivanje CORS filtera u lanac filtera
             .cors().and()

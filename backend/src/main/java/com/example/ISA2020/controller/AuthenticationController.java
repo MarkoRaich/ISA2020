@@ -30,9 +30,6 @@ public class AuthenticationController {
 
 	@Autowired
     private AuthService authService;
-    
-    @Autowired
-	private AuthenticationManager authenticationManager;
 
     
     @PostMapping(value = "/login")
@@ -40,7 +37,7 @@ public class AuthenticationController {
         throws AuthenticationException, IOException {
         try {
         	
-        	System.out.println("zapocni login...");
+        	System.out.println("login zapocet");
             LoggedInUserDTO loggedInUserDTO = authService.login(authenticationRequest);
 
             if (loggedInUserDTO == null) {

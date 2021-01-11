@@ -4,6 +4,7 @@ import { AddHospitalComponent } from './components/add-hospital/add-hospital.com
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
+import { PatientProfileComponent } from './components/patient-profile/patient-profile.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,12 @@ const routes: Routes = [
   {
     path: 'hospital',
     component: AddHospitalComponent,
+    pathMatch: 'full'
+  },
+
+  {
+    path: 'patient',
+    component: PatientProfileComponent,
     pathMatch: 'full'
   }
 ];

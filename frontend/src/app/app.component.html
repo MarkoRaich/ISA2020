@@ -6,10 +6,20 @@
       [mode]="(isHandset$ | async) ? 'side' : 'side'" [opened]="!(isHandset$ | async)">
       
       <mat-toolbar color="primary">Sadržaj</mat-toolbar>
-      <mat-nav-list>
+      <!-- U ZAVISNOSTI OD ROLE MENJA SE SADRZAJ TOOLBARA-->
+      <mat-nav-list *ngIf="!isLoggedIn()">
         <a mat-list-item routerLink="/hospital">Interfejs Bolnice</a>
         <a mat-list-item href="#">Link 2</a>
         <a mat-list-item href="#">Link 3</a>
+      </mat-nav-list>
+      <mat-nav-list *ngIf="isPatient()">
+        <a mat-list-item routerLink="/patient-profile">profil pacijenta</a>
+      </mat-nav-list>
+      <mat-nav-list *ngIf="isPharmacyAdmin()">
+        <a mat-list-item routerLink="/pharmacy-admin-profile">profil administratora apoteke</a>
+      </mat-nav-list>
+      <mat-nav-list *ngIf="isSystemAdmin()">
+        <a mat-list-item routerLink="/system-admin-profile">profil adminstratora sistema</a>
       </mat-nav-list>
 
     </mat-sidenav>
@@ -27,13 +37,23 @@
           </button>
           APOTEKE.RS
         </span>    
-             
+         
+        <div class=" my-2 my-lg-0" *ngIf="!isLoggedIn()">
         <button  mat-button mat-ripple routerLink="/login">
           <span>Prijava</span>
         </button>
         <button  mat-button mat-ripple routerLink="/register">
           <span>Registracija</span>
         </button>
+        </div>
+        <div class=" my-2 my-lg-0" *ngIf="isLoggedIn()">
+          
+          <button  mat-button mat-ripple (click)="onLogout()">
+            Log out
+          </button>
+
+          <span  >Ulogovani ste kao: {{user.username}} </span>
+        </div>
             
           
 

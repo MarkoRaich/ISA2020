@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
 
     loginForm: FormGroup;
 
-    loading = false; //pomocna promenljiva za iskljucivanje dugmeta
+    loading = false; //pomocna promenljiva za iskljucivanje dugmeta sto se okrece
     submitted = false; //pomocna promenljiva za ispaljivanje gresaka
     
     error = '';
@@ -48,13 +48,17 @@ export class LoginComponent implements OnInit {
         this.loading = true;
 
         const user = new UserLoginRequest(this.loginForm.value.email, this.loginForm.value.password );
-
+        
+        
         this.userService.login(user)
             .pipe(first())
             .subscribe(() => {
+                
                 this.redirectToHomePage();
+
               },
                 error => { 
+                    //alert(error);
                     this.error = error;
                     this.loading = false;
                 });
@@ -65,7 +69,12 @@ export class LoginComponent implements OnInit {
 
     redirectToHomePage(){
         if(this.userService.isNormalUser()){
-            this.router.navigate(['/patient/profile']);
+            this.submitted=false;
+            alert("srecno si ulogovan kuuumeee!!");
+            //this.router.navigate(['/patient/profile']);
+        }
+        if(this.userService.isPatient()){
+            this.router.navigate(['/patient']);
         }
     }
 }

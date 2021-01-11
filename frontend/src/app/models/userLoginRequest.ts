@@ -1,9 +1,9 @@
 export class UserLoginRequest {
-    email: string;
+    username: string;
     password: string;
 
-    constructor(username: string, password: string) {
-        this.email = username;
+    constructor(email: string, password: string) {
+        this.username = email;
         this.password = password;
     }
 }
