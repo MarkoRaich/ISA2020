@@ -6,20 +6,20 @@ public class TenderOffer {
     private String name;
     private int quantity;
     private double price;
-    private String pharmacyName;
+    //private String pharmacyName;
     
     
 	public TenderOffer() {
 		super();
 	}
 
-	public TenderOffer(String code, String name, int quantity, double price, String pharmacyName) {
+	public TenderOffer(String code, String name, int quantity, double price/*, String pharmacyName*/) {
 		super();
 		this.code = code;
 		this.name = name;
 		this.quantity = quantity;
 		this.price = price;
-		this.pharmacyName = pharmacyName;
+		//this.pharmacyName = pharmacyName;
 	}
 
 
@@ -62,14 +62,12 @@ public class TenderOffer {
 		this.price = price;
 	}
 
-	public String getPharmacyName() {
-		return pharmacyName;
-	}
-
-	public void setPharmacyName(String pharmacyName) {
-		this.pharmacyName = pharmacyName;
-	}
-	
+	/*
+	 * public String getPharmacyName() { return pharmacyName; }
+	 * 
+	 * public void setPharmacyName(String pharmacyName) { this.pharmacyName =
+	 * pharmacyName; }
+	 */
 	
     
     

@@ -150,7 +150,7 @@ public class PharmacyDrugDetailsController {
 			    BigDecimal bd = new BigDecimal(randomPriceDouble).setScale(2, RoundingMode.HALF_UP);
 		        double randomPrice = bd.doubleValue();
 				t.setPrice(randomPrice);
-				t.setPharmacyName(p.getPharmacy().getName());
+				//t.setPharmacyName(p.getPharmacy().getName());
 				tenderOffers.add(t);
 			}
 		}

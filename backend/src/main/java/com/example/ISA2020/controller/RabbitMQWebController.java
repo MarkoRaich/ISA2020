@@ -1,5 +1,6 @@
 package com.example.ISA2020.controller;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -7,8 +8,8 @@ import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import com.example.ISA2020.entity.TenderMessage;
 import com.example.ISA2020.entity.TenderOffer;
 import com.example.ISA2020.service.PharmacyDrugDetailsService;
 import com.example.ISA2020.service.RabbitMQSender;
+import com.example.ISA2020.service.RabbitSingleton;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.BuiltinExchangeType;
@@ -69,7 +71,7 @@ public class RabbitMQWebController {
 	}
 	
 	@GetMapping(value = "/producerTender")
-		public String producerTender(@RequestBody TenderMessage tenderMessage) throws JsonProcessingException {
+		public String producerTender(@RequestBody TenderMessage tenderMessage) throws IOException {
 		
 		TenderMessage msg = new TenderMessage();
 		msg.setIdentification(tenderMessage.getIdentification());
@@ -103,7 +105,7 @@ public class RabbitMQWebController {
 			    BigDecimal bd = new BigDecimal(randomPriceDouble).setScale(2, RoundingMode.HALF_UP);
 		        double randomPrice = bd.doubleValue();
 				t.setPrice(randomPrice);
-				t.setPharmacyName(p.getPharmacy().getName());
+				//t.setPharmacyName(p.getPharmacy().getName());
 				tenderOffers.add(t);
 			//}
 		}
@@ -126,7 +128,7 @@ public class RabbitMQWebController {
 	    } catch (Exception ex) {
 	    	
 	    }
-	
+	    RabbitSingleton.getInstance().AddReplyQueue(tenderMessage.getReplyRoutingKey(), "tender-bolnica-1");
 		return send;	
 	}
 	
