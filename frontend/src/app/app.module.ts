@@ -12,6 +12,9 @@ import { AngularMaterialModule } from './angular-material/angular-material.modul
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { PatientProfileComponent } from './components/patient-profile/patient-profile.component';
+import { PharmacyAdminProfileComponent } from './components/pharmacy-admin-profile/pharmacy-admin-profile.component';
+import { SystemAdminProfileComponent } from './components/system-admin-profile/system-admin-profile.component';
 //import { JwtInterceptor } from './interceptors/jwt.interceptor';
 //import { ErrorInterceptor } from './interceptors/error.interceptor';
 
@@ -24,6 +27,9 @@ import { RegisterComponent } from './components/register/register.component';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
+    PatientProfileComponent,
+    PharmacyAdminProfileComponent,
+    SystemAdminProfileComponent,
   ],
   imports: [
     BrowserModule,

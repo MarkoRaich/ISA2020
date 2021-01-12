@@ -38,9 +38,13 @@ export class UserService {
         localStorage.removeItem('LoggedInUser');
         this.router.navigate(['']);
     }
+
+    
     getLoggedInUser(): LoggedInUser {
         return this.loggedInUserSubject.value;
       }
+
+
     isLoggedIn() {
         return localStorage.getItem('LoggedInUser') !== null;
     }
@@ -49,5 +53,41 @@ export class UserService {
         if (this.isLoggedIn()) {
           return this.loggedInUserSubject.value.role === "ROLE_NORMAL_USER";
         }
+    }
+
+    isPatient() {
+        if (this.isLoggedIn()) {
+          return this.loggedInUserSubject.value.role === "PATIENT";
+        }
+      }
+
+    isPharmacist(){
+        if (this.isLoggedIn()) {
+            return this.loggedInUserSubject.value.role === "PHARMACIST";
+          }
+    }
+
+    isDermatologist(){
+        if (this.isLoggedIn()) {
+            return this.loggedInUserSubject.value.role === "DERMATOLOGIST";
+          }
+    }
+
+    isPharmacyAdmin(){
+        if (this.isLoggedIn()) {
+            return this.loggedInUserSubject.value.role === "PHARMACY_ADMIN";
+          }
+    }
+
+    isSystemAdmin(){
+        if (this.isLoggedIn()) {
+            return this.loggedInUserSubject.value.role === "SYSTEM_ADMIN";
+          }
+    }
+
+    isSupplier(){
+        if (this.isLoggedIn()) {
+            return this.loggedInUserSubject.value.role === "SUPPLIER";
+          }
     }
 }

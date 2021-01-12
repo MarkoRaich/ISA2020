@@ -60,6 +60,9 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public LoggedInUserDTO login(JwtAuthenticationRequest jwtAuthenticationRequest) {
         
+    	 System.out.println("username:" + jwtAuthenticationRequest.getUsername() + "\n password: " + 
+                 jwtAuthenticationRequest.getPassword());
+    	
     	final Authentication authentication = authManager.authenticate(
             new UsernamePasswordAuthenticationToken(
                 jwtAuthenticationRequest.getUsername(),
@@ -67,21 +70,21 @@ public class AuthServiceImpl implements AuthService {
             )
         );
         
-        System.out.println("autentifikovanje...");
+        System.out.println("korisnik nadjen");
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        //kreiranje tokena za korsnika
+        //kreiranje tokena za korisnika
         String username = returnUsername(authentication.getPrincipal());
         if (username == null) {
             return null;
         }
         
-        System.out.println("authentication2");
+        System.out.println("generisanje tokena");
         
         String jwtToken = tokenUtils.generateToken(username);
         int expiresIn = tokenUtils.getExpiredIn();
         
-        System.out.println("authentication3");
+        System.out.println("token izgenerisan");
         
         return returnLoggedInUser(
             authentication.getPrincipal(),
@@ -96,7 +99,7 @@ public class AuthServiceImpl implements AuthService {
             return new LoggedInUserDTO(
                 normalUser.getId(),
                 normalUser.getUsername(),
-                "ROLE_NORMAL_USER",
+                "PATIENT",
                 userTokenState
             );
         } 
