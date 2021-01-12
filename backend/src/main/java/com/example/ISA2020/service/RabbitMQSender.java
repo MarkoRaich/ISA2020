@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.example.ISA2020.entity.Message;
+import com.example.ISA2020.entity.TenderMessage;
 
 @Service
 public class RabbitMQSender {
@@ -23,5 +24,10 @@ public class RabbitMQSender {
 		rabbitTemplate.convertAndSend(exchange, routingkey, message);
 		System.out.println("Send msg = " + message);
 	    
+	}
+	
+	public void sendTender(TenderMessage tenderMessage) {
+		rabbitTemplate.convertAndSend(exchange, routingkey, tenderMessage);
+		System.out.println("Send msg = " + tenderMessage);	    
 	}
 }

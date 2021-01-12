@@ -26,6 +26,14 @@ INSERT INTO pharmacy (id, name, address) values (3, 'Benu', 'Bulevar Cara Lazara
 
 INSERT INTO pharmacy_drug_details(drug_id, pharmacy_id, quantity) values (1, 1, 15);
 INSERT INTO pharmacy_drug_details(drug_id, pharmacy_id, quantity) values (1, 2, 20);
-INSERT INTO pharmacy_drug_details(drug_id, pharmacy_id, quantity) values (2, 3, 22);
-
-
+INSERT INTO pharmacy_drug_details(drug_id, pharmacy_id, quantity) values (1, 3, 22);
+INSERT INTO pharmacy_drug_details(drug_id, pharmacy_id, quantity) values (2, 1, 10);
+INSERT INTO pharmacy_drug_details(drug_id, pharmacy_id, quantity) values (2, 2, 8);
+INSERT INTO pharmacy_drug_details(drug_id, pharmacy_id, quantity) values (2, 3, 31);
+INSERT INTO pharmacy_drug_details(drug_id, pharmacy_id, quantity) values (3, 1, 21);
+INSERT INTO pharmacy_drug_details(drug_id, pharmacy_id, quantity) values (3, 2, 33);
+INSERT INTO pharmacy_drug_details(drug_id, pharmacy_id, quantity) values (3, 3, 31);
+INSERT INTO pharmacy_drug_details(drug_id, pharmacy_id, quantity) values (4, 3, 27);
+INSERT INTO pharmacy_drug_details(drug_id, pharmacy_id, quantity) values (5, 3, 7);
+INSERT INTO pharmacy_drug_details(drug_id, pharmacy_id, quantity) values (6, 2, 8);
+INSERT INTO pharmacy_drug_details(drug_id, pharmacy_id, quantity) values (7, 1, 4);

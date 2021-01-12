@@ -97,6 +97,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers(HttpMethod.GET, "/api/noAuth/**");
         web.ignoring().antMatchers(HttpMethod.POST, "/file/**");
         web.ignoring().antMatchers(HttpMethod.GET, "/file/**");
+        web.ignoring().antMatchers(HttpMethod.GET, "/rabbitmq/**");
+        web.ignoring().antMatchers(HttpMethod.POST, "/rabbitmq/**");
     }
     
     @Bean
