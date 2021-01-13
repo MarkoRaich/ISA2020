@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
@@ -8,6 +7,7 @@ import { Router, NavigationEnd } from '@angular/router';
 
 import { LoggedInUser } from './models/loggedInUser';
 import { UserService } from './services/user.service';
+import { HospitalService } from './services/hospital-service.service';
 
 
 @Component({
@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   user: LoggedInUser;
 
   constructor(private router: Router,
-              private http: HttpClient, 
+              private hospitalService : HospitalService, 
               private userService: UserService, 
               private breakpointObserver: BreakpointObserver) { }
 
@@ -60,7 +60,7 @@ export class AppComponent implements OnInit {
   }
 
   getHospitals() {
-    this.http.get('http:localhost:8080/api/auth/hospital/getAll').subscribe(response => {
+    this.hospitalService.getAllHospitals().subscribe(response => {
       this.hospitals = response; 
     }, error => {
       console.log(error);

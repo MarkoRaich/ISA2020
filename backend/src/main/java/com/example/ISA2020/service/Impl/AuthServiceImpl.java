@@ -14,7 +14,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.ISA2020.dto.LoggedInUserDTO;
 import com.example.ISA2020.entity.Authority;
-import com.example.ISA2020.entity.users.NormalUser;
+import com.example.ISA2020.entity.users.Patient;
+import com.example.ISA2020.entity.users.PharmacyAdmin;
 import com.example.ISA2020.entity.UserTokenState;
 import com.example.ISA2020.repository.AuthRepository;
 import com.example.ISA2020.security.TokenUtils;
@@ -33,6 +34,56 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private AuthRepository authorityRepository;
 
+    //LOGIN METODA
+    @Override
+    public LoggedInUserDTO login(JwtAuthenticationRequest jwtAuthenticationRequest) {
+        
+    	 //System.out.println("username:" + jwtAuthenticationRequest.getUsername() + "\n password: " + jwtAuthenticationRequest.getPassword());
+    	
+    	final Authentication authentication = authManager.authenticate(
+            new UsernamePasswordAuthenticationToken(
+                jwtAuthenticationRequest.getUsername(),
+                jwtAuthenticationRequest.getPassword()
+            )
+        );
+        
+        //System.out.println("korisnik nadjen");
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        //kreiranje tokena za korisnika
+        String username = returnUsername(authentication.getPrincipal());
+        if (username == null) {
+            return null;
+        }
+        
+        //System.out.println("generisanje tokena");
+        
+        String jwtToken = tokenUtils.generateToken(username);
+        int expiresIn = tokenUtils.getExpiredIn();
+        
+        //System.out.println("token izgenerisan");
+        
+        return returnLoggedInUser(
+            authentication.getPrincipal(),
+            new UserTokenState(jwtToken, expiresIn)
+        );
+    }
+
+
+    private LoggedInUserDTO returnLoggedInUser(Object object, UserTokenState userTokenState) {
+        if (object instanceof Patient) {
+            Patient patient = (Patient) object;
+            return new LoggedInUserDTO(patient.getId(), patient.getUsername(), "PATIENT", userTokenState);
+        } else if (object instanceof PharmacyAdmin) {
+        	PharmacyAdmin pharmacyAdmin = (PharmacyAdmin) object;
+        	return new LoggedInUserDTO(pharmacyAdmin.getId(), pharmacyAdmin.getUsername(), "PHARMACY_ADMIN", userTokenState);
+        } 
+        // OVAKO I ZA SVE OSTALE TIPOVE USERA!!
+
+        return null;
+ 
+    }
+    
     @Override
     public Set<Authority> findById(Long id) {
         Authority authority = this.authorityRepository.getOne(id);
@@ -51,61 +102,15 @@ public class AuthServiceImpl implements AuthService {
 
 
     private String returnUsername(Object object) {
-        if (object instanceof NormalUser) {
-            return ((NormalUser) object).getUsername();
-        } // else if (object instance of ) ovde za sve vrste korisnika
-        return null;
-    }
-    
-    @Override
-    public LoggedInUserDTO login(JwtAuthenticationRequest jwtAuthenticationRequest) {
-        
-    	 System.out.println("username:" + jwtAuthenticationRequest.getUsername() + "\n password: " + 
-                 jwtAuthenticationRequest.getPassword());
-    	
-    	final Authentication authentication = authManager.authenticate(
-            new UsernamePasswordAuthenticationToken(
-                jwtAuthenticationRequest.getUsername(),
-                jwtAuthenticationRequest.getPassword()
-            )
-        );
-        
-        System.out.println("korisnik nadjen");
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        //kreiranje tokena za korisnika
-        String username = returnUsername(authentication.getPrincipal());
-        if (username == null) {
-            return null;
+       
+       if (object instanceof PharmacyAdmin) {
+            return ((PharmacyAdmin) object).getUsername();
+        } else if (object instanceof Patient) {
+            return ((Patient) object).getUsername();
         }
-        
-        System.out.println("generisanje tokena");
-        
-        String jwtToken = tokenUtils.generateToken(username);
-        int expiresIn = tokenUtils.getExpiredIn();
-        
-        System.out.println("token izgenerisan");
-        
-        return returnLoggedInUser(
-            authentication.getPrincipal(),
-            new UserTokenState(jwtToken, expiresIn)
-        );
-    }
-
-
-    private LoggedInUserDTO returnLoggedInUser(Object object, UserTokenState userTokenState) {
-        if (object instanceof NormalUser) {
-            NormalUser normalUser = (NormalUser) object;
-            return new LoggedInUserDTO(
-                normalUser.getId(),
-                normalUser.getUsername(),
-                "PATIENT",
-                userTokenState
-            );
-        } 
-  
+       	//OVAKO ZA SVE OSTALE TIPOVE USERA!!
+       
         return null;
-        
     }
 
 }

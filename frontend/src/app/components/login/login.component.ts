@@ -68,10 +68,8 @@ export class LoginComponent implements OnInit {
     get f() { return this.loginForm.controls; }
 
     redirectToHomePage(){
-        if(this.userService.isNormalUser()){
-            this.submitted=false;
-            alert("srecno si ulogovan kuuumeee!!");
-            //this.router.navigate(['/patient/profile']);
+        if(this.userService.isPharmacyAdmin()){
+           this.router.navigate(['/pharmacy_admin']);
         }
         if(this.userService.isPatient()){
             this.router.navigate(['/patient']);

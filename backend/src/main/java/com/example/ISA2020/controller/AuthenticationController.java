@@ -37,7 +37,7 @@ public class AuthenticationController {
         throws AuthenticationException, IOException {
         try {
         	
-        	System.out.println("login zapocet");
+        	//System.out.println("login zapocet");
             LoggedInUserDTO loggedInUserDTO = authService.login(authenticationRequest);
 
             if (loggedInUserDTO == null) {

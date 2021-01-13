@@ -13,6 +13,8 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
+// PREPARAT - LEK
 @Entity
 public class Drug {
 	

@@ -14,6 +14,8 @@ import org.springframework.security.core.GrantedAuthority;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+//KLASA ZA SPRING SECURITY
+//IMPLEMENTIRA PRAVA PRISTUPA
 @Entity
 public class Authority implements GrantedAuthority {
 

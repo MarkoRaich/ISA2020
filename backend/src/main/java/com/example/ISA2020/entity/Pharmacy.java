@@ -1,5 +1,6 @@
 package com.example.ISA2020.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,6 +16,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import com.example.ISA2020.entity.users.Dermatologist;
+import com.example.ISA2020.entity.users.Pharmacist;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -32,6 +35,21 @@ public class Pharmacy {
 	@NotNull(message = "Address cannot be null.")
 	@Column(nullable = false)
 	private String address;
+	
+	@Column
+	private double rating;   //prosecna ocena apoteke
+	
+	@JsonIgnore
+    @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Pharmacist> pharmacists = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Dermatologist> dermatologists = new HashSet<>();
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Examination> examinations = new HashSet<>();
 
 	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)

@@ -6,7 +6,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.example.ISA2020.repository.NormalUserRepository;
+import com.example.ISA2020.entity.users.Patient;
+import com.example.ISA2020.entity.users.PharmacyAdmin;
+import com.example.ISA2020.repository.PatientRepository;
+import com.example.ISA2020.repository.PharmacyAdminRepository;
 import com.example.ISA2020.service.UserService;
 
 //Izdvojen servis za sve korisnike aplikacije
@@ -14,7 +17,10 @@ import com.example.ISA2020.service.UserService;
 public class UserServiceImpl implements UserService, UserDetailsService {
 	
 	 @Autowired
-	 private NormalUserRepository normalUserRepository;
+	 private PatientRepository patientRepository;
+	 
+	 @Autowired
+	 private PharmacyAdminRepository pharmacyAdminRepository;
 	
 	
 	// Funkcija koja na osnovu username-a iz baze vraca objekat User-a
@@ -29,10 +35,25 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	}
 
 	//trazi Usera u svim repozitorijumima
-	//dopuni sa trazenjem po svim repozitorijumima case patient, case admin itd...
 	private UserDetails searchUserInAllRepositories(String username) {
 		
-		return normalUserRepository.findByUsername(username);
-	}
+		 try {
+	            Patient patient = patientRepository.findByUsername(username);
+	            if (patient != null) {
+	                return patient;
+	            }
+	        } catch (UsernameNotFoundException ex) {
 
+	        }
+		 try {
+	            PharmacyAdmin pharmacyAdmin = pharmacyAdminRepository.findByUsername(username);
+	            if (pharmacyAdmin != null) {
+	                return pharmacyAdmin;
+	            }
+	        } catch (UsernameNotFoundException ex) {
+
+	        }
+		return null;
+	}
+	//dopuni sa trazenjem po svim repozitorijumima case patient, case admin itd...
 }

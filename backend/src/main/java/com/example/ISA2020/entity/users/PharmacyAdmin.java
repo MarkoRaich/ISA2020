@@ -1,18 +1,16 @@
 package com.example.ISA2020.entity.users;
 
 import java.util.Collection;
+import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.Email;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.example.ISA2020.entity.Authority;
+import com.example.ISA2020.entity.Pharmacy;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -22,7 +20,8 @@ public class PharmacyAdmin implements UserDetails {
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+	
+	//username je email!
     @NotNull(message = "Username cannot be null.")
     @Column(nullable = false)
     private String username;
@@ -38,50 +37,135 @@ public class PharmacyAdmin implements UserDetails {
     @Column(columnDefinition = "VARCHAR(30)", nullable = true)
     private String lastName;
 
-    @Email()
-    private String email;
+    
+    @Column(columnDefinition = "VARCHAR(50)", nullable = false)
+    private String address;
+
+    @Column(columnDefinition = "VARCHAR(30)", nullable = false)
+    private String city;
+    
+    @Column(columnDefinition = "VARCHAR(10)", unique = true, nullable = false)
+    private String phoneNumber; 
+    
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Pharmacy pharmacy;
+    
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+    		name = "pharmacy_admin_authority",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id") )
+    private Set<Authority> authorities;
+    
+     
+    public PharmacyAdmin() {}
+    
+    
+	public PharmacyAdmin(@NotNull(message = "Username cannot be null.") String username,
+			@NotNull(message = "Password cannot be null.") String password, String firstName, String lastName,
+			String address, String city, String phoneNumber, Pharmacy pharmacy, Set<Authority> authorities) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = address;
+		this.city = city;
+		this.phoneNumber = phoneNumber;
+		this.pharmacy = pharmacy;
+		this.authorities = authorities;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() { return authorities; }
+
+	@Override
+	public String getPassword() { return this.password; }
+
+	@Override
+	public String getUsername() { return this.username; }
+
+	@Override
+	public boolean isAccountNonExpired() { return true; }
+
+	@Override
+	public boolean isAccountNonLocked() { return true; }
+
+	@Override
+	public boolean isCredentialsNonExpired() { return true; }
+
+	@Override
+	public boolean isEnabled() { return true; }
 	
-	
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+	//GETTERI I SETTERI----------------------------
+    
+	public Long getId() {
+		return id;
 	}
 
-	@Override
-	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
+
+	public String getFirstName() {
+		return firstName;
 	}
 
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return false;
+
+	public String getLastName() {
+		return lastName;
 	}
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+
+	public String getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+	public String getCity() {
+		return city;
+	}
+
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }

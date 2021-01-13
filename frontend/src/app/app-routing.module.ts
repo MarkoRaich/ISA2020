@@ -5,6 +5,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { PatientProfileComponent } from './components/patient-profile/patient-profile.component';
+import { PharmacyAdminProfileComponent } from './components/pharmacy-admin-profile/pharmacy-admin-profile.component';
 
 
 const routes: Routes = [
@@ -33,7 +34,14 @@ const routes: Routes = [
     path: 'patient',
     component: PatientProfileComponent,
     pathMatch: 'full'
+  },
+
+  {
+    path: 'pharmacy_admin',
+    component: PharmacyAdminProfileComponent,
+    pathMatch: 'full'
   }
+
 ];
 
 @NgModule({

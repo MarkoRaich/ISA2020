@@ -36,7 +36,7 @@ export class UserService {
     logout() {
         this.access_token = null;
         localStorage.removeItem('LoggedInUser');
-        this.router.navigate(['']);
+        this.router.navigate(['/login']);
     }
 
     
@@ -49,17 +49,18 @@ export class UserService {
         return localStorage.getItem('LoggedInUser') !== null;
     }
 
-    isNormalUser() {
-        if (this.isLoggedIn()) {
-          return this.loggedInUserSubject.value.role === "ROLE_NORMAL_USER";
-        }
-    }
 
     isPatient() {
         if (this.isLoggedIn()) {
           return this.loggedInUserSubject.value.role === "PATIENT";
         }
-      }
+    }
+
+    isPharmacyAdmin(){
+        if (this.isLoggedIn()) {
+          return this.loggedInUserSubject.value.role === "PHARMACY_ADMIN";
+        }
+    }
 
     isPharmacist(){
         if (this.isLoggedIn()) {
@@ -73,11 +74,7 @@ export class UserService {
           }
     }
 
-    isPharmacyAdmin(){
-        if (this.isLoggedIn()) {
-            return this.loggedInUserSubject.value.role === "PHARMACY_ADMIN";
-          }
-    }
+    
 
     isSystemAdmin(){
         if (this.isLoggedIn()) {
