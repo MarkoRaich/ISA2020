@@ -13,13 +13,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.example.ISA2020.entity.users.Dermatologist;
 import com.example.ISA2020.entity.users.Pharmacist;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@Table(name="pharmacy")
 @Entity
 public class Pharmacy {
 
@@ -62,6 +65,9 @@ public class Pharmacy {
 	@OneToMany(mappedBy = "pharmacy")
 	private Set<PharmacyDrugDetails> details;
 	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Pricelist pricelist;
+	
 	
 	
 
@@ -75,7 +81,8 @@ public class Pharmacy {
 		this.address = address;
 		this.drugs = null;
 		this.details = null;
-//		this.drugs = null;
+		this.drugs = null;
+		this.pricelist = null;
 	}
 	
 	public Pharmacy(String name) {
@@ -84,7 +91,8 @@ public class Pharmacy {
 		this.address = null;
 		this.drugs = null;
 		this.details = null;
-//		this.drugs = null;
+		this.drugs = null;
+		this.pricelist = null;
 	}
 
 	public Long getId() {

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -17,15 +18,24 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 //KLASA ZA SPRING SECURITY
 //IMPLEMENTIRA PRAVA PRISTUPA
 @Entity
+@Table(name = "AUTHORITY")
 public class Authority implements GrantedAuthority {
 
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @Column()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "Name cannot be empty.")
-    @NotNull(message = "Name cannot be null.")
+	/*
+	 * @NotEmpty(message = "Name cannot be empty.")
+	 * 
+	 * @NotNull(message = "Name cannot be null.")
+	 */
     @Column(unique = true, nullable = false)
     private String name;
 

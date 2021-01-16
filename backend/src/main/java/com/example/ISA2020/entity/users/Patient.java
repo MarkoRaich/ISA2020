@@ -3,18 +3,35 @@ package com.example.ISA2020.entity.users;
 import java.util.Collection;
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.ISA2020.entity.Authority;
+import com.example.ISA2020.entity.Examination;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 //REGISTROVANI KORISNIK - PACIJENT
+@Table(name="patient") 
 @Entity
 public class Patient implements UserDetails {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
     @Column
@@ -46,6 +63,12 @@ public class Patient implements UserDetails {
     @Column(columnDefinition = "VARCHAR(10)", unique = true, nullable = false)
     private String phoneNumber;
     
+    @Column
+    private int points;
+    
+    @Column
+    private int penalties;
+    
    
 	@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -53,6 +76,18 @@ public class Patient implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id") )
     private Set<Authority> authorities;
+	
+	/*
+	 * @JsonIgnore
+	 * 
+	 * @OneToMany(mappedBy = "patient") private Set<Examination> examinations;
+	 */
+	
+	/*
+	 * private Set<Examination> bookedExaminations;
+	 * 
+	 * private Set<Examination> examinations;
+	 */
     
     //DODATNI ATRIBUTI STATUS MEDICAL RECORD LISTA PREGLEDA ITD...
 	
@@ -60,7 +95,7 @@ public class Patient implements UserDetails {
 	
     public Patient(@NotNull(message = "Username cannot be null.") String username,
 			@NotNull(message = "Password cannot be null.") String password, String firstName, String lastName,
-			String address, String city, String phoneNumber, Set<Authority> authorities) {
+			String address, String city, String phoneNumber, Set<Authority> authorities, int points, int penalties) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -70,6 +105,9 @@ public class Patient implements UserDetails {
 		this.city = city;
 		this.phoneNumber = phoneNumber;
 		this.authorities = authorities;
+		this.points = points;
+		this.penalties = penalties;
+		//this.examinations = null;
 	}
 	
 	@Override
@@ -153,5 +191,37 @@ public class Patient implements UserDetails {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
+
+	
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
+	}
+
+	public int getPenalties() {
+		return penalties;
+	}
+
+	public void setPenalties(int penalties) {
+		this.penalties = penalties;
+	}
+
+	public void setAuthorities(Set<Authority> authorities) {
+		this.authorities = authorities;
+	}
+
+//	public Set<Examination> getExaminations() {
+//		return examinations;
+//	}
+//
+//	public void setExaminations(Set<Examination> examinations) {
+//		this.examinations = examinations;
+//	}
+	
+	
 
 }

@@ -9,12 +9,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 // PREPARAT - LEK
+@Table(name="drug")
 @Entity
 public class Drug {
 	
@@ -39,6 +41,10 @@ public class Drug {
     @OneToMany(mappedBy = "drug")
     private Set<PharmacyDrugDetails> details;
     
+    @JsonIgnore
+ 	@ManyToMany(mappedBy = "drugs") 
+ 	private Set<Pricelist> pricelist;
+    
     
 	public Drug() {
 		super();
@@ -50,7 +56,8 @@ public class Drug {
 		this.code = code;
 		this.pharmacies = null;
 		this.details = null;
-//		this.pharmacies = null;
+		this.pharmacies = null;
+		this.pricelist = null;
 	}
 
 	public Long getId() {
@@ -76,6 +83,31 @@ public class Drug {
 	public void setCode(String code) {
 		this.code = code;
 	}
+
+	public Set<Pharmacy> getPharmacies() {
+		return pharmacies;
+	}
+
+	public void setPharmacies(Set<Pharmacy> pharmacies) {
+		this.pharmacies = pharmacies;
+	}
+
+	public Set<PharmacyDrugDetails> getDetails() {
+		return details;
+	}
+
+	public void setDetails(Set<PharmacyDrugDetails> details) {
+		this.details = details;
+	}
+
+	public Set<Pricelist> getPricelist() {
+		return pricelist;
+	}
+
+	public void setPricelist(Set<Pricelist> pricelist) {
+		this.pricelist = pricelist;
+	}
+	
 	
 	
   

@@ -23,6 +23,8 @@ public class PharmacyDrugDetails {
     private Drug drug;
 
     private int quantity;
+    
+    private double price;
 
     
 	public PharmacyDrugDetails() {
@@ -30,12 +32,13 @@ public class PharmacyDrugDetails {
 	}
 
 
-	public PharmacyDrugDetails(PharmacyDrugKey id, Pharmacy pharmacy, Drug drug, int quantity) {
+	public PharmacyDrugDetails(PharmacyDrugKey id, Pharmacy pharmacy, Drug drug, int quantity, double price) {
 		super();
 		this.id = id;
 		this.pharmacy = pharmacy;
 		this.drug = drug;
 		this.quantity = quantity;
+		this.price = price;
 	}
 
 
@@ -76,6 +79,16 @@ public class PharmacyDrugDetails {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+
+	public double getPrice() {
+		return price;
+	}
+
+
+	public void setPrice(double price) {
+		this.price = price;
 	}
 
 

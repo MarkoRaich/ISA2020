@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.ISA2020.dto.NormalUserDTO;
+
 import com.example.ISA2020.dto.SftpDTO;
 import com.example.ISA2020.entity.Drug;
 import com.example.ISA2020.service.DrugService;
