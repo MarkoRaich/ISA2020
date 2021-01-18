@@ -45,9 +45,14 @@ public class Pharmacy {
 	@JsonIgnore
     @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Pharmacist> pharmacists = new HashSet<>();
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	
+	
+	//manyToMany veza - dermatolog moze da radi u vise apoteka
+	@ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+    			name="pharmacy_dermatologist",
+    			joinColumns = @JoinColumn(name ="pharmacy_id", referencedColumnName = "id"),
+    			inverseJoinColumns = @JoinColumn(name = "dermatologist_id", referencedColumnName = "id"))
     private Set<Dermatologist> dermatologists = new HashSet<>();
     
     @JsonIgnore
@@ -56,9 +61,9 @@ public class Pharmacy {
 
 	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-	@JoinTable( name = "pharmacy_drug", joinColumns = @JoinColumn(name =
-				"pharmacy_id", referencedColumnName = "id"), inverseJoinColumns
-				= @JoinColumn(name = "drug_id", referencedColumnName = "id"))
+	@JoinTable( name = "pharmacy_drug", 
+				joinColumns = @JoinColumn(name ="pharmacy_id", referencedColumnName = "id"), 
+				inverseJoinColumns = @JoinColumn(name = "drug_id", referencedColumnName = "id"))
 	private Set<Drug> drugs;
 
 	@JsonIgnore

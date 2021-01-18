@@ -3,16 +3,7 @@ package com.example.ISA2020.entity;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import com.example.ISA2020.entity.users.Patient;
@@ -35,8 +26,9 @@ public class Complaint {
     @Column(nullable = false)
     private String message;
     
-    @OneToMany(mappedBy = "complaints", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Patient> patients = new HashSet<>();
+    //svaka zalba je napisana od strane JEDNOG pacijenta
+    @ManyToOne
+    private Patient patient;
     
     @OneToOne(mappedBy = "complaint")
     private Examination examination; //Examination ce biti povezan sa Farmaceutom ili Dermatologom
@@ -54,7 +46,7 @@ public class Complaint {
 		this.id = id;
 		this.subject = subject;
 		this.message = message;
-		this.patients = patients;
+		//this.patients = patients;
 		this.examination = examination;
 	}
 
@@ -83,13 +75,7 @@ public class Complaint {
 		this.message = message;
 	}
 
-	public Set<Patient> getPatients() {
-		return patients;
-	}
 
-	public void setPatients(Set<Patient> patients) {
-		this.patients = patients;
-	}
 
 	public Examination getExamination() {
 		return examination;

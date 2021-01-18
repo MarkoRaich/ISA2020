@@ -30,7 +30,8 @@ public class Examination {
 	private Long id;
 
 	// TIP STATUS VREMENSKI INTERVAL....
-
+	
+	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Pharmacy pharmacy;
 
@@ -40,8 +41,11 @@ public class Examination {
 	@OneToOne(cascade = CascadeType.ALL)
 	private ExaminationReport examinationReport;
 
+	//Vise pregleda mogu biti povezani sa jednim pacijentom
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) 
-	private Patient patient; //Vise pregleda mogu biti povezani sa jednim pacijentom
+	private Patient patient; 
+	
+	
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Prescription prescription;

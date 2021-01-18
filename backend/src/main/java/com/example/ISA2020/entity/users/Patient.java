@@ -24,6 +24,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.ISA2020.entity.Authority;
 import com.example.ISA2020.entity.Complaint;
+import com.example.ISA2020.entity.Drug;
 import com.example.ISA2020.entity.Examination;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -73,28 +74,30 @@ public class Patient implements UserDetails {
     @Column
     private int penalties;
     
-   
+    //lista lekova na koje je pacijent alergican
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+    		name = "patient_alergie",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "drug_id", referencedColumnName = "id") )
+    private Set<Drug> alergies;
+	
+	//jedan pacijent moze da napravi vise zalbi
+	@OneToMany(mappedBy = "patient", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Complaint> complaints;
+	
+	
+	//Jedan pacijent moze da ima vise pregleda
+	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Examination> examinations = new HashSet<>(); 
+    
+	
 	@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
     		name = "patient_authority",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id") )
     private Set<Authority> authorities;
-	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Complaint complaints;
-	
-	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Examination> examinations = new HashSet<>(); //Jedan pacijent moze da ima vise pregleda
-	
-	
-	/*
-	 * private Set<Examination> bookedExaminations;
-	 * 
-	 * private Set<Examination> examinations;
-	 */
-    
-    //DODATNI ATRIBUTI STATUS MEDICAL RECORD LISTA PREGLEDA ITD...
 	
     public Patient() { }
 	

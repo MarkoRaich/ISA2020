@@ -25,4 +25,5 @@ public class PharmacyExaminationPrice {
     
     @Column 
     private double price;
+    
 }

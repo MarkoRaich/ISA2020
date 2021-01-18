@@ -1,6 +1,7 @@
 package com.example.ISA2020.entity.users;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -14,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -23,6 +25,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.ISA2020.entity.Authority;
 import com.example.ISA2020.entity.Pharmacy;
+import com.example.ISA2020.entity.TimeOFFPharmacist;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Table(name="pharmacist") 
@@ -57,9 +60,14 @@ public class Pharmacist implements UserDetails {
     @Email()
     private String email;
     
+    //pregledi
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Pharmacy pharmacy;
+    
+    //zahtevi za godisnjim se cuvaju kod farmaceuta odobrava ih admin apoteke
+    @OneToMany(mappedBy = "nurse", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<TimeOFFPharmacist> timeOFFPharmacists = new HashSet<>();
     
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

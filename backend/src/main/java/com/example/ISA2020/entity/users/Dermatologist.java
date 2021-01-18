@@ -1,6 +1,7 @@
 package com.example.ISA2020.entity.users;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -14,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -23,6 +25,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.ISA2020.entity.Authority;
 import com.example.ISA2020.entity.Pharmacy;
+import com.example.ISA2020.entity.TimeOFFDermatologist;
+import com.example.ISA2020.entity.TimeOFFPharmacist;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Table(name="dermatologist") 
@@ -57,8 +61,13 @@ public class Dermatologist implements UserDetails {
     @Email()
     private String email;
     
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Pharmacy pharmacy;
+    //moze da radi u vise apoteka
+    @ManyToMany(mappedBy = "dermatologists")
+    private Set<Pharmacy> pharmacies;
+    
+    //zahtevi za godisnjim se cuvaju kod dermatologa odobrava ih admin sistema
+    @OneToMany(mappedBy = "nurse", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<TimeOFFDermatologist> timeOFFDermatologist = new HashSet<>();
     
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -79,7 +88,7 @@ public class Dermatologist implements UserDetails {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.pharmacy = pharmacy;
+		//this.pharmacy = pharmacy;
 		this.authorities = authorities;
 	}
 
@@ -116,14 +125,7 @@ public class Dermatologist implements UserDetails {
 		this.email = email;
 	}
 	
-	public Pharmacy getPharmacy() {
-		return pharmacy;
-	}
-
-
-	public void setPharmacy(Pharmacy pharmacy) {
-		this.pharmacy = pharmacy;
-	}
+	
 
 
 	public void setUsername(String username) {
