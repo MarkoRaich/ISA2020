@@ -1,8 +1,10 @@
 package com.example.ISA2020.entity.users;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -20,6 +23,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.ISA2020.entity.Authority;
+import com.example.ISA2020.entity.Complaint;
 import com.example.ISA2020.entity.Examination;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -77,11 +81,12 @@ public class Patient implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id") )
     private Set<Authority> authorities;
 	
-	/*
-	 * @JsonIgnore
-	 * 
-	 * @OneToMany(mappedBy = "patient") private Set<Examination> examinations;
-	 */
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Complaint complaints;
+	
+	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Examination> examinations = new HashSet<>(); //Jedan pacijent moze da ima vise pregleda
+	
 	
 	/*
 	 * private Set<Examination> bookedExaminations;
@@ -91,7 +96,7 @@ public class Patient implements UserDetails {
     
     //DODATNI ATRIBUTI STATUS MEDICAL RECORD LISTA PREGLEDA ITD...
 	
-    public Patient() {}
+    public Patient() { }
 	
     public Patient(@NotNull(message = "Username cannot be null.") String username,
 			@NotNull(message = "Password cannot be null.") String password, String firstName, String lastName,
@@ -107,7 +112,7 @@ public class Patient implements UserDetails {
 		this.authorities = authorities;
 		this.points = points;
 		this.penalties = penalties;
-		//this.examinations = null;
+		this.examinations = null;
 	}
 	
 	@Override
@@ -214,13 +219,13 @@ public class Patient implements UserDetails {
 		this.authorities = authorities;
 	}
 
-//	public Set<Examination> getExaminations() {
-//		return examinations;
-//	}
-//
-//	public void setExaminations(Set<Examination> examinations) {
-//		this.examinations = examinations;
-//	}
+	public Set<Examination> getExaminations() {
+		return examinations;
+	}
+
+	public void setExaminations(Set<Examination> examinations) {
+		this.examinations = examinations;
+	}
 	
 	
 

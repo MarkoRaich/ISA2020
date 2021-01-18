@@ -43,7 +43,7 @@ public class Drug {
     
     @JsonIgnore
  	@ManyToMany(mappedBy = "drugs") 
- 	private Set<Pricelist> pricelist;
+ 	private Set<PricelistDrug> pricelistDrug;
     
     
 	public Drug() {
@@ -57,7 +57,7 @@ public class Drug {
 		this.pharmacies = null;
 		this.details = null;
 		this.pharmacies = null;
-		this.pricelist = null;
+		this.pricelistDrug = null;
 	}
 
 	public Long getId() {
@@ -100,12 +100,12 @@ public class Drug {
 		this.details = details;
 	}
 
-	public Set<Pricelist> getPricelist() {
-		return pricelist;
+	public Set<PricelistDrug> getPricelistDrug() {
+		return pricelistDrug;
 	}
 
-	public void setPricelist(Set<Pricelist> pricelist) {
-		this.pricelist = pricelist;
+	public void setPricelist(Set<PricelistDrug> pricelistDrug) {
+		this.pricelistDrug = pricelistDrug;
 	}
 	
 	

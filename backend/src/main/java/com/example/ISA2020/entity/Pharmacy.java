@@ -66,7 +66,11 @@ public class Pharmacy {
 	private Set<PharmacyDrugDetails> details;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Pricelist pricelist;
+    private PricelistDrug pricelistDrug;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "pharmacy")
+	private Set<PharmacyExaminationPrice> examinationPrices;
 	
 	
 	
@@ -82,7 +86,7 @@ public class Pharmacy {
 		this.drugs = null;
 		this.details = null;
 		this.drugs = null;
-		this.pricelist = null;
+		this.pricelistDrug = null;
 	}
 	
 	public Pharmacy(String name) {
@@ -92,7 +96,7 @@ public class Pharmacy {
 		this.drugs = null;
 		this.details = null;
 		this.drugs = null;
-		this.pricelist = null;
+		this.pricelistDrug = null;
 	}
 
 	public Long getId() {

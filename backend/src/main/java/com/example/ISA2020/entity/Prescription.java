@@ -9,24 +9,16 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-//izvestaj o pregledu savetovanju
-@Table(name="examinationReport")
+//Recept koji se izdaje nakon pregleda/savetovanja
+@Table(name="prescription")
 @Entity
-public class ExaminationReport {
+public class Prescription {
 	
 	@Id
 	@Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
-	@NotNull(message = "Subject cannot be null.")
-    @Column(nullable = false)
-    private String subject;
-    
-    @NotNull(message = "Message cannot be null.")
-    @Column(nullable = false)
-    private String message;
-	
-	@OneToOne(mappedBy = "examinationReport")
+	@OneToOne(mappedBy = "prescription")
     private Examination examination;
 }

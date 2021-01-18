@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Table(name="pricelist")
 @Entity
-public class Pricelist {
+public class PricelistDrug {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,19 +35,19 @@ public class Pricelist {
     @Column(nullable = false)
     private LocalDateTime endDateTime;
     
-    @OneToMany(mappedBy = "pricelist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pricelistDrug", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Pharmacy> pharmacies = new HashSet<>();
     
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-    		name = "pricelist_drug",
-            joinColumns = @JoinColumn(name = "pricelist_id", referencedColumnName = "id"),
+    		name = "pricelist_drug_drug",
+            joinColumns = @JoinColumn(name = "pricelist_drug_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "drug_id", referencedColumnName = "id") )
     private Set<Drug> drugs;
 
     
     //KONSTRUKTORI
-	public Pricelist(LocalDateTime startDateTime, LocalDateTime endDateTime, Set<Pharmacy> pharmacies) {
+	public PricelistDrug(LocalDateTime startDateTime, LocalDateTime endDateTime, Set<Pharmacy> pharmacies) {
 		super();
 		this.startDateTime = startDateTime;
 		this.endDateTime = endDateTime;
