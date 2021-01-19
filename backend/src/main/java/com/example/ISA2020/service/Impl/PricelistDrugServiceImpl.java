@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.example.ISA2020.entity.PricelistDrug;
+import com.example.ISA2020.entity.Pricelist;
 import com.example.ISA2020.repository.PricelistDrugRepository;
 import com.example.ISA2020.service.PricelistDrugService;
 
@@ -14,7 +14,7 @@ public class PricelistDrugServiceImpl implements PricelistDrugService{
 	private PricelistDrugRepository pricelistDrugRepository;
 	
 	@Override
-	public PricelistDrug findById(Long id) {
+	public Pricelist findById(Long id) {
 		return pricelistDrugRepository.findOneById(id);
 	}
 
@@ -24,7 +24,7 @@ public class PricelistDrugServiceImpl implements PricelistDrugService{
 	 */
 
 	@Override
-	public List<PricelistDrug> getAllPricelists() {
+	public List<Pricelist> getAllPricelists() {
 		return pricelistDrugRepository.findAll();
 	}
 

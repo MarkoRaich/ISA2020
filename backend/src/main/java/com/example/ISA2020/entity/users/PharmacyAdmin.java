@@ -31,13 +31,14 @@ public class PharmacyAdmin implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    
+    
     @Column(columnDefinition = "VARCHAR(30)", nullable = true)
     private String firstName;
 
     @Column(columnDefinition = "VARCHAR(30)", nullable = true)
     private String lastName;
 
-    
     @Column(columnDefinition = "VARCHAR(50)", nullable = false)
     private String address;
 
@@ -46,6 +47,8 @@ public class PharmacyAdmin implements UserDetails {
     
     @Column(columnDefinition = "VARCHAR(10)", unique = true, nullable = false)
     private String phoneNumber; 
+    
+    
     
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Pharmacy pharmacy;

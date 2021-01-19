@@ -1,44 +1,42 @@
 package com.example.ISA2020.entity;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
+import javax.persistence.*;
+import javax.validation.constraints.Min;
 
 @Entity
-public class PharmacyDrugDetails {
+public class DrugQuantityInPharmacy {
 
     @EmbeddedId
     private PharmacyDrugKey id;
 
     @ManyToOne
-    @MapsId("pharmacyId")
-    @JoinColumn(name = "pharmacy_id")
-    private Pharmacy pharmacy;
-
-    @ManyToOne
     @MapsId("drugId")
     @JoinColumn(name = "drug_id")
     private Drug drug;
-
+    
+    @Column
+    @Min(0)
     private int quantity;
     
-    private double price;
+    @ManyToOne
+    @MapsId("pharmacyId")
+    @JoinColumn(name = "pharmacy_id")
+    private Pharmacy pharmacy;
+    
+
 
     
-	public PharmacyDrugDetails() {
+	public DrugQuantityInPharmacy() {
 		super();
 	}
 
 
-	public PharmacyDrugDetails(PharmacyDrugKey id, Pharmacy pharmacy, Drug drug, int quantity, double price) {
+	public DrugQuantityInPharmacy(PharmacyDrugKey id, Pharmacy pharmacy, Drug drug, int quantity, double price) {
 		super();
 		this.id = id;
 		this.pharmacy = pharmacy;
 		this.drug = drug;
 		this.quantity = quantity;
-		this.price = price;
 	}
 
 
@@ -82,14 +80,6 @@ public class PharmacyDrugDetails {
 	}
 
 
-	public double getPrice() {
-		return price;
-	}
-
-
-	public void setPrice(double price) {
-		this.price = price;
-	}
 
 
     

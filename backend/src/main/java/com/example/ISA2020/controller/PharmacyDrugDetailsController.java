@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ISA2020.dto.DrugSearchDTO;
 import com.example.ISA2020.dto.PharmacyDTO;
-import com.example.ISA2020.entity.PharmacyDrugDetails;
+import com.example.ISA2020.entity.DrugQuantityInPharmacy;
 import com.example.ISA2020.entity.PharmacyDrugKey;
 import com.example.ISA2020.entity.TenderOffer;
 import com.example.ISA2020.service.DrugService;
@@ -40,8 +40,8 @@ public class PharmacyDrugDetailsController {
 	private PharmacyService pharmacyService;
 	
 	@GetMapping(value="/getAll")
-	public ResponseEntity<List<PharmacyDrugDetails>> getAllPharmacyDrugDetails() {
-		List<PharmacyDrugDetails> pharmacyDrugDetails = pharmacyDrugDetailsService.getAllPharmacyDrugDetails();
+	public ResponseEntity<List<DrugQuantityInPharmacy>> getAllPharmacyDrugDetails() {
+		List<DrugQuantityInPharmacy> pharmacyDrugDetails = pharmacyDrugDetailsService.getAllPharmacyDrugDetails();
 		if(pharmacyDrugDetails.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
@@ -49,8 +49,8 @@ public class PharmacyDrugDetailsController {
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<PharmacyDrugDetails> getOneById(@PathVariable PharmacyDrugKey id){
-		PharmacyDrugDetails pharmacyDrugDetails = pharmacyDrugDetailsService.findById(id);
+	public ResponseEntity<DrugQuantityInPharmacy> getOneById(@PathVariable PharmacyDrugKey id){
+		DrugQuantityInPharmacy pharmacyDrugDetails = pharmacyDrugDetailsService.findById(id);
 		if(pharmacyDrugDetails == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
@@ -60,14 +60,14 @@ public class PharmacyDrugDetailsController {
 	
 	@GetMapping(value="/getAllWithSameName")
 	public ResponseEntity<List<DrugSearchDTO>> getAllDrugsWithSameName(@RequestParam("name") String name) {
-		List<PharmacyDrugDetails> pharmacyDrugDetails = pharmacyDrugDetailsService.getAllPharmacyDrugDetails();
+		List<DrugQuantityInPharmacy> pharmacyDrugDetails = pharmacyDrugDetailsService.getAllPharmacyDrugDetails();
 		if(pharmacyDrugDetails.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
 		List<DrugSearchDTO> drugsWithSameName = new ArrayList<>();
 		
-		for(PharmacyDrugDetails p : pharmacyDrugDetails) {
+		for(DrugQuantityInPharmacy p : pharmacyDrugDetails) {
 			if(p.getDrug().getName().toLowerCase().contains(name.toLowerCase())) {
 				DrugSearchDTO dto = new DrugSearchDTO();
 				dto.setId(p.getDrug().getId());
@@ -84,11 +84,11 @@ public class PharmacyDrugDetailsController {
 	}
 	
 	@PutMapping(value="/getAllByDrugIdAndPharmacyId")
-	public ResponseEntity<PharmacyDrugDetails> getAllByDrugCode(@RequestParam("idPharmacy") String idPharmacy, 
+	public ResponseEntity<DrugQuantityInPharmacy> getAllByDrugCode(@RequestParam("idPharmacy") String idPharmacy, 
 																@RequestParam("idDrug") String idDrug, 
 																@RequestParam("quantity") String quantity) {
 		
-		List<PharmacyDrugDetails> pharmacyDrugDetails = pharmacyDrugDetailsService.getAllPharmacyDrugDetails();
+		List<DrugQuantityInPharmacy> pharmacyDrugDetails = pharmacyDrugDetailsService.getAllPharmacyDrugDetails();
 		if(pharmacyDrugDetails.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
@@ -99,7 +99,7 @@ public class PharmacyDrugDetailsController {
 		int q = Integer.parseInt(quantity);
 		
 		
-		for(PharmacyDrugDetails p : pharmacyDrugDetails) {
+		for(DrugQuantityInPharmacy p : pharmacyDrugDetails) {
 			if(p.getPharmacy().getId().toString().equals(idPharmacy)) {
 				System.out.println("1");
 				if(p.getDrug().getId().toString().equals(idDrug)) {
@@ -125,7 +125,7 @@ public class PharmacyDrugDetailsController {
 	@GetMapping(value="/createTenderOffer")
 	public ResponseEntity<List<TenderOffer>> createTenderOffer(@RequestParam("code") String code) {
 		
-		List<PharmacyDrugDetails> pharmacyDrugDetails = pharmacyDrugDetailsService.getAllPharmacyDrugDetails();
+		List<DrugQuantityInPharmacy> pharmacyDrugDetails = pharmacyDrugDetailsService.getAllPharmacyDrugDetails();
 		if(pharmacyDrugDetails.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
@@ -138,7 +138,7 @@ public class PharmacyDrugDetailsController {
 		
 		List<TenderOffer> tenderOffers = new ArrayList<>();
 		
-		for(PharmacyDrugDetails p : pharmacyDrugDetails) {
+		for(DrugQuantityInPharmacy p : pharmacyDrugDetails) {
 			if(p.getDrug().getCode().equals(code)) {
 				System.out.println("Usao je u if");
 				TenderOffer t = new TenderOffer();

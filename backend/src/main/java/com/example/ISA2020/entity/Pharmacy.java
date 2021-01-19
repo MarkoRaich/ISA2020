@@ -39,46 +39,55 @@ public class Pharmacy {
 	@Column(nullable = false)
 	private String address;
 	
+	@Column(nullable = false, columnDefinition = "VARCHAR")
+	private String description;
+	
 	@Column
 	private double rating;   //prosecna ocena apoteke
+	
+	
 	
 	@JsonIgnore
     @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Pharmacist> pharmacists = new HashSet<>();
 	
-	
-	//manyToMany veza - dermatolog moze da radi u vise apoteka
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY)		// Dermatolozi mogu da rade u vise apoteka!!
     @JoinTable(
     			name="pharmacy_dermatologist",
     			joinColumns = @JoinColumn(name ="pharmacy_id", referencedColumnName = "id"),
-    			inverseJoinColumns = @JoinColumn(name = "dermatologist_id", referencedColumnName = "id"))
+    			inverseJoinColumns = @JoinColumn(name = "dermatologist_id", referencedColumnName = "id")
+    		  )
     private Set<Dermatologist> dermatologists = new HashSet<>();
     
+	
     @JsonIgnore
     @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Examination> examinations = new HashSet<>();
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Consultation> consultations = new HashSet<>();
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "pharmacy")  //jedna apoteka ime vise lekova na stanju koje je jedinstveno za tu apoteku
+	private Set<DrugQuantityInPharmacy> details;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "pharmacy") 			 //jedna apoteka ima vise cenovnika za razlicite vremenske periode
+    private Set<Pricelist> pricelistsDrug;   // a svaki od njih pripada iskljucivo ovoj apoteci
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "pharmacy")
+	private Set<PharmacyExaminationPrice> examinationPrices;
+	
+	/* MISLIM DA NE TREBA OVA ASOCIJACIJA
 	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinTable( name = "pharmacy_drug", 
 				joinColumns = @JoinColumn(name ="pharmacy_id", referencedColumnName = "id"), 
 				inverseJoinColumns = @JoinColumn(name = "drug_id", referencedColumnName = "id"))
 	private Set<Drug> drugs;
-
-	@JsonIgnore
-	@OneToMany(mappedBy = "pharmacy")
-	private Set<PharmacyDrugDetails> details;
-	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private PricelistDrug pricelistDrug;
-	
-	@JsonIgnore
-	@OneToMany(mappedBy = "pharmacy")
-	private Set<PharmacyExaminationPrice> examinationPrices;
-	
-	
-	
+	**/
 
 	public Pharmacy() {
 		super();
@@ -88,20 +97,20 @@ public class Pharmacy {
 		super();
 		this.name = name;
 		this.address = address;
-		this.drugs = null;
+		
 		this.details = null;
-		this.drugs = null;
-		this.pricelistDrug = null;
+		
+		
 	}
 	
 	public Pharmacy(String name) {
 		super();
 		this.name = name;
 		this.address = null;
-		this.drugs = null;
+		
 		this.details = null;
-		this.drugs = null;
-		this.pricelistDrug = null;
+		
+		
 	}
 
 	public Long getId() {
@@ -128,19 +137,13 @@ public class Pharmacy {
 		this.address = address;
 	}
 
-	public Set<Drug> getDrugs() {
-		return drugs;
-	}
 
-	public void setDrugs(Set<Drug> drugs) {
-		this.drugs = drugs;
-	}
 
-	public Set<PharmacyDrugDetails> getDetails() {
+	public Set<DrugQuantityInPharmacy> getDetails() {
 		return details;
 	}
 
-	public void setDetails(Set<PharmacyDrugDetails> details) {
+	public void setDetails(Set<DrugQuantityInPharmacy> details) {
 		this.details = details;
 	}
 

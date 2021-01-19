@@ -4,14 +4,14 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.ISA2020.entity.PharmacyDrugDetails;
+import com.example.ISA2020.entity.DrugQuantityInPharmacy;
 import com.example.ISA2020.entity.PharmacyDrugKey;
 
-public interface PharmacyDrugDetailsRepository extends JpaRepository<PharmacyDrugDetails, PharmacyDrugKey>{
+public interface PharmacyDrugDetailsRepository extends JpaRepository<DrugQuantityInPharmacy, PharmacyDrugKey>{
 	
-	PharmacyDrugDetails findOneById(PharmacyDrugKey id);
+	DrugQuantityInPharmacy findOneById(PharmacyDrugKey id);
 	
-	List<PharmacyDrugDetails> findAll();
+	List<DrugQuantityInPharmacy> findAll();
 	
 //	PharmacyDrugDetails save(Pha)
 }

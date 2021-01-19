@@ -24,6 +24,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.ISA2020.entity.Authority;
+import com.example.ISA2020.entity.Examination;
 import com.example.ISA2020.entity.Pharmacy;
 import com.example.ISA2020.entity.TimeOFFDermatologist;
 import com.example.ISA2020.entity.TimeOFFPharmacist;
@@ -33,9 +34,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class Dermatologist implements UserDetails {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -61,9 +59,13 @@ public class Dermatologist implements UserDetails {
     @Email()
     private String email;
     
-    //moze da radi u vise apoteka
-    @ManyToMany(mappedBy = "dermatologists")
+    
+    
+    @ManyToMany(mappedBy = "dermatologists")	//moze da radi u vise apoteka
     private Set<Pharmacy> pharmacies;
+    
+    @OneToMany(mappedBy = "dermatologist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Examination> examinations= new HashSet<>();
     
     //zahtevi za godisnjim se cuvaju kod dermatologa odobrava ih admin sistema
     @OneToMany(mappedBy = "nurse", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

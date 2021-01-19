@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.example.ISA2020.enumeration.DrugType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -33,17 +34,23 @@ public class Drug {
     @Column(nullable = false)
     private String code;
     
-    @JsonIgnore
- 	@ManyToMany(mappedBy = "drugs") 
- 	private Set<Pharmacy> pharmacies;
-	 
-    @JsonIgnore
-    @OneToMany(mappedBy = "drug")
-    private Set<PharmacyDrugDetails> details;
+    private DrugType drugType;
+    
+    //DRUG SPECS 3.42 ima jos atributa mozda u posebnu klasu!?
     
     @JsonIgnore
  	@ManyToMany(mappedBy = "drugs") 
- 	private Set<PricelistDrug> pricelistDrug;
+ 	private Set<Pharmacy> pharmacies;
+    
+    @JsonIgnore
+ 	@ManyToMany(mappedBy = "drugs") 
+ 	private Set<Pricelist> pricelistDrug;
+	 
+    @JsonIgnore
+    @OneToMany(mappedBy = "drug")
+    private Set<DrugQuantityInPharmacy> details;
+    
+   
     
     
 	public Drug() {
@@ -92,19 +99,19 @@ public class Drug {
 		this.pharmacies = pharmacies;
 	}
 
-	public Set<PharmacyDrugDetails> getDetails() {
+	public Set<DrugQuantityInPharmacy> getDetails() {
 		return details;
 	}
 
-	public void setDetails(Set<PharmacyDrugDetails> details) {
+	public void setDetails(Set<DrugQuantityInPharmacy> details) {
 		this.details = details;
 	}
 
-	public Set<PricelistDrug> getPricelistDrug() {
+	public Set<Pricelist> getPricelistDrug() {
 		return pricelistDrug;
 	}
 
-	public void setPricelist(Set<PricelistDrug> pricelistDrug) {
+	public void setPricelist(Set<Pricelist> pricelistDrug) {
 		this.pricelistDrug = pricelistDrug;
 	}
 	

@@ -14,36 +14,41 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.example.ISA2020.entity.users.Dermatologist;
 import com.example.ISA2020.entity.users.Patient;
+import com.example.ISA2020.entity.users.Pharmacist;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-//PREGLED KOD DERMATOLOGA
-//SAVETOVANJE KOD FARMACEUTA ?
 
 @Table(name = "examination")
 @Entity
-public class Examination {
+public class Examination {		//PREGLED KOD DERMATOLOGA
 
 	@Id
 	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	// TIP STATUS VREMENSKI INTERVAL....
-	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private DateTimeInterval interval;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Pharmacy pharmacy;
-
+	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Dermatologist dermatologist;
+	
+	//Vise pregleda mogu biti povezani sa jednim pacijentom
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) 
+	private Patient patient; 
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Complaint complaint;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private ExaminationReport examinationReport;
 
-	//Vise pregleda mogu biti povezani sa jednim pacijentom
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) 
-	private Patient patient; 
+	
 	
 	
 	
@@ -53,4 +58,5 @@ public class Examination {
 	@JsonIgnore
     @OneToMany(mappedBy = "examination")
     private Set<PharmacyExaminationPrice> examinationPrices;
+	
 }

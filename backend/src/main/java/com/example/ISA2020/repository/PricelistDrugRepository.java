@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.ISA2020.entity.PricelistDrug;
+import com.example.ISA2020.entity.Pricelist;
 
-public interface PricelistDrugRepository extends JpaRepository<PricelistDrug, Long> {
+public interface PricelistDrugRepository extends JpaRepository<Pricelist, Long> {
 	
-	PricelistDrug findOneById(Long id);
+	Pricelist findOneById(Long id);
     
-    List<PricelistDrug> findAll();
+    List<Pricelist> findAll();
 }
