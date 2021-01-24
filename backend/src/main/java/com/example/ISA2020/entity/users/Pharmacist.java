@@ -1,40 +1,27 @@
 package com.example.ISA2020.entity.users;
 
+import java.time.LocalTime;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
+import com.example.ISA2020.entity.Consultation;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.ISA2020.entity.Authority;
 import com.example.ISA2020.entity.Pharmacy;
-import com.example.ISA2020.entity.TimeOFFPharmacist;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Table(name="pharmacist") 
 @Entity
 public class Pharmacist implements UserDetails {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -57,18 +44,27 @@ public class Pharmacist implements UserDetails {
     @Column(columnDefinition = "VARCHAR(30)", nullable = true)
     private String lastName;
 
-    @Email()
-    private String email;
+	@JsonFormat(pattern = "HH:mm")
+	@NotNull
+	@Column(nullable = false)
+	private LocalTime workHourFrom;
+
+	@JsonFormat(pattern = "HH:mm")
+	@NotNull
+	@Column(nullable = false)
+	private LocalTime workHourTo;
     
-    //pregledi
+
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "pharmacy_id", referencedColumnName = "id")
     private Pharmacy pharmacy;
-    
-    //zahtevi za godisnjim se cuvaju kod farmaceuta odobrava ih admin apoteke
-    @OneToMany(mappedBy = "nurse", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<TimeOFFPharmacist> timeOFFPharmacists = new HashSet<>();
-    
+
+	@OneToMany(mappedBy = "pharmacist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Consultation> consultations;
+
+
+	//vezano za prava pristupa spring security
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "pharmacist_authority",
@@ -87,7 +83,6 @@ public class Pharmacist implements UserDetails {
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.email = email;
 		this.pharmacy = pharmacy;
 		this.authorities = authorities;
 	}
@@ -118,13 +113,6 @@ public class Pharmacist implements UserDetails {
 		this.lastName = lastName;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
 
 	public Pharmacy getPharmacy() {
@@ -161,14 +149,12 @@ public class Pharmacist implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
+		return password;
 	}
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
+    	return username;
 	}
 
 	@Override

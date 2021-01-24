@@ -4,36 +4,35 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 
 @Entity
-public class DrugQuantityInPharmacy {
+public class DrugQuantity {
 
     @EmbeddedId
     private PharmacyDrugKey id;
 
-    @ManyToOne
-    @MapsId("drugId")
-    @JoinColumn(name = "drug_id")
-    private Drug drug;
-    
     @Column
     @Min(0)
     private int quantity;
-    
+
+	@ManyToOne
+	@MapsId("drugId")
+	@JoinColumn(name = "drug_id", referencedColumnName = "id")
+	private Drug drug;
+
     @ManyToOne
     @MapsId("pharmacyId")
-    @JoinColumn(name = "pharmacy_id")
+	@JoinColumn(name = "pharmacy_id", referencedColumnName = "id")
     private Pharmacy pharmacy;
     
 
 
     
-	public DrugQuantityInPharmacy() {
+	public DrugQuantity() {
 		super();
 	}
 
 
-	public DrugQuantityInPharmacy(PharmacyDrugKey id, Pharmacy pharmacy, Drug drug, int quantity, double price) {
+	public DrugQuantity(Pharmacy pharmacy, Drug drug, int quantity) {
 		super();
-		this.id = id;
 		this.pharmacy = pharmacy;
 		this.drug = drug;
 		this.quantity = quantity;
@@ -79,9 +78,4 @@ public class DrugQuantityInPharmacy {
 		this.quantity = quantity;
 	}
 
-
-
-
-    
-    // standard constructors, getters, and setters
 }

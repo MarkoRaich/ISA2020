@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ISA2020.entity.Message;
-import com.example.ISA2020.entity.DrugQuantityInPharmacy;
+import com.example.ISA2020.entity.DrugQuantity;
 import com.example.ISA2020.entity.TenderMessage;
 import com.example.ISA2020.entity.TenderOffer;
 import com.example.ISA2020.service.PharmacyDrugDetailsService;
@@ -79,7 +79,7 @@ public class RabbitMQWebController {
 		msg.setSendRoutingKey(tenderMessage.getSendRoutingKey());
 		
 		
-		List<DrugQuantityInPharmacy> pharmacyDrugDetails = pharmacyDrugDetailsService.getAllPharmacyDrugDetails();
+		List<DrugQuantity> pharmacyDrugDetails = pharmacyDrugDetailsService.getAllPharmacyDrugDetails();
 		if(pharmacyDrugDetails.isEmpty()) {
 			return null;
 		}
@@ -92,7 +92,7 @@ public class RabbitMQWebController {
 		
 		List<TenderOffer> tenderOffers = new ArrayList<>();
 		
-		for(DrugQuantityInPharmacy p : pharmacyDrugDetails) {
+		for(DrugQuantity p : pharmacyDrugDetails) {
 			//if(p.getDrug().getCode().equals(code)) {
 				//System.out.println("Usao je u if");
 				TenderOffer t = new TenderOffer();

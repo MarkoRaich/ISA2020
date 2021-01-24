@@ -2,14 +2,14 @@ package com.example.ISA2020.service;
 
 import java.util.List;
 
-import com.example.ISA2020.entity.DrugQuantityInPharmacy;
+import com.example.ISA2020.entity.DrugQuantity;
 import com.example.ISA2020.entity.PharmacyDrugKey;
 
 public interface PharmacyDrugDetailsService {
 	
-	DrugQuantityInPharmacy findById(PharmacyDrugKey id);
+	DrugQuantity findById(PharmacyDrugKey id);
 	
-	List<DrugQuantityInPharmacy> getAllPharmacyDrugDetails();
+	List<DrugQuantity> getAllPharmacyDrugDetails();
 	
-	void save(DrugQuantityInPharmacy pharmacyDrugDetails);
+	void save(DrugQuantity pharmacyDrugDetails);
 }

@@ -1,5 +1,6 @@
 package com.example.ISA2020.entity.users;
 
+import java.time.LocalTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,20 +15,18 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.ISA2020.entity.Authority;
 import com.example.ISA2020.entity.Examination;
 import com.example.ISA2020.entity.Pharmacy;
-import com.example.ISA2020.entity.TimeOFFDermatologist;
-import com.example.ISA2020.entity.TimeOFFPharmacist;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Table(name="dermatologist") 
@@ -43,7 +42,7 @@ public class Dermatologist implements UserDetails {
 
     @NotNull(message = "Username cannot be null.")
     @Column(nullable = false)
-    private String username;
+    private String username; //username je email!
 
     @JsonIgnore
     @NotNull(message = "Password cannot be null.")
@@ -56,8 +55,15 @@ public class Dermatologist implements UserDetails {
     @Column(columnDefinition = "VARCHAR(30)", nullable = true)
     private String lastName;
 
-    @Email()
-    private String email;
+	@JsonFormat(pattern = "HH:mm")
+	@NotNull
+	@Column(nullable = false)
+	private LocalTime workHourFrom;
+
+	@JsonFormat(pattern = "HH:mm")
+	@NotNull
+	@Column(nullable = false)
+	private LocalTime workHourTo;
     
     
     
@@ -66,11 +72,10 @@ public class Dermatologist implements UserDetails {
     
     @OneToMany(mappedBy = "dermatologist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Examination> examinations= new HashSet<>();
-    
-    //zahtevi za godisnjim se cuvaju kod dermatologa odobrava ih admin sistema
-    @OneToMany(mappedBy = "nurse", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<TimeOFFDermatologist> timeOFFDermatologist = new HashSet<>();
-    
+
+
+
+	//vezano za prava pristupa spring security
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "dermatologist_authority",
@@ -89,7 +94,7 @@ public class Dermatologist implements UserDetails {
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.email = email;
+
 		//this.pharmacy = pharmacy;
 		this.authorities = authorities;
 	}
@@ -119,13 +124,7 @@ public class Dermatologist implements UserDetails {
 		this.lastName = lastName;
 	}
 
-	public String getEmail() {
-		return email;
-	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
 	
 	
 

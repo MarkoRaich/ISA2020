@@ -2,14 +2,7 @@ package com.example.ISA2020.entity;
 
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import com.example.ISA2020.enumeration.DrugType;
@@ -37,18 +30,16 @@ public class Drug {
     private DrugType drugType;
     
     //DRUG SPECS 3.42 ima jos atributa mozda u posebnu klasu!?
-    
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "drug", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<DrugQuantity> drugQuantities;
+
     @JsonIgnore
- 	@ManyToMany(mappedBy = "drugs") 
- 	private Set<Pharmacy> pharmacies;
-    
-    @JsonIgnore
- 	@ManyToMany(mappedBy = "drugs") 
- 	private Set<Pricelist> pricelistDrug;
+ 	@ManyToMany(mappedBy = "drug", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+ 	private Set<DrugPrice> drugPrices;
 	 
-    @JsonIgnore
-    @OneToMany(mappedBy = "drug")
-    private Set<DrugQuantityInPharmacy> details;
+
     
    
     
@@ -61,10 +52,10 @@ public class Drug {
 		super();
 		this.name = name;
 		this.code = code;
-		this.pharmacies = null;
-		this.details = null;
-		this.pharmacies = null;
-		this.pricelistDrug = null;
+
+		this.drugQuantities = null;
+
+		this.drugPrices = null;
 	}
 
 	public Long getId() {
@@ -91,28 +82,20 @@ public class Drug {
 		this.code = code;
 	}
 
-	public Set<Pharmacy> getPharmacies() {
-		return pharmacies;
+
+
+	public Set<DrugQuantity> getDrugQuantity() {
+		return drugQuantities;
 	}
 
-	public void setPharmacies(Set<Pharmacy> pharmacies) {
-		this.pharmacies = pharmacies;
+	public void setDrugQuantity(Set<DrugQuantity> drugQuantities) {
+		this.drugQuantities = drugQuantities;
 	}
 
-	public Set<DrugQuantityInPharmacy> getDetails() {
-		return details;
-	}
+	public Set<DrugPrice> getPricelistDrug() { return drugPrices; }
 
-	public void setDetails(Set<DrugQuantityInPharmacy> details) {
-		this.details = details;
-	}
-
-	public Set<Pricelist> getPricelistDrug() {
-		return pricelistDrug;
-	}
-
-	public void setPricelist(Set<Pricelist> pricelistDrug) {
-		this.pricelistDrug = pricelistDrug;
+	public void setDrugPrices(Set<DrugPrice> drugPrices) {
+		this.drugPrices = drugPrices;
 	}
 	
 	

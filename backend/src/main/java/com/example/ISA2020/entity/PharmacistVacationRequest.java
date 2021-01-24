@@ -3,9 +3,9 @@ package com.example.ISA2020.entity;
 import javax.persistence.*;
 
 import com.example.ISA2020.entity.users.Dermatologist;
-import com.example.ISA2020.enumeration.TimeOFFStatus;
+import com.example.ISA2020.enumeration.VacationRequestStatus;
 
-public class TimeOFFPharmacist { //odobrava administrator sistema
+public class PharmacistVacationRequest { //odobrava administrator sistema
 
 	
 	@Id
@@ -13,7 +13,7 @@ public class TimeOFFPharmacist { //odobrava administrator sistema
 	private long id;
 
 	@Enumerated
-	private TimeOFFStatus status;
+	private VacationRequestStatus status;
 	
 	@ManyToOne
 	private Dermatologist pharmacist;

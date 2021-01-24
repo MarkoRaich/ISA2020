@@ -49,7 +49,7 @@ public class Pharmacy {
 	
 	@JsonIgnore
     @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Pharmacist> pharmacists = new HashSet<>();
+    private Set<Pharmacist> pharmacists = new HashSet<>();  //farmaceut radi samo u jednoj apoteci
 	
 	@ManyToMany(fetch = FetchType.LAZY)		// Dermatolozi mogu da rade u vise apoteka!!
     @JoinTable(
@@ -70,24 +70,17 @@ public class Pharmacy {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "pharmacy")  //jedna apoteka ime vise lekova na stanju koje je jedinstveno za tu apoteku
-	private Set<DrugQuantityInPharmacy> details;
-	
+	private Set<DrugQuantity> drugQuantity;
+
 	@JsonIgnore
-	@OneToMany(mappedBy = "pharmacy") 			 //jedna apoteka ima vise cenovnika za razlicite vremenske periode
-    private Set<Pricelist> pricelistsDrug;   // a svaki od njih pripada iskljucivo ovoj apoteci
+	@OneToMany(mappedBy = "pharmacy")  //jedna apoteka ime vise cena za lekove koji su jedinstveni za tu apoteku
+	private Set<DrugPrice> drugPrice;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "pharmacy")
 	private Set<PharmacyExaminationPrice> examinationPrices;
 	
-	/* MISLIM DA NE TREBA OVA ASOCIJACIJA
-	@JsonIgnore
-	@ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-	@JoinTable( name = "pharmacy_drug", 
-				joinColumns = @JoinColumn(name ="pharmacy_id", referencedColumnName = "id"), 
-				inverseJoinColumns = @JoinColumn(name = "drug_id", referencedColumnName = "id"))
-	private Set<Drug> drugs;
-	**/
+
 
 	public Pharmacy() {
 		super();
@@ -98,7 +91,7 @@ public class Pharmacy {
 		this.name = name;
 		this.address = address;
 		
-		this.details = null;
+		
 		
 		
 	}
@@ -108,7 +101,7 @@ public class Pharmacy {
 		this.name = name;
 		this.address = null;
 		
-		this.details = null;
+		
 		
 		
 	}
@@ -139,14 +132,6 @@ public class Pharmacy {
 
 
 
-	public Set<DrugQuantityInPharmacy> getDetails() {
-		return details;
-	}
-
-	public void setDetails(Set<DrugQuantityInPharmacy> details) {
-		this.details = details;
-	}
-
-
+	
 
 }

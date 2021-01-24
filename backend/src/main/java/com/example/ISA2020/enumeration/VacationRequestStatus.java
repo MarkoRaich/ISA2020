@@ -1,7 +1,7 @@
 package com.example.ISA2020.enumeration;
 
-public enum TimeOFFStatus {
-	APPROVED,
+public enum VacationRequestStatus {
+    APPROVED,
     REJECTED,
     AWAITING
 }

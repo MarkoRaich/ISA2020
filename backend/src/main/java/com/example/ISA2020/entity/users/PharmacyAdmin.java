@@ -51,6 +51,7 @@ public class PharmacyAdmin implements UserDetails {
     
     
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "pharmacy_id", referencedColumnName = "id")
     private Pharmacy pharmacy;
     
     @ManyToMany(fetch = FetchType.EAGER)

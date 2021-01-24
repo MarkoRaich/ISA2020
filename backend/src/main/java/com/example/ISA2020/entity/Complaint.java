@@ -25,9 +25,12 @@ public class Complaint {
     @NotNull(message = "Message cannot be null.")
     @Column(nullable = false)
     private String message;
-    
-    //svaka zalba je napisana od strane JEDNOG pacijenta
+
+	//VEZE SA DRUGIM ENTITETIMA (TABELAMA U SMISLU BAZA)
+
+    //svaka zalba je napisana od strane JEDNOG pacijenta!
     @ManyToOne
+	@JoinColumn(name = "patient_id", referencedColumnName = "id")
     private Patient patient;
     
     @OneToOne(mappedBy = "complaint")
