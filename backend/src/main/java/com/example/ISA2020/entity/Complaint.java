@@ -26,15 +26,14 @@ public class Complaint {
     @Column(nullable = false)
     private String message;
 
-	//VEZE SA DRUGIM ENTITETIMA (TABELAMA U SMISLU BAZA)
+    
 
-    //svaka zalba je napisana od strane JEDNOG pacijenta!
     @ManyToOne
 	@JoinColumn(name = "patient_id", referencedColumnName = "id")
     private Patient patient;
     
-    @OneToOne(mappedBy = "complaint")
-    private Examination examination; //Examination ce biti povezan sa Farmaceutom ili Dermatologom
+    //@OneToOne(mappedBy = "complaint")
+    //private Examination examination; //Examination ce biti povezan sa Farmaceutom ili Dermatologom
     
     
     //KONSTRUKTORI
@@ -42,15 +41,13 @@ public class Complaint {
 		super();
 	}
        
-	public Complaint(Long id, @NotNull(message = "Subject cannot be null.") String subject,
-			@NotNull(message = "Message cannot be null.") String message, Set<Patient> patients,
-			Examination examination) {
+	public Complaint(@NotNull(message = "Subject cannot be null.") String subject,
+			@NotNull(message = "Message cannot be null.") String message, Patient patient
+			) {
 		super();
-		this.id = id;
 		this.subject = subject;
 		this.message = message;
-		//this.patients = patients;
-		this.examination = examination;
+		this.patient = patient;
 	}
 
 	//GETERI I SETERI
@@ -77,17 +74,6 @@ public class Complaint {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-
-
-
-	public Examination getExamination() {
-		return examination;
-	}
-
-	public void setExamination(Examination examination) {
-		this.examination = examination;
-	}
-
 	
 	
     

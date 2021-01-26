@@ -86,6 +86,8 @@ public class Dermatologist implements UserDetails {
 	
 
 	//KONSTRUKTORI
+    public Dermatologist() { }
+    
 	public Dermatologist(@NotNull(message = "Username cannot be null.") String username,
 			@NotNull(message = "Password cannot be null.") String password, String firstName, String lastName,
 			@Email String email, Pharmacy pharmacy, Set<Authority> authorities) {

@@ -2,11 +2,12 @@ package com.example.ISA2020.entity;
 
 import javax.persistence.*;
 
+@Table(name="drugPrice")
+@Entity
 public class DrugPrice {
 	
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@EmbeddedId
+	private PharmacyPriceKey id;
 
 	@Column
 	private double price;

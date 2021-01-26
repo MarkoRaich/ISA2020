@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class PharmacyDrugKey implements Serializable {
+public class PharmacyPriceKey implements Serializable {
 
     @Column(name = "pharmacy_id")
     Long pharmacyId;
@@ -31,7 +31,7 @@ public class PharmacyDrugKey implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PharmacyDrugKey other = (PharmacyDrugKey) obj;
+		PharmacyPriceKey other = (PharmacyPriceKey) obj;
 		if (drugId == null) {
 			if (other.drugId != null)
 				return false;
@@ -47,5 +47,6 @@ public class PharmacyDrugKey implements Serializable {
 
     // standard constructors, getters, and setters
     // hashcode and equals implementation
+    
     
 }

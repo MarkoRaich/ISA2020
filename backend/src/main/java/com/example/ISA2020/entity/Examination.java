@@ -9,7 +9,6 @@ import com.example.ISA2020.entity.users.Patient;
 import com.example.ISA2020.enumeration.ExaminationStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
 @Table(name = "examination")
 @Entity
 public class Examination {		//PREGLED KOD DERMATOLOGA

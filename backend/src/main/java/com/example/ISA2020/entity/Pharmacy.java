@@ -3,31 +3,18 @@ package com.example.ISA2020.entity;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import com.example.ISA2020.entity.users.Dermatologist;
 import com.example.ISA2020.entity.users.Pharmacist;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Table(name="pharmacy")
+
 @Entity
 public class Pharmacy {
 
 	@Id
-	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
@@ -39,7 +26,7 @@ public class Pharmacy {
 	@Column(nullable = false)
 	private String address;
 	
-	@Column(nullable = false, columnDefinition = "VARCHAR")
+	@Column(nullable = false, columnDefinition = "TEXT")
 	private String description;
 	
 	@Column
@@ -68,6 +55,7 @@ public class Pharmacy {
     @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Consultation> consultations = new HashSet<>();
 
+    /*
 	@JsonIgnore
 	@OneToMany(mappedBy = "pharmacy")  //jedna apoteka ime vise lekova na stanju koje je jedinstveno za tu apoteku
 	private Set<DrugQuantity> drugQuantity;
@@ -75,7 +63,8 @@ public class Pharmacy {
 	@JsonIgnore
 	@OneToMany(mappedBy = "pharmacy")  //jedna apoteka ime vise cena za lekove koji su jedinstveni za tu apoteku
 	private Set<DrugPrice> drugPrice;
-	
+	*/
+    
 	@JsonIgnore
 	@OneToMany(mappedBy = "pharmacy")
 	private Set<PharmacyExaminationPrice> examinationPrices;

@@ -3,6 +3,7 @@ package com.example.ISA2020.entity;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 
+@Table(name="drugQuantity")
 @Entity
 public class DrugQuantity {
 

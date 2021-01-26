@@ -2,7 +2,8 @@ package com.example.ISA2020.entity;
 
 import javax.persistence.*;
 
-
+@Table(name="promotion")
+@Entity
 public class Promotion {
 
     @Id

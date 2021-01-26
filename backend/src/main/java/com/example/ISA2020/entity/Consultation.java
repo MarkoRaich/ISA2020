@@ -6,6 +6,8 @@ import com.example.ISA2020.entity.users.Patient;
 import com.example.ISA2020.entity.users.Pharmacist;
 import com.example.ISA2020.enumeration.ConsultationStatus;
 
+@Table(name="consultation")
+@Entity
 public class Consultation {		//SAVETOVANJE KOD FARMACEUTA
 	
 	@Id
@@ -33,7 +35,12 @@ public class Consultation {		//SAVETOVANJE KOD FARMACEUTA
 	private Pharmacist pharmacist;
 
 	
+	
+	//@OneToOne(cascade = CascadeType.ALL)
+	//private Complaint complaint;
+	
 	@OneToOne(cascade = CascadeType.ALL)
-	private Complaint complaint;
+	@JoinColumn(name = "consultationReport_id", referencedColumnName = "id")
+	private ConsultationReport consultationReport;
 	
 }

@@ -5,6 +5,8 @@ import javax.persistence.*;
 import com.example.ISA2020.entity.users.Dermatologist;
 import com.example.ISA2020.enumeration.VacationRequestStatus;
 
+@Table(name="dermVacationReq")
+@Entity
 public class DermatologistVacationRequest { //odobrava admin apoteke
 	
 	@Id
@@ -14,6 +16,6 @@ public class DermatologistVacationRequest { //odobrava admin apoteke
 	@Enumerated
 	private VacationRequestStatus status;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Dermatologist dermatologist;
 }

@@ -75,6 +75,8 @@ public class Pharmacist implements UserDetails {
 
 	
 	//KONSTRUKTORI
+    public Pharmacist() { }
+    
     public Pharmacist(@NotNull(message = "Username cannot be null.") String username,
 			@NotNull(message = "Password cannot be null.") String password, String firstName, String lastName,
 			@Email String email, Pharmacy pharmacy, Set<Authority> authorities) {

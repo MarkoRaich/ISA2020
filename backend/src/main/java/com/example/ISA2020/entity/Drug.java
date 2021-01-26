@@ -30,7 +30,9 @@ public class Drug {
     private DrugType drugType;
     
     //DRUG SPECS 3.42 ima jos atributa mozda u posebnu klasu!?
-
+    	
+    
+    /*
 	@JsonIgnore
 	@OneToMany(mappedBy = "drug", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<DrugQuantity> drugQuantities;
@@ -38,7 +40,7 @@ public class Drug {
     @JsonIgnore
  	@ManyToMany(mappedBy = "drug", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
  	private Set<DrugPrice> drugPrices;
-	 
+	 */
 
     
    
@@ -53,9 +55,9 @@ public class Drug {
 		this.name = name;
 		this.code = code;
 
-		this.drugQuantities = null;
+		//this.drugQuantities = null;
 
-		this.drugPrices = null;
+		//this.drugPrices = null;
 	}
 
 	public Long getId() {
@@ -84,19 +86,7 @@ public class Drug {
 
 
 
-	public Set<DrugQuantity> getDrugQuantity() {
-		return drugQuantities;
-	}
-
-	public void setDrugQuantity(Set<DrugQuantity> drugQuantities) {
-		this.drugQuantities = drugQuantities;
-	}
-
-	public Set<DrugPrice> getPricelistDrug() { return drugPrices; }
-
-	public void setDrugPrices(Set<DrugPrice> drugPrices) {
-		this.drugPrices = drugPrices;
-	}
+	
 	
 	
 	

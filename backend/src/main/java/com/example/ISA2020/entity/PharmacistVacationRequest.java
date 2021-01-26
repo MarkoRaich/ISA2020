@@ -2,9 +2,11 @@ package com.example.ISA2020.entity;
 
 import javax.persistence.*;
 
-import com.example.ISA2020.entity.users.Dermatologist;
+import com.example.ISA2020.entity.users.Pharmacist;
 import com.example.ISA2020.enumeration.VacationRequestStatus;
 
+@Table(name="pharmVacationReq")
+@Entity
 public class PharmacistVacationRequest { //odobrava administrator sistema
 
 	
@@ -15,6 +17,6 @@ public class PharmacistVacationRequest { //odobrava administrator sistema
 	@Enumerated
 	private VacationRequestStatus status;
 	
-	@ManyToOne
-	private Dermatologist pharmacist;
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Pharmacist pharmacist;
 }

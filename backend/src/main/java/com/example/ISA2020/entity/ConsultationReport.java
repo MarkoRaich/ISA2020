@@ -20,7 +20,7 @@ public class ConsultationReport {
     @Column(nullable = false)
     private String message;
 
-    @OneToOne(mappedBy = "examinationReport")
+    @OneToOne(mappedBy = "consultationReport")
     private Consultation consultation;
 
     @OneToOne(cascade = CascadeType.ALL)
