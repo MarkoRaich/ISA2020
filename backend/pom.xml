@@ -19,18 +19,22 @@
 	</properties>
 
 	<dependencies>
+	
 		<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+        
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -48,6 +52,12 @@
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
         </dependency>		
+        
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.0</version>
+		</dependency>
 		
 		<dependency>
             <groupId>org.springframework.boot</groupId>
@@ -55,13 +65,13 @@
             <scope>provided</scope>
         </dependency>
 		
-		<!-- MySql baza -->
+		<!-- BAZA -->
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+				
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -86,11 +96,8 @@
 		    <version>3.11</version>
 		</dependency>
         
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
-        </dependency>
+      
+        
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
@@ -111,81 +118,16 @@
 		    <scope>test</scope>
 		</dependency>
 		
-		<!-- za rabbitMQ -->
+		<!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-amqp</artifactId>
+		    <groupId>org.bouncycastle</groupId>
+		    <artifactId>bcprov-jdk15on</artifactId>
+		    <version>1.68</version>
 		</dependency>
 		
-		<dependency>   
-			<groupId>com.rabbitmq</groupId>   
-			<artifactId>amqp-client</artifactId>   
-			<version>5.10.0</version> 
-		</dependency>
-		
-		<!-- sftp dependencies -->
-		<dependency>
-		    <groupId>com.jcraft</groupId>
-		    <artifactId>jsch</artifactId>
-		    <version>0.1.55</version>
-		</dependency>
-		
-		<dependency>
-		    <groupId>com.hierynomus</groupId>
-		    <artifactId>sshj</artifactId>
-		    <version>0.27.0</version>
-		</dependency>
-		
-		<dependency>
-		    <groupId>org.apache.commons</groupId>
-		    <artifactId>commons-vfs2</artifactId>
-		    <version>2.4</version>
-		</dependency>
-		
-		<!-- ______ gRPC ______ -->
-		
-		<dependency>
-           <groupId>net.devh</groupId>
-           <artifactId>grpc-spring-boot-starter</artifactId>
-           <version>2.10.1.RELEASE</version>
-           <exclusions>
-              <exclusion>
-                 <groupId>io.grpc</groupId>
-                 <artifactId>grpc-netty-shaded</artifactId>
-              </exclusion>
-           </exclusions>
-        </dependency>
-        <dependency>
-           <groupId>net.devh</groupId>
-           <artifactId>grpc-server-spring-boot-starter</artifactId>
-           <version>2.10.1.RELEASE</version>
-           <exclusions>
-              <exclusion>
-                 <groupId>io.grpc</groupId>
-                 <artifactId>grpc-netty-shaded</artifactId>
-              </exclusion>
-           </exclusions>
-        </dependency>
-        <dependency>
-           <groupId>net.devh</groupId>
-           <artifactId>grpc-client-spring-boot-autoconfigure</artifactId>
-           <version>2.10.1.RELEASE</version>
-           <type>pom</type>
-        </dependency>
+	
         
-        <!-- grpc -->
-		
-		<dependency>
-		    <groupId>commons-io</groupId>
-		    <artifactId>commons-io</artifactId>
-		    <version>2.6</version>
-		</dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-
+       
     </dependencies>
 
 	<build>

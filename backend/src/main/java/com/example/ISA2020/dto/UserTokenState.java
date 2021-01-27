@@ -1,4 +1,4 @@
-package com.example.ISA2020.entity;
+package com.example.ISA2020.dto;
 
 
 //DTO klasa enkapsulira generisani JWT i njegovo trajanje koji se vracaju klijentu

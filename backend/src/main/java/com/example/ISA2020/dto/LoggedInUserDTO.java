@@ -1,6 +1,5 @@
 package com.example.ISA2020.dto;
 
-import com.example.ISA2020.entity.UserTokenState;
 
 public class LoggedInUserDTO {
 

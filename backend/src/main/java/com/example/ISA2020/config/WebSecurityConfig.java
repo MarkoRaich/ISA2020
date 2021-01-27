@@ -21,9 +21,6 @@ import com.example.ISA2020.security.auth.RestAuthenticationEntryPoint;
 import com.example.ISA2020.security.auth.TokenAuthenticationFilter;
 import com.example.ISA2020.service.Impl.UserServiceImpl;
 
-import net.devh.boot.grpc.server.security.authentication.BasicGrpcAuthenticationReader;
-import net.devh.boot.grpc.server.security.authentication.GrpcAuthenticationReader;
-
 
 
 @Configuration
@@ -95,15 +92,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers(HttpMethod.POST, "/api/**");
         web.ignoring().antMatchers(HttpMethod.PUT, "/api/auth");
         web.ignoring().antMatchers(HttpMethod.GET, "/api/noAuth/**");
-        web.ignoring().antMatchers(HttpMethod.POST, "/file/**");
-        web.ignoring().antMatchers(HttpMethod.GET, "/file/**");
-        web.ignoring().antMatchers(HttpMethod.GET, "/rabbitmq/**");
-        web.ignoring().antMatchers(HttpMethod.POST, "/rabbitmq/**");
+      
+        
     }
     
-    @Bean
-    public GrpcAuthenticationReader grpcAuthenticationReader() {
-        return new BasicGrpcAuthenticationReader();
-    }
+  
 
 }

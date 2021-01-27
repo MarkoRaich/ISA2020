@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class DrugPrice {
 	
 	@EmbeddedId
-	private PharmacyPriceKey id;
+	private PharmDrugPriceKey id;
 
 	@Column
 	private double price;

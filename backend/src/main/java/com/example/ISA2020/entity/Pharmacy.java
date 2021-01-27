@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 
 import com.example.ISA2020.entity.users.Dermatologist;
 import com.example.ISA2020.entity.users.Pharmacist;
+import com.example.ISA2020.entity.users.PharmacyAdmin;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -25,6 +26,10 @@ public class Pharmacy {
 	@NotNull(message = "Address cannot be null.")
 	@Column(nullable = false)
 	private String address;
+	
+	@NotNull(message = "City cannot be null.")
+	@Column(nullable = false)
+	private String city;
 	
 	@Column(nullable = false, columnDefinition = "TEXT")
 	private String description;
@@ -46,6 +51,10 @@ public class Pharmacy {
     		  )
     private Set<Dermatologist> dermatologists = new HashSet<>();
     
+	@JsonIgnore
+	@OneToMany(mappedBy="pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<PharmacyAdmin> admins = new HashSet<>();
+	
 	
     @JsonIgnore
     @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

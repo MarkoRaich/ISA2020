@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -167,69 +167,6 @@ public class DrugController {
 		return new ResponseEntity<>(drugDTO, HttpStatus.OK);
 	}
 	
-	@RequestMapping(method = { RequestMethod.GET },value = "/multipartdata/getByCode/{code}", produces=MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity<MultiValueMap<String, Object>> getFileByCode(@PathVariable String code) throws IOException{
-		Drug drug = drugService.findByCode(code);
-		if(drug == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		
-		File file = new File("./Resources/response" + code + ".txt"); 
-		  
-		//Create the file
-		if (file.createNewFile())
-		{
-		    System.out.println("File is created!");
-		} else {
-		    System.out.println("File already exists.");
-		}
-		
-		//Write Content
-		FileWriter writer = new FileWriter(file);
-		writer.write("Sifra leka: " + drug.getCode());
-		writer.write(System.getProperty( "line.separator" ));
-		writer.write("Ime leka: " + drug.getName());
-		writer.write(System.getProperty( "line.separator" ));
-		writer.close();
-		
-		MultiValueMap<String, Object> formData = new LinkedMultiValueMap<String, Object>();
-		formData.add(drug.getCode(),  file);
-		
-		return new ResponseEntity<MultiValueMap<String, Object>>(formData, HttpStatus.OK);
-	}
 	
-	@RequestMapping(method = { RequestMethod.GET },value = "/multipartdata/getById/{id}")
-    public ResponseEntity<List<String>> getFileById(@PathVariable Long id) throws IOException{
-        Drug drug = drugService.findById(id);
-        if(drug == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        
-        File file = new File("./Resources/response" + id + ".txt"); 
-          
-        //Create the file
-        if (file.createNewFile())
-        {
-            System.out.println("File is created!");
-        } else {
-            System.out.println("File already exists.");
-        }
-        
-        //Write Content
-        FileWriter writer = new FileWriter(file);
-        writer.write("Sifra leka: " + drug.getCode());
-        writer.write(System.getProperty( "line.separator" ));
-        writer.write("Ime leka: " + drug.getName());
-        writer.write(System.getProperty( "line.separator" ));
-        writer.close();
-        
-        byte[] fileContent = FileUtils.readFileToByteArray(file);
-        String encodedString = Base64.getEncoder().encodeToString(fileContent);
-        List<String> ret = new ArrayList<String>();
-        ret.add("response" + id + ".txt");
-        ret.add(encodedString);
-        
-        return new ResponseEntity<List<String>>(ret, HttpStatus.OK);
-    }
 	
 }

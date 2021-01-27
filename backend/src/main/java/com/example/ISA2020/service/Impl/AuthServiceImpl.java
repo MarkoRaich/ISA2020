@@ -16,7 +16,7 @@ import com.example.ISA2020.dto.LoggedInUserDTO;
 import com.example.ISA2020.entity.Authority;
 import com.example.ISA2020.entity.users.Patient;
 import com.example.ISA2020.entity.users.PharmacyAdmin;
-import com.example.ISA2020.entity.UserTokenState;
+import com.example.ISA2020.dto.UserTokenState;
 import com.example.ISA2020.repository.AuthRepository;
 import com.example.ISA2020.security.TokenUtils;
 import com.example.ISA2020.security.auth.JwtAuthenticationRequest;

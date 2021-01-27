@@ -6,7 +6,7 @@ import com.example.ISA2020.entity.users.Patient;
 import com.example.ISA2020.entity.users.Pharmacist;
 import com.example.ISA2020.enumeration.ConsultationStatus;
 
-@Table(name="consultation")
+
 @Entity
 public class Consultation {		//SAVETOVANJE KOD FARMACEUTA
 	

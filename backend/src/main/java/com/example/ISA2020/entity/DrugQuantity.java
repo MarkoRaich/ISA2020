@@ -3,12 +3,12 @@ package com.example.ISA2020.entity;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 
-@Table(name="drugQuantity")
+
 @Entity
 public class DrugQuantity {
 
     @EmbeddedId
-    private PharmacyDrugKey id;
+    private PharmDrugQuantityKey id;
 
     @Column
     @Min(0)
@@ -40,12 +40,12 @@ public class DrugQuantity {
 	}
 
 
-	public PharmacyDrugKey getId() {
+	public PharmDrugQuantityKey getId() {
 		return id;
 	}
 
 
-	public void setId(PharmacyDrugKey id) {
+	public void setId(PharmDrugQuantityKey id) {
 		this.id = id;
 	}
 

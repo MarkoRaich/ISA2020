@@ -27,7 +27,9 @@ public class Drug {
     @Column(nullable = false)
     private String code;
     
-    private DrugType drugType;
+    @Enumerated(EnumType.STRING)
+    @Column()
+    private DrugType type;
     
     //DRUG SPECS 3.42 ima jos atributa mozda u posebnu klasu!?
     	
