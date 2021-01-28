@@ -27,6 +27,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.example.ISA2020.entity.Authority;
 import com.example.ISA2020.entity.Examination;
 import com.example.ISA2020.entity.Pharmacy;
+import com.example.ISA2020.entity.VacationRequestDerm;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Table(name="dermatologist") 
@@ -67,13 +68,14 @@ public class Dermatologist implements UserDetails {
     
     
     
-    @ManyToMany(mappedBy = "dermatologists")	//moze da radi u vise apoteka
+    @ManyToMany(mappedBy = "dermatologists", fetch = FetchType.LAZY, cascade = CascadeType.ALL)	//moze da radi u vise apoteka
     private Set<Pharmacy> pharmacies;
     
     @OneToMany(mappedBy = "dermatologist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Examination> examinations= new HashSet<>();
 
-
+    @OneToMany(mappedBy = "dermatologist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<VacationRequestDerm> vacationRequests;
 
 	//vezano za prava pristupa spring security
     @ManyToMany(fetch = FetchType.EAGER)

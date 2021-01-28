@@ -2,6 +2,7 @@ package com.example.ISA2020.entity.users;
 
 import java.time.LocalTime;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -15,6 +16,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.ISA2020.entity.Authority;
 import com.example.ISA2020.entity.Pharmacy;
+import com.example.ISA2020.entity.VacationRequestDerm;
+import com.example.ISA2020.entity.VacationRequestPharm;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Table(name="pharmacist") 
@@ -61,8 +64,10 @@ public class Pharmacist implements UserDetails {
     private Pharmacy pharmacy;
 
 	@OneToMany(mappedBy = "pharmacist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Consultation> consultations;
-
+	private Set<Consultation> consultations = new HashSet<>();
+	
+	@OneToMany(mappedBy = "pharmacist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<VacationRequestPharm> vacationRequests;
 
 	//vezano za prava pristupa spring security
     @ManyToMany(fetch = FetchType.EAGER)
