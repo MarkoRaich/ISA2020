@@ -60,6 +60,10 @@ public class Pharmacy {
     @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Consultation> consultations = new HashSet<>();
     
+    @JsonIgnore
+    @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<PurchaseOrder> purchaseOrders = new HashSet<>();
+    
 
 
 	public Pharmacy() {

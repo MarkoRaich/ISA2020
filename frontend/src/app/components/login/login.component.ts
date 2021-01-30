@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
 
     redirectToHomePage(){
         if(this.userService.isPharmacyAdmin()){
-           this.router.navigate(['/pharmacy_admin']);
+           this.router.navigate(['/pharmacy_admin/edit-pharmacy-profile']);
         }
         if(this.userService.isPatient()){
             this.router.navigate(['/patient']);
