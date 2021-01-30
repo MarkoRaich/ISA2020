@@ -24,7 +24,7 @@ public class DrugNameAndCodeDTO {
 	}
 	
 	public DrugNameAndCodeDTO(Drug drug) {
-		this(drug.getName(), drug.getCode());
+	//	this(drug.getName(), drug.getCode());
 	}
 	
 

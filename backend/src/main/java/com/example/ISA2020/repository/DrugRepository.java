@@ -13,7 +13,7 @@ public interface DrugRepository extends JpaRepository<Drug, Long> {
 	
     Drug findOneByName(String name);
     
-    Drug findOneByCode(String code);
+   // Drug findOneByCode(String code);
     
     List<Drug> findAll();
     

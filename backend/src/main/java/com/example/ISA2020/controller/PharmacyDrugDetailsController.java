@@ -71,7 +71,7 @@ public class PharmacyDrugDetailsController {
 				DrugSearchDTO dto = new DrugSearchDTO();
 				dto.setId(p.getDrug().getId());
 				dto.setName(p.getDrug().getName());
-				dto.setCode(p.getDrug().getCode());
+				//dto.setCode(p.getDrug().getCode());
 				dto.setQuantity(p.getQuantity());
 				dto.setPharmacyDTO(new PharmacyDTO(pharmacyService.findById(p.getPharmacy().getId())));
 				drugsWithSameName.add(dto);

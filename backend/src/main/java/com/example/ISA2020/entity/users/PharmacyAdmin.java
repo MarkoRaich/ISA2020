@@ -30,10 +30,9 @@ public class PharmacyAdmin implements UserDetails {
     @NotNull(message = "Password cannot be null.")
     @Column(nullable = false)
     private String password;
+    
 
-    
-    
-    @Column(columnDefinition = "VARCHAR(30)", nullable = true)
+	@Column(columnDefinition = "VARCHAR(30)", nullable = true)
     private String firstName;
 
     @Column(columnDefinition = "VARCHAR(30)", nullable = true)
@@ -172,4 +171,14 @@ public class PharmacyAdmin implements UserDetails {
 		this.password = password;
 	}
 
+    public Pharmacy getPharmacy() {
+		return pharmacy;
+	}
+
+
+	public void setPharmacy(Pharmacy pharmacy) {
+		this.pharmacy = pharmacy;
+	}
+
+	
 }

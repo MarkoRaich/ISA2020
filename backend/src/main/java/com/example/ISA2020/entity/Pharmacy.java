@@ -27,10 +27,6 @@ public class Pharmacy {
 	@Column(nullable = false)
 	private String address;
 	
-	@NotNull(message = "City cannot be null.")
-	@Column(nullable = false)
-	private String city;
-	
 	@Column(nullable = false, columnDefinition = "TEXT")
 	private String description;
 	
@@ -70,25 +66,26 @@ public class Pharmacy {
 		super();
 	}
 
-	public Pharmacy(String name, String address) {
+
+	
+	public Pharmacy(Long id, @NotNull(message = "Name cannot be null.") String name,
+			@NotNull(message = "Address cannot be null.") String address, String description, double rating) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.address = address;
-		
-		
-		
-		
+		this.description = description;
+		this.rating = rating;
 	}
-	
-	public Pharmacy(String name) {
-		super();
+
+
+
+	public Pharmacy(String name, String address) {
 		this.name = name;
-		this.address = null;
-		
-		
-		
-		
+		this.address = address;
 	}
+
+
 
 	public Long getId() {
 		return id;
@@ -114,33 +111,31 @@ public class Pharmacy {
 		this.address = address;
 	}
 
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
 
 	public String getDescription() {
 		return description;
 	}
 
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 
 	public double getRating() {
 		return rating;
 	}
 
+
 	public void setRating(double rating) {
 		this.rating = rating;
 	}
 
+
 	public Set<Pharmacist> getPharmacists() {
 		return pharmacists;
 	}
+
 
 	public void setPharmacists(Set<Pharmacist> pharmacists) {
 		this.pharmacists = pharmacists;
@@ -150,6 +145,7 @@ public class Pharmacy {
 		return dermatologists;
 	}
 
+
 	public void setDermatologists(Set<Dermatologist> dermatologists) {
 		this.dermatologists = dermatologists;
 	}
@@ -157,6 +153,7 @@ public class Pharmacy {
 	public Set<PharmacyAdmin> getAdmins() {
 		return admins;
 	}
+
 
 	public void setAdmins(Set<PharmacyAdmin> admins) {
 		this.admins = admins;
@@ -170,12 +167,16 @@ public class Pharmacy {
 		this.examinations = examinations;
 	}
 
+
 	public Set<Consultation> getConsultations() {
 		return consultations;
 	}
 
+
 	public void setConsultations(Set<Consultation> consultations) {
 		this.consultations = consultations;
 	}
+
+
 
 }

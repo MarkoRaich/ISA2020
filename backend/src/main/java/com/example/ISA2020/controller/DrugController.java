@@ -69,7 +69,7 @@ public class DrugController {
 		//Write Content
 		FileWriter writer = new FileWriter(file);
 		for(Drug d : drugs) {
-			writer.write("Sifra leka: " + d.getCode());
+			//writer.write("Sifra leka: " + d.getCode());
 			writer.write(System.getProperty( "line.separator" ));
 			writer.write("Ime leka: " + d.getName());
 			writer.write(System.getProperty( "line.separator" ));
@@ -99,7 +99,7 @@ public class DrugController {
 		
 		//Write Content
 		FileWriter writer = new FileWriter(file);
-		writer.write("Sifra leka: " + drug.getCode());
+		//writer.write("Sifra leka: " + drug.getCode());
 		writer.write(System.getProperty( "line.separator" ));
 		writer.write("Ime leka: " + drug.getName());
 		writer.write(System.getProperty( "line.separator" ));
@@ -108,33 +108,36 @@ public class DrugController {
 		return new ResponseEntity<>(drug, HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/getByCode/{code}")
-	public ResponseEntity<Drug> getOneByCode(@PathVariable String code) throws IOException{
-		Drug drug = drugService.findByCode(code);
-		if(drug == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		
-		File file = new File("./Resources/response" + code + ".txt"); 
-		  
-		//Create the file
-		if (file.createNewFile())
-		{
-		    System.out.println("File is created!");
-		} else {
-		    System.out.println("File already exists.");
-		}
-		
-		//Write Content
-		FileWriter writer = new FileWriter(file);
-		writer.write("Sifra leka: " + drug.getCode());
-		writer.write(System.getProperty( "line.separator" ));
-		writer.write("Ime leka: " + drug.getName());
-		writer.write(System.getProperty( "line.separator" ));
-		writer.close();
-		
-		return new ResponseEntity<>(drug, HttpStatus.OK);
-	}
+//	@GetMapping(value = "/getByCode/{code}")
+//	public ResponseEntity<Drug> getOneByCode(@PathVariable String code) throws IOException{
+//		Drug drug = drugService.findById(2);
+//		//if(drug == null) {
+//			//return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//		//}
+//		
+//		File file = new File("./Resources/response"  + ".txt"); 
+//		  
+//		//Create the file
+//		//
+//			
+//			
+//			if (file.createNewFile())
+//		{
+//		    System.out.println("File is created!");
+//		} else {
+//		    System.out.println("File already exists.");
+//		}
+//		
+//		//Write Content
+//		FileWriter writer = new FileWriter(file);
+//		//writer.write("Sifra leka: " + drug.getCode());
+//		writer.write(System.getProperty( "line.separator" ));
+//		//writer.write("Ime leka: " + drug.getName());
+//		writer.write(System.getProperty( "line.separator" ));
+//		writer.close();
+//		
+//		return new ResponseEntity<>(drug, HttpStatus.OK);
+//	}
 	
 	
 	@GetMapping(value = "/getAllWithSameName")
@@ -156,7 +159,7 @@ public class DrugController {
 		return new ResponseEntity<List<Drug>>(drugsWithSameName, HttpStatus.OK);
 	}
 	
-	
+	/*
 	@GetMapping(value = "/getByCodeInfo/{code}")
 	public ResponseEntity<DrugNameAndCodeDTO> getOneByCodeInfo(@PathVariable String code){
 		Drug drug = drugService.findByCode(code);
@@ -166,7 +169,7 @@ public class DrugController {
 		}
 		return new ResponseEntity<>(drugDTO, HttpStatus.OK);
 	}
-	
+	*/
 	
 	
 }

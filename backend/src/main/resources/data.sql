@@ -22,20 +22,22 @@ insert into patient_authority(user_id, authority_id) VALUES (2,1);
 
 -- LEKOVI
 
-INSERT INTO drug (code, name, type) VALUES ('20022', 'Brufen', 'ANESTHETIC');
-INSERT INTO drug (code, name, type) VALUES ('20033', 'Aspirin','ANTIHISTAMINIC');
-INSERT INTO drug (code, name, type) VALUES ('20044', 'Andol', 'ANTIHISTAMINIC');
-INSERT INTO drug (code, name, type) VALUES ('20055', 'Paracetamol', 'ANTIBIOTIC');
-INSERT INTO drug (code, name, type) VALUES ('20066', 'Bromazepam', 'ANESTHETIC' );
+INSERT INTO drug (name, type, manufacturer, composition, perscription, notes) VALUES ('Brufen', 'ANALGESIC', 'GALENIKA', 'Ibuprofen, inactive ingredients microcrystalline cellulose, croscarmellose sodium, lactose monohydrate, colloidal anhydrous silica, sodium lauryl sulfate, magnesium stearate, hypromellose, purified talc, titanium dioxide.', 'WITHOUT_PRESCRIPTION', 'Moze izazvati nezeljena dejstva ukoliko se ne prate uputstva farmaceuta' );
+INSERT INTO drug (name, type, manufacturer, composition, perscription, notes) VALUES ('Paracetamol', 'ANALGESIC', 'GALENIKA', 'paracetamol, maize starch, potassium sorbate, purified talc, stearic acid, povidone, and soluble starch', 'WITHOUT_PRESCRIPTION', 'Moze izazvati nezeljena dejstva ukoliko se ne prate uputstva farmaceuta' );
+INSERT INTO drug (name, type, manufacturer, composition, perscription, notes) VALUES ('Aspirin','ANALGESIC', 'BAYER BITTERFELD GMBH', 'aspirin', 'WITHOUT_PRESCRIPTION', 'cuvati van domasaja dece, ne mesati sa alkoholom i drugim lekovima' );
+INSERT INTO drug (name, type, manufacturer, composition, perscription, notes) VALUES ('Amoksicilin', 'ANTIBIOTIC', 'PLIVA HRVATSKA D.O.O.', 'amoksicilin, magnezijum-stearat, celuloza, mikrokristalna PH 102', 'PRESCRIPTION', 'Ovaj lek je propisan lično Vama i ne smete ga dati drugome. Drugome ovaj lek može da škodi čak i ako ima znake bolesti slične Vašim.' );
+INSERT INTO drug (name, type, manufacturer, composition, perscription, notes) VALUES ('Bromazepam', 'ANESTHETIC', 'PLIVA HRVATSKA D.O.O.', 'bromazepam, lactose, microcrystalline cellulose (460), talc (553), magnesium stearate (470)', 'PRESCRIPTION', 'Cuvati van domasaja dece');
+INSERT INTO drug (name, type, manufacturer, composition, perscription, notes) VALUES ('Probiotic', 'ANTIBIOTIC', 'HEMOFARM AD VRŠAC', 'L. helveticus, L. rhamnosus, B. longum i S. boulardii', 'WITHOUT_PRESCRIPTION', 'Uzimati u odredjeno vreme' );
+INSERT INTO drug (name, type, manufacturer, composition, perscription, notes) VALUES ('Vitamin C', 'SUPPLEMENT', 'HEMOFARM AD VRŠAC','vitamin C', 'WITHOUT_PRESCRIPTION', 'Poboljsava imunitet uzimati u ogranicenim kolicinama' );
 
 -- APOTEKE
 
-INSERT INTO pharmacy (name, address, city, description, rating) values ('Jankovic', 'Narodnog Fronta 1', 'Novi Sad', 'Apoteka Jankovic ima veliki izbor preparata', 4.5);
-INSERT INTO pharmacy (name, address, city, description, rating) values ('Zegin', 'Bulevar Oslobodjenja 32', 'Novi Sad', 'Tradija pre svega, nalazimo se na idealnoj lokaciji', 4.2);
-INSERT INTO pharmacy (name, address, city, description, rating) values ('Benu', 'Bulevar Cara Lazara 20', 'Novi Sad', 'Nesto za svakoga', 4.0);
+INSERT INTO pharmacy (name, address,description, rating) values ('Jankovic', 'Novi Sad Narodnog Fronta 1', 'Apoteka Jankovic ima veliki izbor preparata', 4.5);
+INSERT INTO pharmacy (name, address, description, rating) values ('Zegin', 'Novi Sad Bulevar Oslobodjenja 32', 'Tradija pre svega, nalazimo se na idealnoj lokaciji', 4.2);
+INSERT INTO pharmacy (name, address, description, rating) values ('Benu', 'Novi Sad Bulevar Cara Lazara 20', 'Nesto za svakoga', 4.0);
 
 -- KOLICINA LEKOVA U APOTEKAMA
-
+/* 
 INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity) VALUES ( 1, 1, 200);
 INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity) VALUES ( 1, 2, 500);
 INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity) VALUES ( 2, 1, 70);
@@ -46,7 +48,7 @@ INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity) VALUES ( 4, 3, 80);
 INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity) VALUES ( 5, 1, 65);
 INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity) VALUES ( 5, 2, 17);
 INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity) VALUES ( 5, 3, 40);
-
+**/
 
 -- -- ADMINISTRATORI APOTEKE I NJIHOVA PRAVA POVEZANA
 

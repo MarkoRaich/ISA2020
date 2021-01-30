@@ -31,7 +31,7 @@ public class DrugDTO {
 	}
 	
 	public DrugDTO(Drug drug) {
-		this(drug.getId(), drug.getName(), drug.getCode());
+		//this(drug.getId(), drug.getName(), drug.getCode());
 	}
 
 	public Long getId() {

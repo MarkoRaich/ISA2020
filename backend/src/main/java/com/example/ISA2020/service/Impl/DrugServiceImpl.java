@@ -28,19 +28,19 @@ public class DrugServiceImpl implements DrugService {
 
 	@Override
 	public Drug createDrug(DrugDTO drugDTO) {
-		if (drugRepository.findOneByCode(drugDTO.getCode()) != null) {
-            return null;
-        } //findByName vraca null ako ga nadje
+		//if (drugRepository.findOneByCode(drugDTO.getCode()) != null) {
+        //    return null;
+       // } //findByName vraca null ako ga nadje
 		
 		Drug newDrug = new Drug(drugDTO.getName(), drugDTO.getCode());
 		
 		return drugRepository.save(newDrug);
 	}
 
-	@Override
-	public Drug findByCode(String code) {
-		return drugRepository.findOneByCode(code);
-	}
+//	@Override
+//	public Drug findByCode(String code) {
+//		return drugRepository.findOneByCode(code);
+//	}
 
 	@Override
 	public List<Drug> getAllDrugs() {

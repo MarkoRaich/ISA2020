@@ -13,7 +13,7 @@ public interface DrugService {
 	
 	Drug createDrug(DrugDTO drugDTO);
 	
-	Drug findByCode(String code);
+	//Drug findByCode(String code);
 	
 	List<Drug> getAllDrugs();
 }
