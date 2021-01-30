@@ -13,7 +13,9 @@ export const environment = {
 
   createNewHospital   : "/api/auth/hospital/create",
   getAllHospitals     : "/api/auth/hospital/getAll",
-  getOneHospital      : "/api/auth/hospital/",
+  getOneHospital      : "/api/auth/hospital",
+
+  pharmacyAdmin       : "/api/pharm-admin"
   
 };
 

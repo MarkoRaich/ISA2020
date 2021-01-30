@@ -5,7 +5,10 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { PatientProfileComponent } from './components/patient-profile/patient-profile.component';
-import { PharmacyAdminProfileComponent } from './components/pharmacy-admin-profile/pharmacy-admin-profile.component';
+
+import { EditPharmacyProfileComponent } from './components/edit-pharmacy-profile/edit-pharmacy-profile.component';
+import { EditProfilePharmacyAdminComponent } from './components/edit-profile-pharmacy-admin/edit-profile-pharmacy-admin.component';
+import { EditPharmAdminProfileComponent } from './components/edit-pharm-admin-profile/edit-pharm-admin-profile.component';
 
 
 const routes: Routes = [
@@ -36,10 +39,17 @@ const routes: Routes = [
     pathMatch: 'full'
   },
 
+
+  //***************** PHARMACY ADMIN *****************
+
   {
-    path: 'pharmacy_admin',
-    component: PharmacyAdminProfileComponent,
-    pathMatch: 'full'
+    path: 'pharmacy-admin/edit-pharmacy-profile',
+    component: EditPharmacyProfileComponent
+  },
+
+  {
+    path: 'pharmacy-admin/edit-admin-profile',
+    component: EditPharmAdminProfileComponent
   }
 
 ];

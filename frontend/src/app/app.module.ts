@@ -15,6 +15,10 @@ import { RegisterComponent } from './components/register/register.component';
 import { PatientProfileComponent } from './components/patient-profile/patient-profile.component';
 import { PharmacyAdminProfileComponent } from './components/pharmacy-admin-profile/pharmacy-admin-profile.component';
 import { SystemAdminProfileComponent } from './components/system-admin-profile/system-admin-profile.component';
+import { EditPharmacyProfileComponent } from './components/edit-pharmacy-profile/edit-pharmacy-profile.component';
+import { EditProfilePharmacyAdminComponent } from './components/edit-profile-pharmacy-admin/edit-profile-pharmacy-admin.component';
+import { ToastrModule } from 'ngx-toastr';
+import { EditPharmAdminProfileComponent } from './components/edit-pharm-admin-profile/edit-pharm-admin-profile.component';
 //import { JwtInterceptor } from './interceptors/jwt.interceptor';
 //import { ErrorInterceptor } from './interceptors/error.interceptor';
 
@@ -30,6 +34,9 @@ import { SystemAdminProfileComponent } from './components/system-admin-profile/s
     PatientProfileComponent,
     PharmacyAdminProfileComponent,
     SystemAdminProfileComponent,
+    EditPharmacyProfileComponent,
+    EditProfilePharmacyAdminComponent,
+    EditPharmAdminProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +44,11 @@ import { SystemAdminProfileComponent } from './components/system-admin-profile/s
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 2000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    }),
     AngularMaterialModule,
     FlexLayoutModule
   
