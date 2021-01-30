@@ -22,4 +22,52 @@ public class VacationRequestDerm { //odobrava admin apoteke
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "dermatologist_id", referencedColumnName = "id")
 	private Dermatologist dermatologist;
+
+	
+	//KONSTRUKTORI
+	public VacationRequestDerm() {
+		super();
+	}
+	
+	public VacationRequestDerm(DateTimeInterval interval, VacationRequestStatus status, Dermatologist dermatologist) {
+		super();
+		this.interval = interval;
+		this.status = status;
+		this.dermatologist = dermatologist;
+	}
+	
+	//GETERI I SETERI
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public DateTimeInterval getInterval() {
+		return interval;
+	}
+
+	public void setInterval(DateTimeInterval interval) {
+		this.interval = interval;
+	}
+
+	public VacationRequestStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(VacationRequestStatus status) {
+		this.status = status;
+	}
+
+	public Dermatologist getDermatologist() {
+		return dermatologist;
+	}
+
+	public void setDermatologist(Dermatologist dermatologist) {
+		this.dermatologist = dermatologist;
+	}
+
+	
 }

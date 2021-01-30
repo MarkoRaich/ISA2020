@@ -21,10 +21,22 @@ public class Promotion {
     private Pharmacy pharmacy;
 
 
-
+    
+    //KONSTRUKTORI
     public Promotion() {}
+    
+    
 
-    public Long getId() {
+    public Promotion(DateTimeInterval period, String content, Pharmacy pharmacy) {
+		super();
+		this.period = period;
+		this.content = content;
+		this.pharmacy = pharmacy;
+	}
+
+
+    //GETERI I SETERI
+	public Long getId() {
         return id;
     }
 
@@ -55,4 +67,5 @@ public class Promotion {
     public void setPharmacy(Pharmacy pharmacy) {
         this.pharmacy = pharmacy;
     }
+    
 }

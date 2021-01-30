@@ -39,7 +39,7 @@ public class DrugQuantity {
 		this.quantity = quantity;
 	}
 
-
+	//GETERI I SETERI
 	public PharmDrugQuantityKey getId() {
 		return id;
 	}

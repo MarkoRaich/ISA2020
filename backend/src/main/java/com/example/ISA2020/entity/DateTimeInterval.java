@@ -35,6 +35,9 @@ public class DateTimeInterval {
     @OneToMany(mappedBy = "interval", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Reservation> reservations = new HashSet<>();
     
+    @OneToMany(mappedBy = "interval", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<PharmacyExaminationPrice> examinationPrices = new HashSet<>();
+    
     //KONSTRUKTORI
 	public DateTimeInterval() {
 		super();

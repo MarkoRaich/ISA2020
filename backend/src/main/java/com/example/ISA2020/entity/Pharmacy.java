@@ -63,21 +63,7 @@ public class Pharmacy {
     @JsonIgnore
     @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Consultation> consultations = new HashSet<>();
-
-    /*
-	@JsonIgnore
-	@OneToMany(mappedBy = "pharmacy")  //jedna apoteka ime vise lekova na stanju koje je jedinstveno za tu apoteku
-	private Set<DrugQuantity> drugQuantity;
-
-	@JsonIgnore
-	@OneToMany(mappedBy = "pharmacy")  //jedna apoteka ime vise cena za lekove koji su jedinstveni za tu apoteku
-	private Set<DrugPrice> drugPrice;
-	*/
     
-	@JsonIgnore
-	@OneToMany(mappedBy = "pharmacy")
-	private Set<PharmacyExaminationPrice> examinationPrices;
-	
 
 
 	public Pharmacy() {
@@ -128,8 +114,68 @@ public class Pharmacy {
 		this.address = address;
 	}
 
+	public String getCity() {
+		return city;
+	}
 
+	public void setCity(String city) {
+		this.city = city;
+	}
 
-	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public double getRating() {
+		return rating;
+	}
+
+	public void setRating(double rating) {
+		this.rating = rating;
+	}
+
+	public Set<Pharmacist> getPharmacists() {
+		return pharmacists;
+	}
+
+	public void setPharmacists(Set<Pharmacist> pharmacists) {
+		this.pharmacists = pharmacists;
+	}
+
+	public Set<Dermatologist> getDermatologists() {
+		return dermatologists;
+	}
+
+	public void setDermatologists(Set<Dermatologist> dermatologists) {
+		this.dermatologists = dermatologists;
+	}
+
+	public Set<PharmacyAdmin> getAdmins() {
+		return admins;
+	}
+
+	public void setAdmins(Set<PharmacyAdmin> admins) {
+		this.admins = admins;
+	}
+
+	public Set<Examination> getExaminations() {
+		return examinations;
+	}
+
+	public void setExaminations(Set<Examination> examinations) {
+		this.examinations = examinations;
+	}
+
+	public Set<Consultation> getConsultations() {
+		return consultations;
+	}
+
+	public void setConsultations(Set<Consultation> consultations) {
+		this.consultations = consultations;
+	}
 
 }

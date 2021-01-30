@@ -92,6 +92,10 @@ public class Patient implements UserDetails {
 	//Jedan pacijent moze da napravi vise rezervacija leka 
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Reservation> reservations = new HashSet<>();
+	
+	//Jedan pacijent moze da ima vise izdatih recepata
+	@OneToMany(mappedBy = "patient", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Prescription> prescriptions =  new HashSet<>();
 
 
 	//vezano za prava pristupa spring security
@@ -105,7 +109,7 @@ public class Patient implements UserDetails {
 
 
 
-
+	//KONSTRUKTORI
     public Patient() { }
 	
     public Patient(@NotNull(message = "Username cannot be null.") String username,
@@ -266,4 +270,22 @@ public class Patient implements UserDetails {
 	public void setConsultations(Set<Consultation> consultations) {
 		this.consultations = consultations;
 	}
+
+	public Set<Reservation> getReservations() {
+		return reservations;
+	}
+
+	public void setReservations(Set<Reservation> reservations) {
+		this.reservations = reservations;
+	}
+
+	public Set<Prescription> getPrescriptions() {
+		return prescriptions;
+	}
+
+	public void setPrescriptions(Set<Prescription> prescriptions) {
+		this.prescriptions = prescriptions;
+	}
+	
+	
 }

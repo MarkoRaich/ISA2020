@@ -45,10 +45,22 @@ public class Reservation {
 	@Column 
 	private String generatedKey;
 	
-	//Dodati konstruktore, getere i setere
 	
-	
-	
+	//KONSTRUKTORI
+	public Reservation() {
+		super();
+	}
+
+	public Reservation(ReservationStatus status, Patient patient, Drug drug, DateTimeInterval interval,
+			String generatedKey) {
+		super();
+		this.status = status;
+		this.patient = patient;
+		this.drug = drug;
+		this.interval = interval;
+		this.generatedKey = generatedKey;
+	}
+
 	//metoda koja generise random string za preuzimanje leka koji je rezervisan (salje se potvrdom na mail)
 	public String randomStringGenerator() {
 		 
@@ -62,4 +74,58 @@ public class Reservation {
 	    return generatedString;
 	}
 
+	
+	
+	//GETERI I SETERI
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public ReservationStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(ReservationStatus status) {
+		this.status = status;
+	}
+
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+
+	public Drug getDrug() {
+		return drug;
+	}
+
+	public void setDrug(Drug drug) {
+		this.drug = drug;
+	}
+
+	public DateTimeInterval getInterval() {
+		return interval;
+	}
+
+	public void setInterval(DateTimeInterval interval) {
+		this.interval = interval;
+	}
+
+	public String getGeneratedKey() {
+		return generatedKey;
+	}
+
+	public void setGeneratedKey(String generatedKey) {
+		this.generatedKey = generatedKey;
+	}
+	
+
+	
 }

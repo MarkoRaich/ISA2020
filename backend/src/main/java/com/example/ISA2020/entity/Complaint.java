@@ -26,7 +26,13 @@ public class Complaint {
     @Column(nullable = false)
     private String message;
 
+    @NotNull(message = "Examination cannot be null.")
+    @Column(nullable = false)
+    private String examination;
     
+    @NotNull(message = "DoctorName cannot be null.")
+    @Column(nullable = false)
+    private String doctorName;
 
     @ManyToOne
 	@JoinColumn(name = "patient_id", referencedColumnName = "id")
@@ -41,14 +47,21 @@ public class Complaint {
 		super();
 	}
        
+	
+
 	public Complaint(@NotNull(message = "Subject cannot be null.") String subject,
-			@NotNull(message = "Message cannot be null.") String message, Patient patient
-			) {
+			@NotNull(message = "Message cannot be null.") String message,
+			@NotNull(message = "Examination cannot be null.") String examination,
+			@NotNull(message = "DoctorName cannot be null.") String doctorName, Patient patient) {
 		super();
 		this.subject = subject;
 		this.message = message;
+		this.examination = examination;
+		this.doctorName = doctorName;
 		this.patient = patient;
 	}
+
+
 
 	//GETERI I SETERI
 	public Long getId() {
@@ -73,6 +86,42 @@ public class Complaint {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+
+
+	public String getExamination() {
+		return examination;
+	}
+
+
+
+	public void setExamination(String examination) {
+		this.examination = examination;
+	}
+
+
+
+	public String getDoctorName() {
+		return doctorName;
+	}
+
+
+
+	public void setDoctorName(String doctorName) {
+		this.doctorName = doctorName;
+	}
+
+
+
+	public Patient getPatient() {
+		return patient;
+	}
+
+
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
 	}
 	
 	
