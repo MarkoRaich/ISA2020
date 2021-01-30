@@ -18,7 +18,8 @@ public class Examination {		//PREGLED KOD DERMATOLOGA
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Enumerated
+	@Enumerated(EnumType.STRING)
+	@Column()
 	private ExaminationStatus status;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

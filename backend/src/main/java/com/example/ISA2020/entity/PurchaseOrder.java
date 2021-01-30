@@ -16,6 +16,8 @@ public class PurchaseOrder {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Enumerated(EnumType.STRING)
+	@Column()
 	private PurchaseOrderStatus status;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
