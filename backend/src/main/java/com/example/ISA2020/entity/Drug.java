@@ -1,5 +1,6 @@
 package com.example.ISA2020.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -31,20 +32,10 @@ public class Drug {
     @Column()
     private DrugType type;
     
-    //DRUG SPECS 3.42 ima jos atributa mozda u posebnu klasu!?
-    	
+    @OneToMany(mappedBy = "drug", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Reservation> reservations = new HashSet<>();
     
-    /*
-	@JsonIgnore
-	@OneToMany(mappedBy = "drug", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<DrugQuantity> drugQuantities;
-
-    @JsonIgnore
- 	@ManyToMany(mappedBy = "drug", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
- 	private Set<DrugPrice> drugPrices;
-	 */
-
-    
+    //DRUG SPECS 3.42 ima jos atributa mozda u posebnu klasu!?  
    
     
     
@@ -57,9 +48,6 @@ public class Drug {
 		this.name = name;
 		this.code = code;
 
-		//this.drugQuantities = null;
-
-		//this.drugPrices = null;
 	}
 
 	public Long getId() {

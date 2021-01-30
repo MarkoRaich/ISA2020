@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 
+
 @Entity
 public class DateTimeInterval {
 
@@ -30,7 +31,10 @@ public class DateTimeInterval {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @Column(nullable = false)
     private LocalDateTime endDateTime;
-
+    
+    @OneToMany(mappedBy = "interval", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Reservation> reservations = new HashSet<>();
+    
     //KONSTRUKTORI
 	public DateTimeInterval() {
 		super();

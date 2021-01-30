@@ -87,7 +87,11 @@ public class Patient implements UserDetails {
 			joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(name = "promotion_id", referencedColumnName = "id") )
 	private Set<Promotion> promotions;
-
+	
+	
+	//Jedan pacijent moze da napravi vise rezervacija leka 
+	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Reservation> reservations = new HashSet<>();
 
 
 	//vezano za prava pristupa spring security
