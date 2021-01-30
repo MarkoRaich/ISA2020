@@ -3,6 +3,7 @@ package com.example.ISA2020.entity;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +15,7 @@ import javax.persistence.Table;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import com.example.ISA2020.entity.users.Patient;
+import com.example.ISA2020.enumeration.ReservationStatus;
 
 //Rezervacija leka
 @Table(name="reservation")
@@ -24,6 +26,9 @@ public class Reservation {
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+	
+	@Enumerated
+	private ReservationStatus status;
 	
 	//Vise rezervacija leka mogu biti povezani sa jednim pacijentom
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
