@@ -12,9 +12,14 @@ import { EditPharmAdminProfileComponent } from './components/edit-pharm-admin-pr
 
 
 const routes: Routes = [
+ 
+
+  //***************** GOST - NEAUTENTIFIKOVANI KORISNIK *****************
+   
   {
     path: '',
-    component: HomeComponent
+    component: HomeComponent,
+    pathMatch: 'full'
   },
 
   {
@@ -27,18 +32,20 @@ const routes: Routes = [
     component: RegisterComponent,
     pathMatch: 'full'
   },
+
   {
     path: 'hospital',
     component: AddHospitalComponent,
     pathMatch: 'full'
   },
 
+  //***************** PATIENT *****************
+
   {
     path: 'patient',
     component: PatientProfileComponent,
     pathMatch: 'full'
   },
-
 
   //***************** PHARMACY ADMIN *****************
 

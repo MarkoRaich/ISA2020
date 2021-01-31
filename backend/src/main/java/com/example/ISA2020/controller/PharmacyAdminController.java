@@ -47,7 +47,7 @@ public class PharmacyAdminController {
 	}
 	
 	 @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	 //@PreAuthorize("hasRole('CLINIC_ADMIN')")
+	 //@PreAuthorize("hasRole('PHARMACY_ADMIN')")
 	 public ResponseEntity<PharmacyAdminDTO> editPersonalInformation(@Valid @RequestBody EditPharmAdminDTO pharmacyAdminDTO) {
 		 PharmacyAdminDTO pharmAdminDTO = pharmacyAdminService.editPersonalInformation(pharmacyAdminDTO);
 	        if (pharmAdminDTO == null) {
@@ -58,7 +58,7 @@ public class PharmacyAdminController {
 	
 	
 	 @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	 //@PreAuthorize("hasRole('CLINICAL_CENTRE_ADMIN')")
+	 //@PreAuthorize("hasRole('SYSTEM_ADMIN')")
 	 public ResponseEntity<PharmacyAdminDTO> addPharmacyAdmin(@Valid @RequestBody PharmacyAdminDTO pharmacyAdminDTO) {
 		 PharmacyAdminDTO pharmAdminDTO = pharmacyAdminService.create(pharmacyAdminDTO);
 	        if (pharmAdminDTO == null) {

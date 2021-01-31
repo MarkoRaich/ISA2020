@@ -13,4 +13,6 @@ public interface PharmacyRepository extends JpaRepository<Pharmacy, Long> {
     Pharmacy findOneByName(String name);
     
     List<Pharmacy> findAll();
+
+	Pharmacy findByAddressIgnoringCase(String address);
 }

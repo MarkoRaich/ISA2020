@@ -74,7 +74,7 @@ public class PharmacyAdminServiceImpl implements PharmacyAdminService {
 	
 	
 	
-	private PharmacyAdmin getLoginAdmin() {
+	public PharmacyAdmin getLoginAdmin() {
 		
 		 Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
 	        try {

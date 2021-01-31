@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import com.example.ISA2020.dto.EditPharmAdminDTO;
 import com.example.ISA2020.dto.PharmacyAdminDTO;
+import com.example.ISA2020.entity.users.PharmacyAdmin;
 
 public interface PharmacyAdminService {
 
@@ -16,5 +17,7 @@ public interface PharmacyAdminService {
 	PharmacyAdminDTO create(PharmacyAdminDTO pharmacyAdminDTO);
 
 	PharmacyAdminDTO editPersonalInformation(@Valid EditPharmAdminDTO pharmacyAdminDTO);
+
+	PharmacyAdmin getLoginAdmin();
 
 }
