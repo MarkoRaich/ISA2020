@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	private UserDetails searchUserInAllRepositories(String username) {
 		
 		 try {
-	            Patient patient = patientRepository.findByUsername(username);
+	            Patient patient = patientRepository.findOneByUsername(username);
 	            if (patient != null) {
 	                return patient;
 	            }
