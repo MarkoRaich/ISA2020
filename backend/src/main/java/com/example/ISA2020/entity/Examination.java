@@ -22,6 +22,7 @@ public class Examination {		//PREGLED KOD DERMATOLOGA
 	@Column()
 	private ExaminationStatus status;
 
+	//Pocetak i kraj pregleda
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private DateTimeInterval interval;
 

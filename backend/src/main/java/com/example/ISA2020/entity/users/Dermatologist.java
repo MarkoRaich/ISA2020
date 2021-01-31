@@ -65,6 +65,10 @@ public class Dermatologist implements UserDetails {
 	@NotNull
 	@Column(nullable = false)
 	private LocalTime workHourTo;
+	
+	//prosecna ocena Dermatologa
+	@Column
+	private double rating;
     
     
     
@@ -98,6 +102,7 @@ public class Dermatologist implements UserDetails {
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.rating = 0;
 
 		//this.pharmacy = pharmacy;
 		this.authorities = authorities;
@@ -128,11 +133,6 @@ public class Dermatologist implements UserDetails {
 		this.lastName = lastName;
 	}
 
-
-	
-	
-
-
 	public void setUsername(String username) {
 		this.username = username;
 	}
@@ -143,6 +143,56 @@ public class Dermatologist implements UserDetails {
 
     public void setAuthorities(Set<Authority> authorities) {
 		this.authorities = authorities;
+	}
+
+    
+    
+	public LocalTime getWorkHourFrom() {
+		return workHourFrom;
+	}
+
+	public void setWorkHourFrom(LocalTime workHourFrom) {
+		this.workHourFrom = workHourFrom;
+	}
+
+	public LocalTime getWorkHourTo() {
+		return workHourTo;
+	}
+
+	public void setWorkHourTo(LocalTime workHourTo) {
+		this.workHourTo = workHourTo;
+	}
+
+	public double getRating() {
+		return rating;
+	}
+
+	public void setRating(double rating) {
+		this.rating = rating;
+	}
+
+	public Set<Pharmacy> getPharmacies() {
+		return pharmacies;
+	}
+
+	public void setPharmacies(Set<Pharmacy> pharmacies) {
+		this.pharmacies = pharmacies;
+	}
+
+	public Set<Examination> getExaminations() {
+		return examinations;
+	}
+
+	public void setExaminations(Set<Examination> examinations) {
+		this.examinations = examinations;
+	}
+
+	public Set<VacationRequestDerm> getVacationRequests() {
+		return vacationRequests;
+	}
+
+	public void setVacationRequests(Set<VacationRequestDerm> vacationRequests) {
+		this.vacationRequests = vacationRequests;
 	}
 
 	//OVERRIDE METODE

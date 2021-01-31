@@ -56,8 +56,11 @@ public class Pharmacist implements UserDetails {
 	@NotNull
 	@Column(nullable = false)
 	private LocalTime workHourTo;
+	
+	//prosecna ocena farmaceuta
+	@Column
+	private double rating;
     
-
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "pharmacy_id", referencedColumnName = "id")
@@ -82,18 +85,26 @@ public class Pharmacist implements UserDetails {
 	//KONSTRUKTORI
     public Pharmacist() { }
     
-    public Pharmacist(@NotNull(message = "Username cannot be null.") String username,
+    
+	public Pharmacist(@NotNull(message = "Username cannot be null.") String username,
 			@NotNull(message = "Password cannot be null.") String password, String firstName, String lastName,
-			@Email String email, Pharmacy pharmacy, Set<Authority> authorities) {
+			@NotNull LocalTime workHourFrom, @NotNull LocalTime workHourTo, Pharmacy pharmacy,
+			Set<Consultation> consultations, Set<VacationRequestPharm> vacationRequests, Set<Authority> authorities) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.workHourFrom = workHourFrom;
+		this.workHourTo = workHourTo;
+		this.rating = 0;
 		this.pharmacy = pharmacy;
+		this.consultations = consultations;
+		this.vacationRequests = vacationRequests;
 		this.authorities = authorities;
 	}
-    
+
+
 	//GETERI I SETERI
 	public Long getId() {
 		return id;
@@ -146,6 +157,58 @@ public class Pharmacist implements UserDetails {
 	public void setAuthorities(Set<Authority> authorities) {
 		this.authorities = authorities;
 	}
+	
+	
+
+	public LocalTime getWorkHourFrom() {
+		return workHourFrom;
+	}
+
+
+	public void setWorkHourFrom(LocalTime workHourFrom) {
+		this.workHourFrom = workHourFrom;
+	}
+
+
+	public LocalTime getWorkHourTo() {
+		return workHourTo;
+	}
+
+
+	public void setWorkHourTo(LocalTime workHourTo) {
+		this.workHourTo = workHourTo;
+	}
+
+
+	public double getRating() {
+		return rating;
+	}
+
+
+	public void setRating(double rating) {
+		this.rating = rating;
+	}
+
+
+	public Set<Consultation> getConsultations() {
+		return consultations;
+	}
+
+
+	public void setConsultations(Set<Consultation> consultations) {
+		this.consultations = consultations;
+	}
+
+
+	public Set<VacationRequestPharm> getVacationRequests() {
+		return vacationRequests;
+	}
+
+
+	public void setVacationRequests(Set<VacationRequestPharm> vacationRequests) {
+		this.vacationRequests = vacationRequests;
+	}
+
 
 	//OVERRIDE METODE
 	@Override
