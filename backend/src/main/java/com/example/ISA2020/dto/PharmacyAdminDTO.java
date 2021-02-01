@@ -21,7 +21,7 @@ public class PharmacyAdminDTO {
 	
 	@NotEmpty(message = "Last name is empty.")
     @Size(message = "Max size for last name is 30.", max = 30)
-	private String LastName;
+	private String lastName;
 	
 	@NotEmpty(message = "Phone number is empty.")
     @Size(min = 9, max = 10)
@@ -44,7 +44,7 @@ public class PharmacyAdminDTO {
 		this.id = id;
 		this.email = email;
 		this.firstName = firstName;
-		LastName = lastName;
+		this.lastName = lastName;
 		this.phoneNumber = phoneNumber;
 	}
 	
@@ -89,12 +89,12 @@ public class PharmacyAdminDTO {
 
 
 	public String getLastName() {
-		return LastName;
+		return lastName;
 	}
 
 
 	public void setLastName(String lastName) {
-		LastName = lastName;
+		this.lastName = lastName;
 	}
 
 

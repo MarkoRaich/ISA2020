@@ -8,7 +8,8 @@ import javax.validation.constraints.Size;
 import com.example.ISA2020.entity.users.PharmacyAdmin;
 
 public class EditPharmAdminDTO {
-private Long id;
+	
+	private Long id;
 	
 	@NotEmpty(message = "Email is empty.")
     @Email(message = "Email is invalid.")
@@ -20,7 +21,7 @@ private Long id;
 	
 	@NotEmpty(message = "Last name is empty.")
     @Size(message = "Max size for last name is 30.", max = 30)
-	private String LastName;
+	private String lastName;
 	
 	@NotEmpty(message = "Phone number is empty.")
     @Size(min = 9, max = 10)
@@ -31,16 +32,18 @@ private Long id;
 	public EditPharmAdminDTO() {}
 
 
-	public EditPharmAdminDTO(Long id,
+	public EditPharmAdminDTO(
+			Long id,
 			@NotEmpty(message = "Email is empty.") @Email(message = "Email is invalid.") String email,
 			@NotEmpty(message = "First name is empty.") @Size(message = "Max size for first name is 30.", max = 30) String firstName,
 			@NotEmpty(message = "Last name is empty.") @Size(message = "Max size for last name is 30.", max = 30) String lastName,
-			@NotEmpty(message = "Phone number is empty.") @Size(min = 9, max = 10) String phoneNumber) {
+			@NotEmpty(message = "Phone number is empty.") @Size(min = 9, max = 10) String phoneNumber
+			) {
 		super();
 		this.id = id;
 		this.email = email;
 		this.firstName = firstName;
-		LastName = lastName;
+		this.lastName = lastName;
 		this.phoneNumber = phoneNumber;
 	}
 	
@@ -85,12 +88,12 @@ private Long id;
 
 
 	public String getLastName() {
-		return LastName;
+		return lastName;
 	}
 
 
 	public void setLastName(String lastName) {
-		LastName = lastName;
+		this.lastName = lastName;
 	}
 
 

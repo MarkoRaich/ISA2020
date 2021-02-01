@@ -70,8 +70,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             
             //ovim putanjama mogu svi korisnici da pristupe
             .authorizeRequests()
-            					.antMatchers("/api/**").permitAll() //OVO IZMENITI DA BUDE SAMO HOME I RESURSI KOJE SME!
-            
+            .antMatchers(
+                    HttpMethod.GET,
+                    "/",
+                    "/*.html",
+                    "/favicon.ico",
+                    "/**/*.html",
+                    "/**/*.css",
+                    "/**/*.js",
+                    "/**"
+            ).permitAll()
+            .antMatchers("/auth/**").permitAll()
             					//svaki zahtev mora biti autorizovan					
             					.anyRequest().authenticated().and()
             

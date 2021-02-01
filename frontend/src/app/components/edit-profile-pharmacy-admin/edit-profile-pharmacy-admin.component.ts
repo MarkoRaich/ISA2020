@@ -46,10 +46,10 @@ export class EditProfilePharmacyAdminComponent implements OnInit {
             this.userService.logout();
           }
         );
-
   }
 
   saveChanges() {
+    
     if (this.PharmAdminForm.invalid) {
       this.toastr.error("Unesite ispravne podatke.", 'Edit personal information');
       return;

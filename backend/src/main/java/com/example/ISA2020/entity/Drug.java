@@ -12,10 +12,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.example.ISA2020.entity.users.Dermatologist;
 import com.example.ISA2020.enumeration.DrugForm;
 import com.example.ISA2020.enumeration.DrugType;
 import com.example.ISA2020.enumeration.IssuanceType;
@@ -67,6 +71,14 @@ public class Drug {
     @Enumerated(EnumType.STRING)
     @Column()
     private IssuanceType prescription;
+    
+    @ManyToMany(fetch = FetchType.LAZY)		//Lista zamenskih lekova pravi se join tabela
+    @JoinTable(
+    			name="replacement_drug",
+    			joinColumns = @JoinColumn(name ="drug_id", referencedColumnName = "id"),
+    			inverseJoinColumns = @JoinColumn(name = "repl_drug_id", referencedColumnName = "id")
+    		  )
+    private Set<Drug> replacementDrugs = new HashSet<>();
     
     @OneToMany(mappedBy = "drug", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Reservation> reservations = new HashSet<>();

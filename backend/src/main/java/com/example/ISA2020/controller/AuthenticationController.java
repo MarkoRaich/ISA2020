@@ -43,6 +43,7 @@ public class AuthenticationController {
             if (loggedInUserDTO == null) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             } else {
+            	System.out.println("Ulogovan " + loggedInUserDTO.getRole() + " : " + loggedInUserDTO.getUsername());
                 return new ResponseEntity<>(loggedInUserDTO, HttpStatus.OK);
             }
         } catch (AuthenticationException e) {

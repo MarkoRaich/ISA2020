@@ -78,6 +78,7 @@ public class PharmacyAdminServiceImpl implements PharmacyAdminService {
 		
 		 Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
 	        try {
+	        	System.out.println(currentUser.getName());
 	        	PharmacyAdmin pharmacyAdmin = pharmacyAdminRepository.findOneByUsername(currentUser.getName());
 	            if (pharmacyAdmin != null) {
 	                return pharmacyAdmin;

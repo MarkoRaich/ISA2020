@@ -46,9 +46,12 @@ public class PharmacyAdminController {
 		return pharmacyAdminService.getPharmacyAdmin(id);
 	}
 	
+	
 	 @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	 //@PreAuthorize("hasRole('PHARMACY_ADMIN')")
 	 public ResponseEntity<PharmacyAdminDTO> editPersonalInformation(@Valid @RequestBody EditPharmAdminDTO pharmacyAdminDTO) {
+		 
+		 
 		 PharmacyAdminDTO pharmAdminDTO = pharmacyAdminService.editPersonalInformation(pharmacyAdminDTO);
 	        if (pharmAdminDTO == null) {
 	            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
