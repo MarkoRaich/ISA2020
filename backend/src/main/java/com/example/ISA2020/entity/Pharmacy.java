@@ -72,10 +72,9 @@ public class Pharmacy {
 
 
 	
-	public Pharmacy(Long id, @NotNull(message = "Name cannot be null.") String name,
+	public Pharmacy(@NotNull(message = "Name cannot be null.") String name,
 			@NotNull(message = "Address cannot be null.") String address, String description, double rating) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.description = description;

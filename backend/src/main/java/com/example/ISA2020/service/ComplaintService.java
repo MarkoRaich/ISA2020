@@ -9,4 +9,6 @@ public interface ComplaintService {
 	Complaint findById(Long id);
 	
 	List<Complaint> getAllComplaints();
+	
+	Complaint create(Complaint comp, Long patientId);
 }

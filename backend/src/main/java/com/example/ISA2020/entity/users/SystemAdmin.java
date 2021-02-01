@@ -37,7 +37,8 @@ public class SystemAdmin implements UserDetails {
 
     @Column(columnDefinition = "VARCHAR(30)", nullable = true)
     private String lastName;
-
+    
+    //da li ti treba email ako imas username??
     @Email()
     private String email;
 	

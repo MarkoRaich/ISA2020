@@ -11,4 +11,6 @@ public interface PatientService {
 	Patient findByUsername(String username);
 	
 	List<Patient> getAllPatients();
+	
+	Patient create(Patient patient);
 }

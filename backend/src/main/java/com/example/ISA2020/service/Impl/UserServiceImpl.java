@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	        }
 		 try {
-	            PharmacyAdmin pharmacyAdmin = pharmacyAdminRepository.findByUsername(username);
+	            PharmacyAdmin pharmacyAdmin = pharmacyAdminRepository.findOneByUsername(username);
 	            if (pharmacyAdmin != null) {
 	                return pharmacyAdmin;
 	            }

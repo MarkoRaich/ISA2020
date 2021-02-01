@@ -65,11 +65,11 @@ public class Patient implements UserDetails {
     		name = "patient_alergie",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "drug_id", referencedColumnName = "id") )
-    private Set<Drug> alergies;
+    private Set<Drug> alergies = new HashSet<>();
 	
 	//jedan pacijent moze da napravi vise zalbi
 	@OneToMany(mappedBy = "patient", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Complaint> complaints;
+    private Set<Complaint> complaints = new HashSet<>();
 	
 	
 	//Jedan pacijent moze da ima vise pregleda kod dermatologa
@@ -86,7 +86,7 @@ public class Patient implements UserDetails {
 			name = "patient_promotion",
 			joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(name = "promotion_id", referencedColumnName = "id") )
-	private Set<Promotion> promotions;
+	private Set<Promotion> promotions = new HashSet<>();
 	
 	
 	//Jedan pacijent moze da napravi vise rezervacija leka 
@@ -110,11 +110,14 @@ public class Patient implements UserDetails {
 
 
 	//KONSTRUKTORI
-    public Patient() { }
+    public Patient() { 
+    	this.points = 0;
+    	this.penalties = 0;
+    }
 	
     public Patient(@NotNull(message = "Username cannot be null.") String username,
 			@NotNull(message = "Password cannot be null.") String password, String firstName, String lastName,
-			String address, String city, String phoneNumber, int points, int penalties) {
+			String address, String city, String phoneNumber) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -123,8 +126,8 @@ public class Patient implements UserDetails {
 		this.address = address;
 		this.city = city;
 		this.phoneNumber = phoneNumber;
-		this.points = points;
-		this.penalties = penalties;
+		this.points = 0;
+		this.penalties = 0;
 	}
 
 
