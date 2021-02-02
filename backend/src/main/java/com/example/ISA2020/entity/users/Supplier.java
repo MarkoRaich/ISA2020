@@ -46,8 +46,6 @@ public class Supplier implements UserDetails {
     @Column(columnDefinition = "VARCHAR(30)", nullable = true)
     private String lastName;
 
-    @Email()
-    private String email;
 	
     //status za proveru da li je ulogovan
     @Enumerated(EnumType.STRING)
@@ -62,14 +60,13 @@ public class Supplier implements UserDetails {
 	}
 
 	public Supplier(@NotNull(message = "Username cannot be null.") String username,
-			@NotNull(message = "Password cannot be null.") String password, String firstName, String lastName,
-			@Email String email) {
+			@NotNull(message = "Password cannot be null.") String password, String firstName, String lastName
+			) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.email = email;
 		this.status = UserStatus.NEVER_LOGGED_IN;
 	}
 
@@ -139,13 +136,6 @@ public class Supplier implements UserDetails {
 		this.lastName = lastName;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
 	public UserStatus getStatus() {
 		return status;

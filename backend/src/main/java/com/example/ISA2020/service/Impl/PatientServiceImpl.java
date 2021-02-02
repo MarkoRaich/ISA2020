@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.ISA2020.controller.DermatologistRepository;
+import com.example.ISA2020.repository.DermatologistRepository;
 import com.example.ISA2020.entity.users.Patient;
 import com.example.ISA2020.repository.AuthRepository;
 import com.example.ISA2020.repository.PatientRepository;

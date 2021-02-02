@@ -9,4 +9,6 @@ public interface ExaminationService {
 	Examination findById(Long id);
 	
 	List<Examination> getAllExaminations();
+
+	List<Examination> getDermatologistUpcomingExaminations(Long dermId);
 }

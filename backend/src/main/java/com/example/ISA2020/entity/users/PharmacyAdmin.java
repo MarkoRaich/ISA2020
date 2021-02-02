@@ -38,12 +38,6 @@ public class PharmacyAdmin implements UserDetails {
 
     @Column(columnDefinition = "VARCHAR(30)", nullable = true)
     private String lastName;
-
-    @Column(columnDefinition = "VARCHAR(50)", nullable = false)
-    private String address;
-
-    @Column(columnDefinition = "VARCHAR(30)", nullable = false)
-    private String city;
     
     @Column(columnDefinition = "VARCHAR(10)", unique = true, nullable = false)
     private String phoneNumber; 
@@ -74,14 +68,12 @@ public class PharmacyAdmin implements UserDetails {
     
 	public PharmacyAdmin(@NotNull(message = "Username cannot be null.") String username,
 			@NotNull(message = "Password cannot be null.") String password, String firstName, String lastName,
-			String address, String city, String phoneNumber, Pharmacy pharmacy, Set<Authority> authorities) {
+			 String phoneNumber, Pharmacy pharmacy, Set<Authority> authorities) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.address = address;
-		this.city = city;
 		this.phoneNumber = phoneNumber;
 		this.pharmacy = pharmacy;
 		this.authorities = authorities;
@@ -143,25 +135,6 @@ public class PharmacyAdmin implements UserDetails {
 		this.lastName = lastName;
 	}
 
-
-	public String getAddress() {
-		return address;
-	}
-
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-
-	public String getCity() {
-		return city;
-	}
-
-
-	public void setCity(String city) {
-		this.city = city;
-	}
 
 
 	public String getPhoneNumber() {

@@ -58,16 +58,19 @@ public class Dermatologist implements UserDetails {
 
     @Column(columnDefinition = "VARCHAR(30)", nullable = true)
     private String lastName;
+    
+    @Column(columnDefinition = "VARCHAR(11)", unique = true, nullable = false)
+    private String phoneNumber;
 
 	@JsonFormat(pattern = "HH:mm")
 	@NotNull
 	@Column(nullable = false)
-	private LocalTime workHourFrom;
+	private LocalTime workHoursFrom;
 
 	@JsonFormat(pattern = "HH:mm")
 	@NotNull
 	@Column(nullable = false)
-	private LocalTime workHourTo;
+	private LocalTime workHoursTo;
 	
 	//prosecna ocena Dermatologa
 	@Column
@@ -106,7 +109,7 @@ public class Dermatologist implements UserDetails {
     
 	public Dermatologist(@NotNull(message = "Username cannot be null.") String username,
 			@NotNull(message = "Password cannot be null.") String password, String firstName, String lastName,
-			@Email String email, Pharmacy pharmacy, Set<Authority> authorities) {
+			String phoneNumber) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -114,9 +117,7 @@ public class Dermatologist implements UserDetails {
 		this.lastName = lastName;
 		this.rating = 0;
 		this.status = UserStatus.NEVER_LOGGED_IN;
-
-		//this.pharmacy = pharmacy;
-		this.authorities = authorities;
+		this.phoneNumber = phoneNumber;
 	}
 
 	//GETERI I SETERI
@@ -159,19 +160,19 @@ public class Dermatologist implements UserDetails {
     
     
 	public LocalTime getWorkHourFrom() {
-		return workHourFrom;
+		return workHoursFrom;
 	}
 
 	public void setWorkHourFrom(LocalTime workHourFrom) {
-		this.workHourFrom = workHourFrom;
+		this.workHoursFrom = workHourFrom;
 	}
 
 	public LocalTime getWorkHourTo() {
-		return workHourTo;
+		return workHoursTo;
 	}
 
 	public void setWorkHourTo(LocalTime workHourTo) {
-		this.workHourTo = workHourTo;
+		this.workHoursTo = workHourTo;
 	}
 
 	public double getRating() {

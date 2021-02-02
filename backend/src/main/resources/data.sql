@@ -14,10 +14,10 @@ SIFRA ZA SVE JE KORISNIKE je 123!
 
 -- REGISTROVANI KORISNICI - PACIJENTI I NJIHOVA PRAVA PRISTUPA POVEZANA
 
-INSERT INTO patient (username, password, first_name, last_name, address, city, phone_number, points, penalties) values ('pacijent1@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Marko', 'Markovic', 'Mose Pijade 3', 'Beograd', '02155333', 0, 0 );
+INSERT INTO patient (username, password, first_name, last_name, address, city, phone_number, points, penalties) VALUES ('pacijent1@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Marko', 'Markovic', 'Mose Pijade 3', 'Beograd', '02155333', 0, 0 );
 INSERT INTO patient_authority(user_id, authority_id) VALUES (1,1);
 
-INSERT INTO patient (username, password, first_name, last_name, address, city, phone_number, points, penalties) values ('pacijent2@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Petar', 'Petrovic', 'Boska Buhe 12', 'Kraljevo', '065772415', 0, 0 );
+INSERT INTO patient (username, password, first_name, last_name, address, city, phone_number, points, penalties) VALUES ('pacijent2@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Petar', 'Petrovic', 'Boska Buhe 12', 'Kraljevo', '065772415', 0, 0 );
 INSERT INTO patient_authority(user_id, authority_id) VALUES (2,1);
 
 -- LEKOVI
@@ -37,9 +37,9 @@ INSERT INTO replacement_drug(drug_id, repl_drug_id) VALUES (1,3);
 
 -- APOTEKE
 
-INSERT INTO pharmacy (name, address,description, rating) values ('Jankovic', 'Novi Sad Narodnog Fronta 1', 'Apoteka Jankovic ima veliki izbor preparata', 4.5);
-INSERT INTO pharmacy (name, address, description, rating) values ('Zegin', 'Novi Sad Bulevar Oslobodjenja 32', 'Tradija pre svega, nalazimo se na idealnoj lokaciji', 4.2);
-INSERT INTO pharmacy (name, address, description, rating) values ('Benu', 'Novi Sad Bulevar Cara Lazara 20', 'Nesto za svakoga', 4.0);
+INSERT INTO pharmacy (name, address,description, rating) VALUES ('Jankovic', 'Novi Sad Narodnog Fronta 1', 'Apoteka Jankovic ima veliki izbor preparata', 4.5);
+INSERT INTO pharmacy (name, address, description, rating) VALUES ('Zegin', 'Novi Sad Bulevar Oslobodjenja 32', 'Tradija pre svega, nalazimo se na idealnoj lokaciji', 4.2);
+INSERT INTO pharmacy (name, address, description, rating) VALUES ('Benu', 'Novi Sad Bulevar Cara Lazara 20', 'Nesto za svakoga', 4.0);
 
 -- KOLICINA LEKOVA U APOTEKAMA
 
@@ -55,22 +55,31 @@ INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity) VALUES ( 5, 2, 17);
 INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity) VALUES ( 5, 3, 40);
 
 
--- -- ADMINISTRATORI APOTEKE I NJIHOVA PRAVA POVEZANA
+-- ADMINISTRATORI APOTEKE I NJIHOVA PRAVA POVEZANA
 
-INSERT INTO pharmacy_admin (username, password, first_name, last_name, address, city, phone_number, pharmacy_id) values ('apotekaAdmin1@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Jovan', 'Jovanovic', 'Sime Matavulja 8b', 'Pancevo', '065844584', 1);     
+INSERT INTO pharmacy_admin (username, password, first_name, last_name, phone_number, pharmacy_id, status) VALUES ('apotekaAdmin1@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Jovan', 'Jovanovic', '065844584', 1, 'ACTIVE');     
 INSERT INTO pharmacy_admin_authority(user_id, authority_id) VALUES (1,4);
 
-INSERT INTO pharmacy_admin (username, password, first_name, last_name, address, city, phone_number, pharmacy_id) values ('apotekaAdmin2@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Stevan', 'Stevanovic', 'Karadjordeva 23', 'Nis', '0650084', 2);     
+INSERT INTO pharmacy_admin (username, password, first_name, last_name,  phone_number, pharmacy_id, status) VALUES ('apotekaAdmin2@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Stevan', 'Stevanovic', '0650084', 2, 'ACTIVE');     
 INSERT INTO pharmacy_admin_authority(user_id, authority_id) VALUES (2,4);
 
-INSERT INTO pharmacy_admin (username, password, first_name, last_name, address, city, phone_number, pharmacy_id) values ('apotekaAdmin3@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Slavisa', 'Jelicic', 'Narodnog Fronta 88', 'Novi Sad', '0643284', 3);     
+INSERT INTO pharmacy_admin (username, password, first_name, last_name, phone_number, pharmacy_id, status) VALUES ('apotekaAdmin3@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Slavisa', 'Jelicic', '0643284', 3, 'ACTIVE');     
 INSERT INTO pharmacy_admin_authority(user_id, authority_id) VALUES (3,4);
 
 
+-- DERMATOLOZI I NJIHOVA PRAVA POVEZANA
+INSERT INTO dermatologist (username, password, first_name, last_name, work_hours_from, work_hours_to, phone_number, rating, status) VALUES ('dermatolog1@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Sima', 'Djokic', '07:30','20:00', '0655584', 4, 'ACTIVE');     
+INSERT INTO dermatologist_authority(user_id, authority_id) VALUES (1,3);
 
+INSERT INTO dermatologist (username, password, first_name, last_name, work_hours_from, work_hours_to, phone_number, rating, status) VALUES ('dermatolog2@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Petar', 'Belibrk', '09:30','18:00', '0658684', 3.2, 'ACTIVE');     
+INSERT INTO dermatologist_authority(user_id, authority_id) VALUES (2,3);
 
+INSERT INTO dermatologist (username, password, first_name, last_name, work_hours_from, work_hours_to, phone_number, rating, status) VALUES ('dermatolog3@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Stefan', 'Miljic', '08:00','14:00', '06477284', 4.7, 'ACTIVE');     
+INSERT INTO dermatologist_authority(user_id, authority_id) VALUES (3,3);
 
-
-
+-- DERMATOLOZI I APOTEKE U KOJIMA RADE
+INSERT INTO pharmacy_dermatologist(pharmacy_id, dermatologist_id) VALUES (1,1);
+INSERT INTO pharmacy_dermatologist(pharmacy_id, dermatologist_id) VALUES (2,2);
+INSERT INTO pharmacy_dermatologist(pharmacy_id, dermatologist_id) VALUES (3,3);
 
 

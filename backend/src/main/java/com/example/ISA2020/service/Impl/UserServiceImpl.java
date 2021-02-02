@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.ISA2020.controller.DermatologistRepository;
+import com.example.ISA2020.repository.DermatologistRepository;
 import com.example.ISA2020.dto.UserDTO;
 import com.example.ISA2020.entity.users.Dermatologist;
 import com.example.ISA2020.entity.users.Patient;
