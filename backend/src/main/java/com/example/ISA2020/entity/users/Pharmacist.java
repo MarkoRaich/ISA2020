@@ -18,6 +18,7 @@ import com.example.ISA2020.entity.Authority;
 import com.example.ISA2020.entity.Pharmacy;
 import com.example.ISA2020.entity.VacationRequestDerm;
 import com.example.ISA2020.entity.VacationRequestPharm;
+import com.example.ISA2020.enumeration.UserStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Table(name="pharmacist") 
@@ -60,6 +61,11 @@ public class Pharmacist implements UserDetails {
 	//prosecna ocena farmaceuta
 	@Column
 	private double rating;
+	
+    //status za proveru da li je ulogovan
+    @Enumerated(EnumType.STRING)
+    private UserStatus status;
+
     
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -83,7 +89,10 @@ public class Pharmacist implements UserDetails {
 
 	
 	//KONSTRUKTORI
-    public Pharmacist() { }
+    public Pharmacist() { 
+    	this.rating = 0;
+    	this.status = UserStatus.NEVER_LOGGED_IN;  	
+    }
     
     
 	public Pharmacist(@NotNull(message = "Username cannot be null.") String username,
@@ -210,45 +219,56 @@ public class Pharmacist implements UserDetails {
 	}
 
 
+	public UserStatus getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(UserStatus status) {
+		this.status = status;
+	}
+
+
 	//OVERRIDE METODE
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		return null;
+		return authorities;
 	}
 
 	@Override
 	public String getPassword() {
-		return password;
+		return this.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
-    	return username;
+    	return this.getUsername();
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
+		//return (status != UserStatus.NEVER_LOGGED_IN);
 	}
 
 	

@@ -8,6 +8,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +22,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -28,6 +29,8 @@ import com.example.ISA2020.entity.Authority;
 import com.example.ISA2020.entity.Examination;
 import com.example.ISA2020.entity.Pharmacy;
 import com.example.ISA2020.entity.VacationRequestDerm;
+import com.example.ISA2020.enumeration.UserStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Table(name="dermatologist") 
@@ -69,6 +72,10 @@ public class Dermatologist implements UserDetails {
 	//prosecna ocena Dermatologa
 	@Column
 	private double rating;
+	
+	//status sa kojim proveravamo da li je ulogovan
+	@Enumerated(EnumType.STRING)
+    private UserStatus status;
     
     
     
@@ -92,7 +99,10 @@ public class Dermatologist implements UserDetails {
 	
 
 	//KONSTRUKTORI
-    public Dermatologist() { }
+    public Dermatologist() {
+    	this.rating = 0;
+    	this.status = UserStatus.NEVER_LOGGED_IN;
+    }
     
 	public Dermatologist(@NotNull(message = "Username cannot be null.") String username,
 			@NotNull(message = "Password cannot be null.") String password, String firstName, String lastName,
@@ -103,6 +113,7 @@ public class Dermatologist implements UserDetails {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.rating = 0;
+		this.status = UserStatus.NEVER_LOGGED_IN;
 
 		//this.pharmacy = pharmacy;
 		this.authorities = authorities;
@@ -193,6 +204,16 @@ public class Dermatologist implements UserDetails {
 
 	public void setVacationRequests(Set<VacationRequestDerm> vacationRequests) {
 		this.vacationRequests = vacationRequests;
+	}
+
+	
+	
+	public UserStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(UserStatus status) {
+		this.status = status;
 	}
 
 	//OVERRIDE METODE

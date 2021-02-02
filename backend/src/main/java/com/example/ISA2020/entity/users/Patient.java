@@ -4,13 +4,34 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.example.ISA2020.entity.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.example.ISA2020.entity.Authority;
+import com.example.ISA2020.entity.Complaint;
+import com.example.ISA2020.entity.Consultation;
+import com.example.ISA2020.entity.Drug;
+import com.example.ISA2020.entity.Examination;
+import com.example.ISA2020.entity.Prescription;
+import com.example.ISA2020.entity.Promotion;
+import com.example.ISA2020.entity.Reservation;
+import com.example.ISA2020.enumeration.UserStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 //REGISTROVANI KORISNIK - PACIJENT
@@ -55,6 +76,10 @@ public class Patient implements UserDetails {
     
     @Column
     private int penalties;
+    
+    //status za proveru da li je ulogovan
+    @Enumerated(EnumType.STRING)
+    private UserStatus status;
 
 
     //VEZE SA DRUGIM ENTITETIMA (TABELAMA U SMISLU BAZA)
@@ -113,11 +138,12 @@ public class Patient implements UserDetails {
     public Patient() { 
     	this.points = 0;
     	this.penalties = 0;
+    	this.status = UserStatus.NEVER_LOGGED_IN;
     }
 	
     public Patient(@NotNull(message = "Username cannot be null.") String username,
 			@NotNull(message = "Password cannot be null.") String password, String firstName, String lastName,
-			String address, String city, String phoneNumber) {
+			String address, String city, String phoneNumber, Set<Authority> authorities) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -128,6 +154,8 @@ public class Patient implements UserDetails {
 		this.phoneNumber = phoneNumber;
 		this.points = 0;
 		this.penalties = 0;
+		this.status = UserStatus.NEVER_LOGGED_IN;
+		this.authorities = authorities;
 	}
 
 
@@ -151,7 +179,10 @@ public class Patient implements UserDetails {
 	public boolean isCredentialsNonExpired() { return true;	}
 
 	@Override
-	public boolean isEnabled() { return true; }
+	public boolean isEnabled() { 
+		return true; 
+		//return (status != UserStatus.NEVER_LOGGED_IN);
+	}
 
 	
 	//GETTERI I SETTERI----------------------------
@@ -289,6 +320,16 @@ public class Patient implements UserDetails {
 	public void setPrescriptions(Set<Prescription> prescriptions) {
 		this.prescriptions = prescriptions;
 	}
+
+	public UserStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(UserStatus status) {
+		this.status = status;
+	}
+	
+	
 	
 	
 }

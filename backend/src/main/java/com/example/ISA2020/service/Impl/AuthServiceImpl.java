@@ -3,24 +3,30 @@ package com.example.ISA2020.service.Impl;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.aspectj.weaver.loadtime.Agent;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Admin;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.ISA2020.dto.LoggedInUserDTO;
-import com.example.ISA2020.entity.Authority;
-import com.example.ISA2020.entity.users.Patient;
-import com.example.ISA2020.entity.users.PharmacyAdmin;
+import com.example.ISA2020.dto.PatientDTO;
 import com.example.ISA2020.dto.UserTokenState;
+import com.example.ISA2020.entity.Authority;
+import com.example.ISA2020.entity.users.Dermatologist;
+import com.example.ISA2020.entity.users.Patient;
+import com.example.ISA2020.entity.users.Pharmacist;
+import com.example.ISA2020.entity.users.PharmacyAdmin;
+import com.example.ISA2020.entity.users.Supplier;
 import com.example.ISA2020.repository.AuthRepository;
+import com.example.ISA2020.repository.PatientRepository;
 import com.example.ISA2020.security.TokenUtils;
 import com.example.ISA2020.security.auth.JwtAuthenticationRequest;
 import com.example.ISA2020.service.AuthService;
+import com.example.ISA2020.service.UserService;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -33,6 +39,16 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private AuthRepository authorityRepository;
+    
+    @Autowired
+    private UserService userService;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private PatientRepository patientRepository;
+    
 
     //LOGIN METODA
     @Override
@@ -77,6 +93,15 @@ public class AuthServiceImpl implements AuthService {
         } else if (object instanceof PharmacyAdmin) {
         	PharmacyAdmin pharmacyAdmin = (PharmacyAdmin) object;
         	return new LoggedInUserDTO(pharmacyAdmin.getId(), pharmacyAdmin.getUsername(), "PHARMACY_ADMIN", userTokenState);
+        } else if (object instanceof Supplier) {
+        	Supplier supplier = (Supplier) object;
+        	return new LoggedInUserDTO(supplier.getId(), supplier.getUsername(), "PHARMACY_ADMIN", userTokenState);
+        } else if (object instanceof Dermatologist) {
+        	Dermatologist dermatologist = (Dermatologist) object;
+        	return new LoggedInUserDTO(dermatologist.getId(), dermatologist.getUsername(), "PHARMACY_ADMIN", userTokenState);
+        } else if (object instanceof Pharmacist) {
+        	Pharmacist pharmacist = (Pharmacist) object;
+        	return new LoggedInUserDTO(pharmacist.getId(), pharmacist.getUsername(), "PHARMACY_ADMIN", userTokenState);
         } 
         // OVAKO I ZA SVE OSTALE TIPOVE USERA!!
 
@@ -107,10 +132,34 @@ public class AuthServiceImpl implements AuthService {
             return ((PharmacyAdmin) object).getUsername();
         } else if (object instanceof Patient) {
             return ((Patient) object).getUsername();
+        } else if (object instanceof Supplier) {
+            return ((Supplier) object).getUsername();
+        } else if (object instanceof Dermatologist) {
+            return ((Dermatologist) object).getUsername();
+        } else if (object instanceof Pharmacist) {
+            return ((Pharmacist) object).getUsername();
         }
        	//OVAKO ZA SVE OSTALE TIPOVE USERA!!
        
         return null;
+    }
+    
+    //REGISTRACIJA PACIJENTA
+    @Override
+    public PatientDTO registerPatient(PatientDTO patientDTO) {
+        UserDetails userDetails = (UserDetails) userService.loadUserByUsername(patientDTO.getUsername());
+        if (userDetails != null) {
+            return null;
+        }
+
+        String hashedPassword = passwordEncoder.encode(patientDTO.getPassword());
+        Set<Authority> authorities = findByName("ROLE_PATIENT");
+
+        Patient newPatient = new Patient(patientDTO.getUsername(), hashedPassword, patientDTO.getFirstName(),
+                patientDTO.getLastName(), patientDTO.getAddress(), patientDTO.getCity(),
+                patientDTO.getPhoneNumber(), authorities);
+
+        return new PatientDTO(patientRepository.save(newPatient));
     }
 
 }
