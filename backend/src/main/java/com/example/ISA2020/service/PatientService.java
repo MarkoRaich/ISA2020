@@ -12,5 +12,7 @@ public interface PatientService {
 	
 	List<Patient> getAllPatients();
 	
-	Patient create(Patient patient);
+	Patient getLoginPatient();
+	
+	Patient changePassword(String newPassword, Patient user);
 }

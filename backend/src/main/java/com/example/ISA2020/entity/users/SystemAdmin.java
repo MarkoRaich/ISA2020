@@ -77,8 +77,7 @@ public class SystemAdmin implements UserDetails {
 	}
 
 	public SystemAdmin(@NotNull(message = "Username cannot be null.") String username,
-			@NotNull(message = "Password cannot be null.") String password, String firstName, String lastName,
-			 UserStatus status) {
+			@NotNull(message = "Password cannot be null.") String password, String firstName, String lastName) {
 		super();
 		this.username = username;
 		this.password = password;

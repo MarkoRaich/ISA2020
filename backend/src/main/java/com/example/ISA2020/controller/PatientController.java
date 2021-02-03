@@ -25,20 +25,6 @@ public class PatientController {
 	private PatientService patientService;
 	
 	
-	@PostMapping("/create")
-	public ResponseEntity<Patient> create(@RequestBody Patient patient){
-		try {
-			Patient newPatient = patientService.create(patient);
-			if(newPatient == null) {
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-			}
-			return new ResponseEntity<>(newPatient, HttpStatus.CREATED);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-	}
-	
 	@GetMapping("/getAll")
 	public ResponseEntity<List<Patient>> getAll() {
 		List<Patient> patients = patientService.getAllPatients();
