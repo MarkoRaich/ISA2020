@@ -59,14 +59,17 @@ INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity) VALUES ( 5, 3, 40);
 -- insert into date_time_interval (end_date_time, start_date_time) values ('10-01-2021 10:00', '31-12-2020 08:00');
 -- insert into date_time_interval (end_date_time, start_date_time) values ('20-01-2021 10:00', '31-12-2020 08:00');
 -- insert into date_time_interval (end_date_time, start_date_time) values ('10-01-2021 10:00', '31-12-2020 08:00');
--- insert into date_time_interval (start_date_time, end_date_time) values ('31-12-2019 08:00','10-01-2020 10:00');
+insert into date_time_interval (start_date_time, end_date_time) values ('2019.12.01 08:00','2020.01.10 10:00');
+insert into date_time_interval (start_date_time, end_date_time) values ('2020.12.01 08:00','2021.04.10 10:00');
+insert into date_time_interval (start_date_time, end_date_time) values ('2020.12.01 08:00','2021.02.17 10:00');
+insert into date_time_interval (start_date_time, end_date_time) values ('2020.12.01 08:00','2021.03.20 10:00');
 -- insert into date_time_interval (start_date_time, end_date_time) values ('31-12-2019 08:00','10-01-2020 10:00');
 
 -- CENE LEKOVA U APOTEKAMA
-INSERT INTO drug_price (drug_id, pharmacy_id, price) values (1, 1, 420.0); -- interval_id 
-INSERT INTO drug_price (drug_id, pharmacy_id, price) values (1, 2, 520.0);
-INSERT INTO drug_price (drug_id, pharmacy_id, price) values (2, 2, 320.0);
-INSERT INTO drug_price (drug_id, pharmacy_id, price) values (3, 3, 550.0);
+INSERT INTO drug_price (drug_id, pharmacy_id, price, interval_id) values (1, 1, 420.0, 1); -- interval_id 
+INSERT INTO drug_price (drug_id, pharmacy_id, price, interval_id) values (1, 2, 520.0, 2);
+INSERT INTO drug_price (drug_id, pharmacy_id, price, interval_id) values (2, 2, 320.0, 3);
+INSERT INTO drug_price (drug_id, pharmacy_id, price, interval_id) values (3, 3, 550.0, 4);
 
 
 -- ADMINISTRATORI APOTEKE I NJIHOVA PRAVA POVEZANA

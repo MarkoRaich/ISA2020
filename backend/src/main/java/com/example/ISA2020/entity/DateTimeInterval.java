@@ -38,8 +38,8 @@ public class DateTimeInterval {
     @OneToMany(mappedBy = "interval", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<PharmacyExaminationPrice> examinationPrices = new HashSet<>();
     
-//    @OneToMany(mappedBy = "interval", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private Set<DrugPrice> drugPrices = new HashSet<>();
+    @OneToMany(mappedBy = "interval", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<DrugPrice> drugPrices = new HashSet<>();
     
     //KONSTRUKTORI
 	public DateTimeInterval() {
@@ -118,6 +118,20 @@ public class DateTimeInterval {
 
 	public void setExaminationPrices(Set<PharmacyExaminationPrice> examinationPrices) {
 		this.examinationPrices = examinationPrices;
+	}
+
+
+
+
+	public Set<DrugPrice> getDrugPrices() {
+		return drugPrices;
+	}
+
+
+
+
+	public void setDrugPrices(Set<DrugPrice> drugPrices) {
+		this.drugPrices = drugPrices;
 	}
 
 
