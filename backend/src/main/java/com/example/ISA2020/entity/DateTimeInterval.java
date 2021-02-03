@@ -24,11 +24,11 @@ public class DateTimeInterval {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @Column(nullable = false)
     private LocalDateTime startDateTime;
 
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @Column(nullable = false)
     private LocalDateTime endDateTime;
     

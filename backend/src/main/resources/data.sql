@@ -56,7 +56,9 @@ INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity) VALUES ( 5, 3, 40);
 
 
 -- DATE TIME INTERVAL
--- insert into date_time_interval (start_date_time, end_date_time) values ('31-12-2019 08:00','10-01-2020 10:00');
+-- insert into date_time_interval (end_date_time, start_date_time) values ('10-01-2021 10:00', '31-12-2020 08:00');
+-- insert into date_time_interval (end_date_time, start_date_time) values ('20-01-2021 10:00', '31-12-2020 08:00');
+-- insert into date_time_interval (end_date_time, start_date_time) values ('10-01-2021 10:00', '31-12-2020 08:00');
 -- insert into date_time_interval (start_date_time, end_date_time) values ('31-12-2019 08:00','10-01-2020 10:00');
 -- insert into date_time_interval (start_date_time, end_date_time) values ('31-12-2019 08:00','10-01-2020 10:00');
 
