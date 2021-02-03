@@ -46,4 +46,76 @@ public class DrugPriceServiceImpl implements DrugPriceService {
 		return drugPricesDTO;
 	}
 	
+	@Override
+	public List<DrugPriceAndPharmacyDTO> getAllDrugPriceByDrugName(String drugName) {
+		
+		List<DrugPrice> drugPrices = drugPriceRepo.findAll();
+		
+		List<DrugPriceAndPharmacyDTO> drugPricesDTO = new ArrayList<>();
+		
+		
+		
+		for(DrugPrice d : drugPrices) {
+			if(d.getDrug().getName().toLowerCase().contains(drugName.toLowerCase())) { //contains da bi proverio bilo koji string a ne samo ceo naziv leka
+				DrugPriceAndPharmacyDTO dto = new DrugPriceAndPharmacyDTO(); 	//tipa ako upisemo Bruf da nadje Brufen
+				dto.setDrugName(d.getDrug().getName());
+				dto.setDrugCode(d.getDrug().getCode());
+				dto.setPharmacyName(d.getPharmacy().getName());
+				dto.setPrice(d.getPrice());
+				
+				drugPricesDTO.add(dto);
+			}
+		}
+		
+		return drugPricesDTO;
+	}
+	
+	@Override
+	public List<DrugPriceAndPharmacyDTO> getAllDrugPriceByDrugCode(String drugCode) {
+		
+		List<DrugPrice> drugPrices = drugPriceRepo.findAll();
+		
+		List<DrugPriceAndPharmacyDTO> drugPricesDTO = new ArrayList<>();
+		
+		
+		
+		for(DrugPrice d : drugPrices) {
+			if(d.getDrug().getCode().toLowerCase().contains(drugCode.toLowerCase())) { 
+				DrugPriceAndPharmacyDTO dto = new DrugPriceAndPharmacyDTO(); 	
+				dto.setDrugName(d.getDrug().getName());
+				dto.setDrugCode(d.getDrug().getCode());
+				dto.setPharmacyName(d.getPharmacy().getName());
+				dto.setPrice(d.getPrice());
+				
+				drugPricesDTO.add(dto);
+			}
+		}
+		
+		return drugPricesDTO;
+	}
+	
+	@Override
+	public List<DrugPriceAndPharmacyDTO> getAllDrugPriceByPharmacyName(String pharmacyName) {
+		
+		List<DrugPrice> drugPrices = drugPriceRepo.findAll();
+		
+		List<DrugPriceAndPharmacyDTO> drugPricesDTO = new ArrayList<>();
+		
+		
+		
+		for(DrugPrice d : drugPrices) {
+			if(d.getPharmacy().getName().toLowerCase().contains(pharmacyName.toLowerCase())) { 
+				DrugPriceAndPharmacyDTO dto = new DrugPriceAndPharmacyDTO(); 	
+				dto.setDrugName(d.getDrug().getName());
+				dto.setDrugCode(d.getDrug().getCode());
+				dto.setPharmacyName(d.getPharmacy().getName());
+				dto.setPrice(d.getPrice());
+				
+				drugPricesDTO.add(dto);
+			}
+		}
+		
+		return drugPricesDTO;
+	}
+	
 }

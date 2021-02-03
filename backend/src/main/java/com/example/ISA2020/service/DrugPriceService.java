@@ -12,4 +12,10 @@ public interface DrugPriceService {
 	List<DrugPrice> getAllDrugPrices();
 	
 	List<DrugPriceAndPharmacyDTO> getAllDrugPriceAndPharmacyDTO();
+	
+	List<DrugPriceAndPharmacyDTO> getAllDrugPriceByDrugName(String drugName);
+	
+	List<DrugPriceAndPharmacyDTO> getAllDrugPriceByDrugCode(String drugCode);
+	
+	List<DrugPriceAndPharmacyDTO> getAllDrugPriceByPharmacyName(String pharmacyName);
 }
