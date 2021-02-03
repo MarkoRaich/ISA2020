@@ -19,4 +19,6 @@ public interface PatientService {
 	Patient changePassword(String newPassword, Patient user);
 	
 	PatientDTO editPersonalInformation(EditPatientDTO editPatientDTO);
+	
+	Patient addAlergie(String drugName);
 }

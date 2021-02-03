@@ -12,9 +12,11 @@ import org.springframework.stereotype.Service;
 import com.example.ISA2020.dto.EditPatientDTO;
 import com.example.ISA2020.dto.PatientDTO;
 import com.example.ISA2020.dto.PatientWithIdDTO;
+import com.example.ISA2020.entity.Drug;
 import com.example.ISA2020.entity.users.Patient;
 import com.example.ISA2020.repository.AuthRepository;
 import com.example.ISA2020.repository.DermatologistRepository;
+import com.example.ISA2020.repository.DrugRepository;
 import com.example.ISA2020.repository.PatientRepository;
 import com.example.ISA2020.repository.PharmacistRepository;
 import com.example.ISA2020.repository.PharmacyAdminRepository;
@@ -29,22 +31,7 @@ public class PatientServiceImpl implements PatientService{
 	private PatientRepository patientRepo;
 	
 	@Autowired 
-	private SystemAdminRepository systemAdminRepo;
-	
-	@Autowired
-	private PharmacyAdminRepository pharmacyAdminRepo;
-	
-	@Autowired
-	private DermatologistRepository dermatologistRepo;
-	
-	@Autowired
-	private PharmacistRepository pharmacistRepo;
-	
-	@Autowired
-	private SupplierRepository supplierRepo;
-	
-	@Autowired 
-	private AuthRepository authRepo;
+	private DrugRepository drugRepo;
 	
 	
 
@@ -111,6 +98,28 @@ public class PatientServiceImpl implements PatientService{
 		patient.setPhoneNumber(editPatientDTO.getPhoneNumber());
 		
 		return new PatientDTO(patientRepo.save(patient));
+		
+	}
+	
+	@Override
+	public Patient addAlergie(String drugName) {
+		Patient patient = getLoginPatient();
+		
+		if(patient == null) {
+			return null;
+		}
+		
+		List<Drug> drugs = drugRepo.findAll();
+		
+		for(Drug d : drugs) {
+			if(d.getName().toLowerCase().contains(drugName.toLowerCase())) {
+				patient.getAlergies().add(d);			
+			}
+		}
+		
+		patientRepo.save(patient);
+		
+		return patient;
 		
 	}
 	

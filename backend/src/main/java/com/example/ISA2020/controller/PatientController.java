@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ISA2020.dto.EditPatientDTO;
@@ -56,6 +57,16 @@ public class PatientController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(patientDTO, HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/addAlergie")
+    //@PreAuthorize("hasRole('PATIENT')") //ROLE_PATIENT??
+	public ResponseEntity<Patient> addAlergie(@RequestParam("drugName") String drugName) {
+		Patient patient = patientService.addAlergie(drugName);
+		if(patient == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(patient, HttpStatus.CREATED);
 	}
 	
 	
