@@ -9,6 +9,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.example.ISA2020.dto.EditPatientDTO;
+import com.example.ISA2020.dto.PatientDTO;
 import com.example.ISA2020.dto.PatientWithIdDTO;
 import com.example.ISA2020.entity.users.Patient;
 import com.example.ISA2020.repository.AuthRepository;
@@ -93,6 +95,24 @@ public class PatientServiceImpl implements PatientService{
         user.setPassword(newPassword);
         return patientRepo.save(user);
     }
+	
+	@Override
+	public PatientDTO editPersonalInformation(EditPatientDTO editPatientDTO) {
+		Patient patient = getLoginPatient();
+		
+		if(patient.getId() != editPatientDTO.getId()) {
+			return null;
+		}
+		
+		patient.setFirstName(editPatientDTO.getFirstName());
+		patient.setLastName(editPatientDTO.getLastName());
+		patient.setAddress(editPatientDTO.getAddress());
+		patient.setCity(editPatientDTO.getCity());
+		patient.setPhoneNumber(editPatientDTO.getPhoneNumber());
+		
+		return new PatientDTO(patientRepo.save(patient));
+		
+	}
 	
 	
 	
