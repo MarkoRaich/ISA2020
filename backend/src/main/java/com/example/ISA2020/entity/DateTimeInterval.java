@@ -24,11 +24,11 @@ public class DateTimeInterval {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
     @Column(nullable = false)
     private LocalDateTime startDateTime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
     @Column(nullable = false)
     private LocalDateTime endDateTime;
     
@@ -38,10 +38,28 @@ public class DateTimeInterval {
     @OneToMany(mappedBy = "interval", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<PharmacyExaminationPrice> examinationPrices = new HashSet<>();
     
+//    @OneToMany(mappedBy = "interval", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private Set<DrugPrice> drugPrices = new HashSet<>();
+    
     //KONSTRUKTORI
 	public DateTimeInterval() {
 		super();
 	}
+	
+	
+
+
+	public DateTimeInterval(LocalDateTime startDateTime, LocalDateTime endDateTime, Set<Reservation> reservations,
+			Set<PharmacyExaminationPrice> examinationPrices) {
+		super();
+		this.startDateTime = startDateTime;
+		this.endDateTime = endDateTime;
+		this.reservations = reservations;
+		this.examinationPrices = examinationPrices;
+		//this.drugPrices = drugPrices;
+	}
+
+
 
 
 	//GETERI I SETERI
@@ -73,10 +91,37 @@ public class DateTimeInterval {
 	public void setEndDateTime(LocalDateTime endDateTime) {
 		this.endDateTime = endDateTime;
 	}
-	
-	
-    
-    
+
+
+
+
+	public Set<Reservation> getReservations() {
+		return reservations;
+	}
+
+
+
+
+	public void setReservations(Set<Reservation> reservations) {
+		this.reservations = reservations;
+	}
+
+
+
+
+	public Set<PharmacyExaminationPrice> getExaminationPrices() {
+		return examinationPrices;
+	}
+
+
+
+
+	public void setExaminationPrices(Set<PharmacyExaminationPrice> examinationPrices) {
+		this.examinationPrices = examinationPrices;
+	}
+
+
+
 }   
 
     

@@ -15,5 +15,5 @@ public interface DrugService {
 	
 	//Drug findByCode(String code);
 	
-	List<Drug> getAllDrugs();
+	List<DrugDTO> getAllDrugs();
 }

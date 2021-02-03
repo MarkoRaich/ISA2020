@@ -1,5 +1,6 @@
 package com.example.ISA2020.service.Impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,14 +38,24 @@ public class DrugServiceImpl implements DrugService {
 		return drugRepository.save(newDrug);
 	}
 
-//	@Override
-//	public Drug findByCode(String code) {
-//		return drugRepository.findOneByCode(code);
-//	}
 
 	@Override
-	public List<Drug> getAllDrugs() {
-		return drugRepository.findAll();
+	public List<DrugDTO> getAllDrugs() {
+		List<Drug> drugs = drugRepository.findAll();
+		List<DrugDTO> drugsDTO = convertToDTO(drugs);
+		return drugsDTO;
+	}
+	
+	public List<DrugDTO> convertToDTO(List<Drug> drugs) {
+		List<DrugDTO> drugsDTO = new ArrayList<>();
+		for(Drug d : drugs) {
+			DrugDTO dto = new DrugDTO();
+			dto.setId(d.getId());
+			dto.setName(d.getName());
+			dto.setCode(d.getCode());
+			drugsDTO.add(dto);
+		}
+		return drugsDTO;
 	}
 	
 

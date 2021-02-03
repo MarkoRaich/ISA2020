@@ -12,8 +12,8 @@ public class DrugPrice {
 	@Column
 	private double price;
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private DateTimeInterval interval;
+	/*@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private DateTimeInterval interval;*/ //moramo skontati kako da ovo ubacujemo u bazu posto meni puca
 
 
 	@ManyToOne
@@ -29,9 +29,9 @@ public class DrugPrice {
 
 	public DrugPrice() {}
 
-	public DrugPrice(double price, DateTimeInterval interval, Drug drug, Pharmacy pharmacy) {
+	public DrugPrice(double price, Drug drug, Pharmacy pharmacy) {
 		this.price = price;
-		this.interval = interval;
+		//this.interval = interval;
 		this.drug = drug;
 		this.pharmacy = pharmacy;
 	}
@@ -44,13 +44,13 @@ public class DrugPrice {
 		this.price = price;
 	}
 
-	public DateTimeInterval getInterval() {
-		return interval;
-	}
-
-	public void setInterval(DateTimeInterval interval) {
-		this.interval = interval;
-	}
+//	public DateTimeInterval getInterval() {
+//		return interval;
+//	}
+//
+//	public void setInterval(DateTimeInterval interval) {
+//		this.interval = interval;
+//	}
 
 	public Drug getDrug() {
 		return drug;

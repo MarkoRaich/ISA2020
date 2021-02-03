@@ -55,6 +55,18 @@ INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity) VALUES ( 5, 2, 17);
 INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity) VALUES ( 5, 3, 40);
 
 
+-- DATE TIME INTERVAL
+-- insert into date_time_interval (start_date_time, end_date_time) values ('31-12-2019 08:00','10-01-2020 10:00');
+-- insert into date_time_interval (start_date_time, end_date_time) values ('31-12-2019 08:00','10-01-2020 10:00');
+-- insert into date_time_interval (start_date_time, end_date_time) values ('31-12-2019 08:00','10-01-2020 10:00');
+
+-- CENE LEKOVA U APOTEKAMA
+INSERT INTO drug_price (drug_id, pharmacy_id, price) values (1, 1, 420.0); -- interval_id 
+INSERT INTO drug_price (drug_id, pharmacy_id, price) values (1, 2, 520.0);
+INSERT INTO drug_price (drug_id, pharmacy_id, price) values (2, 2, 320.0);
+INSERT INTO drug_price (drug_id, pharmacy_id, price) values (3, 3, 550.0);
+
+
 -- ADMINISTRATORI APOTEKE I NJIHOVA PRAVA POVEZANA
 
 INSERT INTO pharmacy_admin (username, password, first_name, last_name, phone_number, pharmacy_id, status) VALUES ('apotekaAdmin1@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Jovan', 'Jovanovic', '065844584', 1, 'ACTIVE');     

@@ -39,6 +39,7 @@ public class Pharmacy {
     @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Pharmacist> pharmacists = new HashSet<>();  //farmaceut radi samo u jednoj apoteci
 	
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY)		// Dermatolozi mogu da rade u vise apoteka!!
     @JoinTable(
     			name="pharmacy_dermatologist",
