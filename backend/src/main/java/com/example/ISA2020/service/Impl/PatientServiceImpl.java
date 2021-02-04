@@ -9,19 +9,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.example.ISA2020.dto.DrugPricePharmacyNameAddressRatingDTO;
 import com.example.ISA2020.dto.EditPatientDTO;
 import com.example.ISA2020.dto.PatientDTO;
 import com.example.ISA2020.dto.PatientWithIdDTO;
 import com.example.ISA2020.entity.Drug;
 import com.example.ISA2020.entity.users.Patient;
-import com.example.ISA2020.repository.AuthRepository;
-import com.example.ISA2020.repository.DermatologistRepository;
+import com.example.ISA2020.repository.DrugPriceRepository;
 import com.example.ISA2020.repository.DrugRepository;
 import com.example.ISA2020.repository.PatientRepository;
-import com.example.ISA2020.repository.PharmacistRepository;
-import com.example.ISA2020.repository.PharmacyAdminRepository;
-import com.example.ISA2020.repository.SupplierRepository;
-import com.example.ISA2020.repository.SystemAdminRepository;
+import com.example.ISA2020.repository.PharmacyRepository;
 import com.example.ISA2020.service.PatientService;
 
 @Service
@@ -32,6 +29,14 @@ public class PatientServiceImpl implements PatientService{
 	
 	@Autowired 
 	private DrugRepository drugRepo;
+	
+	@Autowired 
+	private PharmacyRepository pharmacyRepo;
+	
+	@Autowired 
+	private DrugPriceRepository drugPriceRepo;
+	
+	
 	
 	
 
@@ -122,6 +127,15 @@ public class PatientServiceImpl implements PatientService{
 		return patient;
 		
 	}
+	
+	/*
+	 * @Override public List<DrugPricePharmacyNameAddressRatingDTO> getAll
+	 */
+	
+	
+	
+	
+	
 	
 	
 	

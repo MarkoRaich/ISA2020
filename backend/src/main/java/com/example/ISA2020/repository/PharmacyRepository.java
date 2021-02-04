@@ -15,4 +15,12 @@ public interface PharmacyRepository extends JpaRepository<Pharmacy, Long> {
     List<Pharmacy> findAll();
 
 	Pharmacy findByAddressIgnoringCase(String address);
+	
+	List<Pharmacy> findByOrderByAddressAsc();
+	
+	List<Pharmacy> findByOrderByNameAsc();
+	
+	List<Pharmacy> findByOrderByRatingAsc();
+	
+	List<Pharmacy> findByOrderByRating();
 }

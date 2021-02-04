@@ -1,5 +1,6 @@
 package com.example.ISA2020.service.Impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -7,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.ISA2020.dto.DrugPricePharmacyNameAddressRatingDTO;
 import com.example.ISA2020.dto.EditPharmacyDTO;
 import com.example.ISA2020.dto.PharmacyDTO;
 import com.example.ISA2020.entity.Pharmacy;
@@ -72,5 +74,69 @@ public class PharmacyServiceImpl implements PharmacyService {
         return new EditPharmacyDTO(pharmacyRepository.save(existingPharmacy));
         
 	}
+	
+	
+	
+	// 3.9 -----------------------------------------------------------------------------------------
+	@Override
+	public List<DrugPricePharmacyNameAddressRatingDTO> getAllPharmaciesSortedByPharmacyAddress(){
+		
+		List<Pharmacy> pharmacies = pharmacyRepository.findByOrderByAddressAsc();
+		
+		List<DrugPricePharmacyNameAddressRatingDTO> pharmaciesDTO = new ArrayList<>();
+		
+		for(Pharmacy p : pharmacies) {
+			DrugPricePharmacyNameAddressRatingDTO dto = new DrugPricePharmacyNameAddressRatingDTO();
+			dto.setPharmacyName(p.getName());
+			dto.setPharmacyAddress(p.getAddress());
+			dto.setPharmacyRating(p.getRating());
+			
+			pharmaciesDTO.add(dto);
+		}
+		
+		return pharmaciesDTO;
+	}
+	
+	
+	@Override
+	public List<DrugPricePharmacyNameAddressRatingDTO> getAllPharmaciesSortedByPharmacyName(){
+		
+		List<Pharmacy> pharmacies = pharmacyRepository.findByOrderByNameAsc();
+		
+		List<DrugPricePharmacyNameAddressRatingDTO> pharmaciesDTO = new ArrayList<>();
+		
+		for(Pharmacy p : pharmacies) {
+			DrugPricePharmacyNameAddressRatingDTO dto = new DrugPricePharmacyNameAddressRatingDTO();
+			dto.setPharmacyName(p.getName());
+			dto.setPharmacyAddress(p.getAddress());
+			dto.setPharmacyRating(p.getRating());
+			
+			pharmaciesDTO.add(dto);
+		}
+		
+		return pharmaciesDTO;
+	}
+	
+	
+	@Override
+	public List<DrugPricePharmacyNameAddressRatingDTO> getAllPharmaciesSortedByPharmacyRating() {
+		
+		List<Pharmacy> pharmacies = pharmacyRepository.findByOrderByRatingAsc();
+		
+		List<DrugPricePharmacyNameAddressRatingDTO> pharmaciesDTO = new ArrayList<>();
+		
+		for(Pharmacy p : pharmacies) {
+			DrugPricePharmacyNameAddressRatingDTO dto = new DrugPricePharmacyNameAddressRatingDTO();
+			dto.setPharmacyName(p.getName());
+			dto.setPharmacyAddress(p.getAddress());
+			dto.setPharmacyRating(p.getRating());
+			
+			pharmaciesDTO.add(dto);
+		}
+		
+		return pharmaciesDTO;
+	}
+	//---------------------------------------------------------------------------------------
+	
 
 }
