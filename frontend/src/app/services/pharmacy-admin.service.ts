@@ -12,8 +12,6 @@ export class PharmacyAdminService {
 
   url= environment.baseUrl + environment.pharmacyAdmin;
 
-  pharmacyAdmins: BehaviorSubject<PharmacyAdmin[]> = new BehaviorSubject<PharmacyAdmin[]>([]);
-  addSuccessEmitter = new Subject<PharmacyAdmin>();
 
   constructor(private httpClient : HttpClient, private router : Router) { }
 
@@ -26,5 +24,6 @@ export class PharmacyAdminService {
   public put(pharmacyAdmin: PharmacyAdmin) {
     return this.httpClient.put(this.url, pharmacyAdmin);
   }
- 
+
+
 }

@@ -19,4 +19,6 @@ public interface DermatologistService {
 	Dermatologist getDermatologist(Long id);
 
 	DermatologistDTO deleteDermatologist(Long pharmacyId, Long id);
+
+	List<DermatologistDTO> getAllActiveDermatologists();
 }

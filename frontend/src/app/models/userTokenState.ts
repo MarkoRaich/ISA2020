@@ -1,9 +1,9 @@
 export class UserTokenState {
-    accessToken: string;
+    jwtAccessToken: string;
     expireIn: number;
 
-    constructor(accessToken: string, expireIn: number) {
-        this.accessToken = accessToken;
+    constructor(jwtAccessToken: string, expireIn: number) {
+        this.jwtAccessToken = jwtAccessToken;
         this.expireIn = expireIn;
     }
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.example.ISA2020.dto.DermatologistDTO;
 import com.example.ISA2020.entity.users.Dermatologist;
 import com.example.ISA2020.enumeration.UserStatus;
 
@@ -17,5 +18,7 @@ public interface DermatologistRepository extends JpaRepository<Dermatologist, Lo
 	
 	List<Dermatologist> findAll();
 	
-	List<Dermatologist> findByPharmaciesIdAndStatusNot(Long id, UserStatus status);
+	//List<Dermatologist> findByPharmaciesIdAndStatusNot(Long id, UserStatus status);
+
+	List<Dermatologist> findByStatusNot(UserStatus status);
 }

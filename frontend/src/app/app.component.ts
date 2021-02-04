@@ -7,7 +7,6 @@ import { Router, NavigationEnd } from '@angular/router';
 
 import { LoggedInUser } from './models/loggedInUser';
 import { UserService } from './services/user.service';
-import { HospitalService } from './services/hospital-service.service';
 
 
 @Component({
@@ -23,7 +22,6 @@ export class AppComponent implements OnInit {
   user: LoggedInUser;
 
   constructor(private router: Router,
-              private hospitalService : HospitalService, 
               private userService: UserService, 
               private breakpointObserver: BreakpointObserver) { }
 
@@ -40,7 +38,6 @@ export class AppComponent implements OnInit {
   
 
   ngOnInit() {
-    this.getHospitals();
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         if (this.isLoggedIn()) {
@@ -56,16 +53,9 @@ export class AppComponent implements OnInit {
 
   onLogout() {
     this.userService.logout();
-    this.router.navigate(['/user/login']);
+    this.router.navigate(['']);
   }
 
-  getHospitals() {
-    this.hospitalService.getAllHospitals().subscribe(response => {
-      this.hospitals = response; 
-    }, error => {
-      console.log(error);
-    })
-  }
 
   isPatient(){
     return this.userService.isPatient();

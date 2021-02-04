@@ -1,10 +1,11 @@
-<div class="col-md-6 offset-md-3 mt-5">
-  
-  <div class="card">
-      <h4 class="card-header">U polja unesite Vaš email i lozinku radi prijave na sistem</h4>
-      
-      <div class="card-body">
-          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<div class="main-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 offset-md-2">
+          <mat-card>
+            <h3>Login</h3>
+            <hr>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
               <div class="form-group">
                   <label for="email">Email</label>
@@ -29,15 +30,13 @@
               <div class="form-group">
                 <a routerLink="/register">Nemate nalog? Registrujte se ovde.</a>
               </div>
+            
+              <button mat-raised-button color="primary" class="pull-right">Prijavi se</button>
 
-              <button [disabled]="loading" class="btn btn-primary">
-                  <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                  Login
-              </button>
-              <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
-          </form>
+            
+            </form>
+        </mat-card>
       </div>
-
+    </div>
   </div>
-
 </div>

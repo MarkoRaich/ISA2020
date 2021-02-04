@@ -11,9 +11,6 @@ public class DermatologistDTO {
 
     private String lastName;
     
-    private String workHoursFrom;
-
-    private String workHoursTo;
 
     private String email;
 
@@ -29,14 +26,12 @@ public class DermatologistDTO {
 
 	
 
-	public DermatologistDTO(Long id, String firstName, String lastName, String workHoursFrom, String workHoursTo,
+	public DermatologistDTO(Long id, String firstName, String lastName,
 			String email, String password, Double rating) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.workHoursFrom = workHoursFrom;
-		this.workHoursTo = workHoursTo;
 		this.email = email;
 		this.password = password;
 		this.rating = rating;
@@ -48,8 +43,6 @@ public class DermatologistDTO {
 		this(dermatologist.getId(),
 			 dermatologist.getFirstName(),
 			 dermatologist.getLastName(),
-			 dermatologist.getWorkHourFrom().toString(),
-			 dermatologist.getWorkHourTo().toString(),
 			 dermatologist.getUsername(),
 			 dermatologist.getPassword(),
 			 dermatologist.getRating() );
@@ -93,29 +86,7 @@ public class DermatologistDTO {
 
 
 
-	public String getWorkHoursFrom() {
-		return workHoursFrom;
-	}
-
-
-
-	public void setWorkHoursFrom(String workHoursFrom) {
-		this.workHoursFrom = workHoursFrom;
-	}
-
-
-
-	public String getWorkHoursTo() {
-		return workHoursTo;
-	}
-
-
-
-	public void setWorkHoursTo(String workHoursTo) {
-		this.workHoursTo = workHoursTo;
-	}
-
-
+	
 
 	public String getEmail() {
 		return email;

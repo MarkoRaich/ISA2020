@@ -13,6 +13,18 @@ public class DrugDTO {
     
     private String code;
 
+    private String manufacturer;
+    
+    private String composition;
+    
+    private String notes;
+    
+    private String form;
+    
+    private String type;
+    
+    private String prescription;
+    
     
 	public DrugDTO() {
 		super();
@@ -30,8 +42,41 @@ public class DrugDTO {
 		this.code = code;
 	}
 	
+	
+	
+	public DrugDTO(String name, String code, String manufacturer, String composition, String notes, String form,
+			String type, String prescription) {
+		super();
+		this.name = name;
+		this.code = code;
+		this.manufacturer = manufacturer;
+		this.composition = composition;
+		this.notes = notes;
+		this.form = form;
+		this.type = type;
+		this.prescription = prescription;
+	}
+	
+	
+
+	public DrugDTO(Long id, String name, String code, String manufacturer, String composition, String notes,
+			String form, String type, String prescription) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.code = code;
+		this.manufacturer = manufacturer;
+		this.composition = composition;
+		this.notes = notes;
+		this.form = form;
+		this.type = type;
+		this.prescription = prescription;
+	}
+
 	public DrugDTO(Drug drug) {
-		//this(drug.getId(), drug.getName(), drug.getCode());
+		this(drug.getId(), drug.getName(), drug.getCode(), drug.getManufacturer(), 
+			 drug.getComposition(), drug.getNotes(), drug.getForm().toString(), drug.getType().toString(),
+			 drug.getPrescription().toString() );
 	}
 
 	public Long getId() {
@@ -56,6 +101,54 @@ public class DrugDTO {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public String getManufacturer() {
+		return manufacturer;
+	}
+
+	public void setManufacturer(String manufacturer) {
+		this.manufacturer = manufacturer;
+	}
+
+	public String getComposition() {
+		return composition;
+	}
+
+	public void setComposition(String composition) {
+		this.composition = composition;
+	}
+
+	public String getNotes() {
+		return notes;
+	}
+
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+
+	public String getForm() {
+		return form;
+	}
+
+	public void setForm(String form) {
+		this.form = form;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getPrescription() {
+		return prescription;
+	}
+
+	public void setPrescription(String prescription) {
+		this.prescription = prescription;
 	}
 	
 	

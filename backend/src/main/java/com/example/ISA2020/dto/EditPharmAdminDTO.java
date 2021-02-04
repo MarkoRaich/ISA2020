@@ -3,6 +3,7 @@ package com.example.ISA2020.dto;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.example.ISA2020.entity.users.PharmacyAdmin;
@@ -25,7 +26,7 @@ public class EditPharmAdminDTO {
 	
 	@NotEmpty(message = "Phone number is empty.")
     @Size(min = 9, max = 10)
-  //@Pattern(regexp = "0[0-9]+")
+    @Pattern(regexp = "[0-9]+")
 	private String phoneNumber;
 	
 	

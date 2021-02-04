@@ -11,11 +11,8 @@ export const environment = {
   login               : "/api/auth/login",
   register            : "/api/auth/user/register",
 
-  createNewHospital   : "/api/auth/hospital/create",
-  getAllHospitals     : "/api/auth/hospital/getAll",
-  getOneHospital      : "/api/auth/hospital",
 
-  pharmacyAdmin       : "/api/pharm-admin"
+  pharmacyAdmin       : "/api/pharmacy-admin"
   
 };
 

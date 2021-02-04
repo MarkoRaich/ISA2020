@@ -81,14 +81,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     "/**"
             ).permitAll()
             .antMatchers("/auth/**").permitAll()
-            					//svaki zahtev mora biti autorizovan					
-            					.anyRequest().authenticated().and()
-            
-            //ubacivanje CORS filtera u lanac filtera
-            .cors().and()
+            									
+            .anyRequest().authenticated().and() //svaki zahtev mora biti autorizovan	
+                 
+            .cors().and()  //ubacivanje CORS filtera u lanac filtera
         	
-            //ubacivanje filtera za proveru tokena u lanac filtera
-            .addFilterBefore(
+            .addFilterBefore( //ubacivanje filtera za proveru tokena u lanac filtera
         		new TokenAuthenticationFilter(tokenUtils, jwtUserDetailsService),
         		BasicAuthenticationFilter.class
         	);

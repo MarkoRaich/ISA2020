@@ -3,6 +3,8 @@ package com.example.ISA2020.entity;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 
+import com.example.ISA2020.enumeration.EntityStatus;
+
 
 @Entity
 public class DrugQuantity {
@@ -24,7 +26,10 @@ public class DrugQuantity {
 	@JoinColumn(name = "pharmacy_id", referencedColumnName = "id")
     private Pharmacy pharmacy;
     
-
+	
+	@Enumerated(EnumType.STRING)
+	@Column()
+	private EntityStatus status;
 
     
 	public DrugQuantity() {
@@ -32,11 +37,12 @@ public class DrugQuantity {
 	}
 
 
-	public DrugQuantity(Pharmacy pharmacy, Drug drug, int quantity) {
+	public DrugQuantity(Pharmacy pharmacy, Drug drug, int quantity, EntityStatus status) {
 		super();
 		this.pharmacy = pharmacy;
 		this.drug = drug;
 		this.quantity = quantity;
+		this.status = status;
 	}
 
 	//GETERI I SETERI
@@ -77,6 +83,16 @@ public class DrugQuantity {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+
+	public EntityStatus getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(EntityStatus status) {
+		this.status = status;
 	}
 
 }

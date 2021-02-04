@@ -29,6 +29,7 @@ import com.example.ISA2020.entity.Authority;
 import com.example.ISA2020.entity.Examination;
 import com.example.ISA2020.entity.Pharmacy;
 import com.example.ISA2020.entity.VacationRequestDerm;
+import com.example.ISA2020.entity.DermWorkHours;
 import com.example.ISA2020.enumeration.UserStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -62,15 +63,18 @@ public class Dermatologist implements UserDetails {
     @Column(columnDefinition = "VARCHAR(11)", unique = true, nullable = false)
     private String phoneNumber;
 
-	@JsonFormat(pattern = "HH:mm")
-	@NotNull
-	@Column(nullable = false)
-	private LocalTime workHoursFrom;
-
-	@JsonFormat(pattern = "HH:mm")
-	@NotNull
-	@Column(nullable = false)
-	private LocalTime workHoursTo;
+//	@JsonFormat(pattern = "HH:mm")   NE MOZE OVAKO JER DERMATOLOG IMA RAZLICITO RADNO VEREME U RAZLICITIM APOTEKAMA
+//	@NotNull
+//	@Column(nullable = false)
+//	private LocalTime workHoursFrom;
+//
+//	@JsonFormat(pattern = "HH:mm")
+//	@NotNull
+//	@Column(nullable = false)
+//	private LocalTime workHoursTo;
+    
+    @OneToMany(mappedBy = "dermatologist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<DermWorkHours> workHours;
 	
 	//prosecna ocena Dermatologa
 	@Column
@@ -82,8 +86,8 @@ public class Dermatologist implements UserDetails {
     
     
     
-    @ManyToMany(mappedBy = "dermatologists", fetch = FetchType.LAZY, cascade = CascadeType.ALL)	//moze da radi u vise apoteka
-    private Set<Pharmacy> pharmacies;
+   // @ManyToMany(mappedBy = "dermatologists", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+   // private Set<Pharmacy> pharmacies;
     
     @OneToMany(mappedBy = "dermatologist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Examination> examinations= new HashSet<>();
@@ -158,22 +162,7 @@ public class Dermatologist implements UserDetails {
 	}
 
     
-    
-	public LocalTime getWorkHourFrom() {
-		return workHoursFrom;
-	}
-
-	public void setWorkHourFrom(LocalTime workHourFrom) {
-		this.workHoursFrom = workHourFrom;
-	}
-
-	public LocalTime getWorkHourTo() {
-		return workHoursTo;
-	}
-
-	public void setWorkHourTo(LocalTime workHourTo) {
-		this.workHoursTo = workHourTo;
-	}
+   
 
 	public double getRating() {
 		return rating;
@@ -183,13 +172,6 @@ public class Dermatologist implements UserDetails {
 		this.rating = rating;
 	}
 
-	public Set<Pharmacy> getPharmacies() {
-		return pharmacies;
-	}
-
-	public void setPharmacies(Set<Pharmacy> pharmacies) {
-		this.pharmacies = pharmacies;
-	}
 
 	public Set<Examination> getExaminations() {
 		return examinations;

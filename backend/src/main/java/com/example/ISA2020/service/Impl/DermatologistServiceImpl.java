@@ -46,36 +46,41 @@ public class DermatologistServiceImpl implements DermatologistService{
 	public List<Dermatologist> getAllDermatologists() {
 		return dermatologistRepository.findAll();
 	}
-
-	@Override
-	public List<DermatologistDTO> findAllDermatologistsInPharmacy(Pharmacy pharmacy) {
-		
-		return convertToDTO(dermatologistRepository.findByPharmaciesIdAndStatusNot(pharmacy.getId(), UserStatus.DELETED));
 	
+	@Override
+	public List<DermatologistDTO> getAllActiveDermatologists() {
+		return convertToDTO(dermatologistRepository.findByStatusNot(UserStatus.DELETED));
 	}
 
-	@Override
-	public DermatologistDTO deleteDermatologist(Long pharmacyId, Long id) {
-		
-		Pharmacy pharmacy = pharmacyRepository.findOneById(pharmacyId);
-		Dermatologist dermatologist = getDermatologist(id);
-		if(dermatologist == null) {
-			return null;
-		}
-		if( !dermatologist.getPharmacies().contains(pharmacy) || HasExaminationsToDo(id) ){
-			return null;
-		}
-		
-		//dermatologist.setStatus(UserStatus.DELETED); //NE MOZE OVO JER MOZE U VISE APOTEKA BITI!!!
-		
-		
-		pharmacy.getDermatologists().remove(dermatologist);
-		dermatologist.getPharmacies().remove(pharmacy);
-		
-		return new DermatologistDTO(dermatologistRepository.save(dermatologist));
-		
-		
-	}
+//	@Override
+//	public List<DermatologistDTO> findAllDermatologistsInPharmacy(Pharmacy pharmacy) {
+//		
+//		return convertToDTO(dermatologistRepository.findByPharmaciesIdAndStatusNot(pharmacy.getId(), UserStatus.DELETED));
+//	
+//	}
+//
+//	@Override
+//	public DermatologistDTO deleteDermatologist(Long pharmacyId, Long id) {
+//		
+//		Pharmacy pharmacy = pharmacyRepository.findOneById(pharmacyId);
+//		Dermatologist dermatologist = getDermatologist(id);
+//		if(dermatologist == null) {
+//			return null;
+//		}
+//		if( !dermatologist.getPharmacies().contains(pharmacy) || HasExaminationsToDo(id) ){
+//			return null;
+//		}
+//		
+//		//dermatologist.setStatus(UserStatus.DELETED); //NE MOZE OVO JER MOZE U VISE APOTEKA BITI!!!
+//		
+//		
+//		pharmacy.getDermatologists().remove(dermatologist);
+//		dermatologist.getPharmacies().remove(pharmacy);
+//		
+//		return new DermatologistDTO(dermatologistRepository.save(dermatologist));
+//		
+//		
+//	}
 	
 	private boolean HasExaminationsToDo(Long dermId) {
 		
@@ -104,6 +109,20 @@ public class DermatologistServiceImpl implements DermatologistService{
 	        return dermatologistDTOs;
 		
 	}
+
+	@Override
+	public List<DermatologistDTO> findAllDermatologistsInPharmacy(Pharmacy pharmacy) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DermatologistDTO deleteDermatologist(Long pharmacyId, Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 
 	
 

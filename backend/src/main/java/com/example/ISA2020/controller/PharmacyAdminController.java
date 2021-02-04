@@ -1,5 +1,6 @@
 package com.example.ISA2020.controller;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +25,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 @RestController
-@RequestMapping(value = "/api/pharm-admin", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/pharmacy-admin", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PharmacyAdminController {
 
 	@Autowired
@@ -51,6 +52,7 @@ public class PharmacyAdminController {
 	 //@PreAuthorize("hasRole('PHARMACY_ADMIN')")
 	 public ResponseEntity<PharmacyAdminDTO> editPersonalInformation(@Valid @RequestBody EditPharmAdminDTO pharmacyAdminDTO) {
 		 
+		 System.out.println("Pogodjena izmena!!");
 		 
 		 PharmacyAdminDTO pharmAdminDTO = pharmacyAdminService.editPersonalInformation(pharmacyAdminDTO);
 	        if (pharmAdminDTO == null) {

@@ -6,35 +6,19 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class PharmDrugQuantityKey implements Serializable {
+public class DermPharmWorkKey implements Serializable {
+	
+	@Column(name = "pharmacy_id")
+	Long pharmacyId;
+	
+	@Column(name = "dermatologist_id")
+	Long dermatologistId;
 
-    @Column(name = "pharmacy_id")
-    Long pharmacyId;
-
-    @Column(name = "drug_id")
-    Long drugId;
-    
-    
-    
-    public PharmDrugQuantityKey() {
-		super();
-	}
-
-
-
-	public PharmDrugQuantityKey(Long pharmId, Long drugId) {
-
-    	this.pharmacyId=pharmId;
-    	this.drugId=drugId;
-	}
-    
-    
-    
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((drugId == null) ? 0 : drugId.hashCode());
+		result = prime * result + ((dermatologistId == null) ? 0 : dermatologistId.hashCode());
 		result = prime * result + ((pharmacyId == null) ? 0 : pharmacyId.hashCode());
 		return result;
 	}
@@ -47,11 +31,11 @@ public class PharmDrugQuantityKey implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PharmDrugQuantityKey other = (PharmDrugQuantityKey) obj;
-		if (drugId == null) {
-			if (other.drugId != null)
+		DermPharmWorkKey other = (DermPharmWorkKey) obj;
+		if (dermatologistId == null) {
+			if (other.dermatologistId != null)
 				return false;
-		} else if (!drugId.equals(other.drugId))
+		} else if (!dermatologistId.equals(other.dermatologistId))
 			return false;
 		if (pharmacyId == null) {
 			if (other.pharmacyId != null)
@@ -60,7 +44,7 @@ public class PharmDrugQuantityKey implements Serializable {
 			return false;
 		return true;
 	}
+	
+	
 
-  
-    
 }

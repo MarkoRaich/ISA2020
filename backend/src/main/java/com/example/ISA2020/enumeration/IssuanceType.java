@@ -1,6 +1,6 @@
 package com.example.ISA2020.enumeration;
 
 public enum IssuanceType {
-	PERSCRIPTION,
+	PRESCRIPTION,
 	WITHOUT_PRESCRIPTION
 }

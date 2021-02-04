@@ -2,18 +2,25 @@
 
 <mat-sidenav-container class="sidenav-container">
 
-    <mat-sidenav #drawer class="sidenav"  fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    <mat-sidenav #drawer class="sidenav"  position="end" fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'side' : 'side'" [opened]="!(isHandset$ | async)">
       
       <mat-toolbar color="primary">Sadržaj</mat-toolbar>
+
       <!-- U ZAVISNOSTI OD ROLE MENJA SE SADRZAJ TOOLBARA-->
       <mat-nav-list *ngIf="!isLoggedIn()">
         <a mat-list-item href="">Lekovi</a>
         <a mat-list-item href="/guest/pharmacies">Apoteke</a>
       </mat-nav-list>
+
       <mat-nav-list *ngIf="isPatient()">
-        <a mat-list-item routerLink="/patient-profile">profil pacijenta</a>
+        <a mat-list-item routerLink="/patient-profile">Moj profil</a>
+        <a mat-list-item routerLink="/patient-profile">Apoteke</a>
+        <a mat-list-item routerLink="/patient-profile">Pregledi</a>
+        <a mat-list-item routerLink="/patient-profile">Savetovanja</a>
+        <a mat-list-item routerLink="/patient-profile">Rezervisani lekovi</a>
       </mat-nav-list>
+
       <mat-nav-list *ngIf="isPharmacyAdmin()">
         <a mat-list-item routerLink="/pharmacy-admin/edit-admin-profile">Moj profil</a>
         <a mat-list-item routerLink="/pharmacy-admin/edit-pharmacy-profile">Profil apoteke</a>
@@ -21,10 +28,11 @@
         <a mat-list-item routerLink="pharmacy-admin/">Dermatolozi</a>
         <a mat-list-item routerLink="pharmacy-admin/">Lekovi</a>
         <a mat-list-item routerLink="pharmacy-admin/">Pregledi kod dermatologa</a>
-        <a mat-list-item routerLink="pharmacy-admin/">Narudzbenice</a>
+        <a mat-list-item routerLink="pharmacy-admin/">Narudžbenice</a>
         <a mat-list-item routerLink="pharmacy-admin/">Promocije</a>
-        <a mat-list-item routerLink="pharmacy-admin/">Izvestaj o poslovanju</a>
+        <a mat-list-item routerLink="pharmacy-admin/">Izveštaj o poslovanju</a>
       </mat-nav-list>
+
       <mat-nav-list *ngIf="isSystemAdmin()">
         <a mat-list-item routerLink="/system-admin-profile">profil adminstratora sistema</a>
       </mat-nav-list>
@@ -45,7 +53,7 @@
           APOTEKE.RS
         </span>    
          
-        <div class=" my-2 my-lg-0" *ngIf="!isLoggedIn()">
+        <div *ngIf="!isLoggedIn()">
             <button  mat-button mat-ripple routerLink="/login">
                 <span>Prijava</span>
             </button>
@@ -53,11 +61,10 @@
                <span>Registracija</span>
             </button>
         </div>
-        <div class=" my-2 my-lg-0" *ngIf="isLoggedIn()">
+        <div *ngIf="isLoggedIn()">
             <button  mat-button mat-ripple (click)="onLogout()">
-              Log out
+             Odjava
             </button>
-            <span  >Ulogovani ste kao: {{user.username}} </span>
         </div>
             
           

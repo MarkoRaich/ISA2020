@@ -8,15 +8,17 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { LoggedInUser } from '../models/loggedInUser';
 import { UserLoginRequest } from '../models/userLoginRequest';
 import { map } from 'rxjs/operators';
+import { UserTokenState } from '../models/userTokenState';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
+   
 
     access_token = null;
-  
+    req: UserTokenState
     loggedInUserSubject: BehaviorSubject<LoggedInUser>;
     loggedInUser: Observable<LoggedInUser>;
-
+    loggedInSuccess: BehaviorSubject<LoggedInUser> = new BehaviorSubject<LoggedInUser>(null);
 
 
 
@@ -25,9 +27,17 @@ export class UserService {
         this.loggedInUser = this.loggedInUserSubject.asObservable();
     }
 
+    changePassword(user: User) {
+      return this.http.put(environment.baseUrl, user);
+    }
+  
+    getLoggedInUser(): LoggedInUser {
+      return this.loggedInUserSubject.value;
+    }
+
     login(user: UserLoginRequest) {
         return this.http.post(environment.baseUrl + environment.login, user).pipe(map((res: LoggedInUser) => {
-          this.access_token = res.userTokenState.accessToken;
+          this.access_token = res.userTokenState.jwtAccessToken;
           localStorage.setItem('LoggedInUser', JSON.stringify(res));
           this.loggedInUserSubject.next(res);
         }));
@@ -36,13 +46,18 @@ export class UserService {
     logout() {
         this.access_token = null;
         localStorage.removeItem('LoggedInUser');
-        this.router.navigate(['/login']);
+        this.router.navigate(['']);
     }
 
-    
-    getLoggedInUser(): LoggedInUser {
-        return this.loggedInUserSubject.value;
-      }
+  
+
+    getToken(){
+      return this.access_token;
+    }
+  
+    tokenIsPresent() {
+      return this.access_token != undefined && this.access_token != null;
+    }
 
 
     isLoggedIn() {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+
 import { PharmacyAdmin } from 'src/app/models/PharmacyAdmin';
 import { PharmacyAdminService } from 'src/app/services/pharmacy-admin.service';
 import { UserService } from 'src/app/services/user.service';
@@ -14,7 +15,7 @@ export class EditPharmAdminProfileComponent implements OnInit {
 
 
   PharmAdminForm : FormGroup;
-  loggedPharmacyAdmin : PharmacyAdmin = new PharmacyAdmin("","","","",-1);
+  loggedPharmacyAdmin : PharmacyAdmin = new PharmacyAdmin(-1,"","","","");
 
 
   constructor(private formBuilder : FormBuilder,
@@ -27,7 +28,7 @@ export class EditPharmAdminProfileComponent implements OnInit {
         this.PharmAdminForm = this.formBuilder.group({
           firstName: new FormControl(null, [Validators.required, Validators.maxLength(30)]),
           lastName: new FormControl(null, [Validators.required, Validators.maxLength(30)]),
-          phoneNumber: new FormControl(null, [Validators.required, Validators.minLength(9), Validators.maxLength(10), Validators.pattern("0[0-9]+")]),
+          phoneNumber: new FormControl(null, [Validators.required, Validators.minLength(9), Validators.maxLength(10), Validators.pattern("[0-9]+")]),
         });
 
         this.pharmacyAdminService.get(this.userService.getLoggedInUser().id).subscribe(
@@ -54,8 +55,12 @@ export class EditPharmAdminProfileComponent implements OnInit {
       return;
     }
 
-    const admin = new PharmacyAdmin(this.loggedPharmacyAdmin.email, this.PharmAdminForm.value.firstName, this.PharmAdminForm.value.lastName,
-      this.PharmAdminForm.value.phoneNumber, this.loggedPharmacyAdmin.id);
+    const admin = new PharmacyAdmin(this.loggedPharmacyAdmin.id,
+                                    this.loggedPharmacyAdmin.email,
+                                    this.PharmAdminForm.value.firstName,
+                                    this.PharmAdminForm.value.lastName,
+                                    this.PharmAdminForm.value.phoneNumber
+                                    );
 
     this.pharmacyAdminService.put(admin).subscribe(
       () => {

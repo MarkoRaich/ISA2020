@@ -43,16 +43,16 @@ INSERT INTO pharmacy (name, address, description, rating) VALUES ('Benu', 'Novi 
 
 -- KOLICINA LEKOVA U APOTEKAMA
 
-INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity) VALUES ( 1, 1, 200);
-INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity) VALUES ( 1, 2, 500);
-INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity) VALUES ( 2, 1, 70);
-INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity) VALUES ( 2, 3, 45);
-INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity) VALUES ( 3, 1, 300);
-INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity) VALUES ( 4, 1, 200);
-INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity) VALUES ( 4, 3, 80);
-INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity) VALUES ( 5, 1, 65);
-INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity) VALUES ( 5, 2, 17);
-INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity) VALUES ( 5, 3, 40);
+INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity, status) VALUES ( 1, 1, 200, 'ACTIVE');
+INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity, status) VALUES ( 1, 2, 500, 'ACTIVE');
+INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity, status) VALUES ( 2, 1, 70, 'ACTIVE');
+INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity, status) VALUES ( 2, 3, 45, 'ACTIVE');
+INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity, status) VALUES ( 3, 1, 300, 'ACTIVE');
+INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity, status) VALUES ( 4, 1, 200, 'DELETED');
+INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity, status) VALUES ( 4, 3, 80, 'ACTIVE');
+INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity, status) VALUES ( 5, 1, 65, 'DELETED');
+INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity, status) VALUES ( 5, 2, 17, 'ACTIVE');
+INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity, status) VALUES ( 5, 3, 40, 'ACTIVE');
 
 
 -- DATE TIME INTERVAL
@@ -85,18 +85,18 @@ INSERT INTO pharmacy_admin_authority(user_id, authority_id) VALUES (3,4);
 
 
 -- DERMATOLOZI I NJIHOVA PRAVA POVEZANA
-INSERT INTO dermatologist (username, password, first_name, last_name, work_hours_from, work_hours_to, phone_number, rating, status) VALUES ('dermatolog1@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Sima', 'Djokic', '07:30','20:00', '0655584', 4, 'ACTIVE');     
+INSERT INTO dermatologist (username, password, first_name, last_name, phone_number, rating, status) VALUES ('dermatolog1@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Sima', 'Djokic',  '0655584', 4, 'ACTIVE');     
 INSERT INTO dermatologist_authority(user_id, authority_id) VALUES (1,3);
 
-INSERT INTO dermatologist (username, password, first_name, last_name, work_hours_from, work_hours_to, phone_number, rating, status) VALUES ('dermatolog2@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Petar', 'Belibrk', '09:30','18:00', '0658684', 3.2, 'ACTIVE');     
+INSERT INTO dermatologist (username, password, first_name, last_name, phone_number, rating, status) VALUES ('dermatolog2@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Petar', 'Belibrk',  '0658684', 3.2, 'ACTIVE');     
 INSERT INTO dermatologist_authority(user_id, authority_id) VALUES (2,3);
 
-INSERT INTO dermatologist (username, password, first_name, last_name, work_hours_from, work_hours_to, phone_number, rating, status) VALUES ('dermatolog3@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Stefan', 'Miljic', '08:00','14:00', '06477284', 4.7, 'ACTIVE');     
+INSERT INTO dermatologist (username, password, first_name, last_name,  phone_number, rating, status) VALUES ('dermatolog3@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Stefan', 'Miljic', '06477284', 4.7, 'ACTIVE');     
 INSERT INTO dermatologist_authority(user_id, authority_id) VALUES (3,3);
 
 -- DERMATOLOZI I APOTEKE U KOJIMA RADE
-INSERT INTO pharmacy_dermatologist(pharmacy_id, dermatologist_id) VALUES (1,1);
-INSERT INTO pharmacy_dermatologist(pharmacy_id, dermatologist_id) VALUES (2,2);
-INSERT INTO pharmacy_dermatologist(pharmacy_id, dermatologist_id) VALUES (3,3);
+--INSERT INTO pharmacy_dermatologist(pharmacy_id, dermatologist_id) VALUES (1,1);
+--INSERT INTO pharmacy_dermatologist(pharmacy_id, dermatologist_id) VALUES (2,2);
+--INSERT INTO pharmacy_dermatologist(pharmacy_id, dermatologist_id) VALUES (3,3);
 
 
