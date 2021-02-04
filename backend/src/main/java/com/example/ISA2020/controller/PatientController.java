@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ISA2020.dto.DrugPricePharmacyNameAddressRatingDTO;
 import com.example.ISA2020.dto.EditPatientDTO;
+import com.example.ISA2020.dto.ExaminationPriceDTO;
 import com.example.ISA2020.dto.PatientDTO;
 import com.example.ISA2020.entity.users.Patient;
+import com.example.ISA2020.service.ExaminationPriceService;
 import com.example.ISA2020.service.PatientService;
 import com.example.ISA2020.service.PharmacyService;
 
@@ -34,6 +36,9 @@ public class PatientController {
 	
 	@Autowired
 	private PharmacyService pharmacyService;
+	
+	@Autowired
+	private ExaminationPriceService examinationPriceService;
 	
 	
 	@GetMapping("/getAll")
@@ -104,6 +109,16 @@ public class PatientController {
 		return new ResponseEntity<List<DrugPricePharmacyNameAddressRatingDTO>>(dtos, HttpStatus.OK);
 	}
 	
+	
+	
+	@GetMapping("/getAllExaminationsSortedByPrice")
+	public ResponseEntity<List<ExaminationPriceDTO>> getAllExaminationsByPrice() {
+		List<ExaminationPriceDTO> dtos = patientService.getAllExaminationPricesSortedByPrice();
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<ExaminationPriceDTO>>(dtos, HttpStatus.OK);
+	}
 	
 	
 	

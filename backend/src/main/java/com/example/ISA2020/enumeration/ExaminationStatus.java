@@ -4,5 +4,6 @@ public enum ExaminationStatus {
     AVAILABLE,
     BOOKED,
     PREDEF_BOOKED,
+    DONE,
     CANCELED
 }

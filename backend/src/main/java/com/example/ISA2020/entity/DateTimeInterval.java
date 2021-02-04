@@ -36,7 +36,7 @@ public class DateTimeInterval {
     private Set<Reservation> reservations = new HashSet<>();
     
     @OneToMany(mappedBy = "interval", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<PharmacyExaminationPrice> examinationPrices = new HashSet<>();
+    private Set<ExaminationPrice> examinationPrices = new HashSet<>();
     
     @OneToMany(mappedBy = "interval", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<DrugPrice> drugPrices = new HashSet<>();
@@ -49,13 +49,10 @@ public class DateTimeInterval {
 	
 
 
-	public DateTimeInterval(LocalDateTime startDateTime, LocalDateTime endDateTime, Set<Reservation> reservations,
-			Set<PharmacyExaminationPrice> examinationPrices) {
+	public DateTimeInterval(LocalDateTime startDateTime, LocalDateTime endDateTime) {
 		super();
 		this.startDateTime = startDateTime;
 		this.endDateTime = endDateTime;
-		this.reservations = reservations;
-		this.examinationPrices = examinationPrices;
 		//this.drugPrices = drugPrices;
 	}
 
@@ -109,14 +106,14 @@ public class DateTimeInterval {
 
 
 
-	public Set<PharmacyExaminationPrice> getExaminationPrices() {
+	public Set<ExaminationPrice> getExaminationPrices() {
 		return examinationPrices;
 	}
 
 
 
 
-	public void setExaminationPrices(Set<PharmacyExaminationPrice> examinationPrices) {
+	public void setExaminationPrices(Set<ExaminationPrice> examinationPrices) {
 		this.examinationPrices = examinationPrices;
 	}
 
