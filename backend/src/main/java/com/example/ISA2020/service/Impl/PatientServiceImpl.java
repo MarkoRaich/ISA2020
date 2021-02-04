@@ -1,5 +1,7 @@
 package com.example.ISA2020.service.Impl;
 
+import static org.junit.Assert.assertThat;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,17 +11,20 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.example.ISA2020.dto.DrugPricePharmacyNameAddressRatingDTO;
 import com.example.ISA2020.dto.EditPatientDTO;
+import com.example.ISA2020.dto.ExaminationPriceDTO;
 import com.example.ISA2020.dto.PatientDTO;
 import com.example.ISA2020.dto.PatientWithIdDTO;
+import com.example.ISA2020.entity.Drug;
+import com.example.ISA2020.entity.ExaminationPrice;
 import com.example.ISA2020.entity.users.Patient;
-import com.example.ISA2020.repository.AuthRepository;
-import com.example.ISA2020.repository.DermatologistRepository;
+import com.example.ISA2020.repository.DrugPriceRepository;
+import com.example.ISA2020.repository.DrugRepository;
+import com.example.ISA2020.repository.ExaminationPriceRepository;
 import com.example.ISA2020.repository.PatientRepository;
-import com.example.ISA2020.repository.PharmacistRepository;
-import com.example.ISA2020.repository.PharmacyAdminRepository;
-import com.example.ISA2020.repository.SupplierRepository;
-import com.example.ISA2020.repository.SystemAdminRepository;
+import com.example.ISA2020.repository.PharmacyRepository;
+import com.example.ISA2020.service.ExaminationPriceService;
 import com.example.ISA2020.service.PatientService;
 
 @Service
@@ -29,22 +34,17 @@ public class PatientServiceImpl implements PatientService{
 	private PatientRepository patientRepo;
 	
 	@Autowired 
-	private SystemAdminRepository systemAdminRepo;
-	
-	@Autowired
-	private PharmacyAdminRepository pharmacyAdminRepo;
-	
-	@Autowired
-	private DermatologistRepository dermatologistRepo;
-	
-	@Autowired
-	private PharmacistRepository pharmacistRepo;
-	
-	@Autowired
-	private SupplierRepository supplierRepo;
+	private DrugRepository drugRepo;
 	
 	@Autowired 
-	private AuthRepository authRepo;
+	private PharmacyRepository pharmacyRepo;
+	
+	@Autowired 
+	private DrugPriceRepository drugPriceRepo;
+	
+	@Autowired
+	private ExaminationPriceRepository examinationPriceRepo;
+	
 	
 	
 
@@ -113,6 +113,117 @@ public class PatientServiceImpl implements PatientService{
 		return new PatientDTO(patientRepo.save(patient));
 		
 	}
+	
+	@Override
+	public Patient addAlergie(String drugName) {
+		Patient patient = getLoginPatient();
+		
+		if(patient == null) {
+			return null;
+		}
+		
+		List<Drug> drugs = drugRepo.findAll();
+		
+		for(Drug d : drugs) {
+			if(d.getName().toLowerCase().contains(drugName.toLowerCase())) {
+				patient.getAlergies().add(d);			
+			}
+		}
+		
+		patientRepo.save(patient);
+		
+		return patient;
+		
+	}
+	
+	/*
+	 * @Override public List<DrugPricePharmacyNameAddressRatingDTO> getAll
+	 */
+	
+	@Override
+	public List<ExaminationPriceDTO> getAllExaminationPricesSortedByPrice() {
+		Patient patient = getLoginPatient();
+		
+		if(patient == null) {
+			return null;
+		}
+		
+		
+		List<ExaminationPrice> prices = examinationPriceRepo.findByOrderByPrice();
+		List<ExaminationPrice> patientExaminations = new ArrayList<>();
+		List<ExaminationPriceDTO> dtos = new ArrayList<>();
+		
+		//proverava sve preglede i dodaje samo one koji su povezani sa datim pacijentom
+		for(ExaminationPrice p : prices) {
+			if(p.getExamination().getPatient().getId() == patient.getId()) {
+				patientExaminations.add(p);
+			}
+		}
+		
+			//pretvaranje rezultata u dto modele
+		for(ExaminationPrice e : patientExaminations) {
+			ExaminationPriceDTO dto = new ExaminationPriceDTO();
+			dto.setExaminationName(e.getExamination().getName());
+			dto.setPharmacyName(e.getPharmacy().getName());
+			dto.setPrice(e.getPrice());
+			dto.setStartDateTime(e.getInterval().getStartDateTime());
+			dto.setEndDateTime(e.getInterval().getEndDateTime());
+			dtos.add(dto);
+		}
+		
+		return dtos;
+	}
+	
+	
+	@Override
+	public List<ExaminationPriceDTO> getAllExaminationPricesSortedByDate() {
+		Patient patient = getLoginPatient();
+		
+		if(patient == null) {
+			return null;
+		}
+		
+		
+		List<ExaminationPrice> prices = examinationPriceRepo.findByOrderByPrice();
+		List<ExaminationPrice> patientExaminations = new ArrayList<>();
+		List<ExaminationPrice> sortiranoPoDatumu = new ArrayList<>();
+		List<ExaminationPriceDTO> dtos = new ArrayList<>();
+		
+		//proverava sve preglede i dodaje samo one koji su povezani sa datim pacijentom
+		for(ExaminationPrice p : prices) {
+			if(p.getExamination().getPatient().getId() == patient.getId()) {
+				patientExaminations.add(p);
+			}
+		}
+		
+		/*
+		for(ExaminationPrice p1 : patientExaminations) {
+			for(ExaminationPrice p2 : patientExaminations) {
+				if(p1.getId() != p2.getId()) {
+					if(assertThat(p1.getInterval().getStartDateTime().isBefore(p2.getInterval().getStartDateTime()), is(true))){
+						sortiranoPoDatumu.add(p1);
+					}else {
+						sortiranoPoDatumu.add(p2);
+					}
+				}
+			}
+		} */
+		
+			//pretvaranje rezultata u dto modele
+		for(ExaminationPrice e : patientExaminations) {
+			ExaminationPriceDTO dto = new ExaminationPriceDTO();
+			dto.setExaminationName(e.getExamination().getName());
+			dto.setPharmacyName(e.getPharmacy().getName());
+			dto.setPrice(e.getPrice());
+			dto.setStartDateTime(e.getInterval().getStartDateTime());
+			dto.setEndDateTime(e.getInterval().getEndDateTime());
+			dtos.add(dto);
+		}
+		
+		return dtos;
+	}
+	
+	
 	
 	
 	

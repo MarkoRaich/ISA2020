@@ -8,46 +8,51 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.Table;
 
+@Table(name="examinationPrice")
 @Entity
-public class PharmacyExaminationPrice {
+public class ExaminationPrice {
 	
 	@EmbeddedId
     private PharmacyExaminationKey id;
-
-    @ManyToOne
-    @MapsId("pharmacyId")
-    @JoinColumn(name = "pharmacy_id")
-    private Pharmacy pharmacy;
+	
+    @Column 
+    private double price;
+	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private DateTimeInterval interval; 
 
     @ManyToOne
     @MapsId("examinationId")
-    @JoinColumn(name = "examination_id")
+    @JoinColumn(name = "examination_id", referencedColumnName = "id")
     private Examination examination;
+	
+	@ManyToOne
+	@MapsId("pharmacyId")
+	@JoinColumn(name = "pharmacy_id", referencedColumnName = "id")
+    private Pharmacy pharmacy;
     
-    @Column 
-    private double price;
-    
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private DateTimeInterval interval;
+   
 
     
     //KONSTRUKTORI
-	public PharmacyExaminationPrice() {
-		super();
-	}
-
-
-	public PharmacyExaminationPrice(Pharmacy pharmacy, Examination examination, double price,
-			DateTimeInterval interval) {
-		super();
-		this.pharmacy = pharmacy;
-		this.examination = examination;
-		this.price = price;
-		this.interval = interval;
+	public ExaminationPrice() {
 	}
 
 	
+	public ExaminationPrice(double price, DateTimeInterval interval, Pharmacy pharmacy,
+			Examination examination) {
+		super();
+		this.price = price;
+		this.interval = interval;
+		this.pharmacy = pharmacy;
+		this.examination = examination;
+	}
+
+
+
+
 	//GETERI I SETERI
 	public PharmacyExaminationKey getId() {
 		return id;

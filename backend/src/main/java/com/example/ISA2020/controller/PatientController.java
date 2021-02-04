@@ -14,12 +14,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.ISA2020.dto.DrugPricePharmacyNameAddressRatingDTO;
 import com.example.ISA2020.dto.EditPatientDTO;
+import com.example.ISA2020.dto.ExaminationPriceDTO;
 import com.example.ISA2020.dto.PatientDTO;
 import com.example.ISA2020.entity.users.Patient;
+import com.example.ISA2020.service.ExaminationPriceService;
 import com.example.ISA2020.service.PatientService;
+import com.example.ISA2020.service.PharmacyService;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -28,6 +33,12 @@ public class PatientController {
 	
 	@Autowired
 	private PatientService patientService;
+	
+	@Autowired
+	private PharmacyService pharmacyService;
+	
+	@Autowired
+	private ExaminationPriceService examinationPriceService;
 	
 	
 	@GetMapping("/getAll")
@@ -56,6 +67,57 @@ public class PatientController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(patientDTO, HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/addAlergie")
+    //@PreAuthorize("hasRole('PATIENT')") //ROLE_PATIENT??
+	public ResponseEntity<Patient> addAlergie(@RequestParam("drugName") String drugName) {
+		Patient patient = patientService.addAlergie(drugName);
+		if(patient == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(patient, HttpStatus.CREATED);
+	}
+	
+	
+	// 3.9 --------------------------------------------------------------------------------------------------
+	@GetMapping("/getAllPharmaciesSortedByAddress")
+	public ResponseEntity<List<DrugPricePharmacyNameAddressRatingDTO>> getAllPharmaciesByAddress() {
+		List<DrugPricePharmacyNameAddressRatingDTO> dtos = pharmacyService.getAllPharmaciesSortedByPharmacyAddress();
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<DrugPricePharmacyNameAddressRatingDTO>>(dtos, HttpStatus.OK);
+	}
+	
+	@GetMapping("/getAllPharmaciesSortedByName")
+	public ResponseEntity<List<DrugPricePharmacyNameAddressRatingDTO>> getAllPharmaciesByName() {
+		List<DrugPricePharmacyNameAddressRatingDTO> dtos = pharmacyService.getAllPharmaciesSortedByPharmacyName();
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<DrugPricePharmacyNameAddressRatingDTO>>(dtos, HttpStatus.OK);
+	}
+	
+	
+	@GetMapping("/getAllPharmaciesSortedByRating")
+	public ResponseEntity<List<DrugPricePharmacyNameAddressRatingDTO>> getAllPharmaciesByRating() {
+		List<DrugPricePharmacyNameAddressRatingDTO> dtos = pharmacyService.getAllPharmaciesSortedByPharmacyRating();
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<DrugPricePharmacyNameAddressRatingDTO>>(dtos, HttpStatus.OK);
+	}
+	
+	
+	
+	@GetMapping("/getAllExaminationsSortedByPrice")
+	public ResponseEntity<List<ExaminationPriceDTO>> getAllExaminationsByPrice() {
+		List<ExaminationPriceDTO> dtos = patientService.getAllExaminationPricesSortedByPrice();
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<ExaminationPriceDTO>>(dtos, HttpStatus.OK);
 	}
 	
 	

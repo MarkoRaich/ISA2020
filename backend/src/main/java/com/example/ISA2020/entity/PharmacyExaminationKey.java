@@ -14,8 +14,8 @@ public class PharmacyExaminationKey implements Serializable {
 	@Column(name = "pharmacy_id")
     Long pharmacyId;
 
-    @Column(name = "pricelistExamination_id")
-    Long pricelistExaminationId;
+    @Column(name = "examination_id")
+    Long examinationId;
 
 
 
@@ -25,7 +25,7 @@ public class PharmacyExaminationKey implements Serializable {
    		final int prime = 31;
    		int result = 1;
    		result = prime * result + ((pharmacyId == null) ? 0 : pharmacyId.hashCode());
-   		result = prime * result + ((pricelistExaminationId == null) ? 0 : pricelistExaminationId.hashCode());
+   		result = prime * result + ((examinationId == null) ? 0 : examinationId.hashCode());
    		return result;
    	}
 
@@ -43,10 +43,10 @@ public class PharmacyExaminationKey implements Serializable {
    				return false;
    		} else if (!pharmacyId.equals(other.pharmacyId))
    			return false;
-   		if (pricelistExaminationId == null) {
-   			if (other.pricelistExaminationId != null)
+   		if (examinationId == null) {
+   			if (other.examinationId != null)
    				return false;
-   		} else if (!pricelistExaminationId.equals(other.pricelistExaminationId))
+   		} else if (!examinationId.equals(other.examinationId))
    			return false;
    		return true;
    	}

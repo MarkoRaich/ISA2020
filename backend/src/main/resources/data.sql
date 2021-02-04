@@ -38,8 +38,10 @@ INSERT INTO replacement_drug(drug_id, repl_drug_id) VALUES (1,3);
 -- APOTEKE
 
 INSERT INTO pharmacy (name, address,description, rating) VALUES ('Jankovic', 'Novi Sad Narodnog Fronta 1', 'Apoteka Jankovic ima veliki izbor preparata', 4.5);
-INSERT INTO pharmacy (name, address, description, rating) VALUES ('Zegin', 'Novi Sad Bulevar Oslobodjenja 32', 'Tradija pre svega, nalazimo se na idealnoj lokaciji', 4.2);
+INSERT INTO pharmacy (name, address, description, rating) VALUES ('Zegin', 'Novi Sad Bulevar Oslobodjenja 32', 'Tradicija pre svega, nalazimo se na idealnoj lokaciji', 4.2);
 INSERT INTO pharmacy (name, address, description, rating) VALUES ('Benu', 'Novi Sad Bulevar Cara Lazara 20', 'Nesto za svakoga', 4.0);
+INSERT INTO pharmacy (name, address, description, rating) VALUES ('Betty', 'Beograd Zemunska 50', 'Vama na usluzi', 2.5);
+INSERT INTO pharmacy (name, address, description, rating) VALUES ('Zlatni Lav', 'Zrenjanin Balkanska 20', 'Jel imate mozda...? Imamo.', 3.8);
 
 -- KOLICINA LEKOVA U APOTEKAMA
 
@@ -100,3 +102,22 @@ INSERT INTO dermatologist_authority(user_id, authority_id) VALUES (3,3);
 --INSERT INTO pharmacy_dermatologist(pharmacy_id, dermatologist_id) VALUES (3,3);
 
 
+-- EXAMINATION 
+-- INSERT INTO examination(description, name, complaint_id, dermatologist_id, examination_report_id, interval_id, patient_id, pharmacy_id)  
+INSERT INTO examination(description, name, dermatologist_id, patient_id) values ('Opsti pregled', 'Opsti pregled pacijenta', 1, 1);
+INSERT INTO examination(description, name, dermatologist_id, patient_id) values ('Pregled sa Dermoskopom ', 'Pregled pacijenta sa Dermoskopom', 2, 2);
+INSERT INTO examination(description, name, dermatologist_id, patient_id) values ('PH nalaz', 'PH nalaz za pacijenta', 1, 2);
+INSERT INTO examination(description, name, dermatologist_id, patient_id) values ('Dermoskopija', 'Dermoskopija za pacijenta', 2, 1);
+INSERT INTO examination(description, name, dermatologist_id, patient_id) values ('Opsta hirurgija', 'Opsta hirurgija', 3, 1);
+
+-- EXAMINATION PRICE
+INSERT INTO examination_price(examination_id, pharmacy_id, price, interval_id) 
+values (1, 1, 4000.0, 1);
+INSERT INTO examination_price(examination_id, pharmacy_id, price, interval_id) 
+values (2, 2, 5000.0, 2);
+INSERT INTO examination_price(examination_id, pharmacy_id, price, interval_id) 
+values (3, 3, 4230.0, 2);
+INSERT INTO examination_price(examination_id, pharmacy_id, price, interval_id) 
+values (4, 3, 7730.0, 1);
+INSERT INTO examination_price(examination_id, pharmacy_id, price, interval_id) 
+values (5, 2, 5670.0, 3);

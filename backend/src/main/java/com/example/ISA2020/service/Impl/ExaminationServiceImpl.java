@@ -1,6 +1,7 @@
 package com.example.ISA2020.service.Impl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,11 @@ public class ExaminationServiceImpl implements ExaminationService {
 	
 	@Override
 	public Examination findById(Long id) {
-		// TODO Auto-generated method stub
 		return examinationRepository.findOneById(id);
 	}
 
 	@Override
 	public List<Examination> getAllExaminations() {
-		// TODO Auto-generated method stub
 		return examinationRepository.findAll();
 	}
 
@@ -34,5 +33,16 @@ public class ExaminationServiceImpl implements ExaminationService {
 		
 		 return examinationRepository.findByDermatologistIdAndStatusNotAndIntervalEndDateTimeAfter(dermId, ExaminationStatus.CANCELED, LocalDateTime.now());
 	}
+	
+	/*
+	public List<ExaminationDTO> getAllExaminationSortedByDate() {
+		List<Examination> examinations = examinationRepository.findByOrderByDateTimeInterval();
+		
+		List<ExaminationDTO> dtos = new ArrayList<>();
+		
+		for(Examination e : examinations) {
+			
+		}
+	} */
 
 }

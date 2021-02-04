@@ -31,6 +31,7 @@ import com.example.ISA2020.entity.Examination;
 import com.example.ISA2020.entity.Prescription;
 import com.example.ISA2020.entity.Promotion;
 import com.example.ISA2020.entity.Reservation;
+import com.example.ISA2020.enumeration.CategoryStatus;
 import com.example.ISA2020.enumeration.UserStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -80,6 +81,9 @@ public class Patient implements UserDetails {
     //status za proveru da li je ulogovan
     @Enumerated(EnumType.STRING)
     private UserStatus status;
+    
+    @Enumerated(EnumType.STRING)
+    private CategoryStatus categoryStatus;
 
 
     //VEZE SA DRUGIM ENTITETIMA (TABELAMA U SMISLU BAZA)
@@ -139,6 +143,7 @@ public class Patient implements UserDetails {
     	this.points = 0;
     	this.penalties = 0;
     	this.status = UserStatus.NEVER_LOGGED_IN;
+    	this.categoryStatus = CategoryStatus.BEGINNER;
     }
 	
     public Patient(@NotNull(message = "Username cannot be null.") String username,
@@ -155,6 +160,7 @@ public class Patient implements UserDetails {
 		this.points = 0;
 		this.penalties = 0;
 		this.status = UserStatus.NEVER_LOGGED_IN;
+		this.categoryStatus = CategoryStatus.BEGINNER;
 		this.authorities = authorities;
 	}
 
@@ -328,6 +334,16 @@ public class Patient implements UserDetails {
 	public void setStatus(UserStatus status) {
 		this.status = status;
 	}
+
+	public CategoryStatus getCategoryStatus() {
+		return categoryStatus;
+	}
+
+	public void setCategoryStatus(CategoryStatus categoryStatus) {
+		this.categoryStatus = categoryStatus;
+	}
+	
+	
 	
 	
 	

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.example.ISA2020.dto.DrugPricePharmacyNameAddressRatingDTO;
 import com.example.ISA2020.dto.EditPharmacyDTO;
 import com.example.ISA2020.dto.PharmacyDTO;
 import com.example.ISA2020.entity.Drug;
@@ -20,4 +21,11 @@ public interface PharmacyService {
 	List<Pharmacy> getAllPharmacies();
 
 	EditPharmacyDTO edit(@Valid EditPharmacyDTO pharmacyDTO, Long pharmId);
+	
+	List<DrugPricePharmacyNameAddressRatingDTO> getAllPharmaciesSortedByPharmacyAddress();
+	
+	List<DrugPricePharmacyNameAddressRatingDTO> getAllPharmaciesSortedByPharmacyName();
+	
+	List<DrugPricePharmacyNameAddressRatingDTO> getAllPharmaciesSortedByPharmacyRating();
+	
 }

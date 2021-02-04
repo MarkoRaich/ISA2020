@@ -3,6 +3,7 @@ package com.example.ISA2020.entity;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import com.example.ISA2020.entity.users.Dermatologist;
 import com.example.ISA2020.entity.users.Patient;
@@ -18,6 +19,16 @@ public class Examination {		//PREGLED KOD DERMATOLOGA
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+    @NotNull(message = "Name cannot be null.")
+    @Column(nullable = false)
+    private String name;
+    
+    //Sifra leka
+    @NotNull(message = "Description cannot be null.")
+    @Column(nullable = false)
+    private String description;
+    
+    
 	@Enumerated(EnumType.STRING)
 	@Column()
 	private ExaminationStatus status;
@@ -31,9 +42,6 @@ public class Examination {		//PREGLED KOD DERMATOLOGA
 	@JoinColumn(name = "patient_id", referencedColumnName = "id")
 	private Patient patient;
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "pharmacy_id", referencedColumnName = "id")
-	private Pharmacy pharmacy;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "dermatologist_id", referencedColumnName = "id")
@@ -45,25 +53,27 @@ public class Examination {		//PREGLED KOD DERMATOLOGA
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "examinationReport_id", referencedColumnName = "id")
-	private ExaminationReport examinationReport;
+	private ExaminationReport examinationReport = null;
 	
 	
 	
 	//KONSTRUKTORI
 	public Examination() {
 		super();
+		this.status = ExaminationStatus.AVAILABLE;
+		this.examinationReport = null;
 	}
 
-	public Examination(ExaminationStatus status, DateTimeInterval interval, Patient patient, Pharmacy pharmacy,
+	public Examination(ExaminationStatus status, DateTimeInterval interval, Patient patient,
 			Dermatologist dermatologist, Complaint complaint, ExaminationReport examinationReport) {
 		super();
 		this.status = status;
 		this.interval = interval;
 		this.patient = patient;
-		this.pharmacy = pharmacy;
 		this.dermatologist = dermatologist;
 		this.complaint = complaint;
 		this.examinationReport = examinationReport;
+		this.status = ExaminationStatus.AVAILABLE;
 	}
 	
 	//GETERI I SETERI
@@ -99,13 +109,6 @@ public class Examination {		//PREGLED KOD DERMATOLOGA
 		this.patient = patient;
 	}
 
-	public Pharmacy getPharmacy() {
-		return pharmacy;
-	}
-
-	public void setPharmacy(Pharmacy pharmacy) {
-		this.pharmacy = pharmacy;
-	}
 
 	public Dermatologist getDermatologist() {
 		return dermatologist;
@@ -131,6 +134,23 @@ public class Examination {		//PREGLED KOD DERMATOLOGA
 		this.examinationReport = examinationReport;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	
 	
 	
 	

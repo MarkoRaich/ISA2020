@@ -55,8 +55,7 @@ public class DrugPriceAndPharmacyDTO {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
-	
-	
+
+		
 	
 }
