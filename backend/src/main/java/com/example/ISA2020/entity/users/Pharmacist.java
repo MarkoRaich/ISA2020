@@ -51,12 +51,15 @@ public class Pharmacist implements UserDetails {
 	@JsonFormat(pattern = "HH:mm")
 	@NotNull
 	@Column(nullable = false)
-	private LocalTime workHourFrom;
+	private LocalTime workHoursFrom;
 
 	@JsonFormat(pattern = "HH:mm")
 	@NotNull
 	@Column(nullable = false)
-	private LocalTime workHourTo;
+	private LocalTime workHoursTo;
+	
+	@Column(columnDefinition = "VARCHAR(10)", unique = true, nullable = false)
+	private String phoneNumber; 
 	
 	//prosecna ocena farmaceuta
 	@Column
@@ -97,15 +100,15 @@ public class Pharmacist implements UserDetails {
     
 	public Pharmacist(@NotNull(message = "Username cannot be null.") String username,
 			@NotNull(message = "Password cannot be null.") String password, String firstName, String lastName,
-			@NotNull LocalTime workHourFrom, @NotNull LocalTime workHourTo, Pharmacy pharmacy,
+			@NotNull LocalTime workHoursFrom, @NotNull LocalTime workHoursTo, Pharmacy pharmacy,
 			Set<Consultation> consultations, Set<VacationRequestPharm> vacationRequests, Set<Authority> authorities) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.workHourFrom = workHourFrom;
-		this.workHourTo = workHourTo;
+		this.workHoursFrom = workHoursFrom;
+		this.workHoursTo = workHoursTo;
 		this.rating = 0;
 		this.pharmacy = pharmacy;
 		this.consultations = consultations;
@@ -169,23 +172,23 @@ public class Pharmacist implements UserDetails {
 	
 	
 
-	public LocalTime getWorkHourFrom() {
-		return workHourFrom;
+	public LocalTime getWorkHoursFrom() {
+		return workHoursFrom;
 	}
 
 
-	public void setWorkHourFrom(LocalTime workHourFrom) {
-		this.workHourFrom = workHourFrom;
+	public void setWorkHoursFrom(LocalTime workHourFrom) {
+		this.workHoursFrom = workHourFrom;
 	}
 
 
-	public LocalTime getWorkHourTo() {
-		return workHourTo;
+	public LocalTime getWorkHoursTo() {
+		return workHoursTo;
 	}
 
 
-	public void setWorkHourTo(LocalTime workHourTo) {
-		this.workHourTo = workHourTo;
+	public void setWorkHoursTo(LocalTime workHourTo) {
+		this.workHoursTo = workHourTo;
 	}
 
 
@@ -229,6 +232,16 @@ public class Pharmacist implements UserDetails {
 	}
 
 
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+
 	//OVERRIDE METODE
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -238,12 +251,12 @@ public class Pharmacist implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return this.getPassword();
+		return password;
 	}
 
 	@Override
 	public String getUsername() {
-    	return this.getUsername();
+    	return username;
 	}
 
 	@Override

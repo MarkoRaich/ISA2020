@@ -7,6 +7,7 @@ import { PatientProfileComponent } from './components/patient-profile/patient-pr
 
 import { EditPharmacyProfileComponent } from './components/edit-pharmacy-profile/edit-pharmacy-profile.component';
 import { EditPharmAdminProfileComponent } from './components/edit-pharm-admin-profile/edit-pharm-admin-profile.component';
+import { ListPharmacistsComponent } from './list-pharmacists/list-pharmacists.component';
 
 
 const routes: Routes = [
@@ -50,6 +51,11 @@ const routes: Routes = [
   {
     path: 'pharmacy-admin/edit-admin-profile',
     component: EditPharmAdminProfileComponent
+  },
+
+  {
+    path: 'pharmacy-admin/list-pharmacists',
+    component: ListPharmacistsComponent
   }
 
 ];

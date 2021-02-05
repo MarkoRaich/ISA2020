@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
-import { PharmacyAdmin } from 'src/app/models/PharmacyAdmin';
+import { PharmacyAdmin } from 'src/app/models/pharmacyAdmin';
 import { PharmacyAdminService } from 'src/app/services/pharmacy-admin.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -51,7 +51,7 @@ export class EditPharmAdminProfileComponent implements OnInit {
 
   saveChanges() {
     if (this.PharmAdminForm.invalid) {
-      this.toastr.error("Unesite ispravne podatke.", 'Edit personal information');
+      this.toastr.error("Unesite ispravne podatke.", 'Moj profil');
       return;
     }
 
@@ -64,10 +64,10 @@ export class EditPharmAdminProfileComponent implements OnInit {
 
     this.pharmacyAdminService.put(admin).subscribe(
       () => {
-        this.toastr.success("Uspesno Ste promenili Vase podatke.", 'Edit personal information');
+        this.toastr.success("Uspesno Ste promenili Vase podatke.", 'Moj profil');
       },
       () => {
-        this.toastr.error("Greska, pokusajte ponovo.", 'Edit personal information');
+        this.toastr.error("Greska, pokusajte ponovo.", 'Moj profil');
       }
     );
   }

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { PharmacyAdmin } from '../models/PharmacyAdmin';
+import { PharmacyAdmin } from '../models/pharmacyAdmin';
 
 @Injectable({
   providedIn: 'root'

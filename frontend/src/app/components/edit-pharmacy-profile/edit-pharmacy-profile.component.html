@@ -1,1 +1,71 @@
-<p>edit-pharmacy-profile works!</p>
+<!-- page-header -->
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-caption">
+                    <h1 class="page-title">Profil apoteke</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.page-header-->
+
+<!-- page-content -->
+<div class="card-section">
+    <div class="container">
+        <div class="card-block bg-white mb30">
+            <div class="row">
+                <!-- section-title -->
+                <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5">
+                    <div class="section-title mb-0">
+                        <form [formGroup]="editPharmacyForm" class="mat-elevation-z8 form">
+                            <mat-form-field class="form-full-width">
+                                <input matInput placeholder="Name" formControlName="name">
+                                <mat-error
+                                    *ngIf="editPharmacyForm.get('name').errors && editPharmacyForm.get('name').errors['required']">
+                                    Unesite ime apoteke.
+                                </mat-error>
+                                <mat-error
+                                    *ngIf="editPharmacyForm.get('name').errors && editPharmacyForm.get('name').errors['maxlength']">
+                                   Maksimalan broj karaktera je 50.
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="form-full-width mt-2">
+                                <input matInput placeholder="Address" formControlName="address"
+                                    (focusout)="addressFocusOut()">
+                                <mat-error *ngIf="editPharmacyForm.get('address').invalid">
+                                   Unesite adresu apoteke.
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="form-full-width mt-2">
+                                <textarea matInput placeholder="Description" formControlName="description"
+                                    rows="5"></textarea>
+                                <mat-error *ngIf="editPharmacyForm.get('description').invalid">
+                                    Unesite opis apoteke.
+                                </mat-error>
+                            </mat-form-field>
+                            <br>
+                            <div align="end">
+                                <button mat-raised-button color="primary" (click)="edit()"
+                                    [disabled]="!editPharmacyForm.valid">Izmeni</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+                <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7">
+                    <app-map></app-map>
+                </div>
+                <!-- /.section-title -->
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<!-- /.page-content -->

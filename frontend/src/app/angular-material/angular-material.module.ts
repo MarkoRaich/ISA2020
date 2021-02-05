@@ -15,6 +15,10 @@ import {MatListModule} from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 
 @NgModule( {
@@ -27,6 +31,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
         MatListModule,
         MatCardModule,
         MatFormFieldModule,
+        MatDialogModule,
         MatProgressSpinnerModule
        
 
@@ -40,8 +45,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
         MatListModule,
         MatCardModule,
         MatFormFieldModule,
-        MatProgressSpinnerModule
-       
+        MatProgressSpinnerModule,
+        MatPaginatorModule,
+        MatInputModule
     ],
     providers: [
         MatDatepickerModule,

@@ -2,6 +2,8 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { Pharmacist } from "src/app/models/pharmacist";
+
 export const environment = {
   production: false,
   hmr                 : false,
@@ -12,8 +14,9 @@ export const environment = {
   register            : "/api/auth/user/register",
 
 
-  pharmacyAdmin       : "/api/pharmacy-admin"
-  
+  pharmacyAdmin       : "/api/pharmacy-admin",
+  pharmacy            : "/api/pharmacy",
+  pharmacist          : "/api/pharmacist"
 };
 
 /*

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router} from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
 
 import { UserLoginRequest } from 'src/app/models/userLoginRequest';
 import { UserService } from 'src/app/services/user.service';
@@ -58,9 +57,9 @@ export class LoginComponent implements OnInit {
                 this.redirectToHomePage();
 
               },
-                error => {               
-                        this.toastr.error("Neispravni podaci. Pokušajte ponovo.", 'Login');
-                   });
+            (error) => {               
+                this.toastr.error("Neispravni podaci. Pokušajte ponovo.", 'Login');
+        })
     }
 
     // convenience getter for easy access to form fields

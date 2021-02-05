@@ -85,6 +85,16 @@ INSERT INTO pharmacy_admin_authority(user_id, authority_id) VALUES (2,4);
 INSERT INTO pharmacy_admin (username, password, first_name, last_name, phone_number, pharmacy_id, status) VALUES ('apotekaAdmin3@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Slavisa', 'Jelicic', '0643284', 3, 'ACTIVE');     
 INSERT INTO pharmacy_admin_authority(user_id, authority_id) VALUES (3,4);
 
+-- FARMACEUTI
+INSERT INTO pharmacist (username, password, first_name, last_name, phone_number, work_hours_from, work_hours_to, rating, status, pharmacy_id ) VALUES ('farmaceut1@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Tijana', 'Dejanovic',  '555333000', '08:00','16:00', 2.4, 'ACTIVE', 1);     
+INSERT INTO pharmacist_authority(user_id, authority_id) VALUES (1,2);
+
+INSERT INTO pharmacist (username, password, first_name, last_name, phone_number, work_hours_from, work_hours_to, rating, status, pharmacy_id ) VALUES ('farmaceut2@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Jovana', 'Grbic',  '555444000', '10:00','18:00', 4, 'ACTIVE', 1);     
+INSERT INTO pharmacist_authority(user_id, authority_id) VALUES (2,2);
+
+INSERT INTO pharmacist (username, password, first_name, last_name, phone_number, work_hours_from, work_hours_to, rating, status, pharmacy_id ) VALUES ('farmaceut3@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Zorana', 'Toroman',  '558953000', '14:00','21:00', 3.8, 'ACTIVE', 2);     
+INSERT INTO pharmacist_authority(user_id, authority_id) VALUES (3,2);
+
 
 -- DERMATOLOZI I NJIHOVA PRAVA POVEZANA
 INSERT INTO dermatologist (username, password, first_name, last_name, phone_number, rating, status) VALUES ('dermatolog1@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Sima', 'Djokic',  '0655584', 4, 'ACTIVE');     

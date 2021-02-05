@@ -18,7 +18,7 @@ export class AuthInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         this.loggedInUser = JSON.parse(localStorage.getItem("LoggedInUser"));
 
-        if (this.userService.getToken != null) {
+        if (this.loggedInUser) {
             this.userTokenState = this.loggedInUser.userTokenState;
             if (this.userTokenState) {
                 if (this.userTokenState.jwtAccessToken) {
