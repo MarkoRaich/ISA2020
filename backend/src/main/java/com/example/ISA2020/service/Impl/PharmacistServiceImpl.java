@@ -1,22 +1,45 @@
 package com.example.ISA2020.service.Impl;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationServiceException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.ISA2020.dto.PharmacistDTO;
+import com.example.ISA2020.entity.Authority;
+import com.example.ISA2020.entity.Consultation;
+import com.example.ISA2020.entity.Pharmacy;
 import com.example.ISA2020.entity.users.Pharmacist;
+import com.example.ISA2020.enumeration.ConsultationStatus;
 import com.example.ISA2020.enumeration.UserStatus;
 import com.example.ISA2020.repository.PharmacistRepository;
+import com.example.ISA2020.service.AuthService;
 import com.example.ISA2020.service.PharmacistService;
+import com.example.ISA2020.service.UserService;
 
 @Service
 public class PharmacistServiceImpl implements PharmacistService{
 	
 	@Autowired
 	private PharmacistRepository pharmacistRepo;
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private AuthService authService; 
+	
+	@Autowired
+    private PasswordEncoder passwordEncoder;
 	
 	@Override
 	public Pharmacist findById(Long id) {
@@ -50,7 +73,7 @@ public class PharmacistServiceImpl implements PharmacistService{
 		return pharmacistRepo.findByIdAndStatusNot(id, UserStatus.DELETED);
 	}
 	
-		@Override
+	@Override
 	public PharmacistDTO deletePharmacist(Long pharmacyId, Long id) {
 		
 		Pharmacist pharmacist = getPharmacist(id);
@@ -63,9 +86,56 @@ public class PharmacistServiceImpl implements PharmacistService{
 			return null;
 		}
 		
+		Set<Consultation> consultations = pharmacist.getConsultations();
+		for(Consultation cons : consultations) {
+			
+			if(cons.getStatus() == ConsultationStatus.BOOKED) {
+				return null;
+			}
+		}
+		
 		pharmacist.setStatus(UserStatus.DELETED);
 		return new PharmacistDTO(pharmacistRepo.save(pharmacist));
 	}
+		
+		
+	@Override
+	public PharmacistDTO create(@Valid PharmacistDTO pharmacistDTO, Pharmacy pharmacy) {
+		
+		 UserDetails userDetails = userService.searchUserInAllRepositories(pharmacistDTO.getEmail());
+	        if (userDetails != null) {
+	            return null;
+	        }
+	     
+        LocalTime workHoursFrom = LocalTime.parse(pharmacistDTO.getWorkHoursFrom(), DateTimeFormatter.ofPattern("HH:mm"));
+        LocalTime workHoursTo = LocalTime.parse(pharmacistDTO.getWorkHoursTo(), DateTimeFormatter.ofPattern("HH:mm"));
+        if (workHoursFrom.isAfter(workHoursTo)) {
+            return null;
+        }
+		
+        String generatedPassword = "lozinka";
+        String hashedPassword = passwordEncoder.encode(generatedPassword);
+        
+        Set<Authority> authorities = authService.findByName("ROLE_PHARMACIST");
+        
+	    Pharmacist newPharmacist = new Pharmacist(pharmacistDTO.getEmail(), 
+									        	  hashedPassword,
+									        	  pharmacistDTO.getFirstName(),
+									        	  pharmacistDTO.getLastName(), 
+									        	  workHoursFrom, 
+									        	  workHoursTo,
+									        	  pharmacistDTO.getPhoneNumber(),
+									        	  pharmacy,
+									        	  authorities); 	
+        										 
+        Pharmacist pharmacist = pharmacistRepo.save(newPharmacist);
+        
+        return new PharmacistDTO(pharmacistRepo.save(pharmacist));
+        
+        
+        
+	}
+		
 		
 	private List<PharmacistDTO> convertToDTO(List<Pharmacist> doctors) {
         List<PharmacistDTO> PharmacistDTOs = new ArrayList<>();
@@ -74,6 +144,8 @@ public class PharmacistServiceImpl implements PharmacistService{
         }
         return PharmacistDTOs;
     }
+
+	
 
 	
 

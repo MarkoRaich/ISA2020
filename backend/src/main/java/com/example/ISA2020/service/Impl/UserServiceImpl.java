@@ -72,7 +72,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	}
 
 	//trazi Usera u svim repozitorijumima
-	private UserDetails searchUserInAllRepositories(String username) {
+	@Override
+	public UserDetails searchUserInAllRepositories(String username) {
 		
 		 try {
 	            Patient patient = patientRepository.findOneByUsername(username);
@@ -225,5 +226,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return searchUserInAllRepositories(currentUser.getName());
     }
 
+	
 	
 }

@@ -16,10 +16,13 @@ export class PharmacistService {
 
   pharmacistsForAdmin: BehaviorSubject<Pharmacist[]> = new BehaviorSubject<Pharmacist[]>([]);
   searchPharmacistsForAdmin: BehaviorSubject<Pharmacist[]> = new BehaviorSubject<Pharmacist[]>([]);
-  createSuccessEmitter= new Subject<Pharmacist>();
+  createSuccessEmitter = new Subject<Pharmacist>();
   
   constructor(private http: HttpClient, private router: Router) { }
 
+  public create(pharmacist: Pharmacist): any {
+      return this.http.post(this.url, pharmacist);
+  }
 
   public getAllPharmacistsForAdmin() {
    this.http.get(this.url + "/all").subscribe(

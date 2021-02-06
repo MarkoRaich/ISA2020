@@ -79,7 +79,7 @@ public class Pharmacist implements UserDetails {
 	private Set<Consultation> consultations = new HashSet<>();
 	
 	@OneToMany(mappedBy = "pharmacist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<VacationRequestPharm> vacationRequests;
+    private Set<VacationRequestPharm> vacationRequests = new HashSet<>();
 
 	//vezano za prava pristupa spring security
     @ManyToMany(fetch = FetchType.EAGER)
@@ -99,9 +99,14 @@ public class Pharmacist implements UserDetails {
     
     
 	public Pharmacist(@NotNull(message = "Username cannot be null.") String username,
-			@NotNull(message = "Password cannot be null.") String password, String firstName, String lastName,
-			@NotNull LocalTime workHoursFrom, @NotNull LocalTime workHoursTo, Pharmacy pharmacy,
-			Set<Consultation> consultations, Set<VacationRequestPharm> vacationRequests, Set<Authority> authorities) {
+					  @NotNull(message = "Password cannot be null.") String password, 
+					  String firstName,
+					  String lastName,
+					  @NotNull LocalTime workHoursFrom, 
+					  @NotNull LocalTime workHoursTo,
+					  String phoneNumber,
+					  Pharmacy pharmacy,
+					  Set<Authority> authorities	) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -109,10 +114,10 @@ public class Pharmacist implements UserDetails {
 		this.lastName = lastName;
 		this.workHoursFrom = workHoursFrom;
 		this.workHoursTo = workHoursTo;
+		this.phoneNumber = phoneNumber;
 		this.rating = 0;
 		this.pharmacy = pharmacy;
-		this.consultations = consultations;
-		this.vacationRequests = vacationRequests;
+		this.status = UserStatus.NEVER_LOGGED_IN;
 		this.authorities = authorities;
 	}
 

@@ -4,5 +4,6 @@ public enum ConsultationStatus {
     AVAILABLE,
     BOOKED,
     PREDEF_BOOKED,
+    DONE,
     CANCELED
 }

@@ -1,1 +1,94 @@
-<p>add-pharmacist works!</p>
+<h1 class="primary">Dodaj farmaceuta</h1>
+<mat-dialog-content class="dialog-class">
+    <form [formGroup]="addPharmacistForm" class="form-full-width">
+        <table class="form-full-width" cellspacing="0">
+            <tr>
+                <td>
+                    <mat-form-field class="form-full-width-td">
+                        <input matInput placeholder="Ime" formControlName="firstName">
+                        <mat-error
+                            *ngIf="addPharmacistForm.get('firstName').errors && addPharmacistForm.get('firstName').errors['required']">
+                            Unesite ime farmaceuta.
+                        </mat-error>
+                        <mat-error
+                            *ngIf="addPharmacistForm.get('firstName').errors && addPharmacistForm.get('firstName').errors['maxlength']">
+                            Maksimalna dužina je 30 karaktera.
+                        </mat-error>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="form-full-width-td ml-2">
+                        <input matInput placeholder="Prezime" formControlName="lastName">
+                        <mat-error
+                            *ngIf="addPharmacistForm.get('lastName').errors && addPharmacistForm.get('lastName').errors['required']">
+                            Unesite prezime farmaceuta.
+                        </mat-error>
+                        <mat-error
+                            *ngIf="addPharmacistForm.get('lastName').errors && addPharmacistForm.get('lastName').errors['maxlength']">
+                            Maksimalna dužina je 30 karaktera.
+                        </mat-error>
+                    </mat-form-field>
+                </td>
+            </tr>
+        </table>
+
+        <h6 class="form-full-width mt-2">Radno vreme</h6>
+        <table class="form-full-width mt-3" cellspacing="0">
+            <tr>
+                <td>Od:</td>
+                <td>
+                    <div class="form-full-width-td">
+                        <input matInput type="time" formControlName="workHoursFrom">
+                    </div>
+                </td>
+                <td>Do:</td>
+                <td>
+                    <div class="form-full-width-td ml-2">
+                        <input matInput type="time" formControlName="workHoursTo">
+                    </div>
+
+                </td>
+            </tr>
+        </table>
+        <mat-error *ngIf="(addPharmacistForm.get('workHoursFrom').errors && addPharmacistForm.get('workHoursFrom').errors['required']) || 
+            (addPharmacistForm.get('workHoursTo').errors && addPharmacistForm.get('workHoursTo').errors['required']) ">
+           Unesite radno vreme za farmaceuta.
+        </mat-error>
+
+        <mat-error
+            *ngIf="addPharmacistForm.get('workHoursTo').errors && addPharmacistForm.get('workHoursTo').errors['timeError']">
+           Početak radnog vremena mora biti pre kraja radnog vremena.
+        </mat-error>
+
+        <mat-form-field class="form-full-width mt-3">
+            <input matInput placeholder="Broj telefona" formControlName="phoneNumber">
+            <mat-error
+                *ngIf="addPharmacistForm.get('phoneNumber').errors && addPharmacistForm.get('phoneNumber').errors['required']">
+                Unesite broj telefona.
+            </mat-error>
+            <mat-error
+                *ngIf="addPharmacistForm.get('phoneNumber').errors && addPharmacistForm.get('phoneNumber').errors['pattern']">
+                Broj telefona se sastoji od cifara.
+            </mat-error>
+            <mat-error
+                *ngIf="addPharmacistForm.get('phoneNumber').errors && (addPharmacistForm.get('phoneNumber').errors['minlength'] 
+                                    || addPharmacistForm.get('phoneNumber').errors && addPharmacistForm.get('phoneNumber').errors['maxlength'])">
+               Broj telefona ima između 9 i 10 cifara.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-full-width mt-3">
+            <input matInput placeholder="Email adresa" formControlName="email">
+            <mat-error *ngIf="addPharmacistForm.get('email').errors && addPharmacistForm.get('email').errors['required']">
+               Unesite email adresu farmaceuta.
+            </mat-error>
+            <mat-error *ngIf="addPharmacistForm.get('email').errors && addPharmacistForm.get('email').errors['email']">
+               Unesite ispravnu email adresu.
+            </mat-error>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="mt-2 mb-1">
+    <button mat-raised-button color="primary" (click)="add()" [disabled]="!addPharmacistForm.valid">Dodaj</button>
+</mat-dialog-actions>

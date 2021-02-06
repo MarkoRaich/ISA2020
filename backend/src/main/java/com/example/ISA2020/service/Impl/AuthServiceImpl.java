@@ -95,13 +95,13 @@ public class AuthServiceImpl implements AuthService {
         	return new LoggedInUserDTO(pharmacyAdmin.getId(), pharmacyAdmin.getUsername(), "PHARMACY_ADMIN", userTokenState);
         } else if (object instanceof Supplier) {
         	Supplier supplier = (Supplier) object;
-        	return new LoggedInUserDTO(supplier.getId(), supplier.getUsername(), "PHARMACY_ADMIN", userTokenState);
+        	return new LoggedInUserDTO(supplier.getId(), supplier.getUsername(), "SUPPLIER", userTokenState);
         } else if (object instanceof Dermatologist) {
         	Dermatologist dermatologist = (Dermatologist) object;
-        	return new LoggedInUserDTO(dermatologist.getId(), dermatologist.getUsername(), "PHARMACY_ADMIN", userTokenState);
+        	return new LoggedInUserDTO(dermatologist.getId(), dermatologist.getUsername(), "DERMATOLOGIST", userTokenState);
         } else if (object instanceof Pharmacist) {
         	Pharmacist pharmacist = (Pharmacist) object;
-        	return new LoggedInUserDTO(pharmacist.getId(), pharmacist.getUsername(), "PHARMACY_ADMIN", userTokenState);
+        	return new LoggedInUserDTO(pharmacist.getId(), pharmacist.getUsername(), "PHARMACIST", userTokenState);
         } 
         // OVAKO I ZA SVE OSTALE TIPOVE USERA!!
 
@@ -139,7 +139,6 @@ public class AuthServiceImpl implements AuthService {
         } else if (object instanceof Pharmacist) {
             return ((Pharmacist) object).getUsername();
         }
-       	//OVAKO ZA SVE OSTALE TIPOVE USERA!!
        
         return null;
     }

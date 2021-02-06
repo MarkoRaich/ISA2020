@@ -52,7 +52,6 @@ public class PharmacyAdminController {
 	 //@PreAuthorize("hasRole('PHARMACY_ADMIN')")
 	 public ResponseEntity<PharmacyAdminDTO> editPersonalInformation(@Valid @RequestBody EditPharmAdminDTO pharmacyAdminDTO) {
 		 
-		 System.out.println("Pogodjena izmena!!");
 		 
 		 PharmacyAdminDTO pharmAdminDTO = pharmacyAdminService.editPersonalInformation(pharmacyAdminDTO);
 	        if (pharmAdminDTO == null) {

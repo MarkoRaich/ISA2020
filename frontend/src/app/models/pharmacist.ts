@@ -10,7 +10,7 @@ export class Pharmacist {
     workHoursTo: Time;
 
     constructor(email : String, firstName : String, lastName: String, 
-        phoneNumber: String, workHoursFrom : Time, workHoursTo: Time, id: number){
+        phoneNumber: String, workHoursFrom : Time, workHoursTo: Time, id?: number){
             this.email = email;
             this.firstName = firstName;
             this.lastName = lastName;

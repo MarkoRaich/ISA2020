@@ -47,7 +47,8 @@ import { MatDialogModule } from '@angular/material/dialog';
         MatFormFieldModule,
         MatProgressSpinnerModule,
         MatPaginatorModule,
-        MatInputModule
+        MatInputModule,
+        MatDialogModule
     ],
     providers: [
         MatDatepickerModule,

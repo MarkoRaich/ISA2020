@@ -12,4 +12,6 @@ public interface UserService {
 
 	    boolean neverLoggedIn(String email);
 
+		UserDetails searchUserInAllRepositories(String email);
+
 }

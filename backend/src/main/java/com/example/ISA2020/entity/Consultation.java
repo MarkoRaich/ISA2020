@@ -43,4 +43,81 @@ public class Consultation {		//SAVETOVANJE KOD FARMACEUTA
 	@JoinColumn(name = "consultationReport_id", referencedColumnName = "id")
 	private ConsultationReport consultationReport;
 	
+	
+	public Consultation() {}
+
+
+	public Consultation(ConsultationStatus status, DateTimeInterval interval, Patient patient, Pharmacy pharmacy,
+			Pharmacist pharmacist) {
+		super();
+		this.status = status;
+		this.interval = interval;
+		this.patient = patient;
+		this.pharmacy = pharmacy;
+		this.pharmacist = pharmacist;
+	}
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+	public ConsultationStatus getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(ConsultationStatus status) {
+		this.status = status;
+	}
+
+
+	public DateTimeInterval getInterval() {
+		return interval;
+	}
+
+
+	public void setInterval(DateTimeInterval interval) {
+		this.interval = interval;
+	}
+
+
+	public Patient getPatient() {
+		return patient;
+	}
+
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+
+
+	public Pharmacy getPharmacy() {
+		return pharmacy;
+	}
+
+
+	public void setPharmacy(Pharmacy pharmacy) {
+		this.pharmacy = pharmacy;
+	}
+
+
+	public Pharmacist getPharmacist() {
+		return pharmacist;
+	}
+
+
+	public void setPharmacist(Pharmacist pharmacist) {
+		this.pharmacist = pharmacist;
+	}
+	
+	
+	
+	
 }

@@ -22,7 +22,7 @@
                     <div class="section-title mb-0">
                         <form [formGroup]="editPharmacyForm" class="mat-elevation-z8 form">
                             <mat-form-field class="form-full-width">
-                                <input matInput placeholder="Name" formControlName="name">
+                                <input matInput placeholder="Ime" formControlName="name">
                                 <mat-error
                                     *ngIf="editPharmacyForm.get('name').errors && editPharmacyForm.get('name').errors['required']">
                                     Unesite ime apoteke.
@@ -34,7 +34,7 @@
                             </mat-form-field>
 
                             <mat-form-field class="form-full-width mt-2">
-                                <input matInput placeholder="Address" formControlName="address"
+                                <input matInput placeholder="Adresa" formControlName="address"
                                     (focusout)="addressFocusOut()">
                                 <mat-error *ngIf="editPharmacyForm.get('address').invalid">
                                    Unesite adresu apoteke.
@@ -42,7 +42,7 @@
                             </mat-form-field>
 
                             <mat-form-field class="form-full-width mt-2">
-                                <textarea matInput placeholder="Description" formControlName="description"
+                                <textarea matInput placeholder="Opis" formControlName="description"
                                     rows="5"></textarea>
                                 <mat-error *ngIf="editPharmacyForm.get('description').invalid">
                                     Unesite opis apoteke.
