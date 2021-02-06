@@ -7,4 +7,4 @@ https://trello.com/b/zjG1qLaw/isa-2020
 Backend : Java SpringBoot, PostgreSQL, Hibernate
 Frontend : Angular
 
-##Pokretanje
+## Pokretanje
