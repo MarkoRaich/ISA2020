@@ -21,6 +21,7 @@ import com.example.ISA2020.entity.Pharmacy;
 import com.example.ISA2020.entity.users.Pharmacist;
 import com.example.ISA2020.enumeration.ConsultationStatus;
 import com.example.ISA2020.enumeration.UserStatus;
+import com.example.ISA2020.repository.ExaminationPriceRepository;
 import com.example.ISA2020.repository.PharmacistRepository;
 import com.example.ISA2020.service.AuthService;
 import com.example.ISA2020.service.PharmacistService;
@@ -40,6 +41,12 @@ public class PharmacistServiceImpl implements PharmacistService{
 	
 	@Autowired
     private PasswordEncoder passwordEncoder;
+	
+	@Autowired 
+	private ExaminationPriceRepository examinationPriceRepo;
+	
+	
+	
 	
 	@Override
 	public Pharmacist findById(Long id) {
@@ -145,6 +152,8 @@ public class PharmacistServiceImpl implements PharmacistService{
         return PharmacistDTOs;
     }
 
+	
+	
 	
 
 	
