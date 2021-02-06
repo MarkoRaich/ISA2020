@@ -55,11 +55,11 @@ public class Pharmacy {
 
     @JsonIgnore
     @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Consultation> consultations = new HashSet<>();
-    
-    @JsonIgnore
-    @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<PurchaseOrder> purchaseOrders = new HashSet<>();
+    
+	@JsonIgnore
+    @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Reservation> reservations = new HashSet<>();
     
 
 
@@ -160,15 +160,28 @@ public class Pharmacy {
 	}
 
 
-	public Set<Consultation> getConsultations() {
-		return consultations;
+
+	public Set<PurchaseOrder> getPurchaseOrders() {
+		return purchaseOrders;
 	}
 
 
-	public void setConsultations(Set<Consultation> consultations) {
-		this.consultations = consultations;
+
+	public void setPurchaseOrders(Set<PurchaseOrder> purchaseOrders) {
+		this.purchaseOrders = purchaseOrders;
 	}
 
+
+
+	public Set<Reservation> getReservations() {
+		return reservations;
+	}
+
+
+
+	public void setReservations(Set<Reservation> reservations) {
+		this.reservations = reservations;
+	}
 
 
 }

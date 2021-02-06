@@ -48,6 +48,9 @@ public class Pharmacist implements UserDetails {
     @Column(columnDefinition = "VARCHAR(30)", nullable = true)
     private String lastName;
 
+    @Column(columnDefinition = "VARCHAR(11)", unique = true, nullable = false)
+    private String phoneNumber;
+    
 	@JsonFormat(pattern = "HH:mm")
 	@NotNull
 	@Column(nullable = false)
@@ -76,7 +79,7 @@ public class Pharmacist implements UserDetails {
 	private Set<Consultation> consultations = new HashSet<>();
 	
 	@OneToMany(mappedBy = "pharmacist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<VacationRequestPharm> vacationRequests;
+    private Set<VacationRequestPharm> vacationRequests = new HashSet<>();
 
 	//vezano za prava pristupa spring security
     @ManyToMany(fetch = FetchType.EAGER)
@@ -97,13 +100,14 @@ public class Pharmacist implements UserDetails {
     
 	public Pharmacist(@NotNull(message = "Username cannot be null.") String username,
 			@NotNull(message = "Password cannot be null.") String password, String firstName, String lastName,
-			@NotNull LocalTime workHourFrom, @NotNull LocalTime workHourTo, Pharmacy pharmacy,
+			String phoneNumber, @NotNull LocalTime workHourFrom, @NotNull LocalTime workHourTo, Pharmacy pharmacy,
 			Set<Consultation> consultations, Set<VacationRequestPharm> vacationRequests, Set<Authority> authorities) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.phoneNumber = phoneNumber;
 		this.workHourFrom = workHourFrom;
 		this.workHourTo = workHourTo;
 		this.rating = 0;

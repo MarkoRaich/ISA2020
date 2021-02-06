@@ -1,7 +1,5 @@
 package com.example.ISA2020.service.Impl;
 
-import static org.junit.Assert.assertThat;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,20 +9,30 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.example.ISA2020.dto.DrugPricePharmacyNameAddressRatingDTO;
+import com.example.ISA2020.dto.ConsultationPriceDTO;
 import com.example.ISA2020.dto.EditPatientDTO;
 import com.example.ISA2020.dto.ExaminationPriceDTO;
 import com.example.ISA2020.dto.PatientDTO;
 import com.example.ISA2020.dto.PatientWithIdDTO;
+import com.example.ISA2020.dto.PromotionDTO;
+import com.example.ISA2020.dto.ReservationDTO;
+import com.example.ISA2020.entity.ConsultationPrice;
 import com.example.ISA2020.entity.Drug;
 import com.example.ISA2020.entity.ExaminationPrice;
+import com.example.ISA2020.entity.Promotion;
+import com.example.ISA2020.entity.Reservation;
 import com.example.ISA2020.entity.users.Patient;
+import com.example.ISA2020.enumeration.ConsultationStatus;
+import com.example.ISA2020.enumeration.ExaminationStatus;
+import com.example.ISA2020.enumeration.ReservationStatus;
+import com.example.ISA2020.repository.ConsultationPriceRepository;
 import com.example.ISA2020.repository.DrugPriceRepository;
 import com.example.ISA2020.repository.DrugRepository;
 import com.example.ISA2020.repository.ExaminationPriceRepository;
 import com.example.ISA2020.repository.PatientRepository;
 import com.example.ISA2020.repository.PharmacyRepository;
-import com.example.ISA2020.service.ExaminationPriceService;
+import com.example.ISA2020.repository.PromotionRepository;
+import com.example.ISA2020.repository.ReservationRepository;
 import com.example.ISA2020.service.PatientService;
 
 @Service
@@ -45,6 +53,14 @@ public class PatientServiceImpl implements PatientService{
 	@Autowired
 	private ExaminationPriceRepository examinationPriceRepo;
 	
+	@Autowired
+	private ConsultationPriceRepository consultationPriceRepo;
+		
+	@Autowired
+	private ReservationRepository reservationRepo;
+	
+	@Autowired
+	private PromotionRepository promotionRepo;
 	
 	
 
@@ -140,6 +156,7 @@ public class PatientServiceImpl implements PatientService{
 	 * @Override public List<DrugPricePharmacyNameAddressRatingDTO> getAll
 	 */
 	
+	//kada su pregledi zavrseni 3.9
 	@Override
 	public List<ExaminationPriceDTO> getAllExaminationPricesSortedByPrice() {
 		Patient patient = getLoginPatient();
@@ -156,7 +173,10 @@ public class PatientServiceImpl implements PatientService{
 		//proverava sve preglede i dodaje samo one koji su povezani sa datim pacijentom
 		for(ExaminationPrice p : prices) {
 			if(p.getExamination().getPatient().getId() == patient.getId()) {
-				patientExaminations.add(p);
+				System.out.println(p.getExamination().getStatus());
+				if(p.getExamination().getStatus().equals(ExaminationStatus.DONE)) {
+					patientExaminations.add(p);
+				}
 			}
 		}
 		
@@ -164,6 +184,179 @@ public class PatientServiceImpl implements PatientService{
 		for(ExaminationPrice e : patientExaminations) {
 			ExaminationPriceDTO dto = new ExaminationPriceDTO();
 			dto.setExaminationName(e.getExamination().getName());
+			dto.setPharmacyName(e.getPharmacy().getName());
+			dto.setPrice(e.getPrice());
+			dto.setStartDateTime(e.getInterval().getStartDateTime());
+			dto.setEndDateTime(e.getInterval().getEndDateTime());
+			dtos.add(dto);
+		}
+		
+		return dtos;
+	}
+	
+	//kada su pregledi zavrseni
+	@Override
+	public List<ExaminationPriceDTO> getAllExaminationPricesSortedByDate() {
+		Patient patient = getLoginPatient();
+		
+		if(patient == null) {
+			return null;
+		}
+		
+		
+		List<ExaminationPrice> prices = examinationPriceRepo.findByOrderByIntervalStartDateTime();
+		List<ExaminationPrice> patientExaminations = new ArrayList<>();
+		List<ExaminationPrice> sortiranoPoDatumu = new ArrayList<>();
+		List<ExaminationPriceDTO> dtos = new ArrayList<>();
+		
+		List<String> datumiString = new ArrayList();
+		
+		
+		
+		//proverava sve preglede i dodaje samo one koji su povezani sa datim pacijentom
+		for(ExaminationPrice p : prices) {
+			if(p.getExamination().getPatient().getId() == patient.getId()) {
+				System.out.println(p.getExamination().getStatus());
+				if(p.getExamination().getStatus().equals(ExaminationStatus.DONE)) {
+					patientExaminations.add(p);
+				}
+			}
+		}
+		
+		for(ExaminationPrice p : patientExaminations) {
+			String date = p.getInterval().getStartDateTime().toString();
+			datumiString.add(date);
+		}
+		
+			//pretvaranje rezultata u dto modele
+		for(ExaminationPrice e : patientExaminations) {
+			ExaminationPriceDTO dto = new ExaminationPriceDTO();
+			dto.setExaminationName(e.getExamination().getName());
+			dto.setPharmacyName(e.getPharmacy().getName());
+			dto.setPrice(e.getPrice());
+			dto.setStartDateTime(e.getInterval().getStartDateTime());
+			dto.setEndDateTime(e.getInterval().getEndDateTime());
+			dtos.add(dto);
+		}
+		
+		return dtos;
+	}
+	
+	//kada su pregledi zakazani
+	@Override
+	public List<ExaminationPriceDTO> getAllExaminationPricesSortedByPriceBooked() {
+		Patient patient = getLoginPatient();
+		
+		if(patient == null) {
+			return null;
+		}
+		
+		
+		List<ExaminationPrice> prices = examinationPriceRepo.findByOrderByPrice();
+		List<ExaminationPrice> patientExaminations = new ArrayList<>();
+		List<ExaminationPriceDTO> dtos = new ArrayList<>();
+		
+		//proverava sve preglede i dodaje samo one koji su povezani sa datim pacijentom
+		for(ExaminationPrice p : prices) {
+			if(p.getExamination().getPatient().getId() == patient.getId()) {
+				System.out.println(p.getExamination().getStatus());
+				if(p.getExamination().getStatus().equals(ExaminationStatus.BOOKED)) {
+					patientExaminations.add(p);
+				}
+			}
+		}
+		
+			//pretvaranje rezultata u dto modele
+		for(ExaminationPrice e : patientExaminations) {
+			ExaminationPriceDTO dto = new ExaminationPriceDTO();
+			dto.setExaminationName(e.getExamination().getName());
+			dto.setPharmacyName(e.getPharmacy().getName());
+			dto.setPrice(e.getPrice());
+			dto.setStartDateTime(e.getInterval().getStartDateTime());
+			dto.setEndDateTime(e.getInterval().getEndDateTime());
+			dtos.add(dto);
+		}
+		
+		return dtos;
+	}
+	
+	//kada su pregledi zakazani
+	@Override
+	public List<ExaminationPriceDTO> getAllExaminationPricesSortedByDateBooked() {
+		Patient patient = getLoginPatient();
+		
+		if(patient == null) {
+			return null;
+		}
+		
+		
+		List<ExaminationPrice> prices = examinationPriceRepo.findByOrderByIntervalStartDateTime();
+		List<ExaminationPrice> patientExaminations = new ArrayList<>();
+		List<ExaminationPrice> sortiranoPoDatumu = new ArrayList<>();
+		List<ExaminationPriceDTO> dtos = new ArrayList<>();
+		
+		List<String> datumiString = new ArrayList();
+		
+		
+		
+		//proverava sve preglede i dodaje samo one koji su povezani sa datim pacijentom
+		for(ExaminationPrice p : prices) {
+			if(p.getExamination().getPatient().getId() == patient.getId()) {
+				System.out.println(p.getExamination().getStatus());
+				if(p.getExamination().getStatus().equals(ExaminationStatus.BOOKED)) {
+					patientExaminations.add(p);
+				}
+			}
+		}
+		
+		for(ExaminationPrice p : patientExaminations) {
+			String date = p.getInterval().getStartDateTime().toString();
+			datumiString.add(date);
+		}
+		
+			//pretvaranje rezultata u dto modele
+		for(ExaminationPrice e : patientExaminations) {
+			ExaminationPriceDTO dto = new ExaminationPriceDTO();
+			dto.setExaminationName(e.getExamination().getName());
+			dto.setPharmacyName(e.getPharmacy().getName());
+			dto.setPrice(e.getPrice());
+			dto.setStartDateTime(e.getInterval().getStartDateTime());
+			dto.setEndDateTime(e.getInterval().getEndDateTime());
+			dtos.add(dto);
+		}
+		
+		return dtos;
+	}
+	
+	
+	//3.9 za Savetovanja -------------------------------------------------------------------
+	@Override
+	public List<ConsultationPriceDTO> getAllConsultationPricesSortedByPrice() {
+		Patient patient = getLoginPatient();
+		
+		if(patient == null) {
+			return null;
+		}
+		
+		
+		List<ConsultationPrice> prices = consultationPriceRepo.findByOrderByPrice();
+		List<ConsultationPrice> patientConsultations = new ArrayList<>();
+		List<ConsultationPriceDTO> dtos = new ArrayList<>();
+		
+		//proverava sve preglede i dodaje samo one koji su povezani sa datim pacijentom
+		for(ConsultationPrice p : prices) {
+			if(p.getConsultation().getPatient().getId() == patient.getId()) {
+				//System.out.println(p.getExamination().getStatus());
+				if(p.getConsultation().getStatus().equals(ConsultationStatus.DONE)) {
+					patientConsultations.add(p);
+				}
+			}
+		}
+		
+			//pretvaranje rezultata u dto modele
+		for(ConsultationPrice e : patientConsultations) {
+			ConsultationPriceDTO dto = new ConsultationPriceDTO();
+			dto.setConsultationName(e.getConsultation().getName());
 			dto.setPharmacyName(e.getPharmacy().getName());
 			dto.setPrice(e.getPrice());
 			dto.setStartDateTime(e.getInterval().getStartDateTime());
@@ -176,7 +369,7 @@ public class PatientServiceImpl implements PatientService{
 	
 	
 	@Override
-	public List<ExaminationPriceDTO> getAllExaminationPricesSortedByDate() {
+	public List<ConsultationPriceDTO> getAllConsultationPricesSortedByDate() {
 		Patient patient = getLoginPatient();
 		
 		if(patient == null) {
@@ -184,35 +377,120 @@ public class PatientServiceImpl implements PatientService{
 		}
 		
 		
-		List<ExaminationPrice> prices = examinationPriceRepo.findByOrderByPrice();
-		List<ExaminationPrice> patientExaminations = new ArrayList<>();
-		List<ExaminationPrice> sortiranoPoDatumu = new ArrayList<>();
-		List<ExaminationPriceDTO> dtos = new ArrayList<>();
+		List<ConsultationPrice> prices = consultationPriceRepo.findByOrderByIntervalStartDateTime();
+		List<ConsultationPrice> patientConsultations = new ArrayList<>();
+		List<ConsultationPrice> sortiranoPoDatumu = new ArrayList<>();
+		List<ConsultationPriceDTO> dtos = new ArrayList<>();
+		
+		List<String> datumiString = new ArrayList();
+		
 		
 		//proverava sve preglede i dodaje samo one koji su povezani sa datim pacijentom
-		for(ExaminationPrice p : prices) {
-			if(p.getExamination().getPatient().getId() == patient.getId()) {
-				patientExaminations.add(p);
+		for(ConsultationPrice p : prices) {
+			if(p.getConsultation().getPatient().getId() == patient.getId()) {
+				//System.out.println(p.getExamination().getStatus());
+				if(p.getConsultation().getStatus().equals(ConsultationStatus.DONE)) {
+					patientConsultations.add(p);
+				}
 			}
 		}
 		
-		/*
-		for(ExaminationPrice p1 : patientExaminations) {
-			for(ExaminationPrice p2 : patientExaminations) {
-				if(p1.getId() != p2.getId()) {
-					if(assertThat(p1.getInterval().getStartDateTime().isBefore(p2.getInterval().getStartDateTime()), is(true))){
-						sortiranoPoDatumu.add(p1);
-					}else {
-						sortiranoPoDatumu.add(p2);
-					}
+		for(ConsultationPrice p : patientConsultations) {
+			String date = p.getInterval().getStartDateTime().toString();
+			datumiString.add(date);
+		}
+		
+
+			//pretvaranje rezultata u dto modele
+		for(ConsultationPrice e : patientConsultations) {
+			ConsultationPriceDTO dto = new ConsultationPriceDTO();
+			dto.setConsultationName(e.getConsultation().getName());
+			dto.setPharmacyName(e.getPharmacy().getName());
+			dto.setPrice(e.getPrice());
+			dto.setStartDateTime(e.getInterval().getStartDateTime());
+			dto.setEndDateTime(e.getInterval().getEndDateTime());
+			dtos.add(dto);
+		}
+		
+		return dtos;
+	}
+	
+	//kada su savetovanja zakazana
+	@Override
+	public List<ConsultationPriceDTO> getAllConsultationPricesSortedByPriceBooked() {
+		Patient patient = getLoginPatient();
+		
+		if(patient == null) {
+			return null;
+		}
+		
+		
+		List<ConsultationPrice> prices = consultationPriceRepo.findByOrderByPrice();
+		List<ConsultationPrice> patientConsultations = new ArrayList<>();
+		List<ConsultationPriceDTO> dtos = new ArrayList<>();
+		
+		//proverava sve preglede i dodaje samo one koji su povezani sa datim pacijentom
+		for(ConsultationPrice p : prices) {
+			if(p.getConsultation().getPatient().getId() == patient.getId()) {
+				//System.out.println(p.getExamination().getStatus());
+				if(p.getConsultation().getStatus().equals(ConsultationStatus.BOOKED)) {
+					patientConsultations.add(p);
 				}
 			}
-		} */
+		}
 		
 			//pretvaranje rezultata u dto modele
-		for(ExaminationPrice e : patientExaminations) {
-			ExaminationPriceDTO dto = new ExaminationPriceDTO();
-			dto.setExaminationName(e.getExamination().getName());
+		for(ConsultationPrice e : patientConsultations) {
+			ConsultationPriceDTO dto = new ConsultationPriceDTO();
+			dto.setConsultationName(e.getConsultation().getName());
+			dto.setPharmacyName(e.getPharmacy().getName());
+			dto.setPrice(e.getPrice());
+			dto.setStartDateTime(e.getInterval().getStartDateTime());
+			dto.setEndDateTime(e.getInterval().getEndDateTime());
+			dtos.add(dto);
+		}
+		
+		return dtos;
+	}
+	
+	//kada su savetovanja zakazana
+	@Override
+	public List<ConsultationPriceDTO> getAllConsultationPricesSortedByDateBooked() {
+		Patient patient = getLoginPatient();
+		
+		if(patient == null) {
+			return null;
+		}
+		
+		
+		List<ConsultationPrice> prices = consultationPriceRepo.findByOrderByIntervalStartDateTime();
+		List<ConsultationPrice> patientConsultations = new ArrayList<>();
+		List<ConsultationPrice> sortiranoPoDatumu = new ArrayList<>();
+		List<ConsultationPriceDTO> dtos = new ArrayList<>();
+		
+		List<String> datumiString = new ArrayList();
+		
+		
+		//proverava sve preglede i dodaje samo one koji su povezani sa datim pacijentom
+		for(ConsultationPrice p : prices) {
+			if(p.getConsultation().getPatient().getId() == patient.getId()) {
+				//System.out.println(p.getExamination().getStatus());
+				if(p.getConsultation().getStatus().equals(ConsultationStatus.BOOKED)) {
+					patientConsultations.add(p);
+				}
+			}
+		}
+		
+		for(ConsultationPrice p : patientConsultations) {
+			String date = p.getInterval().getStartDateTime().toString();
+			datumiString.add(date);
+		}
+		
+
+			//pretvaranje rezultata u dto modele
+		for(ConsultationPrice e : patientConsultations) {
+			ConsultationPriceDTO dto = new ConsultationPriceDTO();
+			dto.setConsultationName(e.getConsultation().getName());
 			dto.setPharmacyName(e.getPharmacy().getName());
 			dto.setPrice(e.getPrice());
 			dto.setStartDateTime(e.getInterval().getStartDateTime());
@@ -224,7 +502,74 @@ public class PatientServiceImpl implements PatientService{
 	}
 	
 	
+	//3.9 za rezervacije
+	@Override
+	public List<ReservationDTO> getAllReservations() {
+		Patient patient = getLoginPatient();
+		
+		if(patient == null) {
+			return null;
+		}
+		
+		
+		List<Reservation> reservations = reservationRepo.findAll();
+		List<Reservation> patientReservations = new ArrayList<>();
+		List<ReservationDTO> dtos = new ArrayList<>();
+		
+		//proverava sve preglede i dodaje samo one koji su povezani sa datim pacijentom
+		for(Reservation r : reservations) {
+			if(r.getPatient().getId() == patient.getId()) {
+				System.out.println(r.getStatus());
+				if(r.getStatus().equals(ReservationStatus.ACTIVE)) {
+					patientReservations.add(r);
+				}
+			}
+		}
+		
+			//pretvaranje rezultata u dto modele
+		for(Reservation e : patientReservations) {
+			ReservationDTO dto = new ReservationDTO();
+			dto.setDrugName(e.getDrug().getName());
+			dto.setDrugCode(e.getDrug().getCode());
+			dto.setPharmacyName(e.getPharmacy().getName());
+			dto.setGeneratedKey(e.getGeneratedKey());
+
+			dtos.add(dto);
+		}
+		
+		return dtos;
+	}
 	
+	
+	//Akcije i promocije
+	@Override
+	public List<PromotionDTO> getAllPromotions() {
+		Patient patient = getLoginPatient();
+		
+		if(patient == null) {
+			return null;
+		}
+		
+		
+		List<Promotion> promotions = promotionRepo.findAll();
+		List<Promotion> patientPromotions = new ArrayList<>();
+		List<PromotionDTO> dtos = new ArrayList<>();
+	
+		
+			//pretvaranje rezultata u dto modele
+		for(Promotion p : promotions) {
+			PromotionDTO dto = new PromotionDTO();
+			dto.setContent(p.getContent());
+			dto.setPharmacyName(p.getPharmacy().getName());
+			dto.setStartDate(p.getPeriod().getStartDateTime().toString());
+			dto.setEndDate(p.getPeriod().getEndDateTime().toString());
+
+			dtos.add(dto);
+		}
+		
+		return dtos;
+	}
+
 	
 	
 }

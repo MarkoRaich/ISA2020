@@ -17,10 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.ISA2020.dto.ConsultationPriceDTO;
 import com.example.ISA2020.dto.DrugPricePharmacyNameAddressRatingDTO;
 import com.example.ISA2020.dto.EditPatientDTO;
 import com.example.ISA2020.dto.ExaminationPriceDTO;
 import com.example.ISA2020.dto.PatientDTO;
+import com.example.ISA2020.dto.PromotionDTO;
+import com.example.ISA2020.dto.ReservationDTO;
 import com.example.ISA2020.entity.users.Patient;
 import com.example.ISA2020.service.ExaminationPriceService;
 import com.example.ISA2020.service.PatientService;
@@ -120,7 +123,88 @@ public class PatientController {
 		return new ResponseEntity<List<ExaminationPriceDTO>>(dtos, HttpStatus.OK);
 	}
 	
+	@GetMapping("/getAllExaminationsSortedByDate")
+	public ResponseEntity<List<ExaminationPriceDTO>> getAllExaminationsByDate() {
+		List<ExaminationPriceDTO> dtos = patientService.getAllExaminationPricesSortedByDate();
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<ExaminationPriceDTO>>(dtos, HttpStatus.OK);
+	}
 	
+	@GetMapping("/getAllConsultationsSortedByPrice")
+	public ResponseEntity<List<ConsultationPriceDTO>> getAllConsultationsByPrice() {
+		List<ConsultationPriceDTO> dtos = patientService.getAllConsultationPricesSortedByPrice();
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<ConsultationPriceDTO>>(dtos, HttpStatus.OK);
+	}
 	
+	@GetMapping("/getAllConsultationsSortedByDate")
+	public ResponseEntity<List<ConsultationPriceDTO>> getAllConsultationsByDate() {
+		List<ConsultationPriceDTO> dtos = patientService.getAllConsultationPricesSortedByDate();
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<ConsultationPriceDTO>>(dtos, HttpStatus.OK);
+	}
+	
+	//zakazani pregledi i savetovanja
+	@GetMapping("/getAllExaminationsSortedByPriceBooked")
+	public ResponseEntity<List<ExaminationPriceDTO>> getAllExaminationsByPriceBooked() {
+		List<ExaminationPriceDTO> dtos = patientService.getAllExaminationPricesSortedByPriceBooked();
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<ExaminationPriceDTO>>(dtos, HttpStatus.OK);
+	}
+	
+	@GetMapping("/getAllExaminationsSortedByDateBooked")
+	public ResponseEntity<List<ExaminationPriceDTO>> getAllExaminationsByDateBooked() {
+		List<ExaminationPriceDTO> dtos = patientService.getAllExaminationPricesSortedByDateBooked();
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<ExaminationPriceDTO>>(dtos, HttpStatus.OK);
+	}
+	
+	@GetMapping("/getAllConsultationsSortedByPriceBooked")
+	public ResponseEntity<List<ConsultationPriceDTO>> getAllConsultationsByPriceBooked() {
+		List<ConsultationPriceDTO> dtos = patientService.getAllConsultationPricesSortedByPriceBooked();
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<ConsultationPriceDTO>>(dtos, HttpStatus.OK);
+	}
+	
+	@GetMapping("/getAllConsultationsSortedByDateBooked")
+	public ResponseEntity<List<ConsultationPriceDTO>> getAllConsultationsByDateBooked() {
+		List<ConsultationPriceDTO> dtos = patientService.getAllConsultationPricesSortedByDateBooked();
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<ConsultationPriceDTO>>(dtos, HttpStatus.OK);
+	}
+	
+	//rezervacije
+	@GetMapping("/getAllReservations")
+	public ResponseEntity<List<ReservationDTO>> getAllReservations() {
+		List<ReservationDTO> dtos = patientService.getAllReservations();
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<ReservationDTO>>(dtos, HttpStatus.OK);
+	}
+	
+	//akcije i promocije
+	@GetMapping("/getAllPromotions")
+	public ResponseEntity<List<PromotionDTO>> getAllPromotions() {
+		List<PromotionDTO> dtos = patientService.getAllPromotions();
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<PromotionDTO>>(dtos, HttpStatus.OK);
+	}
 
 }

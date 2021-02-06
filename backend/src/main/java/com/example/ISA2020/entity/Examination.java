@@ -23,14 +23,12 @@ public class Examination {		//PREGLED KOD DERMATOLOGA
     @Column(nullable = false)
     private String name;
     
-    //Sifra leka
     @NotNull(message = "Description cannot be null.")
     @Column(nullable = false)
     private String description;
     
     
-	@Enumerated(EnumType.STRING)
-	@Column()
+	@Enumerated
 	private ExaminationStatus status;
 
 	//Pocetak i kraj pregleda

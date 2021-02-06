@@ -89,7 +89,7 @@ public class Dermatologist implements UserDetails {
     private Set<Examination> examinations= new HashSet<>();
 
     @OneToMany(mappedBy = "dermatologist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<VacationRequestDerm> vacationRequests;
+    private Set<VacationRequestDerm> vacationRequests = new HashSet<>();
 
 	//vezano za prava pristupa spring security
     @ManyToMany(fetch = FetchType.EAGER)
