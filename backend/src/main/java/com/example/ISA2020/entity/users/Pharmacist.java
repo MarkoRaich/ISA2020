@@ -48,6 +48,9 @@ public class Pharmacist implements UserDetails {
     @Column(columnDefinition = "VARCHAR(30)", nullable = true)
     private String lastName;
 
+    @Column(columnDefinition = "VARCHAR(11)", unique = true, nullable = false)
+    private String phoneNumber;
+    
 	@JsonFormat(pattern = "HH:mm")
 	@NotNull
 	@Column(nullable = false)

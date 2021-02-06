@@ -38,6 +38,9 @@ public class Reservation {
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Drug drug;
 	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Pharmacy pharmacy;
+	
 	//interval sadrzi pocetak i kraj intervala
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private DateTimeInterval interval;
@@ -124,6 +127,14 @@ public class Reservation {
 
 	public void setGeneratedKey(String generatedKey) {
 		this.generatedKey = generatedKey;
+	}
+
+	public Pharmacy getPharmacy() {
+		return pharmacy;
+	}
+
+	public void setPharmacy(Pharmacy pharmacy) {
+		this.pharmacy = pharmacy;
 	}
 	
 

@@ -13,4 +13,8 @@ public interface ExaminationPriceRepository extends JpaRepository<ExaminationPri
 	List<ExaminationPrice> findAll();
 	
 	List<ExaminationPrice> findByOrderByPrice();
+	
+	List<ExaminationPrice> findByOrderByIntervalStartDateTime();
+	
+	//List<ExaminationPrice> findByOrderByIntervalStartDateTimeAndEndDateTime();
 }
