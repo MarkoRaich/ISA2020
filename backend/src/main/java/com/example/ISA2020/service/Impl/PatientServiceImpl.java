@@ -617,7 +617,7 @@ public class PatientServiceImpl implements PatientService{
 		dto.setEndDateTime(examination.getExamination().getInterval().getEndDateTime());
 		
 		//salje se email na mejl pacijenta
-		composeAndSendEmail(/*patient.getUsername()*/ "dionizijm@gmail.com", dto.getExaminationName(), dto.getDermatologistName());
+		composeAndSendEmail(patient.getUsername(), dto.getExaminationName(), dto.getDermatologistName());
 		
 		return dto;
 		
