@@ -109,20 +109,20 @@ INSERT INTO dermatologist (username, password, first_name, last_name,  phone_num
 INSERT INTO dermatologist_authority(user_id, authority_id) VALUES (3,3);
 
 -- DERMATOLOZI I APOTEKE U KOJIMA RADE
---INSERT INTO pharmacy_dermatologist(pharmacy_id, dermatologist_id) VALUES (1,1);
---INSERT INTO pharmacy_dermatologist(pharmacy_id, dermatologist_id) VALUES (2,2);
---INSERT INTO pharmacy_dermatologist(pharmacy_id, dermatologist_id) VALUES (3,3);
+INSERT INTO pharmacy_dermatologist(pharmacy_id, dermatologist_id) VALUES (1,1);
+INSERT INTO pharmacy_dermatologist(pharmacy_id, dermatologist_id) VALUES (2,2);
+INSERT INTO pharmacy_dermatologist(pharmacy_id, dermatologist_id) VALUES (3,3);
 
 
 -- FARMACEUTI I NJIHOVA PRAVA POVEZANA
-INSERT INTO pharmacist (username, password, first_name, last_name, work_hour_from, work_hour_to, phone_number, rating, status, pharmacy_id) VALUES ('farmaceut1@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Andrej', 'Dragojevic', '07:30','20:00', '0655584', 4.1, 'ACTIVE', 1);     
-INSERT INTO pharmacist_authority(user_id, authority_id) VALUES (1,2);
+INSERT INTO pharmacist (username, password, first_name, last_name, work_hours_from, work_hours_to, phone_number, rating, status, pharmacy_id) VALUES ('farmaceut1@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Andrej', 'Dragojevic', '07:30','20:00', '0655584', 4.1, 'ACTIVE', 1);     
+INSERT INTO pharmacist_authority(user_id, authority_id) VALUES (4,2);
 
-INSERT INTO pharmacist (username, password, first_name, last_name, work_hour_from, work_hour_to, phone_number, rating, status, pharmacy_id) VALUES ('farmaceut2@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Milica', 'Belibrk', '09:30','18:00', '0658684', 3.6, 'ACTIVE', 2);     
-INSERT INTO pharmacist_authority(user_id, authority_id) VALUES (2,2);
+INSERT INTO pharmacist (username, password, first_name, last_name, work_hours_from, work_hours_to, phone_number, rating, status, pharmacy_id) VALUES ('farmaceut2@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Milica', 'Belibrk', '09:30','18:00', '0658684', 3.6, 'ACTIVE', 2);     
+INSERT INTO pharmacist_authority(user_id, authority_id) VALUES (5,2);
 
-INSERT INTO pharmacist (username, password, first_name, last_name, work_hour_from, work_hour_to, phone_number, rating, status, pharmacy_id) VALUES ('farmaceut3@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Gojko', 'Gojkovic', '08:00','14:00', '06477284', 4.4, 'ACTIVE', 3);     
-INSERT INTO pharmacist_authority(user_id, authority_id) VALUES (3,2);
+INSERT INTO pharmacist (username, password, first_name, last_name, work_hours_from, work_hours_to, phone_number, rating, status, pharmacy_id) VALUES ('farmaceut3@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Gojko', 'Gojkovic', '08:00','14:00', '06477284', 4.4, 'ACTIVE', 3);     
+INSERT INTO pharmacist_authority(user_id, authority_id) VALUES (6,2);
 
 
 -- EXAMINATION 
