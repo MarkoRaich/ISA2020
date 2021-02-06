@@ -7,7 +7,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.ISA2020.dto.ConsultationPriceDTO;
+import com.example.ISA2020.dto.ExaminationPriceDTO;
+import com.example.ISA2020.entity.ConsultationPrice;
 import com.example.ISA2020.entity.Examination;
+import com.example.ISA2020.entity.ExaminationPrice;
+import com.example.ISA2020.enumeration.ConsultationStatus;
 import com.example.ISA2020.enumeration.ExaminationStatus;
 import com.example.ISA2020.repository.ExaminationRepository;
 import com.example.ISA2020.service.ExaminationService;
@@ -44,5 +49,6 @@ public class ExaminationServiceImpl implements ExaminationService {
 			
 		}
 	} */
+	
 
 }

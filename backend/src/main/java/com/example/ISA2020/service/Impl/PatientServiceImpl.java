@@ -12,12 +12,14 @@ import org.springframework.stereotype.Service;
 import com.example.ISA2020.dto.ConsultationPriceDTO;
 import com.example.ISA2020.dto.EditPatientDTO;
 import com.example.ISA2020.dto.ExaminationPriceDTO;
+import com.example.ISA2020.dto.ExaminationPriceDermatologistDTO;
 import com.example.ISA2020.dto.PatientDTO;
 import com.example.ISA2020.dto.PatientWithIdDTO;
 import com.example.ISA2020.dto.PromotionDTO;
 import com.example.ISA2020.dto.ReservationDTO;
 import com.example.ISA2020.entity.ConsultationPrice;
 import com.example.ISA2020.entity.Drug;
+import com.example.ISA2020.entity.Examination;
 import com.example.ISA2020.entity.ExaminationPrice;
 import com.example.ISA2020.entity.Promotion;
 import com.example.ISA2020.entity.Reservation;
@@ -29,10 +31,12 @@ import com.example.ISA2020.repository.ConsultationPriceRepository;
 import com.example.ISA2020.repository.DrugPriceRepository;
 import com.example.ISA2020.repository.DrugRepository;
 import com.example.ISA2020.repository.ExaminationPriceRepository;
+import com.example.ISA2020.repository.ExaminationRepository;
 import com.example.ISA2020.repository.PatientRepository;
 import com.example.ISA2020.repository.PharmacyRepository;
 import com.example.ISA2020.repository.PromotionRepository;
 import com.example.ISA2020.repository.ReservationRepository;
+import com.example.ISA2020.service.EmailNotificationService;
 import com.example.ISA2020.service.PatientService;
 
 @Service
@@ -54,6 +58,9 @@ public class PatientServiceImpl implements PatientService{
 	private ExaminationPriceRepository examinationPriceRepo;
 	
 	@Autowired
+	private ExaminationRepository examinationRepo;
+	
+	@Autowired
 	private ConsultationPriceRepository consultationPriceRepo;
 		
 	@Autowired
@@ -61,6 +68,9 @@ public class PatientServiceImpl implements PatientService{
 	
 	@Autowired
 	private PromotionRepository promotionRepo;
+	
+    @Autowired
+    private EmailNotificationService emailNotificationService;
 	
 	
 
@@ -186,8 +196,8 @@ public class PatientServiceImpl implements PatientService{
 			dto.setExaminationName(e.getExamination().getName());
 			dto.setPharmacyName(e.getPharmacy().getName());
 			dto.setPrice(e.getPrice());
-			dto.setStartDateTime(e.getInterval().getStartDateTime());
-			dto.setEndDateTime(e.getInterval().getEndDateTime());
+			dto.setStartDateTime(e.getExamination().getInterval().getStartDateTime());
+			dto.setEndDateTime(e.getExamination().getInterval().getEndDateTime());
 			dtos.add(dto);
 		}
 		
@@ -234,8 +244,8 @@ public class PatientServiceImpl implements PatientService{
 			dto.setExaminationName(e.getExamination().getName());
 			dto.setPharmacyName(e.getPharmacy().getName());
 			dto.setPrice(e.getPrice());
-			dto.setStartDateTime(e.getInterval().getStartDateTime());
-			dto.setEndDateTime(e.getInterval().getEndDateTime());
+			dto.setStartDateTime(e.getExamination().getInterval().getStartDateTime());
+			dto.setEndDateTime(e.getExamination().getInterval().getEndDateTime());
 			dtos.add(dto);
 		}
 		
@@ -272,8 +282,8 @@ public class PatientServiceImpl implements PatientService{
 			dto.setExaminationName(e.getExamination().getName());
 			dto.setPharmacyName(e.getPharmacy().getName());
 			dto.setPrice(e.getPrice());
-			dto.setStartDateTime(e.getInterval().getStartDateTime());
-			dto.setEndDateTime(e.getInterval().getEndDateTime());
+			dto.setStartDateTime(e.getExamination().getInterval().getStartDateTime());
+			dto.setEndDateTime(e.getExamination().getInterval().getEndDateTime());
 			dtos.add(dto);
 		}
 		
@@ -320,8 +330,8 @@ public class PatientServiceImpl implements PatientService{
 			dto.setExaminationName(e.getExamination().getName());
 			dto.setPharmacyName(e.getPharmacy().getName());
 			dto.setPrice(e.getPrice());
-			dto.setStartDateTime(e.getInterval().getStartDateTime());
-			dto.setEndDateTime(e.getInterval().getEndDateTime());
+			dto.setStartDateTime(e.getExamination().getInterval().getStartDateTime());
+			dto.setEndDateTime(e.getExamination().getInterval().getEndDateTime());
 			dtos.add(dto);
 		}
 		
@@ -359,8 +369,8 @@ public class PatientServiceImpl implements PatientService{
 			dto.setConsultationName(e.getConsultation().getName());
 			dto.setPharmacyName(e.getPharmacy().getName());
 			dto.setPrice(e.getPrice());
-			dto.setStartDateTime(e.getInterval().getStartDateTime());
-			dto.setEndDateTime(e.getInterval().getEndDateTime());
+			dto.setStartDateTime(e.getConsultation().getInterval().getStartDateTime());
+			dto.setEndDateTime(e.getConsultation().getInterval().getEndDateTime());
 			dtos.add(dto);
 		}
 		
@@ -407,8 +417,8 @@ public class PatientServiceImpl implements PatientService{
 			dto.setConsultationName(e.getConsultation().getName());
 			dto.setPharmacyName(e.getPharmacy().getName());
 			dto.setPrice(e.getPrice());
-			dto.setStartDateTime(e.getInterval().getStartDateTime());
-			dto.setEndDateTime(e.getInterval().getEndDateTime());
+			dto.setStartDateTime(e.getConsultation().getInterval().getStartDateTime());
+			dto.setEndDateTime(e.getConsultation().getInterval().getEndDateTime());
 			dtos.add(dto);
 		}
 		
@@ -445,8 +455,8 @@ public class PatientServiceImpl implements PatientService{
 			dto.setConsultationName(e.getConsultation().getName());
 			dto.setPharmacyName(e.getPharmacy().getName());
 			dto.setPrice(e.getPrice());
-			dto.setStartDateTime(e.getInterval().getStartDateTime());
-			dto.setEndDateTime(e.getInterval().getEndDateTime());
+			dto.setStartDateTime(e.getConsultation().getInterval().getStartDateTime());
+			dto.setEndDateTime(e.getConsultation().getInterval().getEndDateTime());
 			dtos.add(dto);
 		}
 		
@@ -493,8 +503,8 @@ public class PatientServiceImpl implements PatientService{
 			dto.setConsultationName(e.getConsultation().getName());
 			dto.setPharmacyName(e.getPharmacy().getName());
 			dto.setPrice(e.getPrice());
-			dto.setStartDateTime(e.getInterval().getStartDateTime());
-			dto.setEndDateTime(e.getInterval().getEndDateTime());
+			dto.setStartDateTime(e.getConsultation().getInterval().getStartDateTime());
+			dto.setEndDateTime(e.getConsultation().getInterval().getEndDateTime());
 			dtos.add(dto);
 		}
 		
@@ -569,7 +579,63 @@ public class PatientServiceImpl implements PatientService{
 		
 		return dtos;
 	}
-
 	
+	//3.13 zakazivanje rezervacije pregleda
+	@Override
+	public ExaminationPriceDermatologistDTO makeExaminationReservation(Long examinationId) {
+		Patient patient = getLoginPatient();
+		
+		if(patient == null) {
+			return null;
+		}
+		
+		Examination e = examinationRepo.findOneById(examinationId);
+		
+		ExaminationPrice examination = examinationPriceRepo.findByExaminationId(examinationId);
+		//System.out.println("1");
+		if(examination == null) {
+			return null;
+		}
+		
+		
+		
+		if(examination.getExamination().getStatus() == ExaminationStatus.PREDEF_BOOKED) {
+			//System.out.println("2");
+			examination.getExamination().setStatus(ExaminationStatus.BOOKED);
+			examination.getExamination().setPatient(patient);
+			examinationPriceRepo.save(examination);
+			//examinationRepo.save(examination.getExamination());
+		}
+		//System.out.println("3");
+		ExaminationPriceDermatologistDTO dto = new ExaminationPriceDermatologistDTO();
+		
+		dto.setDermatologistName(examination.getExamination().getDermatologist().getFirstName());
+		dto.setDermatologistRating(examination.getExamination().getDermatologist().getRating());
+		dto.setPrice(examination.getPrice());
+		dto.setExaminationName(examination.getExamination().getName());
+		dto.setStartDateTime(examination.getExamination().getInterval().getStartDateTime());
+		dto.setEndDateTime(examination.getExamination().getInterval().getEndDateTime());
+		
+		//salje se email na mejl pacijenta
+		composeAndSendEmail(/*patient.getUsername()*/ "dionizijm@gmail.com", dto.getExaminationName(), dto.getDermatologistName());
+		
+		return dto;
+		
+	}
+	
+	
+    private void composeAndSendEmail(String recipientEmail, String examinationName, String dermatologistName) {
+        String subject = "Potvrda o zakazivanju pregleda";
+        StringBuilder sb = new StringBuilder();
+        sb.append("Postovani, zakazali ste pregled: ");
+        sb.append(examinationName);
+        sb.append(" kod dermatologa: ");
+        sb.append(dermatologistName);
+        sb.append(System.lineSeparator());
+
+        String text = sb.toString();
+
+        emailNotificationService.sendEmail(recipientEmail, subject, text);
+    }
 	
 }

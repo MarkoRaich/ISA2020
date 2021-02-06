@@ -8,14 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ISA2020.dto.EditPharmacyDTO;
+import com.example.ISA2020.dto.ExaminationPriceDTO;
+import com.example.ISA2020.dto.ExaminationPriceDermatologistDTO;
 import com.example.ISA2020.dto.PharmacyDTO;
-
 import com.example.ISA2020.entity.Pharmacy;
 import com.example.ISA2020.entity.users.PharmacyAdmin;
+import com.example.ISA2020.service.ExaminationPriceService;
 import com.example.ISA2020.service.PharmacyAdminService;
 import com.example.ISA2020.service.PharmacyService;
 
@@ -28,6 +36,9 @@ public class PharmacyController {
 	
 	@Autowired
 	private PharmacyAdminService pharmacyAdminService;
+	
+	@Autowired
+	private ExaminationPriceService examinationPriceService;
 	
 	
 	@PostMapping(value = "/create")
@@ -92,6 +103,24 @@ public class PharmacyController {
         return new ResponseEntity<>(changedPharmacy, HttpStatus.ACCEPTED);
     }
 	
+	//3.13
+	@GetMapping("/getAllExaminationPricesSortedByPriceForPharmacy")
+	public ResponseEntity<List<ExaminationPriceDermatologistDTO>> getAllExaminationsByPrice(@RequestParam("pharmacyId") Long id) {
+		List<ExaminationPriceDermatologistDTO> dtos = examinationPriceService.getAllExaminationPricesSortedByPriceForPharmacy(id);
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<ExaminationPriceDermatologistDTO>>(dtos, HttpStatus.OK);
+	}
+	
+	@GetMapping("/getAllExaminationPricesSortedByDermatologistRatingForPharmacy")
+	public ResponseEntity<List<ExaminationPriceDTO>> getAllExaminationsByDermatologistRating(@RequestParam("pharmacyId") Long id) {
+		List<ExaminationPriceDTO> dtos = examinationPriceService.getAllExaminationPricesSortedByDermatologistRatingForPharmacy(id);
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<ExaminationPriceDTO>>(dtos, HttpStatus.OK);
+	}
 	
 	
 }

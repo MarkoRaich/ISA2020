@@ -5,6 +5,7 @@ import java.util.List;
 import com.example.ISA2020.dto.ConsultationPriceDTO;
 import com.example.ISA2020.dto.EditPatientDTO;
 import com.example.ISA2020.dto.ExaminationPriceDTO;
+import com.example.ISA2020.dto.ExaminationPriceDermatologistDTO;
 import com.example.ISA2020.dto.PatientDTO;
 import com.example.ISA2020.dto.PromotionDTO;
 import com.example.ISA2020.dto.ReservationDTO;
@@ -45,4 +46,6 @@ public interface PatientService {
 	List<ReservationDTO> getAllReservations();
 	
 	List<PromotionDTO> getAllPromotions();
+	
+	ExaminationPriceDermatologistDTO makeExaminationReservation(Long examinationId);
 }
