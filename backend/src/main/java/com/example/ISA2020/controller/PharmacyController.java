@@ -17,15 +17,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.ISA2020.dto.ConsultationPriceAddressDTO;
 import com.example.ISA2020.dto.EditPharmacyDTO;
 import com.example.ISA2020.dto.ExaminationPriceDTO;
 import com.example.ISA2020.dto.ExaminationPriceDermatologistDTO;
 import com.example.ISA2020.dto.PharmacyDTO;
 import com.example.ISA2020.entity.Pharmacy;
 import com.example.ISA2020.entity.users.PharmacyAdmin;
+import com.example.ISA2020.service.ConsultationPriceService;
 import com.example.ISA2020.service.ExaminationPriceService;
 import com.example.ISA2020.service.PharmacyAdminService;
 import com.example.ISA2020.service.PharmacyService;
+import com.example.ISA2020.service.Impl.PharmacistSimpleDTO;
 
 @RestController
 @RequestMapping(value = "/api/pharmacy", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -39,6 +42,9 @@ public class PharmacyController {
 	
 	@Autowired
 	private ExaminationPriceService examinationPriceService;
+	
+	@Autowired
+	private ConsultationPriceService consultationPriceService;
 	
 	
 	@PostMapping(value = "/create")
@@ -123,4 +129,32 @@ public class PharmacyController {
 	}
 	
 	
+	//3.16 
+	@GetMapping("/getAllConsultationPricesSortedByPriceForPharmacy")
+	public ResponseEntity<List<ConsultationPriceAddressDTO>> getAllConsultationsByPrice(@RequestParam("pharmacyId") Long id) {
+		List<ConsultationPriceAddressDTO> dtos = consultationPriceService.getAllConsultationPricesSortedByPriceForPharmacy(id);
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<ConsultationPriceAddressDTO>>(dtos, HttpStatus.OK);
+	}
+	
+	
+	@GetMapping("/getAllConsultationPricesSortedByRatingForPharmacy")
+	public ResponseEntity<List<ConsultationPriceAddressDTO>> getAllConsultationsByRating(@RequestParam("pharmacyId") Long id) {
+		List<ConsultationPriceAddressDTO> dtos = consultationPriceService.getAllConsultationPricesSortedByRatingForPharmacy(id);
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<ConsultationPriceAddressDTO>>(dtos, HttpStatus.OK);
+	}
+	
+	@GetMapping("/getAllPharmacistsSortedByRatingForPharmacy")
+	public ResponseEntity<List<PharmacistSimpleDTO>> getAllPharmacistsByRating(@RequestParam("pharmacyId") Long id) {
+		List<PharmacistSimpleDTO> dtos = consultationPriceService.getAllPharmacistsSortedByRatingForPharmacy(id);
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<PharmacistSimpleDTO>>(dtos, HttpStatus.OK);
+	}
 }

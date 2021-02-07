@@ -9,11 +9,11 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.ISA2020.dto.ConsultationPriceAddressDTO;
 import com.example.ISA2020.dto.PharmacistDTO;
 import com.example.ISA2020.entity.Authority;
 import com.example.ISA2020.entity.Consultation;
@@ -21,9 +21,12 @@ import com.example.ISA2020.entity.Pharmacy;
 import com.example.ISA2020.entity.users.Pharmacist;
 import com.example.ISA2020.enumeration.ConsultationStatus;
 import com.example.ISA2020.enumeration.UserStatus;
+import com.example.ISA2020.repository.ConsultationPriceRepository;
 import com.example.ISA2020.repository.ExaminationPriceRepository;
 import com.example.ISA2020.repository.PharmacistRepository;
 import com.example.ISA2020.service.AuthService;
+import com.example.ISA2020.service.ConsultationPriceService;
+import com.example.ISA2020.service.ConsultationService;
 import com.example.ISA2020.service.PharmacistService;
 import com.example.ISA2020.service.UserService;
 
@@ -44,6 +47,9 @@ public class PharmacistServiceImpl implements PharmacistService{
 	
 	@Autowired 
 	private ExaminationPriceRepository examinationPriceRepo;
+	
+	@Autowired 
+	private ConsultationPriceService consultationPriceService;
 	
 	
 	
@@ -151,6 +157,9 @@ public class PharmacistServiceImpl implements PharmacistService{
         }
         return PharmacistDTOs;
     }
+	
+	
+
 
 	
 	

@@ -11,13 +11,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.ISA2020.dto.ConsultationPriceAddressDTO;
 import com.example.ISA2020.dto.ConsultationPriceDTO;
 import com.example.ISA2020.dto.DrugPricePharmacyNameAddressRatingDTO;
 import com.example.ISA2020.dto.EditPatientDTO;
@@ -214,6 +214,27 @@ public class PatientController {
     //@PreAuthorize("hasRole('PATIENT')") //ROLE_PATIENT??
 	public ResponseEntity<ExaminationPriceDermatologistDTO> makeExaminationReservation(@PathVariable Long id) {
 		ExaminationPriceDermatologistDTO dto = patientService.makeExaminationReservation(id);
+		if(dto == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(dto, HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/cancelExaminationReservation/{id}")
+    //@PreAuthorize("hasRole('PATIENT')") //ROLE_PATIENT??
+	public ResponseEntity<ExaminationPriceDermatologistDTO> cancelExaminationReservation(@PathVariable Long id) {
+		ExaminationPriceDermatologistDTO dto = patientService.cancelExaminationReservation(id);
+		if(dto == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(dto, HttpStatus.CREATED);
+	}
+	
+	//3.16 ------------------------
+	@PutMapping("/makeConsultationReservation")
+    //@PreAuthorize("hasRole('PATIENT')") //ROLE_PATIENT??
+	public ResponseEntity<ConsultationPriceAddressDTO> makeExaminationReservation(@RequestParam("pharmacistId") Long pharmacistId, @RequestParam("pharmacyId") Long pharmacyId) {
+		ConsultationPriceAddressDTO dto = patientService.makeConsultationReservation(pharmacistId, pharmacyId);
 		if(dto == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
