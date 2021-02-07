@@ -16,6 +16,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 import com.example.ISA2020.entity.users.Patient;
 import com.example.ISA2020.enumeration.ReservationStatus;
+import com.sun.istack.NotNull;
 
 //Rezervacija leka
 @Table(name="reservation")
@@ -26,6 +27,10 @@ public class Reservation {
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+	
+	@NotNull
+	@Column 
+	private Integer quantity;
 	
 	@Enumerated
 	private ReservationStatus status;
@@ -52,16 +57,18 @@ public class Reservation {
 	//KONSTRUKTORI
 	public Reservation() {
 		super();
+		this.generatedKey = randomStringGenerator();
 	}
 
 	public Reservation(ReservationStatus status, Patient patient, Drug drug, DateTimeInterval interval,
-			String generatedKey) {
+			String generatedKey, Integer quantity) {
 		super();
 		this.status = status;
 		this.patient = patient;
 		this.drug = drug;
 		this.interval = interval;
-		this.generatedKey = generatedKey;
+		this.generatedKey = randomStringGenerator();
+		this.quantity = quantity;
 	}
 
 	//metoda koja generise random string za preuzimanje leka koji je rezervisan (salje se potvrdom na mail)
@@ -72,7 +79,7 @@ public class Reservation {
 	    boolean useNumbers = true;
 	    String generatedString = RandomStringUtils.random(length, useLetters, useNumbers);
 	 
-	    System.out.println(generatedString);
+	    //System.out.println(generatedString);
 	    
 	    return generatedString;
 	}
@@ -136,6 +143,15 @@ public class Reservation {
 	public void setPharmacy(Pharmacy pharmacy) {
 		this.pharmacy = pharmacy;
 	}
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+	
 	
 
 	

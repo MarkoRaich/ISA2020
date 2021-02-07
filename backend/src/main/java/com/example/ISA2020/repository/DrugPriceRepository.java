@@ -11,4 +11,6 @@ public interface DrugPriceRepository extends JpaRepository<DrugPrice, Long>{
 	DrugPrice findOneById(Long id);
 	
 	List<DrugPrice> findAll();
+	
+	DrugPrice findByPharmacyIdAndDrugId(Long pharmacyId, Long drugId);
 }

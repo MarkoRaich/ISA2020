@@ -138,5 +138,51 @@ public class PharmacyServiceImpl implements PharmacyService {
 	}
 	//---------------------------------------------------------------------------------------
 	
+	
+	//3.31 pretraga i sortiranje apoteka
+	@Override
+	public List<DrugPricePharmacyNameAddressRatingDTO> getAllPharmaciesSortedByAddressForAddress(String pharmacyAddress){
+		
+		List<Pharmacy> pharmacies = pharmacyRepository.findByOrderByAddressAsc();
+		
+		List<DrugPricePharmacyNameAddressRatingDTO> pharmaciesDTO = new ArrayList<>();
+		
+		for(Pharmacy p : pharmacies) {
+			if(p.getAddress().toLowerCase().contains(pharmacyAddress.toLowerCase())) {
+				DrugPricePharmacyNameAddressRatingDTO dto = new DrugPricePharmacyNameAddressRatingDTO();
+				dto.setPharmacyName(p.getName());
+				dto.setPharmacyAddress(p.getAddress());
+				dto.setPharmacyRating(p.getRating());
+				
+				pharmaciesDTO.add(dto);
+			}
+		}
+		
+		return pharmaciesDTO;
+	}
+	
+	@Override
+	public List<DrugPricePharmacyNameAddressRatingDTO> getAllPharmaciesSortedByNameForName(String pharmacyName) {
+		
+		List<Pharmacy> pharmacies = pharmacyRepository.findByOrderByNameAsc();
+		
+		List<DrugPricePharmacyNameAddressRatingDTO> pharmaciesDTO = new ArrayList<>();
+		
+		for(Pharmacy p : pharmacies) {
+			if(p.getName().toLowerCase().contains(pharmacyName.toLowerCase())) {
+				DrugPricePharmacyNameAddressRatingDTO dto = new DrugPricePharmacyNameAddressRatingDTO();
+				dto.setPharmacyName(p.getName());
+				dto.setPharmacyAddress(p.getAddress());
+				dto.setPharmacyRating(p.getRating());
+				
+				pharmaciesDTO.add(dto);
+			}
+		}
+		
+		return pharmaciesDTO;
+	}
+	
+	
+	
 
 }

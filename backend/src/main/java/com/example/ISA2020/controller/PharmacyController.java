@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ISA2020.dto.ConsultationPriceAddressDTO;
+import com.example.ISA2020.dto.DrugPricePharmacyNameAddressRatingDTO;
 import com.example.ISA2020.dto.EditPharmacyDTO;
 import com.example.ISA2020.dto.ExaminationPriceDTO;
 import com.example.ISA2020.dto.ExaminationPriceDermatologistDTO;
@@ -156,5 +157,55 @@ public class PharmacyController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<List<PharmacistSimpleDTO>>(dtos, HttpStatus.OK);
+	}
+	
+	
+	//3.9 ------------------------------------------------------------------ omoguci pristup svim korisnicima
+	@GetMapping("/noAuth/getAllPharmaciesSortedByAddress")
+	public ResponseEntity<List<DrugPricePharmacyNameAddressRatingDTO>> getAllPharmaciesSortedByAddress() {
+		List<DrugPricePharmacyNameAddressRatingDTO> dtos = pharmacyService.getAllPharmaciesSortedByPharmacyAddress();
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<DrugPricePharmacyNameAddressRatingDTO>>(dtos, HttpStatus.OK);
+	}
+	
+	@GetMapping("/noAuth/getAllPharmaciesSortedByName")
+	public ResponseEntity<List<DrugPricePharmacyNameAddressRatingDTO>> getAllPharmaciesSortedByName() {
+		List<DrugPricePharmacyNameAddressRatingDTO> dtos = pharmacyService.getAllPharmaciesSortedByPharmacyName();
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<DrugPricePharmacyNameAddressRatingDTO>>(dtos, HttpStatus.OK);
+	}
+	
+	@GetMapping("/noAuth/getAllPharmaciesSortedByRating")
+	public ResponseEntity<List<DrugPricePharmacyNameAddressRatingDTO>> getAllPharmaciesSortedByRating() {
+		List<DrugPricePharmacyNameAddressRatingDTO> dtos = pharmacyService.getAllPharmaciesSortedByPharmacyRating();
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<DrugPricePharmacyNameAddressRatingDTO>>(dtos, HttpStatus.OK);
+	}
+	
+	
+	//3.31 unosi se addressa ----------------------------------------------------------- omoguci pristup svim korisnicima
+	@GetMapping("/noAuth/getAllPharmaciesSortedByAddressForAddress")
+	public ResponseEntity<List<DrugPricePharmacyNameAddressRatingDTO>> getAllPharmaciesSortedByAddressForAddress(@RequestParam("pharmacyAddress") String address) {
+		List<DrugPricePharmacyNameAddressRatingDTO> dtos = pharmacyService.getAllPharmaciesSortedByAddressForAddress(address);
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<DrugPricePharmacyNameAddressRatingDTO>>(dtos, HttpStatus.OK);
+	}
+	
+	//unosi se ime
+	@GetMapping("/noAuth/getAllPharmaciesSortedByNameForName")
+	public ResponseEntity<List<DrugPricePharmacyNameAddressRatingDTO>> getAllPharmaciesSortedByNameForName(@RequestParam("pharmacyName") String name) {
+		List<DrugPricePharmacyNameAddressRatingDTO> dtos = pharmacyService.getAllPharmaciesSortedByNameForName(name);
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<DrugPricePharmacyNameAddressRatingDTO>>(dtos, HttpStatus.OK);
 	}
 }

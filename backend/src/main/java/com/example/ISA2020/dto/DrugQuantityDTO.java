@@ -1,6 +1,6 @@
 package com.example.ISA2020.dto;
 
-public class ReservationDTO {
+public class DrugQuantityDTO {
 	
 	private String pharmacyName;
 	
@@ -8,63 +8,48 @@ public class ReservationDTO {
 	
 	private String drugCode;
 	
-	private String generatedKey;
 	
-	private int quantity;
 
-	
-	
-	public ReservationDTO() {
+	public DrugQuantityDTO() {
 		super();
 	}
 
-	public ReservationDTO(String pharmacyName, String drugName, String drugCode, String generatedKey, int quantity) {
+
+	public DrugQuantityDTO(String pharmacyName, String drugName, String drugCode) {
 		super();
 		this.pharmacyName = pharmacyName;
 		this.drugName = drugName;
 		this.drugCode = drugCode;
-		this.generatedKey = generatedKey;
-		this.quantity = quantity;
 	}
+
 
 	public String getPharmacyName() {
 		return pharmacyName;
 	}
 
+
 	public void setPharmacyName(String pharmacyName) {
 		this.pharmacyName = pharmacyName;
 	}
+
 
 	public String getDrugName() {
 		return drugName;
 	}
 
+
 	public void setDrugName(String drugName) {
 		this.drugName = drugName;
 	}
+
 
 	public String getDrugCode() {
 		return drugCode;
 	}
 
+
 	public void setDrugCode(String drugCode) {
 		this.drugCode = drugCode;
-	}
-
-	public String getGeneratedKey() {
-		return generatedKey;
-	}
-
-	public void setGeneratedKey(String generatedKey) {
-		this.generatedKey = generatedKey;
-	}
-
-	public double getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
 	}
 	
 	
