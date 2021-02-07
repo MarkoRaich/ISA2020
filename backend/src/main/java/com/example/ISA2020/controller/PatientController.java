@@ -240,5 +240,16 @@ public class PatientController {
 		}
 		return new ResponseEntity<>(dto, HttpStatus.CREATED);
 	}
+	
+	@PutMapping("/cancelConsultationReservation")
+    //@PreAuthorize("hasRole('PATIENT')") //ROLE_PATIENT??
+	public ResponseEntity<ConsultationPriceAddressDTO> cancelExaminationReservation(@RequestParam("pharmacistId") Long pharmacistId, @RequestParam("pharmacyId") Long pharmacyId) {
+		ConsultationPriceAddressDTO dto = patientService.cancelConsultationReservation(pharmacistId, pharmacyId);
+		if(dto == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(dto, HttpStatus.CREATED);
+	}
+
 
 }

@@ -671,7 +671,7 @@ public class PatientServiceImpl implements PatientService{
 		if(examination.getExamination().getStatus() == ExaminationStatus.BOOKED) {
 			//if( )   PROVERA 24H!!!!
  			//System.out.println("2");
-			examination.getExamination().setStatus(ExaminationStatus.PREDEF_BOOKED);
+			examination.getExamination().setStatus(ExaminationStatus.CANCELED); //CANCELED???? PREDEF_BOOKED???
 			examination.getExamination().setPatient(null);
 			examinationPriceRepo.save(examination);
 			//examinationRepo.save(examination.getExamination());
@@ -778,6 +778,79 @@ public class PatientServiceImpl implements PatientService{
 
 		
 		
+		return null;
+				
+	}
+	
+	
+	@Override
+	public ConsultationPriceAddressDTO cancelConsultationReservation(Long pharmacistId, Long pharmacyId) {
+
+		Patient patient = getLoginPatient();
+		if(patient == null) {
+			return null;
+		}
+		
+		Pharmacy pharmacy = pharmacyRepo.findOneById(pharmacyId);
+		if(pharmacy == null) {
+			return null;
+		}
+		
+		List<ConsultationPrice> prices = consultationPriceRepo.findByPharmacyIdOrderByConsultationPharmacistRating(pharmacyId);
+		List<ConsultationPrice> predefPrices = new ArrayList<>();
+		List<ConsultationPriceAddressDTO> dtos = new ArrayList<>();
+		
+		for(ConsultationPrice e : prices) {
+			//if(e.getPharmacy().getId() == id) {
+				if(e.getConsultation().getStatus() == ConsultationStatus.BOOKED) {
+					predefPrices.add(e);
+				}
+			//}
+		}
+		
+		List<PharmacistSimpleDTO> pharmacists = new ArrayList<>();
+		
+		String consultationName = null;
+		String pharmacist = null;
+
+		ConsultationPriceAddressDTO dto = new ConsultationPriceAddressDTO();
+		
+		for(ConsultationPrice p : predefPrices) {
+			if(p.getConsultation().getPharmacist().getId() == pharmacistId) {
+				p.getConsultation().setStatus(ConsultationStatus.CANCELED); //CANCELED???? PREDEF_BOOKED???
+				p.getConsultation().setPatient(null);
+				consultationPriceRepo.save(p);
+				
+				dto.setConsultationName(p.getConsultation().getName());
+				dto.setPharmacyName(p.getPharmacy().getName());
+				dto.setPharmacyAddress(p.getPharmacy().getAddress());
+				dto.setPharmacyRating(p.getPharmacy().getRating());
+				dto.setStartDateTime(p.getConsultation().getInterval().getStartDateTime());
+				dto.setEndDateTime(p.getConsultation().getInterval().getEndDateTime());
+				dto.setPrice(p.getPrice());
+				
+				consultationName = p.getConsultation().getName();
+				pharmacist = p.getConsultation().getPharmacist().getFirstName();
+				
+				
+				//salje se email na mejl pacijenta
+				String subject = "Potvrda o otkazivanju savetovanja";
+		        StringBuilder sb = new StringBuilder();
+		        sb.append("Postovani, otkazali ste savetovanje: ");
+		        sb.append(consultationName);
+		        sb.append(" kod farmaceuta: ");
+		        sb.append(pharmacist);
+		        sb.append(System.lineSeparator());
+
+		        String text = sb.toString();
+
+		        
+		        emailNotificationService.sendEmail(/*patient.getUsername()*/ "dionizijm@gmail.com", subject, text);
+		        
+				return dto;
+			}
+		}
+			
 		return null;
 				
 	}

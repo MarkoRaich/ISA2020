@@ -54,4 +54,6 @@ public interface PatientService {
 	ExaminationPriceDermatologistDTO cancelExaminationReservation(Long examinationId);
 	
 	ConsultationPriceAddressDTO makeConsultationReservation(Long pharmacistId, Long pharmacyId);
+	
+	ConsultationPriceAddressDTO cancelConsultationReservation(Long pharmacistId, Long pharmacyId);
 }
