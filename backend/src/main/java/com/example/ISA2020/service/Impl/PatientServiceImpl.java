@@ -928,7 +928,7 @@ public class PatientServiceImpl implements PatientService{
         String text = sb.toString();
 
         
-        emailNotificationService.sendEmail(/*patient.getUsername()*/ "dionizijm@gmail.com", subject, text);
+        emailNotificationService.sendEmail(/*patient.getUsername()*/ "", subject, text);
         
         ReservationDTO dto = new ReservationDTO();
         dto.setDrugName(reservation.getDrug().getName());
@@ -1024,7 +1024,7 @@ public class PatientServiceImpl implements PatientService{
         String text = sb.toString();
 
         
-        emailNotificationService.sendEmail(/*patient.getUsername()*/ "dionizijm@gmail.com", subject, text);
+        emailNotificationService.sendEmail(/*patient.getUsername()*/ "", subject, text);
 
 		
 		return dto;
