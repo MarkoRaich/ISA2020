@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.example.ISA2020.dto.ConsultationPriceAddressDTO;
 import com.example.ISA2020.dto.ConsultationPriceDTO;
 import com.example.ISA2020.dto.EditPatientDTO;
 import com.example.ISA2020.dto.ExaminationPriceDTO;
@@ -21,6 +22,7 @@ import com.example.ISA2020.entity.ConsultationPrice;
 import com.example.ISA2020.entity.Drug;
 import com.example.ISA2020.entity.Examination;
 import com.example.ISA2020.entity.ExaminationPrice;
+import com.example.ISA2020.entity.Pharmacy;
 import com.example.ISA2020.entity.Promotion;
 import com.example.ISA2020.entity.Reservation;
 import com.example.ISA2020.entity.users.Patient;
@@ -28,6 +30,7 @@ import com.example.ISA2020.enumeration.ConsultationStatus;
 import com.example.ISA2020.enumeration.ExaminationStatus;
 import com.example.ISA2020.enumeration.ReservationStatus;
 import com.example.ISA2020.repository.ConsultationPriceRepository;
+import com.example.ISA2020.repository.ConsultationRepository;
 import com.example.ISA2020.repository.DrugPriceRepository;
 import com.example.ISA2020.repository.DrugRepository;
 import com.example.ISA2020.repository.ExaminationPriceRepository;
@@ -71,6 +74,14 @@ public class PatientServiceImpl implements PatientService{
 	
     @Autowired
     private EmailNotificationService emailNotificationService;
+    
+    @Autowired
+    private ConsultationRepository consultationRepo;
+    
+
+	
+	
+	// -------------------------------------------------------------------------
 	
 	
 
@@ -617,7 +628,7 @@ public class PatientServiceImpl implements PatientService{
 		dto.setEndDateTime(examination.getExamination().getInterval().getEndDateTime());
 		
 		//salje se email na mejl pacijenta
-		composeAndSendEmail(patient.getUsername(), dto.getExaminationName(), dto.getDermatologistName());
+		composeAndSendEmail(/*patient.getUsername()*/"", dto.getExaminationName(), dto.getDermatologistName());
 		
 		return dto;
 		
@@ -637,5 +648,138 @@ public class PatientServiceImpl implements PatientService{
 
         emailNotificationService.sendEmail(recipientEmail, subject, text);
     }
+    
+    //3.15 Otkazivanje pregleda ----------------------------------------------------------
+	@Override
+	public ExaminationPriceDermatologistDTO cancelExaminationReservation(Long examinationId) {
+		Patient patient = getLoginPatient();
+		
+		if(patient == null) {
+			return null;
+		}
+		
+		Examination e = examinationRepo.findOneById(examinationId);
+		
+		ExaminationPrice examination = examinationPriceRepo.findByExaminationId(examinationId);
+		//System.out.println("1");
+		if(examination == null) {
+			return null;
+		}
+		
+		
+		
+		if(examination.getExamination().getStatus() == ExaminationStatus.BOOKED) {
+			//if( )   PROVERA 24H!!!!
+ 			//System.out.println("2");
+			examination.getExamination().setStatus(ExaminationStatus.PREDEF_BOOKED);
+			examination.getExamination().setPatient(null);
+			examinationPriceRepo.save(examination);
+			//examinationRepo.save(examination.getExamination());
+		}
+		//System.out.println("3");
+		ExaminationPriceDermatologistDTO dto = new ExaminationPriceDermatologistDTO();
+		
+		dto.setDermatologistName(examination.getExamination().getDermatologist().getFirstName());
+		dto.setDermatologistRating(examination.getExamination().getDermatologist().getRating());
+		dto.setPrice(examination.getPrice());
+		dto.setExaminationName(examination.getExamination().getName());
+		dto.setStartDateTime(examination.getExamination().getInterval().getStartDateTime());
+		dto.setEndDateTime(examination.getExamination().getInterval().getEndDateTime());
+		
+		
+		//salje se email na mejl pacijenta
+		String subject = "Potvrda o otkazivanju pregleda";
+        StringBuilder sb = new StringBuilder();
+        sb.append("Postovani, otkazali ste pregled: ");
+        sb.append(dto.getExaminationName());
+        sb.append(" kod dermatologa: ");
+        sb.append(dto.getDermatologistName());
+        sb.append(System.lineSeparator());
+
+        String text = sb.toString();
+
+        
+        emailNotificationService.sendEmail(/*patient.getUsername()*/ "", subject, text);
+		
+		return dto;
+		
+	}
+	
+	//3.16
+	@Override
+	public ConsultationPriceAddressDTO makeConsultationReservation(Long pharmacistId, Long pharmacyId) {
+
+		Patient patient = getLoginPatient();
+		if(patient == null) {
+			return null;
+		}
+		
+		Pharmacy pharmacy = pharmacyRepo.findOneById(pharmacyId);
+		if(pharmacy == null) {
+			return null;
+		}
+		
+		List<ConsultationPrice> prices = consultationPriceRepo.findByPharmacyIdOrderByConsultationPharmacistRating(pharmacyId);
+		List<ConsultationPrice> predefPrices = new ArrayList<>();
+		List<ConsultationPriceAddressDTO> dtos = new ArrayList<>();
+		
+		for(ConsultationPrice e : prices) {
+			//if(e.getPharmacy().getId() == id) {
+				if(e.getConsultation().getStatus() == ConsultationStatus.PREDEF_BOOKED) {
+					predefPrices.add(e);
+				}
+			//}
+		}
+		
+		List<PharmacistSimpleDTO> pharmacists = new ArrayList<>();
+		
+		String consultationName = null;
+		String pharmacist = null;
+
+		ConsultationPriceAddressDTO dto = new ConsultationPriceAddressDTO();
+		
+		for(ConsultationPrice p : predefPrices) {
+			if(p.getConsultation().getPharmacist().getId() == pharmacistId) {
+				p.getConsultation().setStatus(ConsultationStatus.BOOKED);
+				p.getConsultation().setPatient(patient);
+				consultationPriceRepo.save(p);
+				
+				dto.setConsultationName(p.getConsultation().getName());
+				dto.setPharmacyName(p.getPharmacy().getName());
+				dto.setPharmacyAddress(p.getPharmacy().getAddress());
+				dto.setPharmacyRating(p.getPharmacy().getRating());
+				dto.setStartDateTime(p.getConsultation().getInterval().getStartDateTime());
+				dto.setEndDateTime(p.getConsultation().getInterval().getEndDateTime());
+				dto.setPrice(p.getPrice());
+				
+				consultationName = p.getConsultation().getName();
+				pharmacist = p.getConsultation().getPharmacist().getFirstName();
+				
+				
+				//salje se email na mejl pacijenta
+				String subject = "Potvrda o zakazivanju savetovanja";
+		        StringBuilder sb = new StringBuilder();
+		        sb.append("Postovani, zakazali ste savetovanje: ");
+		        sb.append(consultationName);
+		        sb.append(" kod farmaceuta: ");
+		        sb.append(pharmacist);
+		        sb.append(System.lineSeparator());
+
+		        String text = sb.toString();
+
+		        
+		        emailNotificationService.sendEmail(/*patient.getUsername()*/ "dionizijm@gmail.com", subject, text);
+		        
+				return dto;
+			}
+		}
+		
+		
+
+		
+		
+		return null;
+				
+	}
 	
 }
