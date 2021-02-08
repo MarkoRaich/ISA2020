@@ -16,6 +16,7 @@ public class UserDTO {
     @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$")
     private String newPassword;
 
+    public UserDTO() {}
     
     
 	public String getUsername() {

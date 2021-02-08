@@ -55,7 +55,7 @@ export class AddPharmacistComponent implements OnInit {
       () => {
         this.addPharmacistForm.reset();
         this.dialogRef.close();
-        this.toastr.success("Kreiran farmaceut.", "Kreiraj farmaceuta");
+        this.toastr.success("Kreiran farmaceut. Inicijalna lozinka je : lozinka", "Kreiraj farmaceuta");
         this.pharmacistService.createSuccessEmitter.next(pharmacist);
       },
       () => {

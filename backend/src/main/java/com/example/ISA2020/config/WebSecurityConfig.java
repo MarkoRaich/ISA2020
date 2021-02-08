@@ -69,18 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and()
             
             //ovim putanjama mogu svi korisnici da pristupe
-            .authorizeRequests()
-            .antMatchers(
-                    HttpMethod.GET,
-                    "/",
-                    "/*.html",
-                    "/favicon.ico",
-                    "/**/*.html",
-                    "/**/*.css",
-                    "/**/*.js",
-                    "/**"
-            ).permitAll()
-            .antMatchers("/auth/**").permitAll()
+            .authorizeRequests().antMatchers("/api/auth/**").permitAll()
             									
             .anyRequest().authenticated().and() //svaki zahtev mora biti autorizovan	
                  
@@ -97,11 +86,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers(HttpMethod.POST, "/api/auth/**");
-        web.ignoring().antMatchers(HttpMethod.PUT, "/api/auth");
-        web.ignoring().antMatchers(HttpMethod.GET, "/api/noAuth/**");
-        web.ignoring().antMatchers(HttpMethod.GET, "/api/noAuth/drug/getAll");
-        web.ignoring().antMatchers(HttpMethod.GET, "/api/pharmacy/getAll");
-        web.ignoring().antMatchers(HttpMethod.GET, "/api/drugPrice/getAllDrugsAndPharmacies");
+        web.ignoring().antMatchers(HttpMethod.PUT,  "/api/auth");
+        web.ignoring().antMatchers(HttpMethod.GET,  "/api/noAuth/**");
+        web.ignoring().antMatchers(HttpMethod.GET,  "/api/noAuth/drug/getAll");
+        web.ignoring().antMatchers(HttpMethod.GET,  "/api/pharmacy/getAll");
+        web.ignoring().antMatchers(HttpMethod.GET,  "/api/drugPrice/getAllDrugsAndPharmacies");
         
       
         

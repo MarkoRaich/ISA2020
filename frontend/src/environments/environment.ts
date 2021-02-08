@@ -11,12 +11,15 @@ export const environment = {
   baseUrl             : "http://localhost:8080",
   
   login               : "/api/auth/login",
-  register            : "/api/auth/user/register",
+  register            : "/api/auth/register",
+  changePassword      : "/api/auth",
 
 
   pharmacyAdmin       : "/api/pharmacy-admin",
   pharmacy            : "/api/pharmacy",
-  pharmacist          : "/api/pharmacist"
+  pharmacist          : "/api/pharmacist",
+  dermatologist       : "/api/dermatologist",
+  drugQ               : "/api/drug-quantity"
 };
 
 /*

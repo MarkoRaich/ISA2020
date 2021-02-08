@@ -6,9 +6,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AddPharmacistComponent } from '../components/add-pharmacist/add-pharmacist.component';
-import { Pharmacist } from '../models/pharmacist';
-import { PharmacistService } from '../services/pharmacist.service';
+import { AddPharmacistComponent } from '../add-pharmacist/add-pharmacist.component';
+import { Pharmacist } from '../../models/pharmacist';
+import { PharmacistService } from '../../services/pharmacist.service';
 
 @Component({
   selector: 'app-list-pharmacists',

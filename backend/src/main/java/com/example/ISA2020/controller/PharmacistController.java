@@ -50,7 +50,7 @@ public class PharmacistController {
 	
 	@GetMapping(value = "/search")
 	//@PreAuthorize("hasRole('PHARMACY_ADMIN')")
-    public ResponseEntity<List<PharmacistDTO>> searchDoctorsInClinic(@RequestParam(value = "firstName") String firstName, @RequestParam(value = "lastName") String lastName ) {
+    public ResponseEntity<List<PharmacistDTO>> searchPharmacistsInPharmacy(@RequestParam(value = "firstName") String firstName, @RequestParam(value = "lastName") String lastName ) {
 		 
 		PharmacyAdmin pharmacyAdmin = pharmacyAdminService.getLoginAdmin();
 	        if (pharmacyAdmin == null) {

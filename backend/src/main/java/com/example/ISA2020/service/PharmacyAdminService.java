@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.example.ISA2020.dto.EditPharmAdminDTO;
 import com.example.ISA2020.dto.PharmacyAdminDTO;
 import com.example.ISA2020.entity.users.PharmacyAdmin;
@@ -19,5 +21,7 @@ public interface PharmacyAdminService {
 	PharmacyAdminDTO editPersonalInformation(@Valid EditPharmAdminDTO pharmacyAdminDTO);
 
 	PharmacyAdmin getLoginAdmin();
+
+	PharmacyAdmin changePassword(String newPassword, PharmacyAdmin user);
 
 }

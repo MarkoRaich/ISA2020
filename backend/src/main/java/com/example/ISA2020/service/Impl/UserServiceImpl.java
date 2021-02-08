@@ -148,7 +148,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		if(user instanceof Patient) {
 			return patientService.changePassword(newPassword, (Patient)user);
 		}else if(user instanceof PharmacyAdmin) {
-			//return pharmacyAdminService.changePassword(newPassword, (PharmacyAdmin)user);
+			return pharmacyAdminService.changePassword(newPassword, (PharmacyAdmin)user);
 		}else if(user instanceof Dermatologist) {
 			
 		}else if(user instanceof Pharmacist) {

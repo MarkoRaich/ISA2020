@@ -1,0 +1,102 @@
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-caption">
+                    <h1 class="page-title">Dermatolozi u apoteci</h1>
+                    <div class="text-center mt-4">
+                        <button mat-raised-button color="primary" (click)="openCreatingDialog()">
+                        Dodaj dermatologa
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.page-header-->
+
+<!-- page-content -->
+<div class="card-section">
+    <div class="container">
+        <div class="card-block bg-white mb30">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <!-- section-title -->
+                    <div class="section-title mb-0">
+                        <div class="row">
+                            <div class="col-3">
+                                <mat-form-field class="full-width-field">
+                                    <mat-label>Pretraži po imenu</mat-label>
+                                    <input matInput [(ngModel)]="searchFirstName">
+                                    <button mat-button matPrefix mat-icon-button>
+                                        <mat-icon>search</mat-icon>
+                                    </button>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-3">
+                                <mat-form-field class="full-width-field">
+                                    <mat-label>Pretraži po prezimenu</mat-label>
+                                    <input matInput [(ngModel)]="searchLastName">
+                                    <button mat-button matPrefix mat-icon-button>
+                                        <mat-icon>search</mat-icon>
+                                    </button>
+                                </mat-form-field>
+
+                            </div>
+                            <div class="col-3 btn-position">
+                                <button mat-raised-button color="primary" (click)="search()">Pretraga</button>
+                            </div>
+                        </div>
+
+                        <table mat-table [dataSource]="dermatologistsDataSource" class="mat-elevation-z8 table" matSort>
+
+                            <ng-container matColumnDef="firstName">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Ime </th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.firstName}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="lastName">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Prezime </th>
+                                <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="email">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+                                <td mat-cell *matCellDef=" let element"> {{element.email}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="phoneNumber">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Broj telefona </th>
+                                <td mat-cell *matCellDef=" let element"> {{element.phoneNumber}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="workhours">
+                                <th mat-header-cell *matHeaderCellDef> Radno vreme </th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.workHoursFrom }}&nbsp;—&nbsp;{{element.workHoursTo}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="obrisi">
+                                <th mat-header-cell *matHeaderCellDef> </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <button mat-raised-button mat-raised-button class="delete-btn"
+                                        (click)="deletePharmacist(element)">Obriši</button>
+                                </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                        <mat-paginator [pageSize]=itemsPerPage class=" table" showFirstLastButtons></mat-paginator>
+                    </div>
+                    <!-- /.section-title -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.page-content -->

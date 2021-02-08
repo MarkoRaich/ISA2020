@@ -3,6 +3,7 @@ package com.example.ISA2020.controller;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,13 +15,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ISA2020.dto.LoggedInUserDTO;
+import com.example.ISA2020.dto.UserDTO;
 import com.example.ISA2020.security.auth.JwtAuthenticationRequest;
 import com.example.ISA2020.service.AuthService;
+import com.example.ISA2020.service.UserService;
 
 
 @RestController
@@ -31,13 +35,14 @@ public class AuthenticationController {
 	@Autowired
     private AuthService authService;
 
+	@Autowired
+	private UserService userService;
     
     @PostMapping(value = "/login")
     public ResponseEntity<LoggedInUserDTO> login(@RequestBody JwtAuthenticationRequest authenticationRequest)
         throws AuthenticationException, IOException {
         try {
         	
-        	//System.out.println("login zapocet");
             LoggedInUserDTO loggedInUserDTO = authService.login(authenticationRequest);
 
             if (loggedInUserDTO == null) {
@@ -53,6 +58,17 @@ public class AuthenticationController {
         System.out.println("authenticationException");
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+    
 
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> changePassword(@Valid @RequestBody UserDTO userDTO) {
 
+    	
+        Object newUser = userService.changePassword(userDTO);
+
+        if (newUser == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+    }
 }

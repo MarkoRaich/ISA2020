@@ -86,6 +86,7 @@ public class PharmacistServiceImpl implements PharmacistService{
 			return null;
 		}
 		
+		//provera da li farmaceut ima zakazanih termina
 		Set<Consultation> consultations = pharmacist.getConsultations();
 		for(Consultation cons : consultations) {
 			

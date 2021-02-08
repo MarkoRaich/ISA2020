@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 
 import com.example.ISA2020.entity.Drug;
+import com.example.ISA2020.entity.DrugQuantity;
 
 public class DrugDTO {
 	
@@ -78,6 +79,8 @@ public class DrugDTO {
 			 drug.getComposition(), drug.getNotes(), drug.getForm().toString(), drug.getType().toString(),
 			 drug.getPrescription().toString() );
 	}
+
+
 
 	public Long getId() {
 		return id;

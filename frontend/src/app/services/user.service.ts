@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
-import { User } from '../models/user';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { LoggedInUser } from '../models/loggedInUser';
 import { UserLoginRequest } from '../models/userLoginRequest';
 import { map } from 'rxjs/operators';
 import { UserTokenState } from '../models/userTokenState';
+import { UserNewPass } from '../models/userNewPass';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -27,8 +27,8 @@ export class UserService {
         this.loggedInUser = this.loggedInUserSubject.asObservable();
     }
 
-    changePassword(user: User) {
-      return this.http.put(environment.baseUrl, user);
+    changePassword(user: UserNewPass) {
+      return this.http.put(environment.baseUrl + environment.changePassword, user);
     }
   
     getLoggedInUser(): LoggedInUser {
@@ -88,8 +88,6 @@ export class UserService {
             return this.loggedInUserSubject.value.role === "DERMATOLOGIST";
           }
     }
-
-    
 
     isSystemAdmin(){
         if (this.isLoggedIn()) {

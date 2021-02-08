@@ -1,0 +1,28 @@
+<h1 class="primary">Dodaj farmaceuta</h1>
+<mat-dialog-content class="dialog-class">
+    <form [formGroup]="addDrugForm" class="form-full-width">
+        <mat-form-field class="form-full-width">
+            <mat-label>Available doctors</mat-label>
+          
+            <mat-error *ngIf="addDrugForm.get('doctorsList').invalid">
+                Please choose doctors that will perform the examination.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-full-width-td ml-2">
+            <input matInput placeholder="Prezime" formControlName="lastName">
+            <mat-error
+                *ngIf="addDrugForm.get('lastName').errors && addDrugForm.get('lastName').errors['required']">
+                Unesite prezime farmaceuta.
+            </mat-error>
+            <mat-error
+                *ngIf="addDrugForm.get('lastName').errors && addDrugForm.get('lastName').errors['maxlength']">
+                Maksimalna dužina je 30 karaktera.
+            </mat-error>
+        </mat-form-field>
+</form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="mt-2 mb-1">
+<button mat-raised-button color="primary" (click)="add()" [disabled]="!addDrugForm.valid">Dodaj</button>
+</mat-dialog-actions>

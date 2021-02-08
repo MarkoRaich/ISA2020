@@ -23,8 +23,14 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { MapComponent } from './components/map/map.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatNativeDateModule } from '@angular/material/core';
-import { ListPharmacistsComponent } from './list-pharmacists/list-pharmacists.component';
+import { ListPharmacistsComponent } from './components/list-pharmacists/list-pharmacists.component';
 import { AddPharmacistComponent } from './components/add-pharmacist/add-pharmacist.component';
+import { ListDrugsComponent } from './components/list-drugs/list-drugs.component';
+import { AddDrugInPharmacyComponent } from './components/add-drug-in-pharmacy/add-drug-in-pharmacy.component';
+import { ChangeDrugQuantityComponent } from './components/change-drug-quantity/change-drug-quantity.component';
+import { UserChangePasswordComponent } from './components/user-change-password/user-change-password.component';
+import { ListDermatologistsComponent } from './components/list-dermatologists/list-dermatologists.component';
+import { AddDermatologistComponent } from './components/add-dermatologist/add-dermatologist.component';
 
 //import { ErrorInterceptor } from './interceptors/error.interceptor'; 
 
@@ -45,6 +51,12 @@ import { AddPharmacistComponent } from './components/add-pharmacist/add-pharmaci
     MapComponent,
     ListPharmacistsComponent,
     AddPharmacistComponent,
+    ListDrugsComponent,
+    AddDrugInPharmacyComponent,
+    ChangeDrugQuantityComponent,
+    UserChangePasswordComponent,
+    ListDermatologistsComponent,
+    AddDermatologistComponent,
   ],
   imports: [
     BrowserModule,

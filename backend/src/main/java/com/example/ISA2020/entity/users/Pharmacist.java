@@ -61,8 +61,6 @@ public class Pharmacist implements UserDetails {
 	@Column(nullable = false)
 	private LocalTime workHoursTo;
 	
-	@Column(columnDefinition = "VARCHAR(10)", unique = true, nullable = false)
-	private String phoneNumber; 
 	
 	//prosecna ocena farmaceuta
 	@Column

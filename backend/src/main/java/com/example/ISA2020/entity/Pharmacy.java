@@ -39,15 +39,20 @@ public class Pharmacy {
     @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Pharmacist> pharmacists = new HashSet<>();  //farmaceut radi samo u jednoj apoteci
 	
+//	@JsonIgnore									NE MOZE OVAKO DIREKTNO JER IMAJU RAZLICITO RADNO VREME U APOTEKAMA!
+//	@ManyToMany(fetch = FetchType.LAZY)		
+//    @JoinTable(
+//    			name="pharmacy_dermatologist",
+//    			joinColumns = @JoinColumn(name ="pharmacy_id", referencedColumnName = "id"),
+//    			inverseJoinColumns = @JoinColumn(name = "dermatologist_id", referencedColumnName = "id")
+//    		  )
+//    private Set<Dermatologist> dermatologists = new HashSet<>();
+	
 	@JsonIgnore
-	@ManyToMany(fetch = FetchType.LAZY)		// Dermatolozi mogu da rade u vise apoteka!!
-    @JoinTable(
-    			name="pharmacy_dermatologist",
-    			joinColumns = @JoinColumn(name ="pharmacy_id", referencedColumnName = "id"),
-    			inverseJoinColumns = @JoinColumn(name = "dermatologist_id", referencedColumnName = "id")
-    		  )
-    private Set<Dermatologist> dermatologists = new HashSet<>();
-    
+    @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<DermWorkHours> dermsWithWorkHours = new HashSet<>();
+	
+	
 	@JsonIgnore
 	@OneToMany(mappedBy="pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<PharmacyAdmin> admins = new HashSet<>();
@@ -141,14 +146,19 @@ public class Pharmacy {
 		this.pharmacists = pharmacists;
 	}
 
-	public Set<Dermatologist> getDermatologists() {
-		return dermatologists;
+	
+
+	public Set<DermWorkHours> getDermsWithWorkHours() {
+		return dermsWithWorkHours;
 	}
 
 
-	public void setDermatologists(Set<Dermatologist> dermatologists) {
-		this.dermatologists = dermatologists;
+
+	public void setDermsWithWorkHours(Set<DermWorkHours> dermsWithWorkHours) {
+		this.dermsWithWorkHours = dermsWithWorkHours;
 	}
+
+
 
 	public Set<PharmacyAdmin> getAdmins() {
 		return admins;

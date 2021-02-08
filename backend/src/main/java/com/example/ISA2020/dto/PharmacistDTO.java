@@ -31,7 +31,7 @@ public class PharmacistDTO {
 
     @NotEmpty(message = "Phone number is empty.")
     @Size(min = 9, max = 10)
-    @Pattern(regexp = "0[0-9]+")
+    @Pattern(regexp = "[0-9]+")
     private String phoneNumber;
     
 

@@ -1,5 +1,7 @@
 package com.example.ISA2020.dto;
 
+import com.example.ISA2020.entity.DrugQuantity;
+
 public class DrugSearchDTO {
 	
 	private Long id;
@@ -26,6 +28,20 @@ public class DrugSearchDTO {
 		this.code = code;
 		this.quantity = quantity;
 		this.pharmacyDTO = pharmacyDTO;
+	}
+
+	public DrugSearchDTO(Long id, String name, String code, int quantity) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.code = code;
+		this.quantity = quantity;
+	}
+	
+	
+
+	public DrugSearchDTO(DrugQuantity save) {
+		this.quantity=save.getQuantity();
 	}
 
 	public Long getId() {

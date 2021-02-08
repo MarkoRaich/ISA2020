@@ -7,7 +7,10 @@ import { PatientProfileComponent } from './components/patient-profile/patient-pr
 
 import { EditPharmacyProfileComponent } from './components/edit-pharmacy-profile/edit-pharmacy-profile.component';
 import { EditPharmAdminProfileComponent } from './components/edit-pharm-admin-profile/edit-pharm-admin-profile.component';
-import { ListPharmacistsComponent } from './list-pharmacists/list-pharmacists.component';
+import { ListPharmacistsComponent } from './components/list-pharmacists/list-pharmacists.component';
+import { ListDrugsComponent } from './components/list-drugs/list-drugs.component';
+import { UserChangePasswordComponent } from './components/user-change-password/user-change-password.component';
+import { ListDermatologistsComponent } from './components/list-dermatologists/list-dermatologists.component';
 
 
 const routes: Routes = [
@@ -32,6 +35,12 @@ const routes: Routes = [
     pathMatch: 'full'
   },
 
+  //***************** SVI KORISNICI*****************************
+
+  {
+    path: 'user/change-password',
+    component: UserChangePasswordComponent
+  },
  
   //***************** PATIENT *****************
 
@@ -56,6 +65,16 @@ const routes: Routes = [
   {
     path: 'pharmacy-admin/list-pharmacists',
     component: ListPharmacistsComponent
+  },
+
+  {
+    path: 'pharmacy-admin/list-dermatologists',
+    component: ListDermatologistsComponent
+  },
+
+  {
+    path: 'pharmacy-admin/list-drugs',
+    component: ListDrugsComponent
   }
 
 ];

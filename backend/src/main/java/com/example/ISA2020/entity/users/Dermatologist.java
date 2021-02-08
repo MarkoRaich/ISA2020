@@ -73,6 +73,7 @@ public class Dermatologist implements UserDetails {
 //	@Column(nullable = false)
 //	private LocalTime workHoursTo;
     
+    @JsonIgnore
     @OneToMany(mappedBy = "dermatologist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<DermWorkHours> workHours;
 	
@@ -164,6 +165,22 @@ public class Dermatologist implements UserDetails {
     
    
 
+	public Set<DermWorkHours> getWorkHours() {
+		return workHours;
+	}
+
+	public void setWorkHours(Set<DermWorkHours> workHours) {
+		this.workHours = workHours;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
 	public double getRating() {
 		return rating;
 	}
@@ -202,20 +219,20 @@ public class Dermatologist implements UserDetails {
 	//OVERRIDE METODE
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return authorities;
 	}
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return password;
 	}
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return username;
 	}
 
 	@Override

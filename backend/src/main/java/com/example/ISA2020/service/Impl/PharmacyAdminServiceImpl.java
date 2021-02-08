@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.example.ISA2020.dto.EditPharmAdminDTO;
 import com.example.ISA2020.dto.PharmacyAdminDTO;
 import com.example.ISA2020.entity.users.PharmacyAdmin;
+import com.example.ISA2020.enumeration.UserStatus;
 import com.example.ISA2020.repository.PharmacyAdminRepository;
 import com.example.ISA2020.service.PharmacyAdminService;
 
@@ -23,6 +24,17 @@ public class PharmacyAdminServiceImpl implements PharmacyAdminService {
 	@Autowired
 	private PharmacyAdminRepository pharmacyAdminRepository;
 	
+	
+	@Override
+	public PharmacyAdmin changePassword(String newPassword, PharmacyAdmin user) {
+		
+		 user.setPassword(newPassword);
+	        if (user.getStatus().equals(UserStatus.NEVER_LOGGED_IN)) {
+	            user.setStatus(UserStatus.ACTIVE);
+	        }
+	        return pharmacyAdminRepository.save(user);
+		
+	}
 	
 	@Override
 	public List<PharmacyAdminDTO> getAllPharmacyAdminsForPharmacy(Long id) {
@@ -100,6 +112,10 @@ public class PharmacyAdminServiceImpl implements PharmacyAdminService {
 		
 		return pharmAdminsDTO;
 	}
+
+
+
+
 
 
 	

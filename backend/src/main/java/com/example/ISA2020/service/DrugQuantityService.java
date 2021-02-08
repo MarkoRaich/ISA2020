@@ -16,7 +16,9 @@ public interface DrugQuantityService {
 
 	List<DrugSearchDTO> findAllDrugsInPharmacy(Long id);
 
-	DrugDTO deleteDrugFromPharmacy(Long pharmId, Long drugId);
+	DrugSearchDTO deleteDrugFromPharmacy(Long pharmId, Long drugId);
 
 	DrugQuantity findById(PharmDrugQuantityKey id);
+
+	List<DrugSearchDTO> searchDrugsInPharmacy(Long id, String name);
 }
