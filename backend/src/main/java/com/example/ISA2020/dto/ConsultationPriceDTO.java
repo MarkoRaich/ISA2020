@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 public class ConsultationPriceDTO {
 	
+	private Long id;
+	
 	private String consultationName;
 	
 	private String pharmacyName;
@@ -18,7 +20,7 @@ public class ConsultationPriceDTO {
 		super();
 	}
 
-	public ConsultationPriceDTO(String consultationName, String pharmacyName, double price, LocalDateTime startDateTime,
+	public ConsultationPriceDTO(Long id, String consultationName, String pharmacyName, double price, LocalDateTime startDateTime,
 			LocalDateTime endDateTime) {
 		super();
 		this.consultationName = consultationName;
@@ -26,6 +28,7 @@ public class ConsultationPriceDTO {
 		this.price = price;
 		this.startDateTime = startDateTime;
 		this.endDateTime = endDateTime;
+		this.id = id;
 	}
 
 	public String getConsultationName() {
@@ -67,6 +70,15 @@ public class ConsultationPriceDTO {
 	public void setEndDateTime(LocalDateTime endDateTime) {
 		this.endDateTime = endDateTime;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
     
     
     

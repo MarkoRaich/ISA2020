@@ -2,6 +2,8 @@ package com.example.ISA2020.dto;
 
 public class PromotionDTO {
 	
+	private Long id;
+	
 	private String content;
 	
 	private String pharmacyName;
@@ -18,12 +20,13 @@ public class PromotionDTO {
 
 
 
-	public PromotionDTO(String content, String pharmacyName, String startDate, String endDate) {
+	public PromotionDTO(Long id, String content, String pharmacyName, String startDate, String endDate) {
 		super();
 		this.content = content;
 		this.pharmacyName = pharmacyName;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.id = id;
 	}
 
 
@@ -65,6 +68,18 @@ public class PromotionDTO {
 
 	public void setStartDate(String startDate) {
 		this.startDate = startDate;
+	}
+
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	

@@ -38,6 +38,10 @@ public class Consultation {		//SAVETOVANJE KOD FARMACEUTA
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "pharmacist_id", referencedColumnName = "id")
 	private Pharmacist pharmacist;
+	
+	//Pocetak i kraj pregleda
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private DateTimeInterval interval;
 
 	
 	
@@ -60,7 +64,7 @@ public class Consultation {		//SAVETOVANJE KOD FARMACEUTA
 
 
 	public Consultation(String name, String description, Patient patient, Pharmacist pharmacist,
-			ConsultationReport consultationReport) {
+			ConsultationReport consultationReport, DateTimeInterval interval) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -68,6 +72,7 @@ public class Consultation {		//SAVETOVANJE KOD FARMACEUTA
 		this.patient = patient;
 		this.pharmacist = pharmacist;
 		this.consultationReport = null;
+		this.interval = interval;
 	}
 	
 
@@ -163,6 +168,15 @@ public class Consultation {		//SAVETOVANJE KOD FARMACEUTA
 	public void setConsultationReport(ConsultationReport consultationReport) {
 		this.consultationReport = consultationReport;
 	}
-	
+
+	public DateTimeInterval getInterval() {
+		return interval;
+	}
+
+
+
+	public void setInterval(DateTimeInterval interval) {
+		this.interval = interval;
+	}
 	
 }

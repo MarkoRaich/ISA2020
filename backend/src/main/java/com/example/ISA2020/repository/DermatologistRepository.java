@@ -22,6 +22,7 @@ public interface DermatologistRepository extends JpaRepository<Dermatologist, Lo
 
 	List<Dermatologist> findByStatusNot(UserStatus status);
 
-	List<Dermatologist> findByStatusNotAndFirstNameContainsIgnoringCaseAndLastNameContainsIgnoringCase(
-			UserStatus status, String firstName, String lastName);
+	List<Dermatologist> findByStatusNotAndFirstNameContainsIgnoringCaseAndLastNameContainsIgnoringCase(UserStatus status, String firstName, String lastName);
+	
+	List<Dermatologist> findByOrderByRating();
 }

@@ -72,6 +72,9 @@ public class Drug {
     @Column()
     private IssuanceType prescription;
     
+	@Column
+	private Double rating = 0.0;   //prosecna ocena leka
+    
     @ManyToMany(fetch = FetchType.LAZY)		//Lista zamenskih lekova pravi se join tabela
     @JoinTable(
     			name="replacement_drug",
@@ -83,19 +86,23 @@ public class Drug {
     @OneToMany(mappedBy = "drug", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Reservation> reservations = new HashSet<>();
     
+	@OneToMany(mappedBy = "drug", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Grade> grades = new HashSet<>();
+    
     //DRUG SPECS 3.42 ima jos atributa mozda u posebnu klasu!?  
    
     
     //KONSTRUKTORI
 	public Drug() {
 		super();
+		this.rating = 0.0;
 	}
 
 	public Drug(String name,  String code) {
 		super();
 		this.name = name;
 		this.code = code;
-	
+		this.rating = 0.0;
 
 	}
 
@@ -179,5 +186,33 @@ public class Drug {
 	public void setReservations(Set<Reservation> reservations) {
 		this.reservations = reservations;
 	}
+
+	public Set<Drug> getReplacementDrugs() {
+		return replacementDrugs;
+	}
+
+	public void setReplacementDrugs(Set<Drug> replacementDrugs) {
+		this.replacementDrugs = replacementDrugs;
+	}
+
+	public Set<Grade> getGrades() {
+		return grades;
+	}
+
+	public void setGrades(Set<Grade> grades) {
+		this.grades = grades;
+	}
+
+	public Double getRating() {
+		return rating;
+	}
+
+	public void setRating(Double rating) {
+		this.rating = rating;
+	}
+	
+	
+	
+	
 
 }

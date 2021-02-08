@@ -16,5 +16,11 @@ public interface ExaminationPriceRepository extends JpaRepository<ExaminationPri
 	
 	List<ExaminationPrice> findByOrderByIntervalStartDateTime();
 	
+	List<ExaminationPrice> findByPharmacyOrderByPrice(Long id);
+	
+	//List<ExaminationPrice> findByPharmacyIdOrderByDermatologistRating(Long id);
+	
+	ExaminationPrice findByExaminationId(Long id);
+	
 	//List<ExaminationPrice> findByOrderByIntervalStartDateTimeAndEndDateTime();
 }

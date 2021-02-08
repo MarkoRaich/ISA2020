@@ -27,6 +27,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.ISA2020.entity.Authority;
 import com.example.ISA2020.entity.Examination;
+import com.example.ISA2020.entity.Grade;
 import com.example.ISA2020.entity.Pharmacy;
 import com.example.ISA2020.entity.VacationRequestDerm;
 import com.example.ISA2020.entity.DermWorkHours;
@@ -79,7 +80,11 @@ public class Dermatologist implements UserDetails {
 	
 	//prosecna ocena Dermatologa
 	@Column
-	private double rating;
+	private Double rating = 0.0;
+	
+	//ocene pacijenata
+	@OneToMany(mappedBy = "dermatologist", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Grade> grades = new HashSet<>();
 	
 	//status sa kojim proveravamo da li je ulogovan
 	@Enumerated(EnumType.STRING)
@@ -108,8 +113,8 @@ public class Dermatologist implements UserDetails {
 
 	//KONSTRUKTORI
     public Dermatologist() {
-    	this.rating = 0;
     	this.status = UserStatus.NEVER_LOGGED_IN;
+    	this.rating = 0.0;
     }
     
 	public Dermatologist(@NotNull(message = "Username cannot be null.") String username,
@@ -120,7 +125,7 @@ public class Dermatologist implements UserDetails {
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.rating = 0;
+		this.rating = 0.0;
 		this.status = UserStatus.NEVER_LOGGED_IN;
 		this.phoneNumber = phoneNumber;
 	}
@@ -185,7 +190,7 @@ public class Dermatologist implements UserDetails {
 		return rating;
 	}
 
-	public void setRating(double rating) {
+	public void setRating(Double rating) {
 		this.rating = rating;
 	}
 
@@ -214,6 +219,14 @@ public class Dermatologist implements UserDetails {
 
 	public void setStatus(UserStatus status) {
 		this.status = status;
+	}
+
+	public Set<Grade> getGrades() {
+		return grades;
+	}
+
+	public void setGrades(Set<Grade> grades) {
+		this.grades = grades;
 	}
 
 	//OVERRIDE METODE
