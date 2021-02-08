@@ -28,6 +28,7 @@ import com.example.ISA2020.entity.Complaint;
 import com.example.ISA2020.entity.Consultation;
 import com.example.ISA2020.entity.Drug;
 import com.example.ISA2020.entity.Examination;
+import com.example.ISA2020.entity.Grade;
 import com.example.ISA2020.entity.Prescription;
 import com.example.ISA2020.entity.Promotion;
 import com.example.ISA2020.entity.Reservation;
@@ -125,6 +126,10 @@ public class Patient implements UserDetails {
 	//Jedan pacijent moze da ima vise izdatih recepata
 	@OneToMany(mappedBy = "patient", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Prescription> prescriptions =  new HashSet<>();
+	
+	
+	@OneToMany(mappedBy = "patient", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Grade> grades = new HashSet<>();
 
 
 	//vezano za prava pristupa spring security
@@ -341,6 +346,14 @@ public class Patient implements UserDetails {
 
 	public void setCategoryStatus(CategoryStatus categoryStatus) {
 		this.categoryStatus = categoryStatus;
+	}
+
+	public Set<Grade> getGrades() {
+		return grades;
+	}
+
+	public void setGrades(Set<Grade> grades) {
+		this.grades = grades;
 	}
 	
 	

@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 public class ExaminationPriceDermatologistDTO {
 	
+	private Long id;
+	
 	private String examinationName;
 	
 	private String dermatologistName;
@@ -22,7 +24,7 @@ public class ExaminationPriceDermatologistDTO {
 		super();
 	}
 
-	public ExaminationPriceDermatologistDTO(String examinationName, String dermatologistName, double price,
+	public ExaminationPriceDermatologistDTO(Long id, String examinationName, String dermatologistName, double price,
 			LocalDateTime startDateTime, LocalDateTime endDateTime, double dermatologistRating) {
 		super();
 		this.examinationName = examinationName;
@@ -31,6 +33,7 @@ public class ExaminationPriceDermatologistDTO {
 		this.startDateTime = startDateTime;
 		this.endDateTime = endDateTime;
 		this.dermatologistRating = dermatologistRating;
+		this.id = id;
 	}
 
 	public String getExaminationName() {
@@ -79,6 +82,14 @@ public class ExaminationPriceDermatologistDTO {
 
 	public void setDermatologistRating(double dermatologistRating) {
 		this.dermatologistRating = dermatologistRating;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
     
 	

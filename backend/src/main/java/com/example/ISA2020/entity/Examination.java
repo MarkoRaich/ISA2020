@@ -54,6 +54,9 @@ public class Examination {		//PREGLED KOD DERMATOLOGA
 	private ExaminationReport examinationReport = null;
 	
 	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Pharmacy pharmacy;
+	
 	
 	//KONSTRUKTORI
 	public Examination() {
@@ -148,8 +151,14 @@ public class Examination {		//PREGLED KOD DERMATOLOGA
 		this.description = description;
 	}
 
-	
-	
+	public Pharmacy getPharmacy() {
+		return pharmacy;
+	}
+
+	public void setPharmacy(Pharmacy pharmacy) {
+		this.pharmacy = pharmacy;
+	}
+
 	
 	
 }

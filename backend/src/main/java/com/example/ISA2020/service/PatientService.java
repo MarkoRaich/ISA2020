@@ -8,6 +8,9 @@ import com.example.ISA2020.dto.DrugQuantityDTO;
 import com.example.ISA2020.dto.EditPatientDTO;
 import com.example.ISA2020.dto.ExaminationPriceDTO;
 import com.example.ISA2020.dto.ExaminationPriceDermatologistDTO;
+import com.example.ISA2020.dto.GradeDermPharmDTO;
+import com.example.ISA2020.dto.GradeDrugDTO;
+import com.example.ISA2020.dto.GradePharmacyDTO;
 import com.example.ISA2020.dto.PatientDTO;
 import com.example.ISA2020.dto.PromotionDTO;
 import com.example.ISA2020.dto.ReservationDTO;
@@ -69,6 +72,17 @@ public interface PatientService {
 	List<DrugQuantityDTO> getAllDrugQuantities();
 	
 	ReservationDTO cancelDrugReservation(Long reservationId);
+	
+	
+	
+	//Ocenjivanje lekova, apoteka,farmaceuta, dermatologa  3.41 -----------------------------------------------
+	GradeDrugDTO setGradeForDrug(Long id, double grade);
+	
+	GradePharmacyDTO setGradeForPharmacy(Long id, double grade);
+	
+	GradeDermPharmDTO setGradeForDermatologist(Long id, double grade);
+	
+	GradeDermPharmDTO setGradeForPharmacist(Long id, double grade);
 	
 	//----------------------------------------------------------------
 }

@@ -2,6 +2,8 @@ package com.example.ISA2020.dto;
 
 public class ReservationDTO {
 	
+	private Long id;
+	
 	private String pharmacyName;
 	
 	private String drugName;
@@ -18,13 +20,14 @@ public class ReservationDTO {
 		super();
 	}
 
-	public ReservationDTO(String pharmacyName, String drugName, String drugCode, String generatedKey, int quantity) {
+	public ReservationDTO(Long id, String pharmacyName, String drugName, String drugCode, String generatedKey, int quantity) {
 		super();
 		this.pharmacyName = pharmacyName;
 		this.drugName = drugName;
 		this.drugCode = drugCode;
 		this.generatedKey = generatedKey;
 		this.quantity = quantity;
+		this.id = id;
 	}
 
 	public String getPharmacyName() {
@@ -65,6 +68,14 @@ public class ReservationDTO {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	

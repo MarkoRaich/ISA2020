@@ -24,10 +24,12 @@ import com.example.ISA2020.dto.DrugQuantityDTO;
 import com.example.ISA2020.dto.EditPatientDTO;
 import com.example.ISA2020.dto.ExaminationPriceDTO;
 import com.example.ISA2020.dto.ExaminationPriceDermatologistDTO;
+import com.example.ISA2020.dto.GradeDermPharmDTO;
+import com.example.ISA2020.dto.GradeDrugDTO;
+import com.example.ISA2020.dto.GradePharmacyDTO;
 import com.example.ISA2020.dto.PatientDTO;
 import com.example.ISA2020.dto.PromotionDTO;
 import com.example.ISA2020.dto.ReservationDTO;
-import com.example.ISA2020.entity.Reservation;
 import com.example.ISA2020.entity.users.Patient;
 import com.example.ISA2020.service.ExaminationPriceService;
 import com.example.ISA2020.service.PatientService;
@@ -287,5 +289,47 @@ public class PatientController {
 		return new ResponseEntity<>(dto, HttpStatus.CREATED);
 	}
 
+	//3.41 --------------------------------------------------------------------
+	@PutMapping("/setDrugGrade")
+    //@PreAuthorize("hasRole('PATIENT')") //ROLE_PATIENT??
+	public ResponseEntity<GradeDrugDTO> setDrugGrade(@RequestParam("drugId") Long drugId, @RequestParam("grade") double grade) {
+		GradeDrugDTO dto = patientService.setGradeForDrug(drugId, grade);
+		if(dto == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(dto, HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/setPharmacyGrade")
+    //@PreAuthorize("hasRole('PATIENT')") //ROLE_PATIENT??
+	public ResponseEntity<GradePharmacyDTO> setPharmacyGrade(@RequestParam("pharmacyId") Long pharmacyId, @RequestParam("grade") double grade) {
+		GradePharmacyDTO dto = patientService.setGradeForPharmacy(pharmacyId, grade);
+		if(dto == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(dto, HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/setDermatologistGrade")
+    //@PreAuthorize("hasRole('PATIENT')") //ROLE_PATIENT??
+	public ResponseEntity<GradeDermPharmDTO> setDermatologistGrade(@RequestParam("dermatologistId") Long dermatologistId, @RequestParam("grade") double grade) {
+		GradeDermPharmDTO dto = patientService.setGradeForDermatologist(dermatologistId, grade);
+		if(dto == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(dto, HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/setPharmacistGrade")
+    //@PreAuthorize("hasRole('PATIENT')") //ROLE_PATIENT??
+	public ResponseEntity<GradeDermPharmDTO> setPharmacistGrade(@RequestParam("pharmacistId") Long pharmacistId, @RequestParam("grade") double grade) {
+		GradeDermPharmDTO dto = patientService.setGradeForPharmacist(pharmacistId, grade);
+		if(dto == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(dto, HttpStatus.CREATED);
+	}
+	
+	
 
 }

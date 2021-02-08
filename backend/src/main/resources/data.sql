@@ -127,14 +127,14 @@ INSERT INTO pharmacist_authority(user_id, authority_id) VALUES (6,2);
 
 -- EXAMINATION 
 -- INSERT INTO examination(description, name, complaint_id, dermatologist_id, examination_report_id, interval_id, patient_id, pharmacy_id)  
-INSERT INTO examination(description, name, dermatologist_id, patient_id, status, interval_id) values ('Opsti pregled', 'Opsti pregled pacijenta', 1, 1, 1, 1);
-INSERT INTO examination(description, name, dermatologist_id, patient_id, status, interval_id) values ('Pregled sa Dermoskopom ', 'Pregled pacijenta sa Dermoskopom', 2, 2, 0, 2);
-INSERT INTO examination(description, name, dermatologist_id, patient_id, status, interval_id) values ('PH nalaz', 'PH nalaz za pacijenta', 1, null, 2, 3); -- null za pacijenta
-INSERT INTO examination(description, name, dermatologist_id, patient_id, status, interval_id) values ('Dermoskopija', 'Dermoskopija za pacijenta', 2, null, 2, 4); -- null ako je predefinisan
-INSERT INTO examination(description, name, dermatologist_id, patient_id, status, interval_id) values ('Opsta hirurgija', 'Opsta hirurgija', 3, 1, 3, 1);
-INSERT INTO examination(description, name, dermatologist_id, patient_id, status, interval_id) values ('Opsta pregled i Hirurgija', 'Opsta hirurgija prilikom pregleda pacijenta', 2, 1, 4, 1);
-INSERT INTO examination(description, name, dermatologist_id, patient_id, status, interval_id) values ('Pregled pacijenta', 'Pregled pacijenta', 1, 1, 4, 2);
-INSERT INTO examination(description, name, dermatologist_id, patient_id, status, interval_id) values ('Pregled pacijenta', 'Pregled pacijenta', 3, null, 2, 2); -- postavlja se prilikom zakazivanja pregleda
+INSERT INTO examination(description, name, dermatologist_id, patient_id, status, interval_id, pharmacy_id) values ('Opsti pregled', 'Opsti pregled pacijenta', 1, 1, 1, 1, 1);
+INSERT INTO examination(description, name, dermatologist_id, patient_id, status, interval_id, pharmacy_id) values ('Pregled sa Dermoskopom ', 'Pregled pacijenta sa Dermoskopom', 2, 2, 0, 2, 2);
+INSERT INTO examination(description, name, dermatologist_id, patient_id, status, interval_id, pharmacy_id) values ('PH nalaz', 'PH nalaz za pacijenta', 1, null, 2, 3, 3); -- null za pacijenta
+INSERT INTO examination(description, name, dermatologist_id, patient_id, status, interval_id, pharmacy_id) values ('Dermoskopija', 'Dermoskopija za pacijenta', 2, null, 2, 4, 3); -- null ako je predefinisan
+INSERT INTO examination(description, name, dermatologist_id, patient_id, status, interval_id, pharmacy_id) values ('Opsta hirurgija', 'Opsta hirurgija', 3, 1, 3, 1, 4);
+INSERT INTO examination(description, name, dermatologist_id, patient_id, status, interval_id, pharmacy_id) values ('Opsta pregled i Hirurgija', 'Opsta hirurgija prilikom pregleda pacijenta', 2, 1, 4, 1, 2);
+INSERT INTO examination(description, name, dermatologist_id, patient_id, status, interval_id, pharmacy_id) values ('Pregled pacijenta', 'Pregled pacijenta', 1, 1, 4, 2, 3);
+INSERT INTO examination(description, name, dermatologist_id, patient_id, status, interval_id, pharmacy_id) values ('Pregled pacijenta', 'Pregled pacijenta', 3, null, 2, 2, 5); -- postavlja se prilikom zakazivanja pregleda
 
 
 -- EXAMINATION PRICE
@@ -188,17 +188,17 @@ values (9, 2, 170.0, 5);
 INSERT INTO reservation(generated_key, status, drug_id, interval_id, patient_id, pharmacy_id)
 values ('12345', 0, 1, 1, 1, 1);
 INSERT INTO reservation(generated_key, status, drug_id, interval_id, patient_id, pharmacy_id)
-values ('22111', 1, 1, 2, 1, 2);
+values ('22111', 1, 2, 2, 1, 2);
 INSERT INTO reservation(generated_key, status, drug_id, interval_id, patient_id, pharmacy_id)
-values ('34522', 2, 1, 3, 1, 3);
+values ('34522', 2, 2, 3, 1, 3);
 INSERT INTO reservation(generated_key, status, drug_id, interval_id, patient_id, pharmacy_id)
-values ('21566', 3, 1, 2, 2, 2);
+values ('21566', 3, 3, 2, 2, 2);
 INSERT INTO reservation(generated_key, status, drug_id, interval_id, patient_id, pharmacy_id)
-values ('76444', 0, 1, 3, 1, 2);
+values ('76444', 0, 5, 3, 1, 2);
 INSERT INTO reservation(generated_key, status, drug_id, interval_id, patient_id, pharmacy_id)
-values ('54433', 1, 1, 1, 2, 3);
+values ('54433', 1, 4, 1, 2, 3);
 INSERT INTO reservation(generated_key, status, drug_id, interval_id, patient_id, pharmacy_id)
-values ('44798', 0, 1, 2, 2, 3);
+values ('44798', 0, 7, 2, 2, 3);
 
 -- PROMOTION
 INSERT INTO promotion(content, period_id, pharmacy_id) 

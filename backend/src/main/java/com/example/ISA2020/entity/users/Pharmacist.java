@@ -10,6 +10,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 import com.example.ISA2020.entity.Consultation;
+import com.example.ISA2020.entity.Grade;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -65,12 +66,15 @@ public class Pharmacist implements UserDetails {
 	
 	//prosecna ocena farmaceuta
 	@Column
-	private double rating;
+	private Double rating = 0.0;
 	
     //status za proveru da li je ulogovan
     @Enumerated(EnumType.STRING)
     private UserStatus status;
 
+    //lista ocena pacijenata
+	@OneToMany(mappedBy = "pharmacist", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Grade> grades = new HashSet<>();
     
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -95,7 +99,7 @@ public class Pharmacist implements UserDetails {
 	
 	//KONSTRUKTORI
     public Pharmacist() { 
-    	this.rating = 0;
+    	this.rating = 0.0;
     	this.status = UserStatus.NEVER_LOGGED_IN;  	
     }
     
@@ -117,7 +121,7 @@ public class Pharmacist implements UserDetails {
 		this.workHoursFrom = workHoursFrom;
 		this.workHoursTo = workHoursTo;
 		this.phoneNumber = phoneNumber;
-		this.rating = 0;
+		this.rating = 0.0;
 		this.pharmacy = pharmacy;
 		this.status = UserStatus.NEVER_LOGGED_IN;
 		this.authorities = authorities;
@@ -199,12 +203,12 @@ public class Pharmacist implements UserDetails {
 	}
 
 
-	public double getRating() {
+	public Double getRating() {
 		return rating;
 	}
 
 
-	public void setRating(double rating) {
+	public void setRating(Double rating) {
 		this.rating = rating;
 	}
 
@@ -246,6 +250,16 @@ public class Pharmacist implements UserDetails {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+
+	public Set<Grade> getGrades() {
+		return grades;
+	}
+
+
+	public void setGrades(Set<Grade> grades) {
+		this.grades = grades;
 	}
 
 

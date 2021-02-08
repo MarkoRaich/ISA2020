@@ -31,7 +31,11 @@ public class Pharmacy {
 	private String description;
 	
 	@Column
-	private double rating;   //prosecna ocena apoteke
+	private Double rating = 0.0;   //prosecna ocena apoteke
+	
+	//ocene pacijenata
+	@OneToMany(mappedBy = "pharmacy", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Grade> grades = new HashSet<>();
 	
 	
 	
@@ -60,11 +64,16 @@ public class Pharmacy {
 	@JsonIgnore
     @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Reservation> reservations = new HashSet<>();
+	
+	@JsonIgnore
+    @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Examination> examinations = new HashSet<>();
     
 
 
 	public Pharmacy() {
 		super();
+		this.rating = 0.0;
 	}
 
 
@@ -75,7 +84,7 @@ public class Pharmacy {
 		this.name = name;
 		this.address = address;
 		this.description = description;
-		this.rating = rating;
+		this.rating = 0.0;
 	}
 
 
@@ -83,6 +92,7 @@ public class Pharmacy {
 	public Pharmacy(String name, String address) {
 		this.name = name;
 		this.address = address;
+		this.rating = 0.0;
 	}
 
 
@@ -122,12 +132,12 @@ public class Pharmacy {
 	}
 
 
-	public double getRating() {
+	public Double getRating() {
 		return rating;
 	}
 
 
-	public void setRating(double rating) {
+	public void setRating(Double rating) {
 		this.rating = rating;
 	}
 
@@ -183,5 +193,30 @@ public class Pharmacy {
 		this.reservations = reservations;
 	}
 
+
+
+	public Set<Grade> getGrades() {
+		return grades;
+	}
+
+
+
+	public void setGrades(Set<Grade> grades) {
+		this.grades = grades;
+	}
+
+
+
+	public Set<Examination> getExaminations() {
+		return examinations;
+	}
+
+
+
+	public void setExaminations(Set<Examination> examinations) {
+		this.examinations = examinations;
+	}
+
+	
 
 }

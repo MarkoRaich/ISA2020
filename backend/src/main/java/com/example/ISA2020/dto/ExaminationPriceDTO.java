@@ -3,6 +3,8 @@ package com.example.ISA2020.dto;
 import java.time.LocalDateTime;
 
 public class ExaminationPriceDTO {
+	
+	private Long id;
 
 	private String examinationName;
 	
@@ -22,9 +24,10 @@ public class ExaminationPriceDTO {
 
 
 
-	public ExaminationPriceDTO(String examinationName, String pharmacyName, double price, LocalDateTime startDateTime,
+	public ExaminationPriceDTO(Long id, String examinationName, String pharmacyName, double price, LocalDateTime startDateTime,
 			LocalDateTime endDateTime) {
 		super();
+		this.id = id;
 		this.examinationName = examinationName;
 		this.pharmacyName = pharmacyName;
 		this.price = price;
@@ -91,7 +94,20 @@ public class ExaminationPriceDTO {
 	public void setEndDateTime(LocalDateTime endDateTime) {
 		this.endDateTime = endDateTime;
 	}
+
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
     
+	
     
     
     
