@@ -11,6 +11,7 @@ import { ListPharmacistsComponent } from './components/list-pharmacists/list-pha
 import { ListDrugsComponent } from './components/list-drugs/list-drugs.component';
 import { UserChangePasswordComponent } from './components/user-change-password/user-change-password.component';
 import { ListDermatologistsComponent } from './components/list-dermatologists/list-dermatologists.component';
+import { ListExaminationsComponent } from './components/list-examinations/list-examinations.component';
 
 
 const routes: Routes = [
@@ -75,7 +76,13 @@ const routes: Routes = [
   {
     path: 'pharmacy-admin/list-drugs',
     component: ListDrugsComponent
+  },
+
+  {
+    path: 'pharmacy-admin/examinations',
+    component : ListExaminationsComponent
   }
+
 
 ];
 

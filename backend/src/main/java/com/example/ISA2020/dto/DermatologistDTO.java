@@ -79,8 +79,13 @@ public class DermatologistDTO {
 
 
 
-	public DermatologistDTO(Long id2, String username, String firstName2, String lastName2, String phoneNumber2) {
-		// TODO Auto-generated constructor stub
+	public DermatologistDTO(Long id, String username, String firstName, String lastName, String phoneNumber) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = username;
+		this.phoneNumber = phoneNumber;
 	}
 
 

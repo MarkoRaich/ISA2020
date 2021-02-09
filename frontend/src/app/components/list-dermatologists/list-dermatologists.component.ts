@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { Dermatologist } from 'src/app/models/dermatologist';
 import { DermatologistService } from 'src/app/services/dermatologist.service';
 import { environment } from 'src/environments/environment';
+import { AddDermatologistComponent } from '../add-dermatologist/add-dermatologist.component';
 
 @Component({
   selector: 'app-list-dermatologists',
@@ -62,7 +63,7 @@ export class ListDermatologistsComponent implements OnInit {
   }
 
   openCreatingDialog() {
-    this.dialog.open(ListDermatologistsComponent);
+    this.dialog.open(AddDermatologistComponent);
   }
 
   applyFilter(filterValue: string) {

@@ -2,7 +2,12 @@ package com.example.ISA2020.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
+import com.example.ISA2020.dto.AvailableExaminationDTO;
+import com.example.ISA2020.dto.ExaminationDTO;
 import com.example.ISA2020.entity.Examination;
+import com.example.ISA2020.entity.users.PharmacyAdmin;
 
 public interface ExaminationService {
 	
@@ -11,4 +16,8 @@ public interface ExaminationService {
 	List<Examination> getAllExaminations();
 
 	List<Examination> getDermatologistUpcomingExaminations(Long dermId);
+
+	List<AvailableExaminationDTO> getAvailableExaminationsForPharmacy(Long id);
+
+	ExaminationDTO createAvailableExamination(@Valid AvailableExaminationDTO availableExaminationDTO, PharmacyAdmin pharmacyAdmin);
 }

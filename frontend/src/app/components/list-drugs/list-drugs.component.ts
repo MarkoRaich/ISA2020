@@ -9,7 +9,6 @@ import { DrugWithQuantity } from 'src/app/models/drugWithQuantity';
 import { DrugService } from 'src/app/services/drug.service';
 import { environment } from 'src/environments/environment';
 import { AddDrugInPharmacyComponent } from '../add-drug-in-pharmacy/add-drug-in-pharmacy.component';
-import { ChangeDrugQuantityComponent } from '../change-drug-quantity/change-drug-quantity.component';
 
 @Component({
   selector: 'app-list-drugs',
@@ -53,11 +52,7 @@ export class ListDrugsComponent implements OnInit {
   }
 
   openCreatingDialog(){
-    this.dialog.open(AddDrugInPharmacyComponent);
-  }
-
-  openChangingDialog(){
-    this.dialog.open(ChangeDrugQuantityComponent);
+     this.dialog.open(AddDrugInPharmacyComponent);
   }
 
   search(){
@@ -81,6 +76,10 @@ export class ListDrugsComponent implements OnInit {
         this.toastr.error('Lek je rezervisan i ne može se obrisati.', 'Brisanje leka iz apoteke');
       }
     );
+  }
+
+  changeDrugQ(drug : DrugWithQuantity){
+    
   }
 
 

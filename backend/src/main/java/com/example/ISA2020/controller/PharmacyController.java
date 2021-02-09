@@ -30,6 +30,7 @@ import com.example.ISA2020.service.ConsultationPriceService;
 import com.example.ISA2020.service.ExaminationPriceService;
 import com.example.ISA2020.service.PharmacyAdminService;
 import com.example.ISA2020.service.PharmacyService;
+import com.example.ISA2020.dto.PharmacistSimpleDTO;
 
 @RestController
 @RequestMapping(value = "/api/pharmacy", produces = MediaType.APPLICATION_JSON_VALUE)

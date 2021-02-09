@@ -42,6 +42,22 @@ public class DermatologistController {
         return new ResponseEntity<>(dermatologistService.findAllDermatologistsInPharmacy(pharmacyAdmin.getPharmacy()), HttpStatus.OK);
     }
     
+    @GetMapping(value = "/available") 										//vrati sve dermatologe slobodne za ove parametre za kreiranje termina pregleda
+    //@PreAuthorize("hasAnyRole('PHARMACY_ADMIN','PHARMACIST')")
+    public ResponseEntity<List<DermatologistDTO>> getAllAvailableDermatologists(@RequestParam(value = "startDateTime", required = true) String startDateTime,
+																		        @RequestParam(value = "endDateTime", required = true) String endDateTime){
+    	
+    	System.out.println(startDateTime + " | " + endDateTime);
+    	//System.out.println("pogodio dobavljanje slobodnih dermatologa ");
+    	PharmacyAdmin pharmacyAdmin = pharmacyAdminService.getLoginAdmin();
+        if (pharmacyAdmin == null) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        return new ResponseEntity<>(dermatologistService.getAllAvailableDermatologists(pharmacyAdmin.getPharmacy(), startDateTime, endDateTime), HttpStatus.OK);
+    	
+    	 
+    }
+    
     @GetMapping(value = "/search")
 	//@PreAuthorize("hasRole('PHARMACY_ADMIN')")
     public ResponseEntity<List<DermatologistDTO>> searchDermatologistsInPharmacy(@RequestParam(value = "firstName") String firstName, @RequestParam(value = "lastName") String lastName ) {
@@ -71,14 +87,7 @@ public class DermatologistController {
     }
     
     
-    @GetMapping(value = "/available") //vrati sve dermatologe koje ima u sistemu i onda se od njih bira koji se ubacuje
-    //@PreAuthorize("hasAnyRole('PHARMACY_ADMIN','PHARMACIST')")
-    public ResponseEntity<List<DermatologistDTO>> getAllAvailableDermatologists(){
-    	
-    	return  new ResponseEntity<>( dermatologistService.getAllActiveDermatologists(), HttpStatus.OK );
-    	
-    	 
-    }
+   
     
     
 //  @PostMapping(value="/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

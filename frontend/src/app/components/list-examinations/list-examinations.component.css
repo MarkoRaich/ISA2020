@@ -57,7 +57,3 @@ h1 {
 #search:hover, #search:active {
     cursor: pointer;
 }
-
-.delete-btn {
-    color: red;
-}
