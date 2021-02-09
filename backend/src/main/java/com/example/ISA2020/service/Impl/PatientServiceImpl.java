@@ -21,6 +21,7 @@ import com.example.ISA2020.dto.GradeDrugDTO;
 import com.example.ISA2020.dto.GradePharmacyDTO;
 import com.example.ISA2020.dto.PatientDTO;
 import com.example.ISA2020.dto.PatientWithIdDTO;
+import com.example.ISA2020.dto.PharmacistSimpleDTO;
 import com.example.ISA2020.dto.PromotionDTO;
 import com.example.ISA2020.dto.ReservationDTO;
 import com.example.ISA2020.entity.Consultation;

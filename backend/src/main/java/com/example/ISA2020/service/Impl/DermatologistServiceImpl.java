@@ -1,5 +1,8 @@
 package com.example.ISA2020.service.Impl;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -87,6 +90,33 @@ public class DermatologistServiceImpl implements DermatologistService{
 	}
 	
 	@Override
+	public List<DermatologistDTO> getAllAvailableDermatologists(Pharmacy pharmacy, String startDateTime, String endDateTime) {
+		
+		List<DermatologistDTO> dermsDTO = new ArrayList<>();
+		
+		List<DermWorkHours> dermWorkHours = dermWorkHourRepository.findByPharmacyIdAndStatusNot(pharmacy.getId(), EntityStatus.DELETED);
+		
+		System.out.println("Slobodni dermatolozi: ");
+		for(DermWorkHours temp : dermWorkHours) {
+			Dermatologist tempDerm = temp.getDermatologist();
+			
+			if(isAvailable(tempDerm, getLocalDateTime(startDateTime), getLocalDateTime(endDateTime) )) {
+				dermsDTO.add(new DermatologistDTO(tempDerm));
+				System.out.println(tempDerm.getFirstName() + " " + tempDerm.getLastName() );
+			}
+		}
+		
+		return dermsDTO;
+	}
+	
+	  private boolean isAvailable(Dermatologist derm, LocalDateTime localDateTime, LocalDateTime localDateTime2) {
+		//zasad zakucaj JBG !!!
+		return true;
+	}
+
+	
+	
+	@Override
 	public List<DermatologistDTO> searchDermatologistsInPharmacy(Long id, String firstName, String lastName) {
 		
 		List<DermatologistDTO> dermsDTO = new ArrayList<DermatologistDTO>();
@@ -108,6 +138,17 @@ public class DermatologistServiceImpl implements DermatologistService{
 		}
 		return dermsDTO;
 	}
+	
+	
+	
+	
+	
+	
+  
+	private LocalDateTime getLocalDateTime(String date) throws DateTimeParseException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return LocalDateTime.parse(date, formatter);
+    }
 
 	@Override
 	public DermatologistDTO deleteDermatologistFromPharmacy(Long pharmacyId, Long id) {
@@ -168,5 +209,7 @@ public class DermatologistServiceImpl implements DermatologistService{
 	        return dermatologistDTOs;
 		
 	}
+
+
 
 }

@@ -16,6 +16,8 @@ public interface DermatologistService {
 
 	List<DermatologistDTO> findAllDermatologistsInPharmacy(Pharmacy pharmacy);
 	
+	List<DermatologistDTO> getAllAvailableDermatologists(Pharmacy pharmacy, String startDateTime, String endDateTime);
+	
 	Dermatologist getDermatologist(Long id);
 
 	DermatologistDTO deleteDermatologistFromPharmacy(Long pharmacyId, Long id);
@@ -23,4 +25,6 @@ public interface DermatologistService {
 	List<DermatologistDTO> getAllActiveDermatologists();
 
 	List<DermatologistDTO> searchDermatologistsInPharmacy(Long id, String firstName, String lastName);
+
+
 }

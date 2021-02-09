@@ -19,14 +19,14 @@ public class Examination {		//PREGLED KOD DERMATOLOGA
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-    @NotNull(message = "Name cannot be null.")
-    @Column(nullable = false)
-    private String name;
-    
-    @NotNull(message = "Description cannot be null.")
-    @Column(nullable = false)
-    private String description;
-    
+//    @NotNull(message = "Name cannot be null.")
+//    @Column(nullable = false)
+//    private String name;
+//    
+//    @NotNull(message = "Description cannot be null.")
+//    @Column(nullable = false)
+//    private String description;
+//    
     
 	@Enumerated
 	private ExaminationStatus status;
@@ -55,6 +55,11 @@ public class Examination {		//PREGLED KOD DERMATOLOGA
 	
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "exam_type_id", referencedColumnName = "id")
+	private ExaminationType examType;
+	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "pharmacy_id", referencedColumnName = "id")
 	private Pharmacy pharmacy;
 	
 	
@@ -77,6 +82,14 @@ public class Examination {		//PREGLED KOD DERMATOLOGA
 		this.status = ExaminationStatus.AVAILABLE;
 	}
 	
+	public Examination(ExaminationStatus status, DateTimeInterval interval, Dermatologist dermatologist, ExaminationType examinationType, Pharmacy pharmacy) {
+		this.status = status;
+		this.interval = interval;
+		this.dermatologist = dermatologist;
+		this.examType =examinationType;
+		this.pharmacy = pharmacy;
+	}
+
 	//GETERI I SETERI
 	public Long getId() {
 		return id;
@@ -135,20 +148,14 @@ public class Examination {		//PREGLED KOD DERMATOLOGA
 		this.examinationReport = examinationReport;
 	}
 
-	public String getName() {
-		return name;
+
+
+	public ExaminationType getExamType() {
+		return examType;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
+	public void setExamType(ExaminationType examType) {
+		this.examType = examType;
 	}
 
 	public Pharmacy getPharmacy() {

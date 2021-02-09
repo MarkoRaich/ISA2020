@@ -4,8 +4,9 @@ import java.util.List;
 
 import com.example.ISA2020.dto.ConsultationPriceAddressDTO;
 import com.example.ISA2020.dto.ConsultationPriceDTO;
+import com.example.ISA2020.dto.PharmacistDTO;
+import com.example.ISA2020.dto.PharmacistSimpleDTO;
 import com.example.ISA2020.entity.ConsultationPrice;
-import com.example.ISA2020.service.Impl.PharmacistSimpleDTO;
 
 public interface ConsultationPriceService {
 	

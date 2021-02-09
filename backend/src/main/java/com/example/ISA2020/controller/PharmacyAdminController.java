@@ -35,7 +35,7 @@ public class PharmacyAdminController {
 	
 	
 	@GetMapping(value = "/all")
-    //@PreAuthorize("hasRole('CLINICAL_CENTRE_ADMIN')")
+	 //@PreAuthorize("hasRole('PHARMACY_ADMIN')")
 	public ResponseEntity<List<PharmacyAdminDTO>> getAllPharmacyAdminsForPharmacy(@RequestParam Long pharmId) {
 		return new ResponseEntity<>(pharmacyAdminService.getAllPharmacyAdminsForPharmacy(pharmId), HttpStatus.OK);
 	}

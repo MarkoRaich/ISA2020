@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.ISA2020.dto.ConsultationPriceAddressDTO;
 import com.example.ISA2020.dto.ExaminationPriceDermatologistDTO;
+import com.example.ISA2020.dto.PharmacistSimpleDTO;
 import com.example.ISA2020.entity.ConsultationPrice;
 import com.example.ISA2020.entity.ExaminationPrice;
 import com.example.ISA2020.entity.Pharmacy;
