@@ -76,7 +76,7 @@ insert into date_time_interval (start_date_time, end_date_time) VALUES ('2020.12
 
 -- CENE LEKOVA U APOTEKAMA
 
-INSERT INTO drug_price (drug_id, pharmacy_id, price, interval_id) VALUES (1, 1, 420.0, 1); --> interval_id 
+INSERT INTO drug_price (drug_id, pharmacy_id, price, interval_id) VALUES (1, 1, 420.0, 1); -- > interval_id 
 INSERT INTO drug_price (drug_id, pharmacy_id, price, interval_id) VALUES (1, 2, 520.0, 2);
 INSERT INTO drug_price (drug_id, pharmacy_id, price, interval_id) VALUES (2, 2, 320.0, 3);
 INSERT INTO drug_price (drug_id, pharmacy_id, price, interval_id) VALUES (3, 3, 550.0, 4);
@@ -120,9 +120,9 @@ INSERT INTO dermatologist_authority(user_id, authority_id) VALUES (3,3);
 
 -- DERMATOLOZI I APOTEKE U KOJIMA RADE
 
-INSERT INTO pharmacy_dermatologist(pharmacy_id, dermatologist_id) VALUES (1,1);
-INSERT INTO pharmacy_dermatologist(pharmacy_id, dermatologist_id) VALUES (2,2);
-INSERT INTO pharmacy_dermatologist(pharmacy_id, dermatologist_id) VALUES (3,3);
+-- INSERT INTO pharmacy_dermatologist(pharmacy_id, dermatologist_id) VALUES (1,1);
+-- INSERT INTO pharmacy_dermatologist(pharmacy_id, dermatologist_id) VALUES (2,2);
+-- INSERT INTO pharmacy_dermatologist(pharmacy_id, dermatologist_id) VALUES (3,3);
 
 
 -- RADNO VREME DERMATOLOGA I GERUND IZMEDJU APOTEKE I DERMATOLOGA
@@ -131,16 +131,16 @@ INSERT INTO derm_work_hours(pharmacy_id, dermatologist_id, status, time_from, ti
 INSERT INTO derm_work_hours(pharmacy_id, dermatologist_id, status, time_from, time_to) VALUES (1,2, 'ACTIVE', '08:00','12:00');
 INSERT INTO derm_work_hours(pharmacy_id, dermatologist_id, status, time_from, time_to) VALUES (2,1, 'ACTIVE', '14:00','21:00');
 
---PREGLEDI
+-- PREGLEDI
 
 INSERT INTO examination(description, name, dermatologist_id, patient_id, status, interval_id, pharmacy_id) values ('Opsti pregled', 'Opsti pregled pacijenta', 1, 1, 1, 1, 1);
 INSERT INTO examination(description, name, dermatologist_id, patient_id, status, interval_id, pharmacy_id) values ('Pregled sa Dermoskopom ', 'Pregled pacijenta sa Dermoskopom', 2, 2, 0, 2, 2);
-INSERT INTO examination(description, name, dermatologist_id, patient_id, status, interval_id, pharmacy_id) values ('PH nalaz', 'PH nalaz za pacijenta', 1, null, 2, 3, 3); -- null za pacijenta
-INSERT INTO examination(description, name, dermatologist_id, patient_id, status, interval_id, pharmacy_id) values ('Dermoskopija', 'Dermoskopija za pacijenta', 2, null, 2, 4, 3); -- null ako je predefinisan
+INSERT INTO examination(description, name, dermatologist_id, patient_id, status, interval_id, pharmacy_id) values ('PH nalaz', 'PH nalaz za pacijenta', 1, 2, 2, 3, 3); -- null za pacijenta
+INSERT INTO examination(description, name, dermatologist_id, patient_id, status, interval_id, pharmacy_id) values ('Dermoskopija', 'Dermoskopija za pacijenta', 2, 1, 2, 4, 3); -- null ako je predefinisan
 INSERT INTO examination(description, name, dermatologist_id, patient_id, status, interval_id, pharmacy_id) values ('Opsta hirurgija', 'Opsta hirurgija', 3, 1, 3, 1, 4);
 INSERT INTO examination(description, name, dermatologist_id, patient_id, status, interval_id, pharmacy_id) values ('Opsta pregled i Hirurgija', 'Opsta hirurgija prilikom pregleda pacijenta', 2, 1, 4, 1, 2);
 INSERT INTO examination(description, name, dermatologist_id, patient_id, status, interval_id, pharmacy_id) values ('Pregled pacijenta', 'Pregled pacijenta', 1, 1, 4, 2, 3);
-INSERT INTO examination(description, name, dermatologist_id, patient_id, status, interval_id, pharmacy_id) values ('Pregled pacijenta', 'Pregled pacijenta', 3, null, 2, 2, 5); -- postavlja se prilikom zakazivanja pregleda
+INSERT INTO examination(description, name, dermatologist_id, patient_id, status, interval_id, pharmacy_id) values ('Pregled pacijenta', 'Pregled pacijenta', 3, 2, 2, 2, 5); -- postavlja se prilikom zakazivanja pregleda
 
 
 -- CENA PREGLEDA
@@ -158,11 +158,11 @@ INSERT INTO examination_price(examination_id, pharmacy_id, price, interval_id) V
 
 INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Opste Konsultacije', 'Opste konsultacije za pacijenta', 1, 1, 1, 1);
 INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije u vezi lekova', 'Potrebni saveti za uzimanje lekova', 1, 2, 0, 1);
-INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije za zdrav zivot', 'Opste konsultacije u vezi zdravih navika', 2, null, 2, 1); -- kada je status 2 znaci da pacijent nije postavljen jos
+INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije za zdrav zivot', 'Opste konsultacije u vezi zdravih navika', 2, 1, 2, 1); -- kada je status 2 znaci da pacijent nije postavljen jos
 INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije ishrane', 'Opste konsultacije za ishranu', 2, 1, 3, 2);
 INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije fizicke aktivnosti', 'Opste konsultacije u vezi fizicke aktivnosti', 2, 1, 3, 2);
-INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije za studente', 'Opste konsultacije za studente farmacije', 2, null, 2, 2);
-INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije u vezi terapije', 'Opste konsultacije u vezi terapije', 3, null, 2, 3);
+INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije za studente', 'Opste konsultacije za studente farmacije', 2, 2, 2, 2);
+INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije u vezi terapije', 'Opste konsultacije u vezi terapije', 3, 1, 2, 3);
 INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije/Savetovanje', 'Savetovanje', 2, 1, 4, 3);
 INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije specijalne', 'Specijane konsultacije', 1, 1, 4, 4);
 

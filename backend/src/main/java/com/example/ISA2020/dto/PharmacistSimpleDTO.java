@@ -1,4 +1,4 @@
-package com.example.ISA2020.service.Impl;
+package com.example.ISA2020.dto;
 
 public class PharmacistSimpleDTO {
 	

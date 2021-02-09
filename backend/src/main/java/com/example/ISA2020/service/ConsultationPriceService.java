@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.example.ISA2020.dto.ConsultationPriceAddressDTO;
 import com.example.ISA2020.dto.ConsultationPriceDTO;
+import com.example.ISA2020.dto.PharmacistSimpleDTO;
 import com.example.ISA2020.entity.ConsultationPrice;
-import com.example.ISA2020.service.Impl.PharmacistSimpleDTO;
 
 public interface ConsultationPriceService {
 	
@@ -20,5 +20,18 @@ public interface ConsultationPriceService {
 	List<PharmacistSimpleDTO> getAllPharmacistsSortedByRatingForPharmacy(Long id);
 	
 	//PharmacistSimpleDTO makeConsultationReservation(Long pharmacistId, Long pharmacyId);
+	
+	ConsultationPriceAddressDTO makeConsultationReservation(Long pharmacistId, Long pharmacyId);
+	
+	ConsultationPriceAddressDTO cancelConsultationReservation(Long pharmacistId, Long pharmacyId);
+	
+	
+	List<ConsultationPriceDTO> getAllConsultationPricesSortedByPrice();
+	
+	List<ConsultationPriceDTO> getAllConsultationPricesSortedByDate();
+	
+	List<ConsultationPriceDTO> getAllConsultationPricesSortedByPriceBooked();
+	
+	List<ConsultationPriceDTO> getAllConsultationPricesSortedByDateBooked();
 	
 }

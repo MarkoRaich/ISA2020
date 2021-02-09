@@ -2,6 +2,7 @@ package com.example.ISA2020.service;
 
 import java.util.List;
 
+import com.example.ISA2020.dto.PromotionDTO;
 import com.example.ISA2020.entity.Promotion;
 
 public interface PromotionService {
@@ -9,4 +10,6 @@ public interface PromotionService {
 	Promotion findById(Long id);
 	
 	List<Promotion> getAllPromotions();
+	
+	List<PromotionDTO> getAllPromotionsDTO();
 }

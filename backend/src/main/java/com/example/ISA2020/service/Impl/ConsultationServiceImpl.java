@@ -23,5 +23,6 @@ public class ConsultationServiceImpl implements ConsultationService{
 	public List<Consultation> getAllConsultations() {
 		return consultationRepository.findAll();
 	}
+	
 
 }

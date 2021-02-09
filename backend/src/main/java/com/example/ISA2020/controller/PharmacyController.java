@@ -22,6 +22,7 @@ import com.example.ISA2020.dto.DrugPricePharmacyNameAddressRatingDTO;
 import com.example.ISA2020.dto.EditPharmacyDTO;
 import com.example.ISA2020.dto.ExaminationPriceDTO;
 import com.example.ISA2020.dto.ExaminationPriceDermatologistDTO;
+import com.example.ISA2020.dto.PharmacistSimpleDTO;
 import com.example.ISA2020.dto.PharmacyDTO;
 import com.example.ISA2020.entity.Pharmacy;
 import com.example.ISA2020.entity.users.PharmacyAdmin;
@@ -29,7 +30,6 @@ import com.example.ISA2020.service.ConsultationPriceService;
 import com.example.ISA2020.service.ExaminationPriceService;
 import com.example.ISA2020.service.PharmacyAdminService;
 import com.example.ISA2020.service.PharmacyService;
-import com.example.ISA2020.service.Impl.PharmacistSimpleDTO;
 
 @RestController
 @RequestMapping(value = "/api/pharmacy", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -12,9 +12,22 @@ public interface ExaminationPriceService {
 	
 	List<ExaminationPrice> getAllExaminations();
 	
-	List<ExaminationPriceDTO> getAllExaminationPricesSortedByPrice();
+	//List<ExaminationPriceDTO> getAllExaminationPricesSortedByPrice();
 	
 	List<ExaminationPriceDermatologistDTO> getAllExaminationPricesSortedByPriceForPharmacy(Long id);
 	
 	List<ExaminationPriceDTO> getAllExaminationPricesSortedByDermatologistRatingForPharmacy(Long id);
+	
+	ExaminationPriceDermatologistDTO makeExaminationReservation(Long examinationId);
+	
+	ExaminationPriceDermatologistDTO cancelExaminationReservation(Long examinationId);
+	
+	//3.9 ----------------------------------------------------- sortiranja razna
+	List<ExaminationPriceDTO> getAllExaminationPricesSortedByPrice();
+	
+	List<ExaminationPriceDTO> getAllExaminationPricesSortedByDate();
+	
+	List<ExaminationPriceDTO> getAllExaminationPricesSortedByPriceBooked();
+	
+	List<ExaminationPriceDTO> getAllExaminationPricesSortedByDateBooked();
 }
