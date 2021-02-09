@@ -19,6 +19,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
+import { MatStepperModule } from '@angular/material/stepper';
 
 
 
@@ -51,7 +52,9 @@ import { MatSelectModule } from '@angular/material/select';
         MatPaginatorModule,
         MatInputModule,
         MatDialogModule,
-        MatSelectModule
+        MatStepperModule,
+        MatSelectModule,
+        MatDatepickerModule
     ],
     providers: [
         MatDatepickerModule,

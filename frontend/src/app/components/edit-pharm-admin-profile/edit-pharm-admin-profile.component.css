@@ -3,9 +3,9 @@ h1 {
   display: table;
   margin: 0px auto 0px auto;
   padding: 10px;
-  color: white;
-  background-color: rgba(13, 198, 231, 0.8);
-  box-shadow: 0 0 5px 5px rgba(13, 198, 231, 0.8);
+  color: #34495E;
+  background-color: rgba(255,255,255,0.7);
+  box-shadow: 0 0 5px 5px rgba(255,255,255,0.7);
 }
 
 .page-header {

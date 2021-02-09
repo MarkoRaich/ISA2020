@@ -19,7 +19,9 @@ export const environment = {
   pharmacy            : "/api/pharmacy",
   pharmacist          : "/api/pharmacist",
   dermatologist       : "/api/dermatologist",
-  drugQ               : "/api/drug-quantity"
+  drugQ               : "/api/drug-quantity",
+  examination         : "/api/examination",
+  examinationType     : "/api/examination-type"
 };
 
 /*

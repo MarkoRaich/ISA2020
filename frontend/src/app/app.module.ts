@@ -31,6 +31,8 @@ import { ChangeDrugQuantityComponent } from './components/change-drug-quantity/c
 import { UserChangePasswordComponent } from './components/user-change-password/user-change-password.component';
 import { ListDermatologistsComponent } from './components/list-dermatologists/list-dermatologists.component';
 import { AddDermatologistComponent } from './components/add-dermatologist/add-dermatologist.component';
+import { ListExaminationsComponent } from './components/list-examinations/list-examinations.component';
+import { AddExaminationComponent } from './components/add-examination/add-examination.component';
 
 //import { ErrorInterceptor } from './interceptors/error.interceptor'; 
 
@@ -57,6 +59,8 @@ import { AddDermatologistComponent } from './components/add-dermatologist/add-de
     UserChangePasswordComponent,
     ListDermatologistsComponent,
     AddDermatologistComponent,
+    ListExaminationsComponent,
+    AddExaminationComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,78 @@
+<h1 mat-dialog-title>Kreiranje slobodnog termina pregleda</h1>
+
+<mat-dialog-content class="dialog-class">
+    <mat-vertical-stepper [linear]="true" #stepper>
+        <mat-step [stepControl]="dateTimeTypeForm">
+            <form [formGroup]="dateTimeTypeForm" class="form-full-width">
+                <ng-template matStepLabel>Odaberite datum, vreme i tip pregleda</ng-template>
+                <mat-form-field class="form-full-width">
+                    <input matInput [matDatepicker]=" picker" placeholder="Datum" formControlName="date" readonly
+                        [min]="minDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker disabled="false"></mat-datepicker>
+                </mat-form-field>
+                <table class="form-full-width mt-2" cellspacing="0">
+                    <tr>
+                        <td>Od:</td>
+                        <td>
+                            <div class="form-full-width-td">
+                                <input matInput type="time" formControlName="timeFrom">
+                            </div>
+                        </td>
+                        <td>Do:</td>
+                        <td>
+                            <div class="form-full-width-td ml-2">
+                                <input matInput type="time" formControlName="timeTo">
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <mat-error *ngIf="(dateTimeTypeForm.get('timeFrom').errors && dateTimeTypeForm.get('timeFrom').errors['required']) || 
+                (dateTimeTypeForm.get('timeTo').errors && dateTimeTypeForm.get('timeTo').errors['required']) ">
+                    Odaberite početno i krajnje vreme pregleda.
+                </mat-error>
+                <mat-error
+                    *ngIf="dateTimeTypeForm.get('timeTo').errors && dateTimeTypeForm.get('timeTo').errors['timeError']">
+                    Početno vreme mora biti pre krajnjeg vreme pregleda.
+                </mat-error>
+                <mat-form-field class="form-full-width mt-3">
+                    <mat-label>Tip pregleda</mat-label>
+                    <mat-select formControlName="examinationType">
+                        <mat-option>None</mat-option>
+                        <mat-option *ngFor="let examinationType of examinationTypes" [value]="examinationType">
+                            {{examinationType.name}} ({{examinationType.price}}
+                            RSD)
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </form>
+            <mat-dialog-actions class="mt-2">
+                <button mat-raised-button color="primary" (click)="next()" [disabled]="!dateTimeTypeForm.valid"
+                    matStepperNext>Dalje</button>
+            </mat-dialog-actions>
+        </mat-step>
+
+
+        <mat-step [stepControl]="addAvailableExaminationForm">
+            <form [formGroup]="addAvailableExaminationForm" class="form-full-width">
+                <ng-template matStepLabel>Odaberite slobodnog dermatologa</ng-template>
+                <mat-form-field class="form-full-width">
+                    <mat-label>Dermatolog</mat-label>
+                    <mat-select formControlName="dermatologist">
+                        <mat-option>None</mat-option>
+                        <mat-option *ngFor="let dermatologist of dermatologists" [value]="dermatologist">
+                            {{dermatologist.firstName}} {{dermatologist.lastName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </form>
+
+            <mat-dialog-actions class="mt-2 mb-1">
+                <button mat-raised-button color="primary" matStepperPrevious>Nazad</button>
+                <button mat-raised-button color="primary" (click)="create()"
+                    [disabled]="!addAvailableExaminationForm.valid">Kreiraj</button>
+            </mat-dialog-actions>
+        </mat-step>
+    </mat-vertical-stepper>
+
+</mat-dialog-content>

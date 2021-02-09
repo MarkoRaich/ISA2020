@@ -9,6 +9,8 @@ import { Dermatologist } from "../models/dermatologist";
     providedIn: 'root'
 })
 export class DermatologistService {
+ 
+ 
    
 
     url = environment.baseUrl + environment.dermatologist;
@@ -28,6 +30,16 @@ export class DermatologistService {
           );
         return this.dermatologistsForAdmin.asObservable();
       }
+
+      getAllAvailableDermatologists(startDateTime: string, endDateTime: string) {
+
+        let params = new HttpParams();
+        params = params.append('startDateTime', startDateTime);
+        params = params.append('endDateTime', endDateTime);
+
+        return this.http.get(this.url + "/available", { params: params });
+      }
+
 
       deleteDermatologist(id: number) {
         return this.http.delete(this.url + '/' + id);
