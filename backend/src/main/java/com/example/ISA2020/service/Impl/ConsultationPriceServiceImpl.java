@@ -79,9 +79,9 @@ public class ConsultationPriceServiceImpl implements ConsultationPriceService {
 			//pretvaranje rezultata u dto modele
 		for(ConsultationPrice e : patientConsultations) {
 			ConsultationPriceDTO dto = new ConsultationPriceDTO();
-			String idString = e.getId().toString();
-			Long id = Long.parseLong(idString);
-			dto.setId(id);
+			/*String idString = e.getId().toString();
+			Long id = Long.parseLong(idString); */
+			dto.setConsultationId(e.getConsultation().getId());
 			dto.setConsultationName(e.getConsultation().getName());
 			dto.setPharmacyName(e.getPharmacy().getName());
 			dto.setPrice(e.getPrice());
@@ -130,9 +130,9 @@ public class ConsultationPriceServiceImpl implements ConsultationPriceService {
 			//pretvaranje rezultata u dto modele
 		for(ConsultationPrice e : patientConsultations) {
 			ConsultationPriceDTO dto = new ConsultationPriceDTO();
-			String idString = e.getId().toString();
-			Long id = Long.parseLong(idString);
-			dto.setId(id);
+			/*String idString = e.getId().toString();
+			Long id = Long.parseLong(idString); */
+			dto.setConsultationId(e.getConsultation().getId());
 			dto.setConsultationName(e.getConsultation().getName());
 			dto.setPharmacyName(e.getPharmacy().getName());
 			dto.setPrice(e.getPrice());
@@ -171,9 +171,9 @@ public class ConsultationPriceServiceImpl implements ConsultationPriceService {
 			//pretvaranje rezultata u dto modele
 		for(ConsultationPrice e : patientConsultations) {
 			ConsultationPriceDTO dto = new ConsultationPriceDTO();
-			String idString = e.getId().toString();
-			Long id = Long.parseLong(idString);
-			dto.setId(id);
+			/*String idString = e.getId().toString();
+			Long id = Long.parseLong(idString); */
+			dto.setConsultationId(e.getConsultation().getId());
 			dto.setConsultationName(e.getConsultation().getName());
 			dto.setPharmacyName(e.getPharmacy().getName());
 			dto.setPrice(e.getPrice());
@@ -222,9 +222,9 @@ public class ConsultationPriceServiceImpl implements ConsultationPriceService {
 			//pretvaranje rezultata u dto modele
 		for(ConsultationPrice e : patientConsultations) {
 			ConsultationPriceDTO dto = new ConsultationPriceDTO();
-			String idString = e.getId().toString();
-			Long id = Long.parseLong(idString);
-			dto.setId(id);
+			/*String idString = e.getId().toString();
+			Long id = Long.parseLong(idString);*/
+			dto.setConsultationId(e.getConsultation().getId());
 			dto.setConsultationName(e.getConsultation().getName());
 			dto.setPharmacyName(e.getPharmacy().getName());
 			dto.setPrice(e.getPrice());
@@ -252,6 +252,7 @@ public class ConsultationPriceServiceImpl implements ConsultationPriceService {
 			//if(e.getPharmacy().getId() == id) {
 				if(e.getConsultation().getStatus() == ConsultationStatus.PREDEF_BOOKED) {
 					ConsultationPriceAddressDTO dto = new ConsultationPriceAddressDTO();
+					dto.setConsultationId(e.getConsultation().getId());
 					dto.setConsultationName(e.getConsultation().getName());
 					dto.setPrice(e.getPrice());
 					dto.setPharmacyName(e.getPharmacy().getName());
@@ -283,6 +284,7 @@ public class ConsultationPriceServiceImpl implements ConsultationPriceService {
 			//if(e.getPharmacy().getId() == id) {
 				if(e.getConsultation().getStatus() == ConsultationStatus.PREDEF_BOOKED) {
 					ConsultationPriceAddressDTO dto = new ConsultationPriceAddressDTO();
+					dto.setConsultationId(e.getConsultation().getId());
 					dto.setConsultationName(e.getConsultation().getName());
 					dto.setPrice(e.getPrice());
 					dto.setPharmacyName(e.getPharmacy().getName());
@@ -374,9 +376,9 @@ public class ConsultationPriceServiceImpl implements ConsultationPriceService {
 				p.getConsultation().setPatient(patient);
 				consultationPriceRepo.save(p);
 				
-				String idString = p.getId().toString();
-				Long id = Long.parseLong(idString);
-				dto.setId(id);
+//				String idString = p.getId().toString();
+//				Long id = Long.parseLong(idString);
+				dto.setConsultationId(p.getConsultation().getId());
 				
 				dto.setConsultationName(p.getConsultation().getName());
 				dto.setPharmacyName(p.getPharmacy().getName());
@@ -453,9 +455,9 @@ public class ConsultationPriceServiceImpl implements ConsultationPriceService {
 				p.getConsultation().setPatient(null);
 				consultationPriceRepo.save(p);
 				
-				String idString = p.getId().toString();
-				Long id = Long.parseLong(idString);
-				dto.setId(id);
+
+
+				dto.setConsultationId(p.getConsultation().getId());
 				
 				dto.setConsultationName(p.getConsultation().getName());
 				dto.setPharmacyName(p.getPharmacy().getName());

@@ -12,7 +12,7 @@ public class ReservationDTO {
 	
 	private String generatedKey;
 	
-	private int quantity;
+	private Integer quantity;
 
 	
 	
@@ -20,7 +20,7 @@ public class ReservationDTO {
 		super();
 	}
 
-	public ReservationDTO(Long id, String pharmacyName, String drugName, String drugCode, String generatedKey, int quantity) {
+	public ReservationDTO(Long id, String pharmacyName, String drugName, String drugCode, String generatedKey, Integer quantity) {
 		super();
 		this.pharmacyName = pharmacyName;
 		this.drugName = drugName;
@@ -62,11 +62,11 @@ public class ReservationDTO {
 		this.generatedKey = generatedKey;
 	}
 
-	public double getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 

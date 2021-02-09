@@ -73,18 +73,20 @@ public class ReservationServiceImpl implements ReservationService {
 				}
 			}
 		}
-		
+		int pomocni = 0;
 			//pretvaranje rezultata u dto modele
 		for(Reservation e : patientReservations) {
+			//pomocni = e.getQuantity();
+			
 			ReservationDTO dto = new ReservationDTO();
-			String idString = e.getId().toString();
-			Long id = Long.parseLong(idString);
-			dto.setId(id);
+			/*String idString = e.getId().toString();
+			Long id = Long.parseLong(idString); */
+			dto.setId(e.getId());
 			dto.setDrugName(e.getDrug().getName());
 			dto.setDrugCode(e.getDrug().getCode());
 			dto.setPharmacyName(e.getPharmacy().getName());
 			dto.setGeneratedKey(e.getGeneratedKey());
-			dto.setQuantity(e.getQuantity());
+			//dto.setQuantity(pomocni);  //zasto getQuantity vraca null????? POPRAVI
 
 			dtos.add(dto);
 		}
@@ -160,9 +162,9 @@ public class ReservationServiceImpl implements ReservationService {
         emailNotificationService.sendEmail(/*patient.getUsername()*/ "", subject, text);
         
         ReservationDTO dto = new ReservationDTO();
-		String idString = reservation.getId().toString();
-		Long id = Long.parseLong(idString);
-		dto.setId(id);
+		/*String idString = reservation.getId().toString();
+		Long id = Long.parseLong(idString); */
+		dto.setId(reservation.getId());
         dto.setDrugName(reservation.getDrug().getName());
         dto.setDrugCode(reservation.getDrug().getCode());
         dto.setQuantity(reservation.getQuantity());

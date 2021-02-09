@@ -2,7 +2,6 @@ package com.example.ISA2020.service.Impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +11,7 @@ import com.example.ISA2020.dto.ExaminationPriceDermatologistDTO;
 import com.example.ISA2020.entity.Examination;
 import com.example.ISA2020.entity.ExaminationPrice;
 import com.example.ISA2020.entity.Pharmacy;
+import com.example.ISA2020.entity.PharmacyExaminationKey;
 import com.example.ISA2020.entity.users.Dermatologist;
 import com.example.ISA2020.entity.users.Patient;
 import com.example.ISA2020.enumeration.ExaminationStatus;
@@ -74,7 +74,7 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 			if(e.getPharmacy().getId() == id) {
 				if(e.getExamination().getStatus() == ExaminationStatus.PREDEF_BOOKED) {
 					ExaminationPriceDermatologistDTO dto = new ExaminationPriceDermatologistDTO();
-					dto.setId(e.getPharmacy().getId());
+					dto.setExaminationId(e.getExamination().getId());
 					dto.setExaminationName(e.getExamination().getName());
 					dto.setDermatologistName(e.getExamination().getDermatologist().getFirstName());
 					dto.setPrice(e.getPrice());
@@ -112,7 +112,7 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 				//if(pharmacyRepo.findOneById(id).getId() == (examinationPriceRepo.findByExaminationId(e.getId()).getPharmacy().getId())) {
 					ExaminationPrice exam = examinationPriceRepo.findByExaminationId(e.getId());
 					ExaminationPriceDTO dto = new ExaminationPriceDTO();
-					dto.setId(e.getPharmacy().getId());
+					dto.setExaminationId(e.getId());
 					dto.setExaminationName(exam.getExamination().getName());
 					dto.setPharmacyName(exam.getPharmacy().getName());
 					dto.setPrice(exam.getPrice());
@@ -126,9 +126,46 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 		return dtos;
 	}
 	
+	@Override
+	public List<ExaminationPriceDTO> getAllExaminationPricesSortedByPrice() {
+		Patient patient = patientService.getLoginPatient();
+		
+		if(patient == null) {
+			return null;
+		}
+		
+		List<ExaminationPrice> prices = examinationPriceRepo.findAll();
+		List<ExaminationPrice> patientExaminations = new ArrayList<>();
+		
+		for(ExaminationPrice e : prices) {
+			if(e.getExamination().getPatient() != null && (e.getExamination().getPatient().getId() == patient.getId())) {
+				if(e.getExamination().getStatus().equals(ExaminationStatus.DONE)) {
+					patientExaminations.add(e);
+				}
+			}
+		}
+		
+		List<ExaminationPriceDTO> dtos = new ArrayList<>();
+		
+		for(ExaminationPrice e : patientExaminations) {
+			ExaminationPriceDTO dto = new ExaminationPriceDTO();
+			/*PharmacyExaminationKey k = e.getId();    
+			String idString = k.toString().toLowerCase();
+			Long id = Long.parseLong(idString);*/
+			dto.setExaminationId(e.getExamination().getId()); 
+			dto.setExaminationName(e.getExamination().getName());
+			dto.setPharmacyName(e.getPharmacy().getName());
+			dto.setPrice(e.getPrice());
+			dto.setStartDateTime(e.getExamination().getInterval().getStartDateTime());
+			dto.setEndDateTime(e.getExamination().getInterval().getEndDateTime());
+			dtos.add(dto);
+		}
+		
+		return dtos;
+	}
 	
 	//kada su pregledi zavrseni 3.9
-	@Override
+	/*@Override
 	public List<ExaminationPriceDTO> getAllExaminationPricesSortedByPrice() {
 		Patient patient = patientService.getLoginPatient();
 		
@@ -159,7 +196,7 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
-		}*/
+		}
 		
 			//pretvaranje rezultata u dto modele
 		for(ExaminationPrice e : prices) { //patientExaminations
@@ -176,7 +213,7 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 		}
 		
 		return dtos;
-	}
+	} */
 	
 	//kada su pregledi zavrseni
 	@Override
@@ -215,9 +252,9 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 			//pretvaranje rezultata u dto modele
 		for(ExaminationPrice e : patientExaminations) {
 			ExaminationPriceDTO dto = new ExaminationPriceDTO();
-			String idString = e.getId().toString();
-			Long id = Long.parseLong(idString);
-			dto.setId(id);
+			/*String idString = e.getId().toString();
+			Long id = Long.parseLong(idString); */
+			dto.setExaminationId(e.getExamination().getId());
 			dto.setExaminationName(e.getExamination().getName());
 			dto.setPharmacyName(e.getPharmacy().getName());
 			dto.setPrice(e.getPrice());
@@ -256,9 +293,9 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 			//pretvaranje rezultata u dto modele
 		for(ExaminationPrice e : patientExaminations) {
 			ExaminationPriceDTO dto = new ExaminationPriceDTO();
-			String idString = e.getId().toString();
-			Long id = Long.parseLong(idString);
-			dto.setId(id);
+			/*String idString = e.getId().toString();
+			Long id = Long.parseLong(idString);*/
+			dto.setExaminationId(e.getExamination().getId());
 			dto.setExaminationName(e.getExamination().getName());
 			dto.setPharmacyName(e.getPharmacy().getName());
 			dto.setPrice(e.getPrice());
@@ -307,9 +344,9 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 			//pretvaranje rezultata u dto modele
 		for(ExaminationPrice e : patientExaminations) {
 			ExaminationPriceDTO dto = new ExaminationPriceDTO();
-			String idString = e.getId().toString();
-			Long id = Long.parseLong(idString);
-			dto.setId(id);
+			/*String idString = e.getId().toString();
+			Long id = Long.parseLong(idString); */
+			dto.setExaminationId(e.getExamination().getId());
 			dto.setExaminationName(e.getExamination().getName());
 			dto.setPharmacyName(e.getPharmacy().getName());
 			dto.setPrice(e.getPrice());
@@ -351,9 +388,9 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 		//System.out.println("3");
 		ExaminationPriceDermatologistDTO dto = new ExaminationPriceDermatologistDTO();
 		
-		String idString = examination.getId().toString();
-		Long id = Long.parseLong(idString);
-		dto.setId(id);
+		/*String idString = examination.getId().toString();
+		Long id = Long.parseLong(idString); */
+		dto.setExaminationId(e.getId());
 		
 		dto.setDermatologistName(examination.getExamination().getDermatologist().getFirstName());
 		dto.setDermatologistRating(examination.getExamination().getDermatologist().getRating());
@@ -414,9 +451,9 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 		//System.out.println("3");
 		ExaminationPriceDermatologistDTO dto = new ExaminationPriceDermatologistDTO();
 		
-		String idString = examination.getId().toString();
-		Long id = Long.parseLong(idString);
-		dto.setId(id);
+		/*String idString = examination.getId().toString();
+		Long id = Long.parseLong(idString); */
+		dto.setExaminationId(e.getId());
 		
 		dto.setDermatologistName(examination.getExamination().getDermatologist().getFirstName());
 		dto.setDermatologistRating(examination.getExamination().getDermatologist().getRating());
