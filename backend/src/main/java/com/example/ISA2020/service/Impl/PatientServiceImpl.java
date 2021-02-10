@@ -66,45 +66,7 @@ public class PatientServiceImpl implements PatientService{
 	
 	@Autowired 
 	private DrugRepository drugRepo;
-	
-	@Autowired 
-	private PharmacyRepository pharmacyRepo;
-	
-	@Autowired 
-	private DrugPriceRepository drugPriceRepo;
-	
-	@Autowired 
-	private DrugQuantityRepository drugQuantityRepo;
-	
-	@Autowired
-	private ExaminationPriceRepository examinationPriceRepo;
-	
-	@Autowired
-	private ExaminationRepository examinationRepo;
-	
-	@Autowired
-	private ConsultationPriceRepository consultationPriceRepo;
-		
-	@Autowired
-	private ReservationRepository reservationRepo;
-	
-	@Autowired
-	private PromotionRepository promotionRepo;
-	
-    @Autowired
-    private EmailNotificationService emailNotificationService;
-    
-    @Autowired
-    private ConsultationRepository consultationRepo;
-    
-    @Autowired
-    private GradeRepository gradeRepo;
-    
-    @Autowired
-    private PharmacistRepository pharmacistRepo;
-    
-    @Autowired
-    private DermatologistRepository dermatologistRepo;
+
     
 
 	

@@ -75,9 +75,9 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 				if(e.getExamination().getStatus() == ExaminationStatus.PREDEF_BOOKED) {
 					ExaminationPriceDermatologistDTO dto = new ExaminationPriceDermatologistDTO();
 					dto.setExaminationId(e.getExamination().getId());
-					dto.setExaminationName(e.getExamination().getName());
+					dto.setExaminationName(e.getExamination().getExamType().getName());
 					dto.setDermatologistName(e.getExamination().getDermatologist().getFirstName());
-					dto.setPrice(e.getPrice());
+					dto.setPrice(e.getExamination().getExamType().getPrice());
 					dto.setDermatologistRating(e.getExamination().getDermatologist().getRating());
 					dto.setStartDateTime(e.getExamination().getInterval().getStartDateTime());
 					dto.setEndDateTime(e.getExamination().getInterval().getEndDateTime());
@@ -113,9 +113,9 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 					ExaminationPrice exam = examinationPriceRepo.findByExaminationId(e.getId());
 					ExaminationPriceDTO dto = new ExaminationPriceDTO();
 					dto.setExaminationId(e.getId());
-					dto.setExaminationName(exam.getExamination().getName());
+					dto.setExaminationName(exam.getExamination().getExamType().getName());
 					dto.setPharmacyName(exam.getPharmacy().getName());
-					dto.setPrice(exam.getPrice());
+					dto.setPrice(exam.getExamination().getExamType().getPrice());
 					dto.setStartDateTime(exam.getExamination().getInterval().getStartDateTime());
 					dto.setEndDateTime(exam.getExamination().getInterval().getEndDateTime());
 					dtos.add(dto);
@@ -153,9 +153,9 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 			String idString = k.toString().toLowerCase();
 			Long id = Long.parseLong(idString);*/
 			dto.setExaminationId(e.getExamination().getId()); 
-			dto.setExaminationName(e.getExamination().getName());
+			dto.setExaminationName(e.getExamination().getExamType().getName());
 			dto.setPharmacyName(e.getPharmacy().getName());
-			dto.setPrice(e.getPrice());
+			dto.setPrice(e.getExamination().getExamType().getPrice());
 			dto.setStartDateTime(e.getExamination().getInterval().getStartDateTime());
 			dto.setEndDateTime(e.getExamination().getInterval().getEndDateTime());
 			dtos.add(dto);
@@ -255,9 +255,9 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 			/*String idString = e.getId().toString();
 			Long id = Long.parseLong(idString); */
 			dto.setExaminationId(e.getExamination().getId());
-			dto.setExaminationName(e.getExamination().getName());
+			dto.setExaminationName(e.getExamination().getExamType().getName());
 			dto.setPharmacyName(e.getPharmacy().getName());
-			dto.setPrice(e.getPrice());
+			dto.setPrice(e.getExamination().getExamType().getPrice());
 			dto.setStartDateTime(e.getExamination().getInterval().getStartDateTime());
 			dto.setEndDateTime(e.getExamination().getInterval().getEndDateTime());
 			dtos.add(dto);
@@ -296,9 +296,9 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 			/*String idString = e.getId().toString();
 			Long id = Long.parseLong(idString);*/
 			dto.setExaminationId(e.getExamination().getId());
-			dto.setExaminationName(e.getExamination().getName());
+			dto.setExaminationName(e.getExamination().getExamType().getName());
 			dto.setPharmacyName(e.getPharmacy().getName());
-			dto.setPrice(e.getPrice());
+			dto.setPrice(e.getExamination().getExamType().getPrice());
 			dto.setStartDateTime(e.getExamination().getInterval().getStartDateTime());
 			dto.setEndDateTime(e.getExamination().getInterval().getEndDateTime());
 			dtos.add(dto);
@@ -347,9 +347,9 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 			/*String idString = e.getId().toString();
 			Long id = Long.parseLong(idString); */
 			dto.setExaminationId(e.getExamination().getId());
-			dto.setExaminationName(e.getExamination().getName());
+			dto.setExaminationName(e.getExamination().getExamType().getName());
 			dto.setPharmacyName(e.getPharmacy().getName());
-			dto.setPrice(e.getPrice());
+			dto.setPrice(e.getExamination().getExamType().getPrice());
 			dto.setStartDateTime(e.getExamination().getInterval().getStartDateTime());
 			dto.setEndDateTime(e.getExamination().getInterval().getEndDateTime());
 			dtos.add(dto);
@@ -394,8 +394,8 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 		
 		dto.setDermatologistName(examination.getExamination().getDermatologist().getFirstName());
 		dto.setDermatologistRating(examination.getExamination().getDermatologist().getRating());
-		dto.setPrice(examination.getPrice());
-		dto.setExaminationName(examination.getExamination().getName());
+		dto.setPrice(examination.getExamination().getExamType().getPrice());
+		dto.setExaminationName(examination.getExamination().getExamType().getName());
 		dto.setStartDateTime(examination.getExamination().getInterval().getStartDateTime());
 		dto.setEndDateTime(examination.getExamination().getInterval().getEndDateTime());
 		
@@ -458,7 +458,7 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 		dto.setDermatologistName(examination.getExamination().getDermatologist().getFirstName());
 		dto.setDermatologistRating(examination.getExamination().getDermatologist().getRating());
 		dto.setPrice(examination.getPrice());
-		dto.setExaminationName(examination.getExamination().getName());
+		dto.setExaminationName(examination.getExamination().getExamType().getName());
 		dto.setStartDateTime(examination.getExamination().getInterval().getStartDateTime());
 		dto.setEndDateTime(examination.getExamination().getInterval().getEndDateTime());
 		
