@@ -1,5 +1,8 @@
 package com.example.ISA2020.service.Impl;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -404,14 +407,31 @@ public class ConsultationPriceServiceImpl implements ConsultationPriceService {
 			return null;
 		}*/
 		
+		String startTime2 = startTime;
+		String target = "..";
+		String replacement = " ";
+		String startTimeProcessed = startTime2.replace(target, replacement);
+		System.out.println(startTimeProcessed);
+		
+		//assertTrue(startTimeProcessed.contains(replacement));
+		//assertFalse(startTimeProcessed.contains(target));
+		
+		String endTime2 = endTime;
+		//String target = "%20";
+		//String replacement = " ";
+		String endTimeProcessed = endTime2.replace(target, replacement);
+		System.out.println(endTimeProcessed);
+		//assertTrue(endTimeProcessed.contains(replacement));
+		//assertFalse(endTimeProcessed.contains(target));
+		
 		List<ConsultationPrice> prices = consultationPriceRepo.findAll();
 		
 		DateTimeInterval interval = new DateTimeInterval();
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); 
-		LocalDateTime dateStartTime = LocalDateTime.parse(startTime, formatter);
+		LocalDateTime dateStartTime = LocalDateTime.parse(startTimeProcessed, formatter);
 		LocalTime startTimeParsed = dateStartTime.toLocalTime();
-		LocalDateTime dateEndTime = LocalDateTime.parse(endTime, formatter);
+		LocalDateTime dateEndTime = LocalDateTime.parse(endTimeProcessed, formatter);
 		LocalTime endTimeParsed = dateEndTime.toLocalTime();
 		
 		
@@ -481,10 +501,27 @@ public class ConsultationPriceServiceImpl implements ConsultationPriceService {
 		
 		DateTimeInterval interval = new DateTimeInterval();
 		
+		String startTime2 = startTime;
+		String target = "..";
+		String replacement = " ";
+		String startTimeProcessed = startTime2.replace(target, replacement);
+		System.out.println(startTimeProcessed);
+		
+		//assertTrue(startTimeProcessed.contains(replacement));
+		//assertFalse(startTimeProcessed.contains(target));
+		
+		String endTime2 = endTime;
+		//String target = "%20";
+		//String replacement = " ";
+		String endTimeProcessed = endTime2.replace(target, replacement);
+		System.out.println(endTimeProcessed);
+		//assertTrue(endTimeProcessed.contains(replacement));
+		//assertFalse(endTimeProcessed.contains(target));
+		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); 
-		LocalDateTime dateStartTime = LocalDateTime.parse(startTime, formatter);
+		LocalDateTime dateStartTime = LocalDateTime.parse(startTimeProcessed, formatter);
 		LocalTime startTimeParsed = dateStartTime.toLocalTime();
-		LocalDateTime dateEndTime = LocalDateTime.parse(endTime, formatter);
+		LocalDateTime dateEndTime = LocalDateTime.parse(endTimeProcessed, formatter);
 		LocalTime endTimeParsed = dateEndTime.toLocalTime();
 		
 		Pharmacy pharmacy = pharmacyRepo.findOneById(id);

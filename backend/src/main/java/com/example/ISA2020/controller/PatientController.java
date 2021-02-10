@@ -259,6 +259,7 @@ public class PatientController {
 	//1.korak 
 	@GetMapping("/getAllPharmaciesWithPharmacistForTime")
 	public ResponseEntity<List<PharmacyDTO>> getAllPharmaciesWithPharmacistForTime(@RequestParam("startTime") String startTime, @RequestParam("endTime") String endTime) {
+		System.out.println(startTime + "    " + endTime);
 		List<PharmacyDTO> dtos = consultationPriceService.getAllPharmaciesWithPharmacistForTime(startTime, endTime);
 		if(dtos == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

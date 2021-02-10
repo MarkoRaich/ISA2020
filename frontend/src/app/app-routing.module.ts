@@ -11,13 +11,14 @@ import { ListPharmacistsComponent } from './components/list-pharmacists/list-pha
 import { ListDrugsComponent } from './components/list-drugs/list-drugs.component';
 import { UserChangePasswordComponent } from './components/user-change-password/user-change-password.component';
 import { ListDermatologistsComponent } from './components/list-dermatologists/list-dermatologists.component';
+import {PharmaciesComponent} from './components/pharmacies/pharmacies.component';
 
 
 const routes: Routes = [
- 
+
 
   //***************** GOST - NEAUTENTIFIKOVANI KORISNIK *****************
-   
+
   {
     path: '',
     component: HomeComponent,
@@ -41,7 +42,7 @@ const routes: Routes = [
     path: 'user/change-password',
     component: UserChangePasswordComponent
   },
- 
+
   //***************** PATIENT *****************
 
   {
@@ -75,6 +76,12 @@ const routes: Routes = [
   {
     path: 'pharmacy-admin/list-drugs',
     component: ListDrugsComponent
+  },
+  //***************** PATIENT *****************
+
+  {
+    path: 'patient/pharmacies',
+    component: PharmaciesComponent,
   }
 
 ];
