@@ -5,21 +5,34 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.example.ISA2020.entity.Consultation;
-import com.example.ISA2020.entity.Grade;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.ISA2020.entity.Authority;
+import com.example.ISA2020.entity.Consultation;
+import com.example.ISA2020.entity.Grade;
 import com.example.ISA2020.entity.Pharmacy;
-import com.example.ISA2020.entity.VacationRequestDerm;
 import com.example.ISA2020.entity.VacationRequestPharm;
+import com.example.ISA2020.enumeration.DermPharmStatus;
 import com.example.ISA2020.enumeration.UserStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Table(name="pharmacist") 
@@ -69,6 +82,10 @@ public class Pharmacist implements UserDetails {
     //status za proveru da li je ulogovan
     @Enumerated(EnumType.STRING)
     private UserStatus status;
+    
+    //status za proveru da li trenutno ima konsultacije
+    @Enumerated(EnumType.STRING)
+    private DermPharmStatus workingStatus;
 
     //lista ocena pacijenata
 	@OneToMany(mappedBy = "pharmacist", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -99,6 +116,7 @@ public class Pharmacist implements UserDetails {
     public Pharmacist() { 
     	this.rating = 0.0;
     	this.status = UserStatus.NEVER_LOGGED_IN;  	
+    	this.workingStatus = DermPharmStatus.FREE;
     }
     
     
@@ -123,6 +141,8 @@ public class Pharmacist implements UserDetails {
 		this.pharmacy = pharmacy;
 		this.status = UserStatus.NEVER_LOGGED_IN;
 		this.authorities = authorities;
+		this.workingStatus = DermPharmStatus.FREE;
+		
 	}
 
 
@@ -258,6 +278,18 @@ public class Pharmacist implements UserDetails {
 
 	public void setGrades(Set<Grade> grades) {
 		this.grades = grades;
+	}
+	
+	
+
+
+	public DermPharmStatus getWorkingStatus() {
+		return workingStatus;
+	}
+
+
+	public void setWorkingStatus(DermPharmStatus workingStatus) {
+		this.workingStatus = workingStatus;
 	}
 
 

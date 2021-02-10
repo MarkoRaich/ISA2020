@@ -13,6 +13,8 @@ public class ReservationDTO {
 	private String generatedKey;
 	
 	private Integer quantity;
+	
+	private String status;
 
 	
 	
@@ -20,7 +22,7 @@ public class ReservationDTO {
 		super();
 	}
 
-	public ReservationDTO(Long id, String pharmacyName, String drugName, String drugCode, String generatedKey, Integer quantity) {
+	public ReservationDTO(Long id, String pharmacyName, String drugName, String drugCode, String generatedKey, Integer quantity, String status) {
 		super();
 		this.pharmacyName = pharmacyName;
 		this.drugName = drugName;
@@ -28,6 +30,7 @@ public class ReservationDTO {
 		this.generatedKey = generatedKey;
 		this.quantity = quantity;
 		this.id = id;
+		this.status = status;
 	}
 
 	public String getPharmacyName() {
@@ -76,6 +79,14 @@ public class ReservationDTO {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	

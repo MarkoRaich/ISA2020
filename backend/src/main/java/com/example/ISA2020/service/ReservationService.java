@@ -1,5 +1,6 @@
 package com.example.ISA2020.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.example.ISA2020.dto.DrugQuantityDTO;
@@ -14,9 +15,11 @@ public interface ReservationService {
 	
 	List<ReservationDTO> getAllReservationsActive();
 	
-	ReservationDTO makeDrugReservation(Long pharmacyId, Long drugId, int quantity);
+	//ReservationDTO makeDrugReservation(Long pharmacyId, Long drugId, int quantity);
 	
 	List<DrugQuantityDTO> getAllDrugQuantities();
 	
 	ReservationDTO cancelDrugReservation(Long reservationId);
+
+	ReservationDTO makeDrugReservation(Long pharmacyId, Long drugId, int quantity, String endTime);
 }

@@ -4,7 +4,7 @@
 
     <mat-sidenav #drawer class="sidenav"  position="end" fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'side' : 'side'" [opened]="!(isHandset$ | async)">
-      
+
       <mat-toolbar color="primary">Sadržaj</mat-toolbar>
 
       <!-- U ZAVISNOSTI OD ROLE MENJA SE SADRZAJ TOOLBARA-->
@@ -15,7 +15,7 @@
 
       <mat-nav-list *ngIf="isPatient()">
         <a mat-list-item routerLink="/patient-profile">Moj profil</a>
-        <a mat-list-item routerLink="/patient-profile">Apoteke</a>
+        <a mat-list-item routerLink="/patient/pharmacies">Apoteke</a>
         <a mat-list-item routerLink="/patient-profile">Pregledi</a>
         <a mat-list-item routerLink="/patient-profile">Savetovanja</a>
         <a mat-list-item routerLink="/patient-profile">Rezervisani lekovi</a>
@@ -40,9 +40,9 @@
       </mat-nav-list>
 
     </mat-sidenav>
-    
+
     <mat-sidenav-content>
-      
+
       <mat-toolbar color="primary">
         <span>
           <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
@@ -53,8 +53,8 @@
               <img class="app-angular-logo" src="assets/images/logo2.png">
           </button>
           APOTEKE.RS
-        </span>    
-         
+        </span>
+
         <div *ngIf="!isLoggedIn()">
             <button  mat-button mat-ripple routerLink="/login">
                 <span>Prijava</span>
@@ -68,16 +68,16 @@
              Odjava
             </button>
         </div>
-            
-          
+
+
 
       </mat-toolbar>
 
       <!-- Ovde rutiranjem menjas sadrzaj u glavnom prozoru! -->
       <div class="container">
-          
+
           <router-outlet></router-outlet>
-      
+
         </div>
 
 

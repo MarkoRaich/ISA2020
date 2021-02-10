@@ -1,0 +1,76 @@
+<form (ngSubmit)="searchPharmaties()">
+  <div class="form-group">
+    <table align="center">
+      <tr>
+        <th>Date</th>
+        <th>Start time</th>
+        <th>End time</th>
+      </tr>
+      <tr>
+        <th>
+          <input type="date" id="date" class="form-control" [(ngModel)]="date" [ngModelOptions]="{standalone: true}">
+        </th>
+        <th>
+          <input type="time" id="startTime" class="form-control" [(ngModel)]="startTime" [ngModelOptions]="{standalone: true}">
+        </th>
+        <th>
+          <input type="time" id="endTime" class="form-control" [(ngModel)]="endTime" [ngModelOptions]="{standalone: true}">
+        </th>
+      </tr>
+      <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>
+          <button class="btn-search" id="btn-search"  type="submit">
+            SEARCH
+          </button>
+        </th>
+      </tr>
+    </table>
+  </div>
+
+
+<table class="table-main" align="center">
+  <tr>
+  <tr bgcolor = green >
+    <th><button (click)="sortByName()" class="btn-add">Name</button></th>
+    <th><button (click)="sortByRating()" class="btn-add">Rating</button></th>
+    <th>Adress</th>
+    <th>Description</th>
+
+  </tr>
+
+  <tr *ngFor="let pharmacy of pharmaties" >
+    <td>{{pharmacy.name}}</td>
+    <td>{{pharmacy.rating}}</td>
+    <td>{{pharmacy.address}}</td>
+    <td>{{pharmacy.description}}</td>
+    <th><button class="btn-add" (click)="prikaziFarmaceute(pharmacy.id)">Pharmacists</button></th>
+  </tr>
+
+
+</table>
+
+
+
+
+  <table class="table-main" align="center">
+    <tr>
+    <tr bgcolor = green >
+      <th><button (click)="sortByName()" class="btn-add">First name</button></th>
+      <th><button (click)="sortByRating()" class="btn-add">Last name</button></th>
+      <th>Rating</th>
+
+    </tr>
+
+    <tr *ngFor="let pharmacy of pharmatists" >
+      <td>{{pharmacy.firstName}}</td>
+      <td>{{pharmacy.lastName}}</td>
+      <td>{{pharmacy.rating}}</td>
+      <th><button class="btn-add" (click)="bookAReservation(pharmacy.pharmacistId, pharmacy.pharmacyId)">Book a reservation</button></th>
+    </tr>
+
+
+  </table>

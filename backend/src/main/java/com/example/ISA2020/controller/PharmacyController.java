@@ -132,25 +132,25 @@ public class PharmacyController {
 	
 	
 	//3.16 
-	@GetMapping("/getAllConsultationPricesSortedByPriceForPharmacy")
-	public ResponseEntity<List<ConsultationPriceAddressDTO>> getAllConsultationsByPrice(@RequestParam("pharmacyId") Long id) {
-		List<ConsultationPriceAddressDTO> dtos = consultationPriceService.getAllConsultationPricesSortedByPriceForPharmacy(id);
-		if(dtos == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<List<ConsultationPriceAddressDTO>>(dtos, HttpStatus.OK);
-	}
+//	@GetMapping("/getAllConsultationPricesSortedByPriceForPharmacy")
+//	public ResponseEntity<List<ConsultationPriceAddressDTO>> getAllConsultationsByPrice(@RequestParam("pharmacyId") Long id) {
+//		List<ConsultationPriceAddressDTO> dtos = consultationPriceService.getAllConsultationPricesSortedByPriceForPharmacy(id);
+//		if(dtos == null) {
+//			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//		}
+//		return new ResponseEntity<List<ConsultationPriceAddressDTO>>(dtos, HttpStatus.OK);
+//	}
+//	
 	
-	
-	@GetMapping("/getAllConsultationPricesSortedByRatingForPharmacy")
-	public ResponseEntity<List<ConsultationPriceAddressDTO>> getAllConsultationsByRating(@RequestParam("pharmacyId") Long id) {
-		List<ConsultationPriceAddressDTO> dtos = consultationPriceService.getAllConsultationPricesSortedByRatingForPharmacy(id);
-		if(dtos == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<List<ConsultationPriceAddressDTO>>(dtos, HttpStatus.OK);
-	}
-	
+//	@GetMapping("/getAllConsultationPricesSortedByRatingForPharmacy")
+//	public ResponseEntity<List<ConsultationPriceAddressDTO>> getAllConsultationsByRating(@RequestParam("pharmacyId") Long id) {
+//		List<ConsultationPriceAddressDTO> dtos = consultationPriceService.getAllConsultationPricesSortedByRatingForPharmacy(id);
+//		if(dtos == null) {
+//			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//		}
+//		return new ResponseEntity<List<ConsultationPriceAddressDTO>>(dtos, HttpStatus.OK);
+//	}
+//	
 	@GetMapping("/getAllPharmacistsSortedByRatingForPharmacy")
 	public ResponseEntity<List<PharmacistSimpleDTO>> getAllPharmacistsByRating(@RequestParam("pharmacyId") Long id) {
 		List<PharmacistSimpleDTO> dtos = consultationPriceService.getAllPharmacistsSortedByRatingForPharmacy(id);
