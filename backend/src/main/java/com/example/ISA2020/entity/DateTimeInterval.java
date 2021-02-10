@@ -148,6 +148,26 @@ public class DateTimeInterval {
 		this.consultationPrices = consultationPrices;
 	}
 
+
+
+
+	public boolean isAvailable(LocalDateTime startExaminationTime, LocalDateTime endExaminationTime) {
+		 
+			if (startExaminationTime.isEqual(startDateTime) || endExaminationTime.isEqual(endDateTime)) {
+	            return false;
+	        }
+
+	        if (startExaminationTime.isAfter(startDateTime) && startExaminationTime.isBefore(endDateTime)) {
+	            return false;
+	        }
+
+	        if (endExaminationTime.isAfter(startDateTime) && endExaminationTime.isBefore(endDateTime)) {
+	            return false;
+	        }
+
+	   return !(startExaminationTime.isBefore(startDateTime) && endExaminationTime.isAfter(endDateTime));
+	}
+
 	
 	
 

@@ -6,6 +6,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.time.LocalTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ import com.example.ISA2020.enumeration.ExaminationStatus;
 import com.example.ISA2020.enumeration.UserStatus;
 import com.example.ISA2020.service.DermatologistService;
 import com.example.ISA2020.service.ExaminationService;
+import com.example.ISA2020.service.VacationRequestDermService;
 
 
 @Service
@@ -39,6 +41,9 @@ public class DermatologistServiceImpl implements DermatologistService{
 	
 	@Autowired
 	private ExaminationService examinationService;
+	
+	@Autowired
+	private VacationRequestDermService vacationRequestDermService;
 	
 	
 	
@@ -97,10 +102,10 @@ public class DermatologistServiceImpl implements DermatologistService{
 		List<DermWorkHours> dermWorkHours = dermWorkHourRepository.findByPharmacyIdAndStatusNot(pharmacy.getId(), EntityStatus.DELETED);
 		
 		System.out.println("Slobodni dermatolozi: ");
-		for(DermWorkHours temp : dermWorkHours) {
+		for(DermWorkHours temp : dermWorkHours) {			//provera da li je u toku radnog vremena, da li ima zakazanih u to vreme i da li je na godisnjem tada		
 			Dermatologist tempDerm = temp.getDermatologist();
 			
-			if(isAvailable(tempDerm, getLocalDateTime(startDateTime), getLocalDateTime(endDateTime) )) {
+			if(isAvailable(temp, tempDerm, pharmacy, getLocalDateTime(startDateTime), getLocalDateTime(endDateTime) )) {
 				dermsDTO.add(new DermatologistDTO(tempDerm));
 				System.out.println(tempDerm.getFirstName() + " " + tempDerm.getLastName() );
 			}
@@ -109,9 +114,34 @@ public class DermatologistServiceImpl implements DermatologistService{
 		return dermsDTO;
 	}
 	
-	  private boolean isAvailable(Dermatologist derm, LocalDateTime localDateTime, LocalDateTime localDateTime2) {
-		//zasad zakucaj JBG !!!
-		return true;
+	  private boolean isAvailable(DermWorkHours dermWH, Dermatologist dermatologist, Pharmacy pharmacy, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+		
+		  if(dermatologist == null) { 
+			  return false;
+		  }
+		  
+		  //provera da li je dermatolog u ovo vreme dermatolog u apoteci
+		  if(!dermWH.isAvailable(startDateTime.toLocalTime(), endDateTime.toLocalTime())){
+			  return false;
+		  }
+		  //provera da li je dermatolog na odsustvu
+		  if(vacationRequestDermService.isDermatologistOnVacation(dermatologist, startDateTime, endDateTime)) {
+			  return false;
+		  }
+		  //provera da li dermatolog ima zakazan pregled da se ne bi preklopilo
+		  
+		  List<Examination> examinations = examinationService.getTodaysExaminationsForDermatologist(dermatologist.getId(), startDateTime);
+			  
+		  if(!examinations.isEmpty() ){
+			  for(Examination examination : examinations) {
+				  if(!examination.getInterval().isAvailable(startDateTime,endDateTime)) {
+					  return false;
+				  }
+			  }
+		  }
+		  
+		  return true;
+		  
 	}
 
 	

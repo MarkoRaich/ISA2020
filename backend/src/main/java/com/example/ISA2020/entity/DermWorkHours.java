@@ -131,6 +131,19 @@ public class DermWorkHours {
 	public void setPharmacy(Pharmacy pharmacy) {
 		this.pharmacy = pharmacy;
 	}
+
+
+
+
+	public boolean isAvailable(LocalTime startExaminationTime, LocalTime endExaminationTime) {
+		
+		if(( startExaminationTime.isAfter(timeFrom) || startExaminationTime.equals(timeFrom)) && startExaminationTime.isBefore(timeTo)) { //pocinje tacno ili posle pocetka RV i pre kraja
+			if(endExaminationTime.isAfter(timeFrom) && (endExaminationTime.isBefore(timeTo) || endExaminationTime.isAfter(timeTo))) { //zavrsava posle pocetka i pre ili tacno na kraj RV
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	
 }

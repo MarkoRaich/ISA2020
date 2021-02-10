@@ -1,5 +1,6 @@
 package com.example.ISA2020.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -20,4 +21,6 @@ public interface ExaminationService {
 	List<AvailableExaminationDTO> getAvailableExaminationsForPharmacy(Long id);
 
 	ExaminationDTO createAvailableExamination(@Valid AvailableExaminationDTO availableExaminationDTO, PharmacyAdmin pharmacyAdmin);
+
+	List<Examination> getTodaysExaminationsForDermatologist(Long id, LocalDateTime startDateTime);
 }

@@ -109,6 +109,18 @@ public class ExaminationServiceImpl implements ExaminationService {
 	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	        return LocalDate.parse(date.substring(0, 10), formatter);
 	    }
+
+		@Override
+		public List<Examination> getTodaysExaminationsForDermatologist(Long dermId, LocalDateTime startDateTime) {
+			
+			LocalDate date = getDate(startDateTime.toString());
+			
+	        LocalDateTime greater = LocalDateTime.of(date, LocalTime.of(0, 0));
+	        LocalDateTime less = LocalDateTime.of(date, LocalTime.of(23, 59, 59));
+
+	        return examinationRepository.findByDermatologistIdAndStatusNotAndIntervalStartDateTimeGreaterThanEqualAndIntervalStartDateTimeLessThan(dermId, ExaminationStatus.CANCELED, greater, less);
+			
+		}
 	
 	/*
 	public List<ExaminationDTO> getAllExaminationSortedByDate() {
