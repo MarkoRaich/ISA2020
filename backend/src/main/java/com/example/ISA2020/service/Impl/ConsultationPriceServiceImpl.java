@@ -250,7 +250,7 @@ public class ConsultationPriceServiceImpl implements ConsultationPriceService {
 		
 		for(ConsultationPrice e : prices) {
 			//if(e.getPharmacy().getId() == id) {
-				if(e.getConsultation().getStatus() == ConsultationStatus.PREDEF_BOOKED) {
+				if(e.getConsultation().getStatus() == ConsultationStatus.BOOKED) {
 					ConsultationPriceAddressDTO dto = new ConsultationPriceAddressDTO();
 					dto.setConsultationId(e.getConsultation().getId());
 					dto.setConsultationName(e.getConsultation().getName());
@@ -282,7 +282,7 @@ public class ConsultationPriceServiceImpl implements ConsultationPriceService {
 		
 		for(ConsultationPrice e : prices) {
 			//if(e.getPharmacy().getId() == id) {
-				if(e.getConsultation().getStatus() == ConsultationStatus.PREDEF_BOOKED) {
+				if(e.getConsultation().getStatus() == ConsultationStatus.BOOKED) {
 					ConsultationPriceAddressDTO dto = new ConsultationPriceAddressDTO();
 					dto.setConsultationId(e.getConsultation().getId());
 					dto.setConsultationName(e.getConsultation().getName());
