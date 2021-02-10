@@ -33,4 +33,6 @@ public interface PatientService {
 	
 	Patient addAlergie(String drugName);
 
+	void save(Patient patient);
+
 }

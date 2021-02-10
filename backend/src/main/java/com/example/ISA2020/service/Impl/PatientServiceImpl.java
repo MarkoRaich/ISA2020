@@ -128,6 +128,11 @@ public class PatientServiceImpl implements PatientService{
 		return patientRepo.findAll();
 	}
 	
+	@Override
+	public void save(Patient patient) {
+		patientRepo.save(patient);
+	}
+	
 	
 	@Override
     public Patient getLoginPatient() {

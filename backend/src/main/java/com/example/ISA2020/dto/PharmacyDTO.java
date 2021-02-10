@@ -22,14 +22,14 @@ public class PharmacyDTO {
     private String description;
 	
 	private double pharmacyRating;
+	
+	private double price;
 
 	
 	
 	public PharmacyDTO() {}
 
 
-
-	
 	public PharmacyDTO(Long id,
 			@NotEmpty(message = "Name is empty.") @Size(message = "Max size for name is 50.", max = 50) String name,
 			@NotEmpty(message = "Address is empty.") String address,
@@ -40,6 +40,21 @@ public class PharmacyDTO {
 		this.address = address;
 		this.description = description;
 		this.pharmacyRating = pharmacyRating;
+		this.price = 0;
+	}
+
+	
+	public PharmacyDTO(Long id,
+			@NotEmpty(message = "Name is empty.") @Size(message = "Max size for name is 50.", max = 50) String name,
+			@NotEmpty(message = "Address is empty.") String address,
+			@NotEmpty(message = "Description is empty.") String description, double pharmacyRating, double price) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.description = description;
+		this.pharmacyRating = pharmacyRating;
+		this.price = price;
 	}
 
 	
@@ -141,6 +156,20 @@ public class PharmacyDTO {
 
 	public void setPharmacyRating(double pharmacyRating) {
 		this.pharmacyRating = pharmacyRating;
+	}
+
+
+
+
+	public double getPrice() {
+		return price;
+	}
+
+
+
+
+	public void setPrice(double price) {
+		this.price = price;
 	}
 	
 

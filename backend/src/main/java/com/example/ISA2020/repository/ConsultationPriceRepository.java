@@ -23,4 +23,8 @@ public interface ConsultationPriceRepository extends JpaRepository<ConsultationP
 	List<ConsultationPrice> findByOrderByPharmacyRating();
 	
 	List<ConsultationPrice> findByPharmacyIdOrderByConsultationPharmacistRating(Long id);
+	
+	List<ConsultationPrice> findByPharmacyId(Long id);
+	
+	ConsultationPrice findByPharmacyIdAndConsultationId(Long pharmacyId, Long consultationId);
 }

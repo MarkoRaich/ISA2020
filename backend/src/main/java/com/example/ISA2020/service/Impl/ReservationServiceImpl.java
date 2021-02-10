@@ -1,5 +1,7 @@
 package com.example.ISA2020.service.Impl;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -9,12 +11,14 @@ import org.springframework.stereotype.Service;
 
 import com.example.ISA2020.dto.DrugQuantityDTO;
 import com.example.ISA2020.dto.ReservationDTO;
+import com.example.ISA2020.entity.DateTimeInterval;
 import com.example.ISA2020.entity.DrugQuantity;
 import com.example.ISA2020.entity.Reservation;
 import com.example.ISA2020.entity.users.Patient;
 import com.example.ISA2020.enumeration.EntityStatus;
 import com.example.ISA2020.enumeration.ReservationStatus;
 import com.example.ISA2020.repository.DrugQuantityRepository;
+import com.example.ISA2020.repository.PatientRepository;
 import com.example.ISA2020.repository.ReservationRepository;
 import com.example.ISA2020.service.EmailNotificationService;
 import com.example.ISA2020.service.PatientService;
@@ -86,8 +90,9 @@ public class ReservationServiceImpl implements ReservationService {
 			dto.setDrugCode(e.getDrug().getCode());
 			dto.setPharmacyName(e.getPharmacy().getName());
 			dto.setGeneratedKey(e.getGeneratedKey());
-			//dto.setQuantity(pomocni);  //zasto getQuantity vraca null????? POPRAVI
-
+			dto.setQuantity(e.getQuantity());  //zasto getQuantity vraca null????? POPRAVI  -> DONE
+			dto.setStatus(ReservationStatus.ACTIVE.toString());
+			
 			dtos.add(dto);
 		}
 		
@@ -98,15 +103,15 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	//3.19 -------------------------------------------------------------------------------------------
 	@Override
-	public ReservationDTO makeDrugReservation(Long pharmacyId, Long drugId, int quantity) { //treba jos i krajnji datum do preuzimanja da se posalje!!!!!!
+	public ReservationDTO makeDrugReservation(Long pharmacyId, Long drugId, int quantity, String endTime) { //treba jos i krajnji datum do preuzimanja da se posalje! -> DONE
 		
 		Patient patient = patientService.getLoginPatient();
 		if(patient == null) {
 			return null;
 		}
 		
-		DrugQuantity drugQuantity = drugQuantityRepo.findByPharmacyIdAndDrugId(pharmacyId, drugId); //dodaj potvrdu preko maila
-		
+		DrugQuantity drugQuantity = drugQuantityRepo.findByPharmacyIdAndDrugId(pharmacyId, drugId); //dodaj potvrdu preko maila ->DONE
+		 
 		if(drugQuantity == null) {
 			return null;
 		}
@@ -116,63 +121,86 @@ public class ReservationServiceImpl implements ReservationService {
 			return null;
 		}
 		
-		Reservation reservation = new Reservation();
-		reservation.setPatient(patient);
-		reservation.setPharmacy(drugQuantity.getPharmacy());
-		reservation.setDrug(drugQuantity.getDrug());
-		reservation.setStatus(ReservationStatus.ACTIVE);
-		reservation.setQuantity(quantity);
-		reservation.setInterval(null);
+		DateTimeInterval interval = new DateTimeInterval();
+		interval.setStartDateTime(LocalDateTime.now());
 		
-		
-		Integer oldQuantity = drugQuantity.getQuantity();
-		Integer newQuantity = oldQuantity - quantity;
-		
-		drugQuantity.setQuantity(newQuantity);
-		if(drugQuantity.getQuantity() == oldQuantity) {
-			System.out.println("1");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); 
+		LocalDateTime dateTime = LocalDateTime.parse(endTime, formatter);
+		if(dateTime.isBefore(LocalDateTime.now())) {
+			System.out.println("Ne moze endTime biti pre startTime.");
 			return null;
+		} 
+		
+		int penalties = patient.getPenalties();
+		
+		if(dateTime.isAfter(LocalDateTime.now())) {
+			if(drugQuantity != null) {
+				if(penalties < 3) {
+		
+					interval.setEndDateTime(dateTime);
+					
+					Reservation reservation = new Reservation();
+					reservation.setPatient(patient);
+					reservation.setPharmacy(drugQuantity.getPharmacy());
+					reservation.setDrug(drugQuantity.getDrug());
+					reservation.setStatus(ReservationStatus.ACTIVE);
+					reservation.setQuantity(quantity);
+					//reservation.setInterval(null);
+					reservation.setInterval(interval);
+					
+					Integer oldQuantity = drugQuantity.getQuantity();
+					Integer newQuantity = oldQuantity - quantity;
+					
+					drugQuantity.setQuantity(newQuantity);
+					if(drugQuantity.getQuantity() == oldQuantity) {
+						System.out.println("1");
+						return null;
+					}
+					drugQuantity.setStatus(EntityStatus.ACTIVE);
+					
+					drugQuantityRepo.save(drugQuantity);
+					reservationRepo.save(reservation);
+					
+					
+					//salje se email na mejl pacijenta
+					String subject = "Potvrda o rezervaciji leka";
+			        StringBuilder sb = new StringBuilder();
+			        sb.append("Postovani, rezervisali ste lek: ");
+			        sb.append(reservation.getDrug().getName());
+			        sb.append(" u kolicini: ");
+			        sb.append(reservation.getQuantity());
+			        sb.append(", u apoteci: ");
+			        sb.append(reservation.getPharmacy().getName());
+			        sb.append(" koja se nalazi na adresi: ");
+			        sb.append(reservation.getPharmacy().getAddress());
+			        sb.append(System.lineSeparator());
+			        
+			        sb.append("Kod za preuzimanje leka: ");
+			        sb.append(reservation.getGeneratedKey());
+			        sb.append(System.lineSeparator());
+			        
+			        String text = sb.toString();
+			
+			        
+			        emailNotificationService.sendEmail(/*patient.getUsername()*/ "dionizijm@gmail.com", subject, text);
+			        
+			        ReservationDTO dto = new ReservationDTO();
+					/*String idString = reservation.getId().toString();
+					Long id = Long.parseLong(idString); */
+					dto.setId(reservation.getId());
+			        dto.setDrugName(reservation.getDrug().getName());
+			        dto.setDrugCode(reservation.getDrug().getCode());
+			        dto.setQuantity(reservation.getQuantity());
+			        dto.setPharmacyName(reservation.getPharmacy().getName());
+			        dto.setGeneratedKey(reservation.getGeneratedKey());
+			        dto.setStatus(ReservationStatus.ACTIVE.toString());
+					
+					return dto;
+				}
+			}
 		}
-		drugQuantity.setStatus(EntityStatus.ACTIVE);
 		
-		drugQuantityRepo.save(drugQuantity);
-		reservationRepo.save(reservation);
-		
-		
-		//salje se email na mejl pacijenta
-		String subject = "Potvrda o rezervaciji leka";
-        StringBuilder sb = new StringBuilder();
-        sb.append("Postovani, rezervisali ste lek: ");
-        sb.append(reservation.getDrug().getName());
-        sb.append(" u kolicini: ");
-        sb.append(reservation.getQuantity());
-        sb.append(", u apoteci: ");
-        sb.append(reservation.getPharmacy().getName());
-        sb.append(" koja se nalazi na adresi: ");
-        sb.append(reservation.getPharmacy().getAddress());
-        sb.append(System.lineSeparator());
-        
-        sb.append("Kod za preuzimanje leka: ");
-        sb.append(reservation.getGeneratedKey());
-        sb.append(System.lineSeparator());
-        
-        String text = sb.toString();
-
-        
-        emailNotificationService.sendEmail(/*patient.getUsername()*/ "", subject, text);
-        
-        ReservationDTO dto = new ReservationDTO();
-		/*String idString = reservation.getId().toString();
-		Long id = Long.parseLong(idString); */
-		dto.setId(reservation.getId());
-        dto.setDrugName(reservation.getDrug().getName());
-        dto.setDrugCode(reservation.getDrug().getCode());
-        dto.setQuantity(reservation.getQuantity());
-        dto.setPharmacyName(reservation.getPharmacy().getName());
-        dto.setGeneratedKey(reservation.getGeneratedKey());
-		
-		return dto;
-		
+		return null;
 	}
 	
 	@Override
@@ -212,60 +240,93 @@ public class ReservationServiceImpl implements ReservationService {
 		ReservationDTO dto = new ReservationDTO();
 		String address = null;
 		
+		LocalDateTime d = LocalDateTime.now();
+		d = d.plusDays(1);
+		/*Calendar cal = Calendar.getInstance(); 
+		cal.setTime(d); 
+		cal.add(Calendar.DATE, 1);
+		d = cal.getTime();
+		*/
+		
+		
 		for(Reservation r : reservations) {
 			if(r.getId() == reservationId) {
-				Integer reservedQuantity = r.getQuantity();
-				r.setStatus(ReservationStatus.CANCELED);
-				DrugQuantity drugQuantity = drugQuantityRepo.findByPharmacyIdAndDrugId(r.getPharmacy().getId(), r.getDrug().getId());
-				if(drugQuantity == null) {
-					System.out.println("nije pronasao drugQuantity");
-					return null;
+				//if((LocalDate.parse(LocalDate.now()).plusDays(1).toString()))
+				if(r.getStatus() == ReservationStatus.ACTIVE) {
+					if (d.isBefore(r.getInterval().getEndDateTime())) {
+						
+					System.out.println("123123");
+					Integer reservedQuantity = r.getQuantity();
+					r.setStatus(ReservationStatus.CANCELED);
+					DrugQuantity drugQuantity = drugQuantityRepo.findByPharmacyIdAndDrugId(r.getPharmacy().getId(), r.getDrug().getId());
+					if(drugQuantity == null) {
+						System.out.println("nije pronasao drugQuantity");
+						return null;
+					}
+					Integer quantity = r.getQuantity();
+					Integer oldQuantity = drugQuantity.getQuantity();
+					Integer newQuantity = oldQuantity + quantity;
+					
+					drugQuantity.setQuantity(newQuantity);
+					
+					if(drugQuantity.getQuantity() == oldQuantity) {
+						System.out.println("1");
+						return null;
+					}
+					
+					drugQuantityRepo.save(drugQuantity);
+					reservationRepo.save(r);
+					
+					String idString = r.getId().toString();
+					Long id = Long.parseLong(idString);
+					dto.setId(id);
+					
+			        dto.setDrugName(r.getDrug().getName());
+			        dto.setDrugCode(r.getDrug().getCode());
+			        dto.setQuantity(r.getQuantity());
+			        dto.setPharmacyName(r.getPharmacy().getName());
+			        dto.setGeneratedKey(r.getGeneratedKey());
+			        dto.setStatus(ReservationStatus.CANCELED.toString());
+			        address = r.getPharmacy().getAddress();
+			        
+					//salje se email na mejl pacijenta
+					String subject = "Potvrda o otkazivanju rezervacije leka";
+			        StringBuilder sb = new StringBuilder();
+			        sb.append("Postovani, otkazali ste rezervaciju za lek: ");
+			        sb.append(dto.getDrugName());
+			        sb.append(" u kolicini: ");
+			        sb.append(dto.getQuantity());
+			        sb.append(", u apoteci: ");
+			        sb.append(dto.getPharmacyName());
+			        sb.append(" koja se nalazi na adresi: ");
+			        sb.append(address);
+			        sb.append(System.lineSeparator());
+			        
+			        sb.append("Kod koji je sluzio za preuzimanje leka: ");
+			        sb.append(dto.getGeneratedKey());
+			        sb.append(System.lineSeparator());
+			        
+			        String text = sb.toString();
+
+			        
+			        emailNotificationService.sendEmail(/*patient.getUsername()*/ "dionizijm@gmail.com", subject, text);
+
+					
+					return dto;
+					
+					} else {
+						int penalties = patient.getPenalties();
+						int newPenalties = penalties + 1;
+						patient.setPenalties(newPenalties);
+						
+						
+					}
 				}
-				Integer oldQuantity = drugQuantity.getQuantity();
-				Integer newQuantity = reservedQuantity + oldQuantity;
-				drugQuantity.setQuantity(newQuantity);
-				
-				drugQuantityRepo.save(drugQuantity);
-				reservationRepo.save(r);
-				
-				String idString = r.getId().toString();
-				Long id = Long.parseLong(idString);
-				dto.setId(id);
-				
-		        dto.setDrugName(r.getDrug().getName());
-		        dto.setDrugCode(r.getDrug().getCode());
-		        dto.setQuantity(r.getQuantity());
-		        dto.setPharmacyName(r.getPharmacy().getName());
-		        dto.setGeneratedKey(r.getGeneratedKey());
-		        address = r.getPharmacy().getAddress();
 			}
 		}
 		
 		
-		//salje se email na mejl pacijenta
-		String subject = "Potvrda o otkazivanju rezervacije leka";
-        StringBuilder sb = new StringBuilder();
-        sb.append("Postovani, otkazali ste rezervaciju za lek: ");
-        sb.append(dto.getDrugName());
-        sb.append(" u kolicini: ");
-        sb.append(dto.getQuantity());
-        sb.append(", u apoteci: ");
-        sb.append(dto.getPharmacyName());
-        sb.append(" koja se nalazi na adresi: ");
-        sb.append(address);
-        sb.append(System.lineSeparator());
-        
-        sb.append("Kod koji je sluzio za preuzimanje leka: ");
-        sb.append(dto.getGeneratedKey());
-        sb.append(System.lineSeparator());
-        
-        String text = sb.toString();
-
-        
-        emailNotificationService.sendEmail(/*patient.getUsername()*/ "", subject, text);
-
-		
-		return dto;
+		return null;
 		
 	}
 	

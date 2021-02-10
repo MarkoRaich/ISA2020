@@ -1,12 +1,12 @@
 package com.example.ISA2020.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +28,8 @@ import com.example.ISA2020.dto.GradeDermPharmDTO;
 import com.example.ISA2020.dto.GradeDrugDTO;
 import com.example.ISA2020.dto.GradePharmacyDTO;
 import com.example.ISA2020.dto.PatientDTO;
+import com.example.ISA2020.dto.PharmacistSimpleDTO;
+import com.example.ISA2020.dto.PharmacyDTO;
 import com.example.ISA2020.dto.PromotionDTO;
 import com.example.ISA2020.dto.ReservationDTO;
 import com.example.ISA2020.entity.users.Patient;
@@ -252,10 +254,35 @@ public class PatientController {
 		return new ResponseEntity<>(dto, HttpStatus.CREATED);
 	}
 	
+	
 	//3.16 ------------------------
+	//1.korak 
+	@GetMapping("/getAllPharmaciesWithPharmacistForTime")
+	public ResponseEntity<List<PharmacyDTO>> getAllPharmaciesWithPharmacistForTime(@RequestParam("startTime") String startTime, @RequestParam("endTime") String endTime) {
+		List<PharmacyDTO> dtos = consultationPriceService.getAllPharmaciesWithPharmacistForTime(startTime, endTime);
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(dtos, HttpStatus.OK);
+	}
+	
+	//2.korak
+	@GetMapping("/getAllPharmacistFreeForPharmacy")
+	public ResponseEntity<List<PharmacistSimpleDTO>> getAllPharmacistFreeForPharmacy(@RequestParam("pharmacyId") Long pharmacyId, 
+																						@RequestParam("startTime")String startTime, 
+																						@RequestParam("endTime")String endTime) {
+		List<PharmacistSimpleDTO> dtos = consultationPriceService.getAllPharmacistFreeForPharmacy(pharmacyId, startTime, endTime);
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(dtos, HttpStatus.OK);
+	}
+	
+	//3.korak zakazivanje konsultacija
 	@PutMapping("/makeConsultationReservation")
     //@PreAuthorize("hasRole('PATIENT')") //ROLE_PATIENT??
-	public ResponseEntity<ConsultationPriceAddressDTO> makeExaminationReservation(@RequestParam("pharmacistId") Long pharmacistId, @RequestParam("pharmacyId") Long pharmacyId) {
+	public ResponseEntity<ConsultationPriceAddressDTO> makeConsultationReservation(@RequestParam("pharmacistId") Long pharmacistId,
+																	@RequestParam("pharmacyId") Long pharmacyId) {
 		ConsultationPriceAddressDTO dto = consultationPriceService.makeConsultationReservation(pharmacistId, pharmacyId);
 		if(dto == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -263,11 +290,23 @@ public class PatientController {
 		return new ResponseEntity<>(dto, HttpStatus.CREATED);
 	}
 	
+	@GetMapping("/getAllConsultationsBooked")
+	public ResponseEntity<List<ConsultationPriceAddressDTO>> getAllConsultationsBooked() {
+		List<ConsultationPriceAddressDTO> dtos = consultationPriceService.getAllConsultationsBooked();
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(dtos, HttpStatus.OK);
+	}
+	
+	// --- 3.16 ------- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	
+	
 	//3.18
 	@PutMapping("/cancelConsultationReservation")
     //@PreAuthorize("hasRole('PATIENT')") //ROLE_PATIENT??
-	public ResponseEntity<ConsultationPriceAddressDTO> cancelExaminationReservation(@RequestParam("pharmacistId") Long pharmacistId, @RequestParam("pharmacyId") Long pharmacyId) {
-		ConsultationPriceAddressDTO dto = consultationPriceService.cancelConsultationReservation(pharmacistId, pharmacyId);
+	public ResponseEntity<ConsultationPriceAddressDTO> cancelConsultationReservation(@RequestParam("reservationId") Long id) {
+		ConsultationPriceAddressDTO dto = consultationPriceService.cancelConsultationReservation(id);
 		if(dto == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
@@ -280,8 +319,8 @@ public class PatientController {
 	@PutMapping("/makeDrugReservation") //dodaj interval za rezervaciju i za otkazivanje rezervacije
     //@PreAuthorize("hasRole('PATIENT')") //ROLE_PATIENT??
 	public ResponseEntity<ReservationDTO> makeDrugReservation(@RequestParam("pharmacyId") Long pharmacyId, @RequestParam("drugId") Long drugId, 
-															@RequestParam("quantity") int quantity) {
-		ReservationDTO dto = reservationService.makeDrugReservation(pharmacyId, drugId, quantity);
+															@RequestParam("quantity") int quantity, @RequestParam("endTime") String endTime) {
+		ReservationDTO dto = reservationService.makeDrugReservation(pharmacyId, drugId, quantity, endTime);
 		if(dto == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
