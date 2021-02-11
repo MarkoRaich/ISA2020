@@ -4,6 +4,7 @@ import {PharmacyService} from '../../services/pharmacy.service';
 import {Time} from '@angular/common';
 import {FormBuilder} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pharmacies',
@@ -14,7 +15,8 @@ export class PharmaciesComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private toastr: ToastrService,
-              private pharmacyService: PharmacyService) { }
+              private pharmacyService: PharmacyService,
+              private router: Router) { }
 
   public pharmaties: Object;
   public pharmatists: Object = null;
@@ -57,6 +59,10 @@ export class PharmaciesComponent implements OnInit {
 
   public sortByRating(): void {
 
+  }
+
+  showPharmacyProfile(pharmId: number){
+      this.router.navigate(['patient/pharmacy-profile', pharmId ]);
   }
 
   public prikaziFarmaceute(id: number): void {

@@ -34,6 +34,8 @@ public class DermatologistDTO {
 
     @NotEmpty(message = "End work hours is empty.")
     private String workHoursTo;
+    
+    private double rating;
 	
 	public DermatologistDTO() {}
 
@@ -54,6 +56,7 @@ public class DermatologistDTO {
 		this.phoneNumber = phoneNumber;
 		this.workHoursFrom = workHoursFrom;
 		this.workHoursTo = workHoursTo;
+		
 	}
 
 
@@ -88,6 +91,39 @@ public class DermatologistDTO {
 		this.lastName = lastName;
 		this.email = username;
 		this.phoneNumber = phoneNumber;
+	}
+
+
+
+	public DermatologistDTO(Long id,
+							String username, 
+							String firstName,
+							String lastName,
+							String phoneNumber,
+							String workHoursFrom, 
+							String workHoursTo,
+							double rating) {
+		super();
+		this.id = id;
+		this.email = username;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phoneNumber = phoneNumber;
+		this.workHoursFrom = workHoursFrom;
+		this.workHoursTo = workHoursTo;
+		this.rating = rating;
+	}
+
+
+
+	public double getRating() {
+		return rating;
+	}
+
+
+
+	public void setRating(double rating) {
+		this.rating = rating;
 	}
 
 

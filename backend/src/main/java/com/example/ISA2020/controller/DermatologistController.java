@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import com.example.ISA2020.dto.DermatologistDTO;
 import com.example.ISA2020.dto.PharmacistDTO;
 import com.example.ISA2020.entity.users.PharmacyAdmin;
+import com.example.ISA2020.entity.Pharmacy;
 import com.example.ISA2020.service.DermatologistService;
 import com.example.ISA2020.service.PharmacyAdminService;
+import com.example.ISA2020.service.PharmacyService;
 
 
 @RestController
@@ -29,7 +31,8 @@ public class DermatologistController {
 	@Autowired
 	private PharmacyAdminService pharmacyAdminService;
 	
-	
+	@Autowired
+	private PharmacyService pharmacyService;
 	
     @GetMapping(value = "/all")
     //@PreAuthorize("hasRole('PHARMACY_ADMIN')")
@@ -56,6 +59,16 @@ public class DermatologistController {
         return new ResponseEntity<>(dermatologistService.getAllAvailableDermatologists(pharmacyAdmin.getPharmacy(), startDateTime, endDateTime), HttpStatus.OK);
     }
     
+    @GetMapping(value = "/inPharmacy") 				
+    //@PreAuthorize("hasAnyRole('PHARMACY_ADMIN','PHARMACIST')")
+    public ResponseEntity<List<DermatologistDTO>> getDermatologistsInPharmacy(@RequestParam(value = "pharmId", required = true) String pharmId ){
+    	
+    	Pharmacy pharmacy = pharmacyService.findById(Long.valueOf(pharmId));
+    	
+        return new ResponseEntity<>(dermatologistService.findAllDermatologistsInPharmacy(pharmacy), HttpStatus.OK);
+    }
+    
+    
     @GetMapping(value = "/other")
     //@PreAuthorize("hasRole('PHARMACY_ADMIN')")
     public ResponseEntity<List<DermatologistDTO>> getOtherDermatologistsForAdmin() {
@@ -78,6 +91,18 @@ public class DermatologistController {
 	        }
         return new ResponseEntity<>(dermatologistService.searchDermatologistsInPharmacy(pharmacyAdmin.getPharmacy().getId(), firstName, lastName), HttpStatus.OK);
     }
+    
+    @GetMapping(value = "/searchInPharm")
+   	//@PreAuthorize("hasRole('PHARMACY_ADMIN')")
+       public ResponseEntity<List<DermatologistDTO>> searchDermatologistsInPharmacyWithId( @RequestParam(value = "firstName") String firstName,
+																			    		   @RequestParam(value = "lastName") String lastName,
+																			    		   @RequestParam(value = "pharmId") String pharmId) {
+   		 
+   		Pharmacy pharmacy = pharmacyService.findById(Long.valueOf(pharmId));
+   		
+        return new ResponseEntity<>(dermatologistService.searchDermatologistsInPharmacy(pharmacy.getId(), firstName, lastName), HttpStatus.OK);
+     }
+    
     
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	//@PreAuthorize("hasRole('PHARMACY_ADMIN')")

@@ -9,11 +9,13 @@ import { Dermatologist } from "../models/dermatologist";
     providedIn: 'root'
 })
 export class DermatologistService {
+  
  
     url = environment.baseUrl + environment.dermatologist;
 
     dermatologistsForAdmin: BehaviorSubject<Dermatologist[]> = new BehaviorSubject<Dermatologist[]>([]);
     searchDermatologistsForAdmin: BehaviorSubject<Dermatologist[]> = new BehaviorSubject<Dermatologist[]>([]);
+    searchDermatologistsInPharm: BehaviorSubject<Dermatologist[]> = new BehaviorSubject<Dermatologist[]>([]);
     createSuccessEmitter = new Subject<Dermatologist>();
     
     constructor(private http: HttpClient, private router: Router) { }
@@ -26,6 +28,14 @@ export class DermatologistService {
             (error: Dermatologist) => {}
           );
         return this.dermatologistsForAdmin.asObservable();
+      }
+
+      getDermatologistsInPharmacy(pharmId: any) {
+
+        let params = new HttpParams();
+        params = params.append('pharmId', pharmId );
+
+        return this.http.get(this.url + "/inPharmacy", { params: params })
       }
 
       getAllAvailableDermatologists(startDateTime: string, endDateTime: string) {
@@ -69,5 +79,22 @@ export class DermatologistService {
 
         });
         return this.searchDermatologistsForAdmin.asObservable();
+      }
+
+      searchDermatologistsInPharmacy(firstName: string, lastName: string, pharmId: string): Observable<Dermatologist[]> {
+        let params = new HttpParams();
+        params = params.append('firstName', firstName);
+        params = params.append('lastName', lastName);
+        params = params.append('pharmId', pharmId);
+
+        this.http.get(this.url + "/searchInPharm", {
+        params: params
+        }).subscribe((data: Dermatologist[]) => {
+        this.searchDermatologistsInPharm.next(data);
+        },
+        (error: HttpErrorResponse) => {
+
+        });
+        return this.searchDermatologistsInPharm.asObservable();
       }
 }

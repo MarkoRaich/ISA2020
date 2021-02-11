@@ -71,7 +71,7 @@ export class ListDermatologistsComponent implements OnInit {
     this.dermatologistsDataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  deletePharmacist(dermatologist: Dermatologist) {
+  deleteDermatologist(dermatologist: Dermatologist) {
 
     this.dermatologistService.deleteDermatologist(dermatologist.id).subscribe(
       () => {

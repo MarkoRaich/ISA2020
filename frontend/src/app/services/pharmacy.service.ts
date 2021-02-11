@@ -9,6 +9,7 @@ import { Pharmacy } from "../models/Pharmacy";
     providedIn: 'root'
 })
 export class PharmacyService {
+ 
 
 
     url = environment.baseUrl + environment.pharmacy;
@@ -26,6 +27,10 @@ export class PharmacyService {
 
     public getPharmacyInWhichPharmacyAdminWorks() {
      return this.http.get(this.url + "/pharmacy-of-admin");
+    }
+
+    getPharmacyById(pharmacyId: any) {
+     return this.http.get("http://localhost:8080/api/pharmacy/"  + pharmacyId);
     }
 
     public edit(pharmacy: Pharmacy) {

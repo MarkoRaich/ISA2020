@@ -43,6 +43,11 @@ import { NonAuthenticatedComponent } from './components/non-authenticated/non-au
 import { ErrorComponent } from './components/error/error.component';
 import { EditPatientProfileComponent } from './components/edit-patient-profile/edit-patient-profile.component';
 import { ReservationComponent } from './components/reservation/reservation.component';
+import { PharmacyProfileComponent } from './components/pharmacy-profile/pharmacy-profile.component';
+import { PharmacistInPharmacyComponent } from './components/pharmacist-in-pharmacy/pharmacist-in-pharmacy.component';
+import { DermatologistInPharmacyComponent } from './components/dermatologist-in-pharmacy/dermatologist-in-pharmacy.component';
+import { DrugInPharmacyComponent } from './components/drug-in-pharmacy/drug-in-pharmacy.component';
+import { ExaminationInPharmacyComponent } from './components/examination-in-pharmacy/examination-in-pharmacy.component';
 
 //import { ErrorInterceptor } from './interceptors/error.interceptor';
 
@@ -78,6 +83,11 @@ import { ReservationComponent } from './components/reservation/reservation.compo
     ErrorComponent,
     EditPatientProfileComponent,
     ReservationComponent,
+    PharmacyProfileComponent,
+    PharmacistInPharmacyComponent,
+    DermatologistInPharmacyComponent,
+    DrugInPharmacyComponent,
+    ExaminationInPharmacyComponent,
   ],
   imports: [
     BrowserModule,
@@ -93,9 +103,7 @@ import { ReservationComponent } from './components/reservation/reservation.compo
       positionClass: 'toast-top-right',
       preventDuplicates: true,
     }),
-    AngularMaterialModule,
-    MatFormFieldModule,
-    MatInputModule
+    AngularMaterialModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

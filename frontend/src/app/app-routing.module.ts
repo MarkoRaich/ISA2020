@@ -21,6 +21,7 @@ import { PharmacyAdminGuard } from './guards/pharmacyAdmin.guard';
 
 import {EditPatientProfileComponent} from './components/edit-patient-profile/edit-patient-profile.component';
 import {ReservationComponent} from './components/reservation/reservation.component';
+import { PharmacyProfileComponent } from './components/pharmacy-profile/pharmacy-profile.component';
 
 const routes: Routes = [
 
@@ -53,10 +54,7 @@ const routes: Routes = [
     path: 'error/non-authorized',
     component: NonAuthorizedComponent
   },
-  {
-    path: '**',
-    component: ErrorComponent,
-  },
+
 
 
   //***************** SVI KORISNICI*****************************
@@ -130,6 +128,11 @@ const routes: Routes = [
   {
     path: 'patient/pharmacies',
     component: PharmaciesComponent,
+  },
+
+  {
+    path: 'patient/pharmacy-profile/:id',
+    component: PharmacyProfileComponent
   }
 
 
