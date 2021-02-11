@@ -41,6 +41,8 @@ import { PatientGuard } from './guards/patient.guard';
 import { NonAuthorizedComponent } from './components/non-authorized/non-authorized.component';
 import { NonAuthenticatedComponent } from './components/non-authenticated/non-authenticated.component';
 import { ErrorComponent } from './components/error/error.component';
+import { EditPatientProfileComponent } from './components/edit-patient-profile/edit-patient-profile.component';
+import { ReservationComponent } from './components/reservation/reservation.component';
 
 //import { ErrorInterceptor } from './interceptors/error.interceptor';
 
@@ -74,6 +76,8 @@ import { ErrorComponent } from './components/error/error.component';
     NonAuthorizedComponent,
     NonAuthenticatedComponent,
     ErrorComponent,
+    EditPatientProfileComponent,
+    ReservationComponent,
   ],
   imports: [
     BrowserModule,

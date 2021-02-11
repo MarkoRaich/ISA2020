@@ -19,6 +19,8 @@ import { NonAuthenticatedComponent } from './components/non-authenticated/non-au
 import { ErrorComponent } from './components/error/error.component';
 import { PharmacyAdminGuard } from './guards/pharmacyAdmin.guard';
 
+import {EditPatientProfileComponent} from './components/edit-patient-profile/edit-patient-profile.component';
+import {ReservationComponent} from './components/reservation/reservation.component';
 
 const routes: Routes = [
 
@@ -70,6 +72,14 @@ const routes: Routes = [
     path: 'patient',
     component: PatientProfileComponent,
     pathMatch: 'full'
+  },
+  {
+    path: 'patient/edit-patient-profile',
+    component: EditPatientProfileComponent
+  },
+  {
+    path: 'patient/get-all-reservations-active',
+    component: ReservationComponent
   },
 
   //***************** PHARMACY ADMIN *****************

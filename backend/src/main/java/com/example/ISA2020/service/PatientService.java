@@ -19,7 +19,7 @@ import com.example.ISA2020.entity.users.Patient;
 
 public interface PatientService {
 	
-	Patient findById(Long id);
+	PatientDTO findById(Long id);
 	
 	Patient findByUsername(String username);
 	

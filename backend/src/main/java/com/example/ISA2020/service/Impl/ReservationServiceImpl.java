@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.example.ISA2020.dto.DrugQuantityDTO;
 import com.example.ISA2020.dto.ReservationDTO;
 import com.example.ISA2020.entity.DateTimeInterval;
+import com.example.ISA2020.entity.Drug;
 import com.example.ISA2020.entity.DrugQuantity;
 import com.example.ISA2020.entity.Reservation;
 import com.example.ISA2020.entity.users.Patient;
@@ -83,8 +84,6 @@ public class ReservationServiceImpl implements ReservationService {
 			//pomocni = e.getQuantity();
 			
 			ReservationDTO dto = new ReservationDTO();
-			/*String idString = e.getId().toString();
-			Long id = Long.parseLong(idString); */
 			dto.setId(e.getId());
 			dto.setDrugName(e.getDrug().getName());
 			dto.setDrugCode(e.getDrug().getCode());
@@ -130,6 +129,14 @@ public class ReservationServiceImpl implements ReservationService {
 			System.out.println("Ne moze endTime biti pre startTime.");
 			return null;
 		} 
+		
+		Set<Drug> alergies = patient.getAlergies();
+		for(Drug d : alergies) {
+			if(d.getId() == drugId) {
+				System.out.println("Pacijent ne moze izvrsiti rezervaciju leka posto je alergican na njega!");
+				return null;
+			}
+		}
 		
 		int penalties = patient.getPenalties();
 		
@@ -242,11 +249,7 @@ public class ReservationServiceImpl implements ReservationService {
 		
 		LocalDateTime d = LocalDateTime.now();
 		d = d.plusDays(1);
-		/*Calendar cal = Calendar.getInstance(); 
-		cal.setTime(d); 
-		cal.add(Calendar.DATE, 1);
-		d = cal.getTime();
-		*/
+
 		
 		
 		for(Reservation r : reservations) {
@@ -318,6 +321,8 @@ public class ReservationServiceImpl implements ReservationService {
 						int penalties = patient.getPenalties();
 						int newPenalties = penalties + 1;
 						patient.setPenalties(newPenalties);
+						
+						patientService.save(patient);
 						
 						
 					}

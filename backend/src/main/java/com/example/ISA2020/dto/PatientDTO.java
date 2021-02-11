@@ -19,14 +19,15 @@ public class PatientDTO {
     @NotEmpty(message = "LastName is empty.")
     private String lastName;
     
+    @NotEmpty(message = "PhoneNumber is empty.") 
+    private String phoneNumber;
+    
+    
     @NotEmpty(message = "Address is empty.")
     private String address;
     
     @NotEmpty(message = "City is empty.")
     private String city;
-    
-    @NotEmpty(message = "PhoneNumber is empty.") 
-    private String phoneNumber;
     
     @NotEmpty(message = "Points is empty.")
     private int points;
@@ -40,23 +41,23 @@ public class PatientDTO {
 		super();
 	}
 
-	public PatientDTO(String username, String password, String firstName, String lastName, String address, String city,
-						String phoneNumber, int points, int penalties) {
+	public PatientDTO(String username, String password, String firstName, String lastName, String phoneNumber, String address, String city,
+			int points, int penalties) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.phoneNumber = phoneNumber;
 		this.address = address;
 		this.city = city;
-		this.phoneNumber = phoneNumber;
 		this.points = points;
 		this.penalties = penalties;
 	}
 	
 	public PatientDTO(Patient patient) {
-		this(patient.getUsername(), patient.getPassword(), patient.getFirstName(), patient.getLastName(), patient.getAddress(),
-				patient.getCity(), patient.getPhoneNumber(), patient.getPoints(), patient.getPenalties());
+		this(patient.getUsername(), patient.getPassword(), patient.getFirstName(), patient.getLastName(), patient.getPhoneNumber(), patient.getAddress(),
+				patient.getCity(), patient.getPoints(), patient.getPenalties());
 	}
 
 	public String getUsername() {

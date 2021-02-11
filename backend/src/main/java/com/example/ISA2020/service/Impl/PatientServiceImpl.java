@@ -2,7 +2,6 @@ package com.example.ISA2020.service.Impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -10,52 +9,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.example.ISA2020.dto.ConsultationPriceAddressDTO;
-import com.example.ISA2020.dto.ConsultationPriceDTO;
-import com.example.ISA2020.dto.DrugQuantityDTO;
 import com.example.ISA2020.dto.EditPatientDTO;
-import com.example.ISA2020.dto.ExaminationPriceDTO;
-import com.example.ISA2020.dto.ExaminationPriceDermatologistDTO;
-import com.example.ISA2020.dto.GradeDermPharmDTO;
-import com.example.ISA2020.dto.GradeDrugDTO;
-import com.example.ISA2020.dto.GradePharmacyDTO;
 import com.example.ISA2020.dto.PatientDTO;
 import com.example.ISA2020.dto.PatientWithIdDTO;
-import com.example.ISA2020.dto.PharmacistSimpleDTO;
-import com.example.ISA2020.dto.PromotionDTO;
-import com.example.ISA2020.dto.ReservationDTO;
-import com.example.ISA2020.entity.Consultation;
-import com.example.ISA2020.entity.ConsultationPrice;
 import com.example.ISA2020.entity.Drug;
-import com.example.ISA2020.entity.DrugQuantity;
-import com.example.ISA2020.entity.Examination;
-import com.example.ISA2020.entity.ExaminationPrice;
-import com.example.ISA2020.entity.Grade;
-import com.example.ISA2020.entity.Pharmacy;
-import com.example.ISA2020.entity.Promotion;
-import com.example.ISA2020.entity.Reservation;
-import com.example.ISA2020.entity.users.Dermatologist;
 import com.example.ISA2020.entity.users.Patient;
-import com.example.ISA2020.entity.users.Pharmacist;
-import com.example.ISA2020.enumeration.ConsultationStatus;
-import com.example.ISA2020.enumeration.EntityStatus;
-import com.example.ISA2020.enumeration.ExaminationStatus;
-import com.example.ISA2020.enumeration.ReservationStatus;
-import com.example.ISA2020.repository.ConsultationPriceRepository;
-import com.example.ISA2020.repository.ConsultationRepository;
-import com.example.ISA2020.repository.DermatologistRepository;
-import com.example.ISA2020.repository.DrugPriceRepository;
-import com.example.ISA2020.repository.DrugQuantityRepository;
+import com.example.ISA2020.enumeration.UserStatus;
 import com.example.ISA2020.repository.DrugRepository;
-import com.example.ISA2020.repository.ExaminationPriceRepository;
-import com.example.ISA2020.repository.ExaminationRepository;
-import com.example.ISA2020.repository.GradeRepository;
 import com.example.ISA2020.repository.PatientRepository;
-import com.example.ISA2020.repository.PharmacistRepository;
-import com.example.ISA2020.repository.PharmacyRepository;
-import com.example.ISA2020.repository.PromotionRepository;
-import com.example.ISA2020.repository.ReservationRepository;
-import com.example.ISA2020.service.EmailNotificationService;
 import com.example.ISA2020.service.PatientService;
 
 @Service
@@ -76,8 +37,8 @@ public class PatientServiceImpl implements PatientService{
 	
 
 	@Override
-	public Patient findById(Long id) {
-		return patientRepo.findOneById(id);
+	public PatientDTO findById(Long id) {
+		return new PatientDTO(patientRepo.findOneById(id));
 	}
 
 	@Override
@@ -125,6 +86,9 @@ public class PatientServiceImpl implements PatientService{
     public Patient changePassword(String newPassword, Patient user) {
 		//da li treba neka provera ili odobrenje da mu se zada kod menjanja lozinke??
         user.setPassword(newPassword);
+        /*if (user.getStatus().equals(UserStatus.NEVER_LOGGED_IN)) {
+            user.setStatus(UserStatus.ACTIVE);
+        }*/
         return patientRepo.save(user);
     }
 	
@@ -141,7 +105,6 @@ public class PatientServiceImpl implements PatientService{
 		patient.setFirstName(editPatientDTO.getFirstName());
 		patient.setLastName(editPatientDTO.getLastName());
 		patient.setAddress(editPatientDTO.getAddress());
-		patient.setCity(editPatientDTO.getCity());
 		patient.setPhoneNumber(editPatientDTO.getPhoneNumber());
 		
 		return new PatientDTO(patientRepo.save(patient));

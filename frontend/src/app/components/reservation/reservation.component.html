@@ -1,0 +1,22 @@
+<form >
+  <div class="form-group">
+    <table align="center">
+      <tr>
+        <th>Pharmacy Name</th>
+        <th>Drug Name</th>
+        <th>Drug Code</th>
+        <th>Quantity</th>
+        <th>Status</th>
+      </tr>
+      <tr *ngFor="let reservation of reservations" >
+        <td>{{reservation.pharmacyName}}</td>
+        <td>{{reservation.drugName}}</td>
+        <td>{{reservation.drugCode}}</td>
+        <td>{{reservation.quantity}}</td>
+        <td>{{reservation.status}}</td>
+      </tr>
+      <tr>
+      </tr>
+    </table>
+  </div>
+</form>

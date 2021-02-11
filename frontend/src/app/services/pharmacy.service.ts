@@ -13,7 +13,7 @@ export class PharmacyService {
 
     url = environment.baseUrl + environment.pharmacy;
 
-    urlPatient = environment.baseUrl + '/api/auth/patient';
+    urlPatient = environment.baseUrl + '/api/patient';
     searchAddressPharmacyEmitter = new Subject<Pharmacy>();
     editPharmacyEmitter= new Subject<Pharmacy>();
     addPharmacyAdressEmiter = new Subject<Pharmacy>();

@@ -1,0 +1,40 @@
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.table-main {
+  border-collapse: collapse;
+  width: 70%;
+}
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+.btn-search{
+  background: white;
+  color: #4CAF50;
+  border: none;
+}
+.btn-search:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.btn-add{
+  background: white;
+  color: #4CAF50;
+  border: none;
+  border-radius: 5px;
+}
+.btn-add:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+tr:nth-child(even) {background-color: #f2f2f2;}

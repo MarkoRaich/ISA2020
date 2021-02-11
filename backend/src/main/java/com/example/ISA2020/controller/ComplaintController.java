@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.ISA2020.dto.PatientDTO;
 import com.example.ISA2020.entity.Complaint;
-import com.example.ISA2020.entity.users.Patient;
 import com.example.ISA2020.service.ComplaintService;
 import com.example.ISA2020.service.PatientService;
 
@@ -65,7 +65,7 @@ public class ComplaintController {
 	
 	@GetMapping("/patient/{id}")
 	public ResponseEntity<List<Complaint>> getByPatientId(@PathVariable Long id) {
-		Patient patient = patientService.findById(id);
+		PatientDTO patient = patientService.findById(id);
 		if(patient == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
