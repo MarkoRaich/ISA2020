@@ -46,7 +46,11 @@ import { ReservationComponent } from './components/reservation/reservation.compo
 import { ListExaminationsBookedComponent } from './components/list-examinations-booked/list-examinations-booked.component';
 import { ListExaminationsAvailableComponent } from './components/list-examinations-available/list-examinations-available.component';
 import { ListConsultationsBookedComponent } from './components/list-consultations-booked/list-consultations-booked.component';
-
+import { PharmacyProfileComponent } from './components/pharmacy-profile/pharmacy-profile.component';
+import { PharmacistInPharmacyComponent } from './components/pharmacist-in-pharmacy/pharmacist-in-pharmacy.component';
+import { DermatologistInPharmacyComponent } from './components/dermatologist-in-pharmacy/dermatologist-in-pharmacy.component';
+import { DrugInPharmacyComponent } from './components/drug-in-pharmacy/drug-in-pharmacy.component';
+import { ExaminationInPharmacyComponent } from './components/examination-in-pharmacy/examination-in-pharmacy.component';
 //import { ErrorInterceptor } from './interceptors/error.interceptor';
 
 
@@ -84,6 +88,11 @@ import { ListConsultationsBookedComponent } from './components/list-consultation
     ListExaminationsBookedComponent,
     ListExaminationsAvailableComponent,
     ListConsultationsBookedComponent,
+    PharmacyProfileComponent,
+    PharmacistInPharmacyComponent,
+    DermatologistInPharmacyComponent,
+    DrugInPharmacyComponent,
+    ExaminationInPharmacyComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,9 +108,7 @@ import { ListConsultationsBookedComponent } from './components/list-consultation
       positionClass: 'toast-top-right',
       preventDuplicates: true,
     }),
-    AngularMaterialModule,
-    MatFormFieldModule,
-    MatInputModule
+    AngularMaterialModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

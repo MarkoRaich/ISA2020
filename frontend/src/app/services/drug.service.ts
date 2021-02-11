@@ -9,6 +9,7 @@ import { DrugWithQuantity } from "../models/drugWithQuantity";
     providedIn: 'root'
 })
 export class DrugService {
+   
  
    
     url = environment.baseUrl + environment.drugQ;
@@ -32,6 +33,13 @@ export class DrugService {
             });
     return this.drugsInPharmacy.asObservable();
     }
+
+    getDrugsWithQuantityInPharmacy(pharmId: string){
+        let params = new HttpParams();
+        params = params.append('pharmId', pharmId );
+    
+        return this.http.get(this.url + "/inPharmacy", { params: params })
+      }
 
     getDrugsNotInPharmacy() {
        this.http.get(this.url + "/other").subscribe(

@@ -25,6 +25,7 @@ import {ExaminationDerm} from './models/ExaminationDerm';
 import {ListExaminationsBookedComponent} from './components/list-examinations-booked/list-examinations-booked.component';
 import {ListExaminationsAvailableComponent} from './components/list-examinations-available/list-examinations-available.component';
 import {ListConsultationsBookedComponent} from './components/list-consultations-booked/list-consultations-booked.component';
+import { PharmacyProfileComponent } from './components/pharmacy-profile/pharmacy-profile.component';
 
 const routes: Routes = [
 
@@ -57,6 +58,7 @@ const routes: Routes = [
     path: 'error/non-authorized',
     component: NonAuthorizedComponent
   },
+
 
 
   //***************** SVI KORISNICI*****************************
@@ -145,6 +147,17 @@ const routes: Routes = [
     path: 'pharmacy-admin/financial-report',
     component: FinancialReportComponent,
     canActivate: [PharmacyAdminGuard]
+  },
+  //***************** PATIENT *****************
+
+  {
+    path: 'patient/pharmacies',
+    component: PharmaciesComponent,
+  },
+
+  {
+    path: 'patient/pharmacy-profile/:id',
+    component: PharmacyProfileComponent
   }
 
 

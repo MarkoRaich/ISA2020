@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.ISA2020.entity.Pharmacy;
 import com.example.ISA2020.entity.users.PharmacyAdmin;
 import com.example.ISA2020.service.DrugQuantityService;
 import com.example.ISA2020.service.PharmacyAdminService;
+import com.example.ISA2020.service.PharmacyService;
 import com.example.ISA2020.dto.AvailableExaminationDTO;
 import com.example.ISA2020.dto.DrugDTO;
 import com.example.ISA2020.dto.DrugSearchDTO;
@@ -36,6 +38,9 @@ public class DrugQuantityController {
 	@Autowired
 	private PharmacyAdminService pharmacyAdminService;
 	
+	@Autowired
+	private PharmacyService pharmacyService;
+	
 	
 	@GetMapping(value = "/all")
 	//@PreAuthorize("hasRole('PHARMACY_ADMIN')")
@@ -47,6 +52,15 @@ public class DrugQuantityController {
 	        }
 	
 	     return new ResponseEntity<>(drugQuantityService.findAllDrugsInPharmacy(pharmacyAdmin.getPharmacy().getId()), HttpStatus.OK); 
+	}
+	
+	@GetMapping(value = "/inPharmacy")
+	//@PreAuthorize("hasRole('PHARMACY_ADMIN')")
+	public ResponseEntity<List<DrugSearchDTO>> getDrugsInPharmacy(@RequestParam(value = "pharmId", required = true) String pharmId ){
+    	
+    	Pharmacy pharmacy = pharmacyService.findById(Long.valueOf(pharmId));		
+	
+	     return new ResponseEntity<>(drugQuantityService.findAllDrugsInPharmacy(pharmacy.getId()), HttpStatus.OK); 
 	}
 	
 	

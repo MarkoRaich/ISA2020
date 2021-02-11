@@ -93,7 +93,8 @@ public class DermatologistServiceImpl implements DermatologistService{
 											  temp.getDermatologist().getLastName(),
 											  temp.getDermatologist().getPhoneNumber(),
 											  temp.getTimeFrom().toString(),
-											  temp.getTimeTo().toString()
+											  temp.getTimeTo().toString(),
+											  temp.getDermatologist().getRating()
 											  ));
 		}
 		return dermsDTO;

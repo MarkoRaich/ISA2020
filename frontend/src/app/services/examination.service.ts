@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponseBase } from "@angular/common/http";
+import { HttpClient, HttpParams, HttpResponseBase } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { BehaviorSubject, Observable, Subject } from "rxjs";
@@ -10,6 +10,7 @@ import { Examination } from "../models/examination";
     providedIn: 'root'
 })
 export class ExaminationService {
+  
  
 
     url = environment.baseUrl + environment.examination;
@@ -30,6 +31,12 @@ export class ExaminationService {
     return this.examinationsForAdmin.asObservable();
   }
 
+  getAvailableExaminationsInPharmacy(pharmId: string) {
+    let params = new HttpParams();
+    params = params.append('pharmId', pharmId );
+
+    return this.http.get(this.url + "/inPharmacy", { params: params })
+  }
 
   createAvailableExamination(availableExamination: AvailableExamination): any {
     return this.http.post(this.url + "/create-examination", availableExamination);

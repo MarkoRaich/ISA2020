@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ISA2020.dto.PharmacistDTO;
+import com.example.ISA2020.entity.Pharmacy;
 import com.example.ISA2020.entity.users.PharmacyAdmin;
 import com.example.ISA2020.service.PharmacistService;
 import com.example.ISA2020.service.PharmacyAdminService;
+import com.example.ISA2020.service.PharmacyService;
 
 @RestController
 @RequestMapping(value = "/api/pharmacist")
@@ -33,6 +35,9 @@ public class PharmacistController {
 	
 	@Autowired
 	private PharmacyAdminService pharmacyAdminService;
+	
+	@Autowired
+	private PharmacyService pharmacyService;
 	
 	
 	@GetMapping(value = "/all")
@@ -48,6 +53,17 @@ public class PharmacistController {
 	     
 	}
 	
+	@GetMapping(value = "/inPharmacy")
+	//@PreAuthorize("hasRole('PHARMACY_ADMIN')")
+	public ResponseEntity<List<PharmacistDTO>> getPharmacistsInPharmacy(@RequestParam(value = "pharmId", required = true) String pharmId ){
+    	
+    	Pharmacy pharmacy = pharmacyService.findById(Long.valueOf(pharmId));
+    	
+        return new ResponseEntity<>(pharmacistService.findAllPharmacistsInPharmacy(pharmacy.getId()), HttpStatus.OK);
+	}
+	
+	
+	
 	@GetMapping(value = "/search")
 	//@PreAuthorize("hasRole('PHARMACY_ADMIN')")
     public ResponseEntity<List<PharmacistDTO>> searchPharmacistsInPharmacy(@RequestParam(value = "firstName") String firstName, @RequestParam(value = "lastName") String lastName ) {
@@ -58,6 +74,18 @@ public class PharmacistController {
 	        }
         return new ResponseEntity<>(pharmacistService.searchPharmacistsInPharmacy(pharmacyAdmin.getPharmacy().getId(), firstName, lastName), HttpStatus.OK);
     }
+	
+	@GetMapping(value = "/searchInPharmacy")
+	//@PreAuthorize("hasRole('PHARMACY_ADMIN')")
+    public ResponseEntity<List<PharmacistDTO>> searchPharmacistsInPharmacyWithId(@RequestParam(value = "firstName") String firstName,
+																	    		 @RequestParam(value = "lastName") String lastName,
+																	    		 @RequestParam(value = "pharmId") String pharmId ) {
+		 
+		Pharmacy pharmacy = pharmacyService.findById(Long.valueOf(pharmId));
+		
+        return new ResponseEntity<>(pharmacistService.searchPharmacistsInPharmacy(pharmacy.getId(), firstName, lastName), HttpStatus.OK);
+    }
+	
 	
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	//PreAuthorize("hasRole('PHAMRACY_ADMIN')")

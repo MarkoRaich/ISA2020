@@ -1,0 +1,60 @@
+<!-- page-header -->
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-caption">
+                    <h1 class="page-title">Profil apoteke</h1>
+                    <div class="text-center mt-4">
+                        <button mat-raised-button class="mr-3" color="primary" (click)="openPharmacistDialog()" >Farmaceuti</button>
+                        <button mat-raised-button class="mr-3"color="primary" (click)="openDermatologistDialog()" >Dermatolozi</button>
+                        <button mat-raised-button class="mr-3"color="primary" (click)="openDrugDialog()" >Lekovi</button>
+                        <button mat-raised-button class="mr-3"color="primary" (click)="openExaminationDialog()" >Slobodni termini</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.page-header-->
+
+<!-- page-content -->
+<div class="card-section">
+    <div class="container">
+        <div class="card-block bg-white mb30">
+            <div class="row">
+                <!-- section-title -->
+                <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5">
+                    <div class="section-title mb-0">
+                        <form [formGroup]="pharmacyForm" class="mat-elevation-z8 form">
+                            <mat-form-field class="form-full-width">
+                                <input matInput [readonly] = "true" placeholder="Ime" formControlName="name">
+                            </mat-form-field>
+                            <mat-form-field class="form-full-width mt-2">
+                                <input matInput [readonly] = "true" placeholder="Adresa" formControlName="address"
+                                    (focusout)="addressFocusOut()">
+                            </mat-form-field>
+                            <mat-form-field class="form-full-width mt-2">
+                                <textarea matInput [readonly] = "true" placeholder="Opis" formControlName="description"
+                                    rows="5"></textarea>
+                            </mat-form-field>
+                            <mat-form-field class="form-full-width mt-2">
+                                <input matInput [readonly] = "true" placeholder="Ocena" formControlName="rating"
+                                    rows="5">
+                            </mat-form-field>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7">
+                    <app-map></app-map>
+                </div>
+                <!-- /.section-title -->
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- /.page-content -->

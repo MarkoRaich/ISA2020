@@ -10,10 +10,12 @@ import { Pharmacist } from "../models/pharmacist";
 })
 export class PharmacistService {
  
+ 
   url = environment.baseUrl + environment.pharmacist;
 
   pharmacistsForAdmin: BehaviorSubject<Pharmacist[]> = new BehaviorSubject<Pharmacist[]>([]);
   searchPharmacistsForAdmin: BehaviorSubject<Pharmacist[]> = new BehaviorSubject<Pharmacist[]>([]);
+  searchPharmacistsInPharm: BehaviorSubject<Pharmacist[]> = new BehaviorSubject<Pharmacist[]>([]);
   createSuccessEmitter = new Subject<Pharmacist>();
   
   constructor(private http: HttpClient, private router: Router) { }
@@ -31,6 +33,13 @@ export class PharmacistService {
       );
     return this.pharmacistsForAdmin.asObservable();
   }
+
+  getPharmacistsInPharmacy(pharmId: string) {
+    let params = new HttpParams();
+    params = params.append('pharmId', pharmId );
+
+    return this.http.get(this.url + "/inPharmacy", { params: params })
+  }
     
   public searchPharmacistsForAdminRequest(firstName: string, lastName: string): Observable<Pharmacist[]> {
     let params = new HttpParams();
@@ -47,6 +56,24 @@ export class PharmacistService {
       });
     return this.searchPharmacistsForAdmin.asObservable();
   }
+
+  searchPharmacistsInPharmacy(firstName: string, lastName: string, pharmId: any): Observable<Pharmacist[]> {
+    let params = new HttpParams();
+    params = params.append('firstName', firstName);
+    params = params.append('lastName', lastName);
+    params = params.append('pharmId', pharmId);
+
+    this.http.get(this.url + "/searchInPharmacy", {
+      params: params
+    }).subscribe((data: Pharmacist[]) => {
+      this.searchPharmacistsInPharm.next(data);
+    },
+      (error: HttpErrorResponse) => {
+
+      });
+    return this.searchPharmacistsInPharm.asObservable();
+  }
+  
 
   public deletePharmacist(id: number) {
     return this.http.delete(this.url + '/' + id);

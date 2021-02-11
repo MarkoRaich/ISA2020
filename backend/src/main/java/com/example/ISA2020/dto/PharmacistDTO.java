@@ -34,6 +34,8 @@ public class PharmacistDTO {
     @Pattern(regexp = "[0-9]+")
     private String phoneNumber;
     
+    private double rating;
+    
 
     
     public PharmacistDTO() {}
@@ -44,7 +46,8 @@ public class PharmacistDTO {
 			@NotEmpty(message = "Last name is empty.") @Size(message = "Max size for last name is 30.", max = 30) String lastName,
 			@NotEmpty(message = "Start work hours is empty.") String workHoursFrom,
 			@NotEmpty(message = "End work hours is empty.") String workHoursTo,
-			@NotEmpty(message = "Phone number is empty.") @Size(min = 9, max = 10) @Pattern(regexp = "0[0-9]+") String phoneNumber
+			@NotEmpty(message = "Phone number is empty.") @Size(min = 9, max = 10) @Pattern(regexp = "0[0-9]+") String phoneNumber,
+			double rating
 			
 			) {
 		super();
@@ -55,15 +58,30 @@ public class PharmacistDTO {
 		this.workHoursFrom = workHoursFrom;
 		this.workHoursTo = workHoursTo;
 		this.phoneNumber = phoneNumber;
+		this.rating = rating;
 		
 	}
     
     public PharmacistDTO(Pharmacist pharmacist) {
-    	this(pharmacist.getId(), pharmacist.getUsername(), pharmacist.getFirstName(), pharmacist.getLastName(),
-    		 pharmacist.getWorkHoursFrom().toString(), pharmacist.getWorkHoursTo().toString(), pharmacist.getPhoneNumber());
+    	this(pharmacist.getId(),
+    		pharmacist.getUsername(),
+    		pharmacist.getFirstName(),
+    		pharmacist.getLastName(),
+    		pharmacist.getWorkHoursFrom().toString(),
+    		pharmacist.getWorkHoursTo().toString(),
+    		pharmacist.getPhoneNumber(),
+    		pharmacist.getRating());
     }
     
 
+
+	public double getRating() {
+		return rating;
+	}
+
+	public void setRating(double rating) {
+		this.rating = rating;
+	}
 
 	public Long getId() {
 		return id;

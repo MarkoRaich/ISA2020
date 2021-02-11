@@ -55,8 +55,8 @@ export class AddExaminationComponent implements OnInit {
 
   getExaminationTypes() {
     this.examinationTypeService.getExaminationTypesForAdmin().subscribe(
-      (data) => {
-      this.examinationTypes = data;
+      (types) => {
+      this.examinationTypes = types;
     })
   }
 
@@ -81,8 +81,8 @@ export class AddExaminationComponent implements OnInit {
       const endDateTime = date + ' ' + this.dateTimeTypeForm.value.timeTo;
 
       this.dermatologistService.getAllAvailableDermatologists(startDateTime, endDateTime).subscribe(
-        (data: Dermatologist[]) => {
-          this.dermatologists = data;
+        (derms: Dermatologist[]) => {
+          this.dermatologists = derms;
       })
     } else {
       this.dermatologists = [];

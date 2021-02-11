@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
            this.router.navigate(['/pharmacy-admin/edit-admin-profile']);
         }
         if(this.userService.isPatient()){
-            this.router.navigate(['/patient']);
+            this.router.navigate(['/patient/edit-patient-profile']);
         }
     }
 }
