@@ -287,8 +287,8 @@ public class ConsultationPriceServiceImpl implements ConsultationPriceService {
 					dto.setPharmacyName(e.getPharmacy().getName());
 					dto.setPharmacyRating(e.getPharmacy().getRating());
 					dto.setPharmacyAddress(e.getPharmacy().getAddress());
-					dto.setStartDateTime(e.getConsultation().getInterval().getStartDateTime());
-					dto.setEndDateTime(e.getConsultation().getInterval().getEndDateTime());
+					dto.setStartDateTime(e.getConsultation().getInterval().getStartDateTime().toString());
+					dto.setEndDateTime(e.getConsultation().getInterval().getEndDateTime().toString());
 					dto.setStatus(e.getConsultation().getStatus().toString());
 			
 					dtos.add(dto);
@@ -338,8 +338,8 @@ public class ConsultationPriceServiceImpl implements ConsultationPriceService {
 					dto.setPharmacyName(e.getPharmacy().getName());
 					dto.setPharmacyRating(e.getPharmacy().getRating());
 					dto.setPharmacyAddress(e.getPharmacy().getAddress());
-					dto.setStartDateTime(e.getConsultation().getInterval().getStartDateTime());
-					dto.setEndDateTime(e.getConsultation().getInterval().getEndDateTime());
+					dto.setStartDateTime(e.getConsultation().getInterval().getStartDateTime().toString());
+					dto.setEndDateTime(e.getConsultation().getInterval().getEndDateTime().toString());
 					dto.setStatus(e.getConsultation().getStatus().toString());
 					
 					dtos.add(dto);
@@ -505,16 +505,13 @@ public class ConsultationPriceServiceImpl implements ConsultationPriceService {
 		String startTimeProcessed = startTime2.replace(target, replacement);
 		System.out.println(startTimeProcessed);
 		
-		//assertTrue(startTimeProcessed.contains(replacement));
-		//assertFalse(startTimeProcessed.contains(target));
 		
 		String endTime2 = endTime;
 		//String target = "%20";
 		//String replacement = " ";
 		String endTimeProcessed = endTime2.replace(target, replacement);
 		System.out.println(endTimeProcessed);
-		//assertTrue(endTimeProcessed.contains(replacement));
-		//assertFalse(endTimeProcessed.contains(target));
+
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); 
 		LocalDateTime dateStartTime = LocalDateTime.parse(startTimeProcessed, formatter);
@@ -636,8 +633,8 @@ public class ConsultationPriceServiceImpl implements ConsultationPriceService {
 								dto.setPharmacyName(p.getPharmacy().getName());
 								dto.setPharmacyAddress(p.getPharmacy().getAddress());
 								dto.setPharmacyRating(p.getPharmacy().getRating());
-								dto.setStartDateTime(p.getConsultation().getInterval().getStartDateTime());
-								dto.setEndDateTime(p.getConsultation().getInterval().getEndDateTime());
+								dto.setStartDateTime(p.getConsultation().getInterval().getStartDateTime().toString());
+								dto.setEndDateTime(p.getConsultation().getInterval().getEndDateTime().toString());
 								dto.setPrice(p.getPrice());
 								dto.setStatus(p.getConsultation().getStatus().toString());
 								
@@ -682,11 +679,14 @@ public class ConsultationPriceServiceImpl implements ConsultationPriceService {
 		Set<Consultation> consultations = patient.getConsultations();
 		List<ConsultationPriceAddressDTO> consultationsDTO = new ArrayList<>();
 		
+		List<ConsultationPrice> prices = consultationPriceRepo.findAll();
+		
+		
 		for(Consultation c : consultations) {
 			if(c.getStatus() == ConsultationStatus.BOOKED) {
 				ConsultationPriceAddressDTO dto = new ConsultationPriceAddressDTO();
 				
-				ConsultationPrice price = consultationPriceRepo.findOneById(c.getId());
+				//ConsultationPrice price = consultationPriceRepo.findOneById(c.getId());
 				
 				
 				dto.setConsultationId(c.getId());
@@ -695,12 +695,21 @@ public class ConsultationPriceServiceImpl implements ConsultationPriceService {
 				dto.setPharmacyName(c.getPharmacist().getPharmacy().getName());
 				dto.setPharmacyAddress(c.getPharmacist().getPharmacy().getAddress());
 				dto.setPharmacyRating(c.getPharmacist().getPharmacy().getRating());
-				dto.setStartDateTime(c.getInterval().getStartDateTime());
-				dto.setEndDateTime(c.getInterval().getEndDateTime());
-				dto.setPrice(price.getPrice());
+				dto.setStartDateTime(c.getInterval().getStartDateTime().toString());
+				dto.setEndDateTime(c.getInterval().getEndDateTime().toString());
+				//dto.setPrice(price.getPrice());
 				consultationsDTO.add(dto);
 			}
 		}
+		
+		for(ConsultationPrice p : prices) {
+			for(ConsultationPriceAddressDTO c : consultationsDTO) {
+				if(p.getConsultation().getId() == c.getConsultationId()) {
+					c.setPrice(p.getPrice());
+				}
+			}
+		}
+		
 		
 		return consultationsDTO;
 		
@@ -714,11 +723,7 @@ public class ConsultationPriceServiceImpl implements ConsultationPriceService {
 		if(patient == null) {
 			return null;
 		}
-		
-		/*Pharmacy pharmacy = pharmacyRepo.findOneById(pharmacyId);
-		if(pharmacy == null) {
-			return null;
-		}*/
+
 		
 		LocalDateTime d = LocalDateTime.now();
 		d = d.plusDays(1);
@@ -745,8 +750,8 @@ public class ConsultationPriceServiceImpl implements ConsultationPriceService {
 				dto.setPharmacyName(consultation.getPharmacist().getPharmacy().getName());
 				dto.setPharmacyAddress(consultation.getPharmacist().getPharmacy().getAddress());
 				dto.setPharmacyRating(consultation.getPharmacist().getPharmacy().getRating());
-				dto.setStartDateTime(consultation.getInterval().getStartDateTime());
-				dto.setEndDateTime(consultation.getInterval().getEndDateTime());
+				dto.setStartDateTime(consultation.getInterval().getStartDateTime().toString());
+				dto.setEndDateTime(consultation.getInterval().getEndDateTime().toString());
 				//dto.setPrice(p.getPrice());
 				dto.setStatus(consultation.getStatus().toString());
 				
@@ -780,77 +785,7 @@ public class ConsultationPriceServiceImpl implements ConsultationPriceService {
 		}
 		return null;
 		
-		/*
-		for(ConsultationPrice e : prices) {
-			//if(e.getPharmacy().getId() == id) {
-				if(e.getConsultation().getStatus() == ConsultationStatus.BOOKED) {
-					if(e.getConsultation().getId() == consultationId) {
-						
-					predefPrices.add(e);
-				
-					}
-				}
-			//}
-		} */
-		/*
-		List<PharmacistSimpleDTO> pharmacists = new ArrayList<>();
-		
-		String consultationName = null;
-		String pharmacist = null;
 
-		ConsultationPriceAddressDTO dto = new ConsultationPriceAddressDTO();
-		
-		for(ConsultationPrice p : predefPrices) {
-			if(p.getConsultation().getPharmacist().getId() == pharmacistId) {
-				System.out.println("1");
-				if (d.isBefore(p.getConsultation().getInterval().getEndDateTime())) {
-					p.getConsultation().setStatus(ConsultationStatus.CANCELED); //CANCELED???? PREDEF_BOOKED???
-					p.getConsultation().setPatient(null);
-					consultationPriceRepo.save(p);
-					
-					System.out.println("2");
-	
-					dto.setConsultationId(p.getConsultation().getId());
-					
-					dto.setConsultationName(p.getConsultation().getName());
-					dto.setPharmacyName(p.getPharmacy().getName());
-					dto.setPharmacyAddress(p.getPharmacy().getAddress());
-					dto.setPharmacyRating(p.getPharmacy().getRating());
-					dto.setStartDateTime(p.getConsultation().getInterval().getStartDateTime());
-					dto.setEndDateTime(p.getConsultation().getInterval().getEndDateTime());
-					dto.setPrice(p.getPrice());
-					dto.setStatus(p.getConsultation().getStatus().toString());
-					
-					consultationName = p.getConsultation().getName();
-					pharmacist = p.getConsultation().getPharmacist().getFirstName();
-					
-					
-					//salje se email na mejl pacijenta
-					String subject = "Potvrda o otkazivanju savetovanja";
-			        StringBuilder sb = new StringBuilder();
-			        sb.append("Postovani, otkazali ste savetovanje: ");
-			        sb.append(consultationName);
-			        sb.append(" kod farmaceuta: ");
-			        sb.append(pharmacist);
-			        sb.append(System.lineSeparator());
-	
-			        String text = sb.toString();
-	
-			        /*  
-			        emailNotificationService.sendEmail(/*patient.getUsername() "dionizijm@gmail.com", subject, text); */
-			        
-				/*	return dto;
-				} else {
-					int penalties = patient.getPenalties();
-					int newPenalties = penalties + 1;
-					patient.setPenalties(newPenalties);
-					patientService.save(patient);
-					System.out.println("penali: " + patient.getPenalties());
-				}
-			}
-		}
-			
-		return null; */
 				
 	}
 	

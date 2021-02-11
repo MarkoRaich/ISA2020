@@ -43,6 +43,9 @@ import { NonAuthenticatedComponent } from './components/non-authenticated/non-au
 import { ErrorComponent } from './components/error/error.component';
 import { EditPatientProfileComponent } from './components/edit-patient-profile/edit-patient-profile.component';
 import { ReservationComponent } from './components/reservation/reservation.component';
+import { ListExaminationsBookedComponent } from './components/list-examinations-booked/list-examinations-booked.component';
+import { ListExaminationsAvailableComponent } from './components/list-examinations-available/list-examinations-available.component';
+import { ListConsultationsBookedComponent } from './components/list-consultations-booked/list-consultations-booked.component';
 
 //import { ErrorInterceptor } from './interceptors/error.interceptor';
 
@@ -78,6 +81,9 @@ import { ReservationComponent } from './components/reservation/reservation.compo
     ErrorComponent,
     EditPatientProfileComponent,
     ReservationComponent,
+    ListExaminationsBookedComponent,
+    ListExaminationsAvailableComponent,
+    ListConsultationsBookedComponent,
   ],
   imports: [
     BrowserModule,

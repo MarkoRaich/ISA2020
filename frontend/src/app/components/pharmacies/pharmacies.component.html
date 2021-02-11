@@ -1,10 +1,11 @@
+
 <form (ngSubmit)="searchPharmaties()">
   <div class="form-group">
     <table align="center">
       <tr>
-        <th>Date</th>
-        <th>Start time</th>
-        <th>End time</th>
+        <th>Datum</th>
+        <th>Pocetno vreme</th>
+        <th>Krajnje vreme</th>
       </tr>
       <tr>
         <th>
@@ -35,10 +36,10 @@
 <table class="table-main" align="center">
   <tr>
   <tr bgcolor = green >
-    <th><button (click)="sortByName()" class="btn-add">Name</button></th>
-    <th><button (click)="sortByRating()" class="btn-add">Rating</button></th>
-    <th>Adress</th>
-    <th>Description</th>
+    <th><button (click)="sortByName()" class="btn-add">Ime</button></th>
+    <th><button (click)="sortByRating()" class="btn-add">Ocena</button></th>
+    <th>Adresa</th>
+    <th>Opis</th>
 
   </tr>
 
@@ -47,8 +48,8 @@
     <td>{{pharmacy.rating}}</td>
     <td>{{pharmacy.address}}</td>
     <td>{{pharmacy.description}}</td>
-    <th><button class="btn-add" (click)="prikaziFarmaceute(pharmacy.id)">Pharmacists</button></th>
-    <th><button class="btn-add" (click)="prikaziInformacije(pharmacy.id)">Pharmacy Info</button></th>
+    <th><button class="btn-add" (click)="prikaziFarmaceute(pharmacy.id)">Farmaceuti</button></th>
+    <th><button class="btn-add" (click)="prikaziInformacije(pharmacy.id)">Informacije</button></th>
   </tr>
 
 
@@ -60,8 +61,8 @@
   <table class="table-main" align="center">
     <tr>
     <tr bgcolor = green >
-      <th><button (click)="sortByName()" class="btn-add">First name</button></th>
-      <th><button (click)="sortByRating()" class="btn-add">Last name</button></th>
+      <th><button (click)="sortByName()" class="btn-add">Ime</button></th>
+      <th><button (click)="sortByRating()" class="btn-add">Ocena</button></th>
       <th>Rating</th>
 
     </tr>
@@ -70,8 +71,9 @@
       <td>{{pharmacy.firstName}}</td>
       <td>{{pharmacy.lastName}}</td>
       <td>{{pharmacy.rating}}</td>
-      <th><button class="btn-add" (click)="bookAReservation(pharmacy.pharmacistId, pharmacy.pharmacyId)">Book a reservation</button></th>
+      <th><button class="btn-add" (click)="bookAReservation(pharmacy.pharmacistId, pharmacy.pharmacyId)">Zakazi savetovanje</button></th>
     </tr>
 
 
   </table>
+</form>

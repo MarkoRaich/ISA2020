@@ -1,0 +1,85 @@
+<div class="page-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-caption">
+          <h1 class="page-title">Slobodni pregledi</h1>
+          <div class="text-center mt-4">
+            <!-- <button mat-raised-button color="primary" (click)="openCreatingDialog()">
+               Kreiraj slobodan termin za pregled
+             </button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.page-header-->
+
+<!-- page-content -->
+<div class="card-section">
+  <div class="container">
+    <div class="card-block bg-white mb30">
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+          <!-- section-title -->
+          <div class="section-title mb-0">
+            <table mat-table [dataSource]="examinationsDataSource" class="mat-elevation-z8 table" matSort>
+
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Pregled </th>
+                <td mat-cell *matCellDef="let element">
+                  {{element.examinationName}}
+                </td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Datum </th>
+                <td mat-cell *matCellDef=" let element">
+                  {{element.startDateTime | date:"dd.MM.yyyy."}}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="time">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Vreme pregleda </th>
+                <td mat-cell *matCellDef=" let element">
+                  {{element.startDateTime | date:"HH:mm"}}
+                  - &nbsp; {{element.endDateTime | date:"HH:mm"}}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Cena </th>
+                <td mat-cell *matCellDef=" let element">
+                  {{element.price}} RSD
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                <td mat-cell *matCellDef=" let element">
+                  {{element.status}}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="zakazi">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                <td mat-cell *matCellDef=" let element">
+                  <button mat-raised-button color="primary" (click)="bookExamination(element.examinationId)">Zakazi</button>
+                </td>
+              </ng-container>
+
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [pageSize]=itemsPerPage class=" table" showFirstLastButtons></mat-paginator>
+          </div>
+          <!-- /.section-title -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.page-content -->

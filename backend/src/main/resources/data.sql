@@ -18,7 +18,7 @@ INSERT INTO authority (name) VALUES ('ROLE_SUPPLIER');
 
 -- REGISTROVANI KORISNICI - PACIJENTI I NJIHOVA PRAVA PRISTUPA POVEZANA
 
-INSERT INTO patient (username, password, first_name, last_name, address, city, phone_number, points, penalties) VALUES ('pacijent1@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Marko', 'Markovic', 'Mose Pijade 3', 'Beograd', '02155333', 0, 0 );
+INSERT INTO patient (username, password, first_name, last_name, address, city, phone_number, points, penalties) VALUES ('pacijent1@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Marko', 'Markovic', 'Mose Pijade 3', 'Beograd', '021553333', 0, 0 );
 INSERT INTO patient_authority(user_id, authority_id) VALUES (1,1);
 
 INSERT INTO patient (username, password, first_name, last_name, address, city, phone_number, points, penalties) VALUES ('pacijent2@email.com', '$2y$10$v2VTp3FNpFNRhm0KInx5iuBrD4bGUl6thtbV9bIDMT0dnQK1o.UJC', 'Petar', 'Petrovic', 'Boska Buhe 12', 'Kraljevo', '065772415', 0, 0 );
@@ -163,7 +163,13 @@ INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, phar
 INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 2, 	  1, 4, 7, 3, 1);
 INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 1,    1, 4, 9, 2, 1);
 INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 3,    1, 2, 9, 1, 2); -- postavlja se prilikom zakazivanja pregleda
-INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 3, 	  1, 2, 8, 1, 3);
+INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 3, 	  1, 1, 8, 1, 3);
+INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 2,    1, 3, 9, 3, 3); -- null ako je predefinisan
+INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 3, 	  1, 1, 7, 1, 1);
+INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 2, 	  1, 1, 7, 3, 1);
+INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 1,    1, 4, 8, 2, 1);
+INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 2,    1, 1, 8, 1, 2); -- postavlja se prilikom zakazivanja pregleda
+INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 3, 	  1, 1, 8, 1, 3);
 
 
 -- SAVETOVANJA
@@ -181,6 +187,15 @@ INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, i
 INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije specijalne', 'Specijane konsultacije sa mogucnoscu pregleda', 2, 1, 2, 4);
 INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije specijalne', 'Specijane konsultacije uz solju kafe', 1, 1, 0, 4);
 
+INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije opste', 'Konsultacije opste', 1, 1, 1, 2);
+INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije za pacijenta', 'Specijane konsultacije za pacijenta', 1, 1, 1, 3);
+INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije specijalne', 'Konsultacije za studente', 1, 1, 1, 4);
+INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije specijalne', 'Konsultacije za decu', 2, 1, 1, 8);
+INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije specijalne', 'Provera lekova', 1, 1, 1, 7);
+INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije specijalne', 'Saveti za lekove', 2, 1, 1, 6);
+INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije specijalne', 'Konsultacije u vreme pavze', 1, 1, 1, 4);
+
+
 -- CENE SAVETOVANJA
 
 INSERT INTO consultation_price(consultation_id, pharmacy_id, price, interval_id) VALUES (1, 1, 4000.0, 3);
@@ -195,6 +210,14 @@ INSERT INTO consultation_price(consultation_id, pharmacy_id, price, interval_id)
 INSERT INTO consultation_price(consultation_id, pharmacy_id, price, interval_id) VALUES (10, 1, 255.0, 3);
 INSERT INTO consultation_price(consultation_id, pharmacy_id, price, interval_id) VALUES (11, 1, 376.0, 5);
 INSERT INTO consultation_price(consultation_id, pharmacy_id, price, interval_id) VALUES (12, 1, 810.0, 5);
+
+INSERT INTO consultation_price(consultation_id, pharmacy_id, price, interval_id) VALUES (13, 1, 330.0, 5);
+INSERT INTO consultation_price(consultation_id, pharmacy_id, price, interval_id) VALUES (14, 2, 279.0, 6);
+INSERT INTO consultation_price(consultation_id, pharmacy_id, price, interval_id) VALUES (15, 2, 1250.0, 7);
+INSERT INTO consultation_price(consultation_id, pharmacy_id, price, interval_id) VALUES (16, 1, 1000.0, 6);
+INSERT INTO consultation_price(consultation_id, pharmacy_id, price, interval_id) VALUES (17, 2, 557.0, 7);
+INSERT INTO consultation_price(consultation_id, pharmacy_id, price, interval_id) VALUES (18, 1, 450, 2);
+INSERT INTO consultation_price(consultation_id, pharmacy_id, price, interval_id) VALUES (19, 1, 880.0, 4);
 
 
 -- REZERVACIJE LEKOVA

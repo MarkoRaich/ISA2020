@@ -12,11 +12,13 @@ public class ExaminationPriceDermatologistDTO {
 	
 	private double price;
 	
-    private LocalDateTime startDateTime;
+    private String startDateTime;
     
-    private LocalDateTime endDateTime;
+    private String endDateTime;
     
     private double dermatologistRating;
+    
+    private String status;
     
     
 
@@ -25,7 +27,7 @@ public class ExaminationPriceDermatologistDTO {
 	}
 
 	public ExaminationPriceDermatologistDTO(Long examinationId, String examinationName, String dermatologistName, double price,
-			LocalDateTime startDateTime, LocalDateTime endDateTime, double dermatologistRating) {
+			String startDateTime, String endDateTime, double dermatologistRating, String status) {
 		super();
 		this.examinationName = examinationName;
 		this.dermatologistName = dermatologistName;
@@ -34,6 +36,7 @@ public class ExaminationPriceDermatologistDTO {
 		this.endDateTime = endDateTime;
 		this.dermatologistRating = dermatologistRating;
 		this.examinationId = examinationId;
+		this.status = status;
 	}
 
 	public String getExaminationName() {
@@ -60,19 +63,20 @@ public class ExaminationPriceDermatologistDTO {
 		this.price = price;
 	}
 
-	public LocalDateTime getStartDateTime() {
+
+	public String getStartDateTime() {
 		return startDateTime;
 	}
 
-	public void setStartDateTime(LocalDateTime startDateTime) {
+	public void setStartDateTime(String startDateTime) {
 		this.startDateTime = startDateTime;
 	}
 
-	public LocalDateTime getEndDateTime() {
+	public String getEndDateTime() {
 		return endDateTime;
 	}
 
-	public void setEndDateTime(LocalDateTime endDateTime) {
+	public void setEndDateTime(String endDateTime) {
 		this.endDateTime = endDateTime;
 	}
 
@@ -90,6 +94,14 @@ public class ExaminationPriceDermatologistDTO {
 
 	public void setExaminationId(Long examinationId) {
 		this.examinationId = examinationId;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
     
 	

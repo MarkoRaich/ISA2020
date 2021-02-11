@@ -80,8 +80,9 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 					dto.setDermatologistName(e.getExamination().getDermatologist().getFirstName());
 					dto.setPrice(e.getExamination().getExamType().getPrice());
 					dto.setDermatologistRating(e.getExamination().getDermatologist().getRating());
-					dto.setStartDateTime(e.getExamination().getInterval().getStartDateTime());
-					dto.setEndDateTime(e.getExamination().getInterval().getEndDateTime());
+					dto.setStartDateTime(e.getExamination().getInterval().getStartDateTime().toString());
+					dto.setEndDateTime(e.getExamination().getInterval().getEndDateTime().toString());
+					dto.setStatus(e.getExamination().getStatus().toString());
 					dtos.add(dto);
 				}
 			}
@@ -117,8 +118,9 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 					dto.setExaminationName(exam.getExamination().getExamType().getName());
 					dto.setPharmacyName(exam.getPharmacy().getName());
 					dto.setPrice(exam.getExamination().getExamType().getPrice());
-					dto.setStartDateTime(exam.getExamination().getInterval().getStartDateTime());
-					dto.setEndDateTime(exam.getExamination().getInterval().getEndDateTime());
+					dto.setStartDateTime(exam.getExamination().getInterval().getStartDateTime().toString());
+					dto.setEndDateTime(exam.getExamination().getInterval().getEndDateTime().toString());
+					dto.setStatus(e.getStatus().toString());
 					dtos.add(dto);
 				//}
 			//}
@@ -157,64 +159,16 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 			dto.setExaminationName(e.getExamination().getExamType().getName());
 			dto.setPharmacyName(e.getPharmacy().getName());
 			dto.setPrice(e.getExamination().getExamType().getPrice());
-			dto.setStartDateTime(e.getExamination().getInterval().getStartDateTime());
-			dto.setEndDateTime(e.getExamination().getInterval().getEndDateTime());
+			dto.setStartDateTime(e.getExamination().getInterval().getStartDateTime().toString());
+			dto.setEndDateTime(e.getExamination().getInterval().getEndDateTime().toString());
+			dto.setStatus(e.getExamination().getStatus().toString());
 			dtos.add(dto);
 		}
 		
 		return dtos;
 	}
 	
-	//kada su pregledi zavrseni 3.9
-	/*@Override
-	public List<ExaminationPriceDTO> getAllExaminationPricesSortedByPrice() {
-		Patient patient = patientService.getLoginPatient();
-		
-		if(patient == null) {
-			return null;
-		}
-		
-		
-		List<ExaminationPrice> prices = examinationPriceRepo.findByOrderByPrice();
-		List<ExaminationPrice> patientExaminations = new ArrayList<>();
-		List<ExaminationPriceDTO> dtos = new ArrayList<>();
-		
-		Set<Examination> examinations = patient.getExaminations();
-		
-		//proverava sve preglede i dodaje samo one koji su povezani sa datim pacijentom
-		/*try {
-			for(ExaminationPrice p : prices) {
-				if(p.getExamination().getPatient() != null) {
-					if(p.getExamination().getPatient() == patient) {
-						System.out.println(p.getExamination().getStatus());
-						if(p.getExamination().getStatus().equals(ExaminationStatus.DONE)) {
-							patientExaminations.add(p);
-						}
-					}
-				} else {
-					System.out.println("skip");
-				}
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-			//pretvaranje rezultata u dto modele
-		for(ExaminationPrice e : prices) { //patientExaminations
-			ExaminationPriceDTO dto = new ExaminationPriceDTO();
-			String idString = e.getId().toString();
-			Long id = Long.parseLong(idString);
-			dto.setId(id);
-			dto.setExaminationName(e.getExamination().getName());
-			dto.setPharmacyName(e.getPharmacy().getName());
-			dto.setPrice(e.getPrice());
-			dto.setStartDateTime(e.getExamination().getInterval().getStartDateTime());
-			dto.setEndDateTime(e.getExamination().getInterval().getEndDateTime());
-			dtos.add(dto);
-		}
-		
-		return dtos;
-	} */
+
 	
 	//kada su pregledi zavrseni
 	@Override
@@ -259,8 +213,9 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 			dto.setExaminationName(e.getExamination().getExamType().getName());
 			dto.setPharmacyName(e.getPharmacy().getName());
 			dto.setPrice(e.getExamination().getExamType().getPrice());
-			dto.setStartDateTime(e.getExamination().getInterval().getStartDateTime());
-			dto.setEndDateTime(e.getExamination().getInterval().getEndDateTime());
+			dto.setStartDateTime(e.getExamination().getInterval().getStartDateTime().toString());
+			dto.setEndDateTime(e.getExamination().getInterval().getEndDateTime().toString());
+			dto.setStatus(e.getExamination().getStatus().toString());
 			dtos.add(dto);
 		}
 		
@@ -277,31 +232,32 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 		}
 		
 		
-		List<ExaminationPrice> prices = examinationPriceRepo.findByOrderByPrice();
+		List<Examination> examinations = examinationRepo.findByPatientIdAndStatus(patient.getId(), ExaminationStatus.BOOKED);
 		List<ExaminationPrice> patientExaminations = new ArrayList<>();
 		List<ExaminationPriceDTO> dtos = new ArrayList<>();
 		
 		//proverava sve preglede i dodaje samo one koji su povezani sa datim pacijentom
-		for(ExaminationPrice p : prices) {
+		/*for(ExaminationPrice p : prices) {
 			if(p.getExamination().getPatient().getId() == patient.getId()) {
 				System.out.println(p.getExamination().getStatus());
 				if(p.getExamination().getStatus().equals(ExaminationStatus.BOOKED)) {
 					patientExaminations.add(p);
 				}
 			}
-		}
+		}*/
 		
 			//pretvaranje rezultata u dto modele
-		for(ExaminationPrice e : patientExaminations) {
+		for(Examination e : examinations) {
 			ExaminationPriceDTO dto = new ExaminationPriceDTO();
 			/*String idString = e.getId().toString();
 			Long id = Long.parseLong(idString);*/
-			dto.setExaminationId(e.getExamination().getId());
-			dto.setExaminationName(e.getExamination().getExamType().getName());
+			dto.setExaminationId(e.getId());
+			dto.setExaminationName(e.getExamType().getName());
 			dto.setPharmacyName(e.getPharmacy().getName());
-			dto.setPrice(e.getExamination().getExamType().getPrice());
-			dto.setStartDateTime(e.getExamination().getInterval().getStartDateTime());
-			dto.setEndDateTime(e.getExamination().getInterval().getEndDateTime());
+			dto.setPrice(e.getExamType().getPrice());
+			dto.setStartDateTime(e.getInterval().getStartDateTime().toString());
+			dto.setEndDateTime(e.getInterval().getEndDateTime().toString());
+			dto.setStatus(e.getStatus().toString());
 			dtos.add(dto);
 		}
 		
@@ -333,8 +289,9 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 				dto.setDermatologistName(e.getDermatologist().getFirstName() + " " + e.getDermatologist().getLastName());
 				dto.setDermatologistRating(e.getDermatologist().getRating());
 				dto.setPrice(e.getExamType().getPrice());
-				dto.setStartDateTime(e.getInterval().getStartDateTime());
-				dto.setEndDateTime(e.getInterval().getEndDateTime());
+				dto.setStartDateTime(e.getInterval().getStartDateTime().toString());
+				dto.setEndDateTime(e.getInterval().getEndDateTime().toString());
+				dto.setStatus(e.getStatus().toString());
 				dtos.add(dto);
 			//}
 		}
@@ -379,8 +336,10 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 				dto.setDermatologistRating(examination.getDermatologist().getRating());
 				dto.setPrice(examination.getExamType().getPrice());
 				dto.setExaminationName(examination.getExamType().getName());
-				dto.setStartDateTime(examination.getInterval().getStartDateTime());
-				dto.setEndDateTime(examination.getInterval().getEndDateTime());
+				dto.setStartDateTime(examination.getInterval().getStartDateTime().toString());
+				dto.setEndDateTime(examination.getInterval().getEndDateTime().toString());
+				dto.setStatus(examination.getStatus().toString());
+				
 				
 				//salje se email na mejl pacijenta
 				composeAndSendEmail(/*patient.getUsername()*/"dionizijm@gmail.com", dto.getExaminationName(), dto.getDermatologistName());
@@ -444,9 +403,9 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 				dto.setDermatologistRating(examination.getDermatologist().getRating());
 				dto.setPrice(examination.getExamType().getPrice());
 				dto.setExaminationName(examination.getExamType().getName());
-				dto.setStartDateTime(examination.getInterval().getStartDateTime());
-				dto.setEndDateTime(examination.getInterval().getEndDateTime());
-				
+				dto.setStartDateTime(examination.getInterval().getStartDateTime().toString());
+				dto.setEndDateTime(examination.getInterval().getEndDateTime().toString());
+				dto.setStatus(examination.getStatus().toString());
 				
 				//salje se email na mejl pacijenta
 				String subject = "Potvrda o otkazivanju pregleda";

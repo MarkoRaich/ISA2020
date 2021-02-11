@@ -26,5 +26,7 @@ public interface ExaminationRepository extends JpaRepository<Examination, Long>{
 			Long dermId, ExaminationStatus canceled, LocalDateTime greater, LocalDateTime less);
 
 	List<Examination> findByStatus(ExaminationStatus available);
+	
+	List<Examination> findByPatientIdAndStatus(Long patientId, ExaminationStatus booked);
 }
  

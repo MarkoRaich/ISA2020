@@ -14,9 +14,9 @@ public class ConsultationPriceAddressDTO {
 	
 	private double pharmacyRating;
 	
-    private LocalDateTime startDateTime;
+    private String startDateTime;
     
-    private LocalDateTime endDateTime;
+    private String endDateTime;
     
     private String pharmacyAddress;
     
@@ -29,7 +29,7 @@ public class ConsultationPriceAddressDTO {
 	}
 
 	public ConsultationPriceAddressDTO(Long consultationId, String consultationName, String pharmacyName, double price,
-			double pharmacyRating, LocalDateTime startDateTime, LocalDateTime endDateTime, String pharmacyAddress, String status) {
+			double pharmacyRating, String startDateTime, String endDateTime, String pharmacyAddress, String status) {
 		super();
 		this.consultationName = consultationName;
 		this.pharmacyName = pharmacyName;
@@ -74,19 +74,21 @@ public class ConsultationPriceAddressDTO {
 		this.pharmacyRating = pharmacyRating;
 	}
 
-	public LocalDateTime getStartDateTime() {
+
+
+	public String getStartDateTime() {
 		return startDateTime;
 	}
 
-	public void setStartDateTime(LocalDateTime startDateTime) {
+	public void setStartDateTime(String startDateTime) {
 		this.startDateTime = startDateTime;
 	}
 
-	public LocalDateTime getEndDateTime() {
+	public String getEndDateTime() {
 		return endDateTime;
 	}
 
-	public void setEndDateTime(LocalDateTime endDateTime) {
+	public void setEndDateTime(String endDateTime) {
 		this.endDateTime = endDateTime;
 	}
 

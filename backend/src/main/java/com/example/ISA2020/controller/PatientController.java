@@ -236,7 +236,7 @@ public class PatientController {
 	}
 	
 	
-	@GetMapping("/getAllExaminationsPredef") 
+	@GetMapping("/getAllExaminationsAvailabe") 
 	public ResponseEntity<List<ExaminationPriceDermatologistDTO>> getAllExaminationsAvailable() {
 		List<ExaminationPriceDermatologistDTO> dtos = examinationPriceService.getAllExaminationsAvailable();
 		if(dtos == null) {

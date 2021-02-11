@@ -21,6 +21,10 @@ import { PharmacyAdminGuard } from './guards/pharmacyAdmin.guard';
 
 import {EditPatientProfileComponent} from './components/edit-patient-profile/edit-patient-profile.component';
 import {ReservationComponent} from './components/reservation/reservation.component';
+import {ExaminationDerm} from './models/ExaminationDerm';
+import {ListExaminationsBookedComponent} from './components/list-examinations-booked/list-examinations-booked.component';
+import {ListExaminationsAvailableComponent} from './components/list-examinations-available/list-examinations-available.component';
+import {ListConsultationsBookedComponent} from './components/list-consultations-booked/list-consultations-booked.component';
 
 const routes: Routes = [
 
@@ -53,10 +57,6 @@ const routes: Routes = [
     path: 'error/non-authorized',
     component: NonAuthorizedComponent
   },
-  {
-    path: '**',
-    component: ErrorComponent,
-  },
 
 
   //***************** SVI KORISNICI*****************************
@@ -81,6 +81,27 @@ const routes: Routes = [
     path: 'patient/get-all-reservations-active',
     component: ReservationComponent
   },
+  {
+    path: 'patient/pharmacies',
+    component: PharmaciesComponent,
+  },
+
+  {
+    path: 'patient/all-examinations-booked',
+    component: ListExaminationsBookedComponent,
+  },
+
+  {
+    path: 'patient/all-examinations-available',
+    component: ListExaminationsAvailableComponent,
+  },
+
+  {
+    path: 'patient/all-consultations-booked',
+    component: ListConsultationsBookedComponent,
+  },
+
+
 
   //***************** PHARMACY ADMIN *****************
 
@@ -124,13 +145,9 @@ const routes: Routes = [
     path: 'pharmacy-admin/financial-report',
     component: FinancialReportComponent,
     canActivate: [PharmacyAdminGuard]
-  },
-  //***************** PATIENT *****************
-
-  {
-    path: 'patient/pharmacies',
-    component: PharmaciesComponent,
   }
+
+
 
 
 ];
