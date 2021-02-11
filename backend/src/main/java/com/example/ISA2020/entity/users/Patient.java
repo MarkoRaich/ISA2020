@@ -90,6 +90,7 @@ public class Patient implements UserDetails {
     //VEZE SA DRUGIM ENTITETIMA (TABELAMA U SMISLU BAZA)
 
     //lista lekova na koje je pacijent alergican
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
     		name = "patient_alergie",
@@ -98,19 +99,23 @@ public class Patient implements UserDetails {
     private Set<Drug> alergies = new HashSet<>();
 	
 	//jedan pacijent moze da napravi vise zalbi
+    @JsonIgnore
 	@OneToMany(mappedBy = "patient", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Complaint> complaints = new HashSet<>();
 	
 	
 	//Jedan pacijent moze da ima vise pregleda kod dermatologa
+    @JsonIgnore
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Examination> examinations = new HashSet<>();
 
 	//Jedan pacijent moze da ima vise konsultacija kod farmaceuta
+    @JsonIgnore
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Consultation> consultations = new HashSet<>();
 
 	//lista promocija na koje se pacijent pretplatio
+    @JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(
 			name = "patient_promotion",
@@ -120,19 +125,23 @@ public class Patient implements UserDetails {
 	
 	
 	//Jedan pacijent moze da napravi vise rezervacija leka 
+    @JsonIgnore
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Reservation> reservations = new HashSet<>();
 	
 	//Jedan pacijent moze da ima vise izdatih recepata
+    @JsonIgnore
 	@OneToMany(mappedBy = "patient", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Prescription> prescriptions =  new HashSet<>();
 	
 	
 	@OneToMany(mappedBy = "patient", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JsonIgnore
     private Set<Grade> grades = new HashSet<>();
 
 
 	//vezano za prava pristupa spring security
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
     		name = "patient_authority",

@@ -1,0 +1,123 @@
+<!-- page-header -->
+<div class="page-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-caption">
+          <h1 class="page-title">Moj profil</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- page-content -->
+<div class="card-section">
+  <div class="container">
+    <div class="card-block bg-white mb30">
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+          <!-- section-title -->
+          <div class="section-title mb-0">
+
+            <form [formGroup]="PatientForm" class="mat-elevation-z8 form">
+              <table class="form-full-width table-font" cellspacing="0">
+                <tr>
+                  <td class="first">Email</td>
+                  <td>{{loggedPatient.username}}</td>
+                </tr>
+                <br>
+                <tr>
+                  <td>Lozinka</td>
+                  <td><a mat-list-item routerLink="/user/change-password">Promeni lozinku</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><label>Ime</label></td>
+                  <td>
+                    <mat-form-field class="form-full-width-td">
+                      <input matInput formControlName="firstName">
+                      <i matSuffix class="material-icons">edit</i>
+                      <mat-error
+                        *ngIf="PatientForm.get('firstName').errors && PatientForm.get('firstName').errors['required']">
+                        Unesite Vaše ime.
+                      </mat-error>
+                      <mat-error
+                        *ngIf="PatientForm.get('firstName').errors && PatientForm.get('firstName').errors['maxlength']">
+                        Maksimalan broj slova je 30.
+                      </mat-error>
+
+                    </mat-form-field>
+                  </td>
+                <tr>
+                  <td><label>Prezime</label></td>
+                  <td>
+                    <mat-form-field class="form-full-width-td">
+                      <input matInput formControlName="lastName">
+                      <i matSuffix class="material-icons">edit</i>
+                      <mat-error
+                        *ngIf="PatientForm.get('lastName').errors && PatientForm.get('lastName').errors['required']">
+                        Unesite Vaše prezime.
+                      </mat-error>
+                      <mat-error
+                        *ngIf="PatientForm.get('lastName').errors && PatientForm.get('lastName').errors['maxlength']">
+                        Maksimalan broj slova je 30.
+                      </mat-error>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td><label>Adresa</label></td>
+                  <td>
+                    <mat-form-field class="form-full-width-td">
+                      <input matInput formControlName="address">
+                      <i matSuffix class="material-icons">edit</i>
+                      <mat-error
+                        *ngIf="PatientForm.get('address').errors && PatientForm.get('address').errors['required']">
+                        Unesite Vašu adresu.
+                      </mat-error>
+                      <mat-error
+                        *ngIf="PatientForm.get('lastName').errors && PatientForm.get('lastName').errors['maxlength']">
+                        Maksimalan broj slova je 30.
+                      </mat-error>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td><label>Broj telefona</label></td>
+                  <td>
+                    <mat-form-field class="form-full-width-td">
+                      <input matInput formControlName="phoneNumber">
+                      <i matSuffix class="material-icons">edit</i>
+                      <mat-error
+                        *ngIf="PatientForm.get('phoneNumber').errors && PatientForm.get('phoneNumber').errors['required']">
+                        Unesite Vaš broj telefona.
+                      </mat-error>
+                      <mat-error
+                        *ngIf="PatientForm.get('phoneNumber').errors && PatientForm.get('phoneNumber').errors['pattern']">
+                        Broj telefona ima samo brojeve.
+                      </mat-error>
+                      <mat-error
+                        *ngIf="PatientForm.get('phoneNumber').errors && (PatientForm.get('phoneNumber').errors['minlength']
+                                                || PatientForm.get('phoneNumber').errors && PatientForm.get('phoneNumber').errors['maxlength'])">
+                        Broj telefona ima iymedju 9 i 10 cifara.
+                      </mat-error>
+                    </mat-form-field>
+
+                  </td>
+                </tr>
+
+              </table>
+              <div align="end">
+                <button mat-raised-button color="primary" (click)="saveChanges()"
+                        [disabled]="!PatientForm.valid">Izmeni</button>
+              </div>
+            </form>
+          </div>
+          <!-- /.section-title -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.page-content -->

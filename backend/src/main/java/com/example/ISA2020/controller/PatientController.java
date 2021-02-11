@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,8 +43,8 @@ import com.example.ISA2020.service.PromotionService;
 import com.example.ISA2020.service.ReservationService;
 
 @RestController
-@CrossOrigin(origins = "*")
-@RequestMapping(value = "/api/auth/patient")
+//@CrossOrigin(origins = "*")
+@RequestMapping(value = "/api/patient", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PatientController {
 	
 	@Autowired
@@ -79,16 +80,17 @@ public class PatientController {
 		return new ResponseEntity<List<Patient>>(patients, HttpStatus.OK);
 	}
 	
-	@GetMapping("/getOne/{id}")
-	public ResponseEntity<Patient> getOne(@PathVariable Long id) {
-		Patient patient = patientService.findById(id);
+	@GetMapping("/{id}")
+	public ResponseEntity<PatientDTO> getOne(@PathVariable Long id) {
+		PatientDTO patient = patientService.findById(id);
 		if(patient == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<Patient>(patient, HttpStatus.OK);
+		return new ResponseEntity<PatientDTO>(patient, HttpStatus.OK);
 	}
 	
-	@PutMapping("/editInfo")
+	//@PutMapping("/editInfo")
+	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     //@PreAuthorize("hasRole('PATIENT')") //ROLE_PATIENT??
 	public ResponseEntity<PatientDTO> editPersonalInformation(@Valid @RequestBody EditPatientDTO editPatientDTO) {
 		PatientDTO patientDTO = patientService.editPersonalInformation(editPatientDTO);
@@ -231,6 +233,16 @@ public class PatientController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<List<PromotionDTO>>(dtos, HttpStatus.OK);
+	}
+	
+	
+	@GetMapping("/getAllExaminationsPredef") 
+	public ResponseEntity<List<ExaminationPriceDermatologistDTO>> getAllExaminationsAvailable() {
+		List<ExaminationPriceDermatologistDTO> dtos = examinationPriceService.getAllExaminationsAvailable();
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<ExaminationPriceDermatologistDTO>>(dtos, HttpStatus.OK);
 	}
 	
 	//3.13 -----------------------------------------------------------

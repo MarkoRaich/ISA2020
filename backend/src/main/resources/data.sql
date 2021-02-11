@@ -72,7 +72,7 @@ insert into date_time_interval (start_date_time, end_date_time) VALUES ('2018.08
 insert into date_time_interval (start_date_time, end_date_time) VALUES ('2018.10.22 08:00','2022.04.10 09:00');
 insert into date_time_interval (start_date_time, end_date_time) VALUES ('2020.12.01 08:00','2021.02.17 10:00');
 insert into date_time_interval (start_date_time, end_date_time) VALUES ('2020.12.01 08:00','2021.03.20 10:00');
---KRACI ZA PREGLEDE I SAVETOVANJA
+-- KRACI ZA PREGLEDE I SAVETOVANJA
 insert into date_time_interval (start_date_time, end_date_time) VALUES ('2021.2.20 08:00','2021.2.20 09:00');
 insert into date_time_interval (start_date_time, end_date_time) VALUES ('2021.2.15 14:00','2021.2.15 15:00');
 insert into date_time_interval (start_date_time, end_date_time) VALUES ('2021.2.3 08:00','2021.2.3 09:00');
@@ -158,12 +158,12 @@ INSERT INTO examination_type(name, description, price, pharmacy_id) VALUES ('Der
 INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 1, null, 0, 7, 1, 1);
 INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 2, null, 0, 7, 1, 2);
 INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 1, null, 0, 8, 1, 1); -- null za pacijenta
-INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 2, null, 2, 9, 3, 3); -- null ako je predefinisan
+INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 2,    1, 2, 9, 3, 3); -- null ako je predefinisan
 INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 3, 	  1, 3, 10, 2, 1);
 INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 2, 	  1, 4, 7, 3, 1);
 INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 1,    1, 4, 9, 2, 1);
-INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 3, null, 2, 9, 1, 2); -- postavlja se prilikom zakazivanja pregleda
-
+INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 3,    1, 2, 9, 1, 2); -- postavlja se prilikom zakazivanja pregleda
+INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 3, 	  1, 2, 8, 1, 3);
 
 
 -- SAVETOVANJA

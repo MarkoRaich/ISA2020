@@ -14,11 +14,11 @@
       </mat-nav-list>
 
       <mat-nav-list *ngIf="isPatient()">
-        <a mat-list-item routerLink="/patient-profile">Moj profil</a>
+        <a mat-list-item routerLink="/patient/edit-patient-profile">Moj profil</a>
         <a mat-list-item routerLink="/patient/pharmacies">Apoteke</a>
         <a mat-list-item routerLink="/patient-profile">Pregledi</a>
         <a mat-list-item routerLink="/patient-profile">Savetovanja</a>
-        <a mat-list-item routerLink="/patient-profile">Rezervisani lekovi</a>
+        <a mat-list-item routerLink="/patient/get-all-reservations-active">Rezervisani lekovi</a>
         <a mat-list-item routerLink="user/change-password">Promeni lozinku</a>
       </mat-nav-list>
 

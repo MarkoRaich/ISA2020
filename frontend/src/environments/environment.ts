@@ -9,7 +9,7 @@ export const environment = {
   hmr                 : false,
   itemsPerPage        : 5,
   baseUrl             : "http://localhost:8080",
-  
+
   login               : "/api/auth/login",
   register            : "/api/auth/register",
   changePassword      : "/api/auth",
@@ -21,7 +21,8 @@ export const environment = {
   dermatologist       : "/api/dermatologist",
   drugQ               : "/api/drug-quantity",
   examination         : "/api/examination",
-  examinationType     : "/api/examination-type"
+  examinationType     : "/api/examination-type",
+  patient             : "/api/patient"
 };
 
 /*

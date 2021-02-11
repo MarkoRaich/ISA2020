@@ -13,7 +13,8 @@ import { UserChangePasswordComponent } from './components/user-change-password/u
 import { ListDermatologistsComponent } from './components/list-dermatologists/list-dermatologists.component';
 import { ListExaminationsComponent } from './components/list-examinations/list-examinations.component';
 import {PharmaciesComponent} from './components/pharmacies/pharmacies.component';
-
+import {EditPatientProfileComponent} from './components/edit-patient-profile/edit-patient-profile.component';
+import {ReservationComponent} from './components/reservation/reservation.component';
 
 const routes: Routes = [
 
@@ -50,6 +51,14 @@ const routes: Routes = [
     path: 'patient',
     component: PatientProfileComponent,
     pathMatch: 'full'
+  },
+  {
+    path: 'patient/edit-patient-profile',
+    component: EditPatientProfileComponent
+  },
+  {
+    path: 'patient/get-all-reservations-active',
+    component: ReservationComponent
   },
 
   //***************** PHARMACY ADMIN *****************

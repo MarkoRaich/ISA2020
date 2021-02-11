@@ -17,15 +17,12 @@ public class EditPatientDTO {
 	@Size(message = "Max size for last name is 30.", max = 30)
     private String lastName;
 
-	@NotEmpty(message = "Address is empty.")
-    private String address;
-    
-    @NotEmpty(message = "City is empty.")
-    private String city;
-
     @NotEmpty(message = "Phone number is empty.")
     @Size(min = 9, max = 10)
     private String phoneNumber;
+    
+	@NotEmpty(message = "Address is empty.")
+    private String address;
     
     
 
@@ -33,19 +30,17 @@ public class EditPatientDTO {
 		super();
 	}
 
-	public EditPatientDTO(Long id, String firstName, String lastName, String address, String city,
-			String phoneNumber) {
+	public EditPatientDTO(Long id, String firstName, String lastName, String phoneNumber, String address) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.address = address;
-		this.city = city;
 		this.phoneNumber = phoneNumber;
+		this.address = address;
 	}
 	
 	public EditPatientDTO(Patient p) {
-		this(p.getId(), p.getFirstName(), p.getLastName(), p.getAddress(), p.getCity(), p.getPhoneNumber());
+		this(p.getId(), p.getFirstName(), p.getLastName(), p.getPhoneNumber(), p.getAddress());
 	}
 
 	public Long getId() {
@@ -80,13 +75,6 @@ public class EditPatientDTO {
 		this.address = address;
 	}
 
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
 
 	public String getPhoneNumber() {
 		return phoneNumber;

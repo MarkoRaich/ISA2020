@@ -106,6 +106,14 @@ public class GradeServiceImpl implements GradeService {
 		Integer numberOfGrades = drugGrades.size();
 		Double numberOfGradesDouble = (double)numberOfGrades;
 		
+
+		if(numberOfGradesDouble == 0.0) {
+			numberOfGradesDouble = 2.0;
+		}
+		
+		Double newGrade = 0.0;
+		Double sum = 0.0;
+		
 		if(status) {
 			Grade drugGrade = new Grade();
 			drugGrade.setPatient(patient);
@@ -120,15 +128,18 @@ public class GradeServiceImpl implements GradeService {
 			if(oldGrade == null) {
 				oldGrade = 0.0;
 			}
-			Double newGrade;
-			Double sum;
+
 			if(oldGrade == 0) {
 				newGrade = grade;
 				drug.setRating(newGrade);
 				drugRepo.save(drug);
 			} else {
-				sum = oldGrade + grade;
+				System.out.println("else");
+				sum += oldGrade;
+				sum += grade;
+				System.out.println("sum = " + sum);
 				newGrade = sum/numberOfGradesDouble;
+				System.out.println("newGrade = " + newGrade);
 				drug.setRating(newGrade);
 				drugRepo.save(drug);
 			}
@@ -209,6 +220,14 @@ public class GradeServiceImpl implements GradeService {
 		List<Grade> pharmacyGrades = gradeRepo.findByPharmacyId(pharmacy.getId());
 		Integer numberOfGrades = pharmacyGrades.size();
 		Double numberOfGradesDouble = (double)numberOfGrades;
+
+
+		if(numberOfGradesDouble == 0.0) {
+			numberOfGradesDouble = 2.0;
+		}
+		
+		Double newGrade = 0.0;
+		Double sum = 0.0;
 		
 		if(status) {
 			Grade pharmacyGrade = new Grade();
@@ -224,18 +243,22 @@ public class GradeServiceImpl implements GradeService {
 			if(oldGrade == null) {
 				oldGrade = 0.0;
 			}
-			Double newGrade;
-			Double sum;
+
 			if(oldGrade == 0) {
 				newGrade = grade;
 				pharmacy.setRating(newGrade);
 				pharmacyRepo.save(pharmacy);
 			} else {
-				sum = oldGrade + grade;
+				System.out.println("else");
+				sum += oldGrade;
+				sum += grade;
+				System.out.println("sum = " + sum);
 				newGrade = sum/numberOfGradesDouble;
+				System.out.println("newGrade = " + newGrade);
 				pharmacy.setRating(newGrade);
 				pharmacyRepo.save(pharmacy);
 			}
+			
 
 			gradeRepo.save(pharmacyGrade);
 			
@@ -294,8 +317,35 @@ public class GradeServiceImpl implements GradeService {
 		List<Grade> dermatologistGrades = gradeRepo.findByDermatologistId(dermatologist.getId());
 		Integer numberOfGrades = dermatologistGrades.size();
 		Double numberOfGradesDouble = (double)numberOfGrades;
+
+		if(numberOfGradesDouble == 0.0) {
+			numberOfGradesDouble = 2.0;
+		}
 		
 		if(status) {
+			
+			//proverava koliko ima ocena za taj lek i postavlja novu prosecnu ocenu leka
+			Double oldGrade = dermatologist.getRating();
+			if(oldGrade == null) {
+				oldGrade = 0.0;
+			}
+			Double newGrade = 0.0;
+			Double sum = 0.0;
+			if(oldGrade == 0) {
+				newGrade = grade;
+				dermatologist.setRating(newGrade);
+				dermatologistRepo.save(dermatologist);
+			} else {
+				System.out.println("else");
+				sum += oldGrade;
+				sum += grade;
+				System.out.println("sum = " + sum);
+				newGrade = sum/numberOfGradesDouble;
+				System.out.println("newGrade = " + newGrade);
+				dermatologist.setRating(newGrade);
+				dermatologistRepo.save(dermatologist);
+			}
+			
 			Grade dermatologistGrade = new Grade();
 			dermatologistGrade.setPatient(patient);
 			dermatologistGrade.setGrade(grade);
@@ -303,24 +353,6 @@ public class GradeServiceImpl implements GradeService {
 			dermatologistGrade.setDermatologist(dermatologist);
 			dermatologistGrade.setPharmacist(null);
 			dermatologistGrade.setPharmacy(null);
-			
-			//proverava koliko ima ocena za taj lek i postavlja novu prosecnu ocenu leka
-			Double oldGrade = dermatologist.getRating();
-			if(oldGrade == null) {
-				oldGrade = 0.0;
-			}
-			Double newGrade;
-			Double sum;
-			if(oldGrade == 0) {
-				newGrade = grade;
-				dermatologist.setRating(newGrade);
-				dermatologistRepo.save(dermatologist);
-			} else {
-				sum = oldGrade + grade;
-				newGrade = sum/numberOfGradesDouble;
-				dermatologist.setRating(newGrade);
-				dermatologistRepo.save(dermatologist);
-			}
 
 			gradeRepo.save(dermatologistGrade);
 			
@@ -380,8 +412,36 @@ public class GradeServiceImpl implements GradeService {
 		List<Grade> pharmacistGrades = gradeRepo.findByPharmacistId(pharmacist.getId());
 		Integer numberOfGrades = pharmacistGrades.size();
 		Double numberOfGradesDouble = (double)numberOfGrades;
+		if(numberOfGradesDouble == 0.0) {
+			numberOfGradesDouble = 2.0;
+		}
 		
 		if(status) {
+			
+			//proverava koliko ima ocena za taj lek i postavlja novu prosecnu ocenu leka
+			Double oldGrade = pharmacist.getRating();
+			System.out.println(pharmacist.getRating());
+			if(oldGrade == null) {
+				oldGrade = 0.0;
+			}
+			Double newGrade = 0.0;
+			Double sum = 0.0;
+			if(oldGrade == 0.0) {
+				System.out.println(pharmacist.getRating() + " je 0!");
+				newGrade = grade;
+				pharmacist.setRating(newGrade);
+				pharmacistRepo.save(pharmacist);
+			} else {
+				System.out.println("else");
+				sum += oldGrade;
+				sum += grade;
+				System.out.println("sum = " + sum);
+				newGrade = sum/numberOfGradesDouble;
+				System.out.println("newGrade = " + newGrade);
+				pharmacist.setRating(newGrade);
+				pharmacistRepo.save(pharmacist);
+			}
+			
 			Grade pharmacistGrade = new Grade();
 			pharmacistGrade.setPatient(patient);
 			pharmacistGrade.setGrade(grade);
@@ -389,24 +449,6 @@ public class GradeServiceImpl implements GradeService {
 			pharmacistGrade.setDermatologist(null);
 			pharmacistGrade.setPharmacist(pharmacist);
 			pharmacistGrade.setPharmacy(null);
-			
-			//proverava koliko ima ocena za taj lek i postavlja novu prosecnu ocenu leka
-			Double oldGrade = pharmacist.getRating();
-			if(oldGrade == null) {
-				oldGrade = 0.0;
-			}
-			Double newGrade;
-			Double sum;
-			if(oldGrade == 0) {
-				newGrade = grade;
-				pharmacist.setRating(newGrade);
-				pharmacistRepo.save(pharmacist);
-			} else {
-				sum = oldGrade + grade;
-				newGrade = sum/numberOfGradesDouble;
-				pharmacist.setRating(newGrade);
-				pharmacistRepo.save(pharmacist);
-			}
 
 			gradeRepo.save(pharmacistGrade);
 			
@@ -414,14 +456,13 @@ public class GradeServiceImpl implements GradeService {
 			dto.setId(pharmacistGrade.getId());
 			dto.setFirstName(pharmacist.getFirstName());
 			dto.setLastName(pharmacist.getLastName());
-			dto.setGrade(grade);
+			dto.setGrade(newGrade);
 			
 			
 			return dto;
 		}
 		
 		return null;
-
 	}
 
 }

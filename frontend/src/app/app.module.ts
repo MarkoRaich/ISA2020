@@ -34,6 +34,8 @@ import { AddDermatologistComponent } from './components/add-dermatologist/add-de
 import { ListExaminationsComponent } from './components/list-examinations/list-examinations.component';
 import { AddExaminationComponent } from './components/add-examination/add-examination.component';
 import { PharmaciesComponent } from './components/pharmacies/pharmacies.component';
+import { EditPatientProfileComponent } from './components/edit-patient-profile/edit-patient-profile.component';
+import { ReservationComponent } from './components/reservation/reservation.component';
 
 //import { ErrorInterceptor } from './interceptors/error.interceptor';
 
@@ -63,6 +65,8 @@ import { PharmaciesComponent } from './components/pharmacies/pharmacies.componen
     ListExaminationsComponent,
     AddExaminationComponent,
     PharmaciesComponent,
+    EditPatientProfileComponent,
+    ReservationComponent,
   ],
   imports: [
     BrowserModule,

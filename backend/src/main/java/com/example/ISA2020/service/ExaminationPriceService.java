@@ -30,4 +30,7 @@ public interface ExaminationPriceService {
 	List<ExaminationPriceDTO> getAllExaminationPricesSortedByPriceBooked();
 	
 	List<ExaminationPriceDTO> getAllExaminationPricesSortedByDateBooked();
+
+
+	List<ExaminationPriceDermatologistDTO> getAllExaminationsAvailable();
 }

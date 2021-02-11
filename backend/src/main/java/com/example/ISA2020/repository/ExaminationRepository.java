@@ -25,5 +25,6 @@ public interface ExaminationRepository extends JpaRepository<Examination, Long>{
 	List<Examination> findByDermatologistIdAndStatusNotAndIntervalStartDateTimeGreaterThanEqualAndIntervalStartDateTimeLessThan(
 			Long dermId, ExaminationStatus canceled, LocalDateTime greater, LocalDateTime less);
 
+	List<Examination> findByStatus(ExaminationStatus available);
 }
  
