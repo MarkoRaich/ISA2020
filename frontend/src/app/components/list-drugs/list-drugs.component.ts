@@ -9,6 +9,7 @@ import { DrugWithQuantity } from 'src/app/models/drugWithQuantity';
 import { DrugService } from 'src/app/services/drug.service';
 import { environment } from 'src/environments/environment';
 import { AddDrugInPharmacyComponent } from '../add-drug-in-pharmacy/add-drug-in-pharmacy.component';
+import { ChangeDrugQuantityComponent } from '../change-drug-quantity/change-drug-quantity.component';
 
 @Component({
   selector: 'app-list-drugs',
@@ -38,7 +39,14 @@ export class ListDrugsComponent implements OnInit {
       () => {
         this.getDrugsWithQuantityForPharmacy();
       }
-    )
+    );
+
+    this.addDrugSuccess =  this.drugService.changeSuccessEmitter.subscribe(
+      () => {
+        this.getDrugsWithQuantityForPharmacy();
+      }
+    );
+
   }
 
   
@@ -79,7 +87,14 @@ export class ListDrugsComponent implements OnInit {
   }
 
   changeDrugQ(drug : DrugWithQuantity){
-    
+    this.dialog.open(ChangeDrugQuantityComponent, {
+      data: {
+        quantity: drug.quantity,
+        id: drug.id,
+        name: drug.name,
+        code: drug.code
+      }
+    });
   }
 
 

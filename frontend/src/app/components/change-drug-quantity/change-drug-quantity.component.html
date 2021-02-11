@@ -1,1 +1,21 @@
-<p>change-drug-quantity works!</p>
+<h1 class="primary">Dodaj lek</h1>
+<mat-dialog-content class="dialog-class">
+    <form [formGroup]="changeDrugForm" class="form-full-width">
+            <mat-form-field class="form-full-width-td ml-2">
+                <input matInput type="number" placeholder="Kolicina" formControlName="quantity">
+                <mat-error
+                    *ngIf="changeDrugForm.get('quantity').errors && changeDrugForm.get('quantity').errors['required']">
+                    Unesite količinu.
+                </mat-error>
+                <mat-error
+                    *ngIf="changeDrugForm.get('quantity').errors && changeDrugForm.get('quantity').errors['min']">
+                    Minimalna količina je 1.
+                </mat-error>
+            </mat-form-field>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="mt-2 mb-1">
+<button mat-raised-button color="primary" (click)="change()" [disabled]="!changeDrugForm.valid">Izmeni</button>
+</mat-dialog-actions>
+

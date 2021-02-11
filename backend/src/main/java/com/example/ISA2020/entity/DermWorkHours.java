@@ -9,13 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import com.example.ISA2020.entity.users.Dermatologist;
@@ -24,6 +20,16 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class DermWorkHours {
+	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+	@MapsId("dermatologistId")
+	@JoinColumn(name = "dermatologist_id", referencedColumnName = "id")
+	private Dermatologist dermatologist;
+	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+	@MapsId("pharmacyId")
+	@JoinColumn(name = "pharmacy_id", referencedColumnName = "id")
+	private Pharmacy pharmacy;
 	
 	@EmbeddedId
 	private DermPharmWorkKey id;
@@ -43,15 +49,7 @@ public class DermWorkHours {
 	private EntityStatus status;
 	
 	
-	@ManyToOne
-	@MapsId("dermatologistId")
-	@JoinColumn(name = "dermatologist_id", referencedColumnName = "id")
-	private Dermatologist dermatologist;
-	
-	@ManyToOne
-	@MapsId("pharmacyId")
-	@JoinColumn(name = "pharmacy_id", referencedColumnName = "id")
-	private Pharmacy pharmacy;
+
 	
 	
 	public DermWorkHours() {}
@@ -59,10 +57,10 @@ public class DermWorkHours {
 	
 
 
-	public DermWorkHours(DermPharmWorkKey id, @NotNull LocalTime timeFrom, @NotNull LocalTime timeTo,
+	public DermWorkHours( DermPharmWorkKey id, @NotNull LocalTime timeFrom, @NotNull LocalTime timeTo,
 			EntityStatus status, Dermatologist dermatologist, Pharmacy pharmacy) {
 		super();
-		this.id = id;
+		this.id=id;
 		this.timeFrom = timeFrom;
 		this.timeTo = timeTo;
 		this.status = status;
@@ -134,7 +132,7 @@ public class DermWorkHours {
 
 
 
-
+	//metoda za poveru da li je termin slobodan ili za ubacivanje dermatologa u apoteku da radi 
 	public boolean isAvailable(LocalTime startExaminationTime, LocalTime endExaminationTime) {
 		
 		if(( startExaminationTime.isAfter(timeFrom) || startExaminationTime.equals(timeFrom)) && startExaminationTime.isBefore(timeTo)) { //pocinje tacno ili posle pocetka RV i pre kraja
@@ -143,6 +141,15 @@ public class DermWorkHours {
 			}
 		}
 		return false;
+	}
+
+
+
+
+	@Override
+	public String toString() {
+		return "DermWorkHours [id=" + id + ", timeFrom=" + timeFrom + ", timeTo=" + timeTo + ", status=" + status
+				+ ", dermatologist=" + dermatologist + ", pharmacy=" + pharmacy + "]";
 	}
 	
 	

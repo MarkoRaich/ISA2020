@@ -1,7 +1,5 @@
 package com.example.ISA2020.service.Impl;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;

@@ -34,8 +34,9 @@ export class ListDermatologistsComponent implements OnInit {
               public toastr: ToastrService) { }
 
   ngOnInit() {
-    this.getDermatologistsForAdmin();
 
+    this.getDermatologistsForAdmin();
+    
     this.successCreatedDermatologist = this.dermatologistService.createSuccessEmitter.subscribe(
       () =>{
         this.getDermatologistsForAdmin();

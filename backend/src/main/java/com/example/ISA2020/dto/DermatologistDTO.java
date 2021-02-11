@@ -75,6 +75,8 @@ public class DermatologistDTO {
 			 dermatologist.getFirstName(),
 			 dermatologist.getLastName(),
 			 dermatologist.getPhoneNumber());
+		
+		
 	}
 
 

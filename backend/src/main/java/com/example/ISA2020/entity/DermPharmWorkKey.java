@@ -14,6 +14,38 @@ public class DermPharmWorkKey implements Serializable {
 	@Column(name = "dermatologist_id")
 	Long dermatologistId;
 
+	
+	
+	
+	
+	public DermPharmWorkKey() {
+		super();
+	}
+
+	
+	public DermPharmWorkKey(Long pharmacyId, Long dermatologistId) {
+		super();
+		this.pharmacyId = pharmacyId;
+		this.dermatologistId = dermatologistId;
+	}
+
+	
+	public Long getPharmacyId() {
+		return pharmacyId;
+	}
+
+	public void setPharmacyId(Long pharmacyId) {
+		this.pharmacyId = pharmacyId;
+	}
+
+	public Long getDermatologistId() {
+		return dermatologistId;
+	}
+
+	public void setDermatologistId(Long dermatologistId) {
+		this.dermatologistId = dermatologistId;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -44,6 +76,8 @@ public class DermPharmWorkKey implements Serializable {
 			return false;
 		return true;
 	}
+
+	
 	
 	
 

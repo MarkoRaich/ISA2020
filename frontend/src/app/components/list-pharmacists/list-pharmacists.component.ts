@@ -34,6 +34,7 @@ export class ListPharmacistsComponent implements OnInit {
               public toastr: ToastrService) { }
 
   ngOnInit() {
+    
     this.getPharmacistsForAdmin();
 
     this.successCreatedPharmacist = this.pharmacistService.createSuccessEmitter.subscribe(

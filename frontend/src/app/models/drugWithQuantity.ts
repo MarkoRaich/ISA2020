@@ -8,11 +8,11 @@ export class DrugWithQuantity {
     quantity: number;
     pharmacy: Pharmacy
 
-    constructor( name: string, code: string, quantity: number, pharmacy?: Pharmacy, id?: number ){
+    constructor( name: string, code: string, quantity: number, id?: number, pharmacy?: Pharmacy  ){
         this.name=name;
         this.code=code;
         this.quantity=quantity;
-        this.pharmacy=pharmacy;
         this.id = id;
+        this.pharmacy=pharmacy;
     }
 }

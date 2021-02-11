@@ -6,6 +6,9 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import javax.validation.Valid;
+
 import java.time.LocalTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +18,12 @@ import com.example.ISA2020.repository.DermWorkHoursRepository;
 import com.example.ISA2020.repository.DermatologistRepository;
 import com.example.ISA2020.repository.PharmacyRepository;
 import com.example.ISA2020.dto.DermatologistDTO;
+import com.example.ISA2020.entity.DermPharmWorkKey;
 import com.example.ISA2020.entity.DermWorkHours;
 import com.example.ISA2020.entity.Examination;
 import com.example.ISA2020.entity.Pharmacy;
 import com.example.ISA2020.entity.users.Dermatologist;
+import com.example.ISA2020.entity.users.PharmacyAdmin;
 import com.example.ISA2020.enumeration.EntityStatus;
 import com.example.ISA2020.enumeration.ExaminationStatus;
 import com.example.ISA2020.enumeration.UserStatus;
@@ -94,6 +99,36 @@ public class DermatologistServiceImpl implements DermatologistService{
 		return dermsDTO;
 	}
 	
+	
+	@Override
+	public List<DermatologistDTO> findAllDermatologistsNotInPharmacy(Pharmacy pharmacy) {
+		
+		List<DermatologistDTO> dermsDTO = new ArrayList<DermatologistDTO>(); //lista za vracanje
+		
+		List<Dermatologist> derms = dermatologistRepository.findByStatus(UserStatus.ACTIVE); //lista svih aktivnih dermatologa u bazi
+		
+		Set<DermWorkHours> dermWorkHours = pharmacy.getDermsWithWorkHours(); //lista radnih vremena u apoteci
+		
+		
+		for(Dermatologist derm : derms) {
+			boolean worksInPharmacy = false;
+			
+			for(DermWorkHours dermWH: dermWorkHours) {
+				if(dermWH.getDermatologist().getId() == derm.getId()) {
+					worksInPharmacy = true;
+				}
+			}
+			
+			if(!worksInPharmacy) {
+			 dermsDTO.add(new DermatologistDTO(derm));
+			}
+			
+		}
+		return dermsDTO;
+	}
+	
+	
+	
 	@Override
 	public List<DermatologistDTO> getAllAvailableDermatologists(Pharmacy pharmacy, String startDateTime, String endDateTime) {
 		
@@ -143,7 +178,39 @@ public class DermatologistServiceImpl implements DermatologistService{
 		  return true;
 		  
 	}
+	
+	  
+	  
+	@Override
+	public DermatologistDTO addDermatologistToPharmacy(@Valid DermatologistDTO dermatologistDTO, PharmacyAdmin pharmacyAdmin) {
+		
+		Dermatologist derm = dermatologistRepository.findOneById(dermatologistDTO.getId());
+		
+		LocalTime workHoursFrom = LocalTime.parse(dermatologistDTO.getWorkHoursFrom(), DateTimeFormatter.ofPattern("HH:mm"));
+	    LocalTime workHoursTo = LocalTime.parse(dermatologistDTO.getWorkHoursTo(), DateTimeFormatter.ofPattern("HH:mm"));
+	    
+	    
+		//provera da li dermatolog radi u drugim apotekama i da li se radna vremena preklapaju
+		List<DermWorkHours> dermWHs = dermWorkHourRepository.findByDermatologistIdAndStatusNot(dermatologistDTO.getId(), EntityStatus.DELETED); //lista dermatologovih radnih vremea u apotekama
+		for(DermWorkHours temp : dermWHs) {
+			if(temp.isAvailable(workHoursFrom, workHoursTo  ) ) {
+				return null;
+			}
+		}
+		
+	    DermWorkHours newDermWorkours = new DermWorkHours(new DermPharmWorkKey(), workHoursFrom, workHoursTo, EntityStatus.ACTIVE, derm, pharmacyAdmin.getPharmacy());
 
+		
+		derm.getWorkHours().add(newDermWorkours);
+		dermatologistRepository.save(derm);
+		
+		pharmacyAdmin.getPharmacy().getDermsWithWorkHours().add(newDermWorkours);
+		pharmacyRepository.save(pharmacyAdmin.getPharmacy());
+	
+		
+		dermWorkHourRepository.save(newDermWorkours);
+		return dermatologistDTO;
+	}
 	
 	
 	@Override
@@ -239,7 +306,6 @@ public class DermatologistServiceImpl implements DermatologistService{
 	        return dermatologistDTOs;
 		
 	}
-
 
 
 }

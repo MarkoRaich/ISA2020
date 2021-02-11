@@ -34,6 +34,13 @@ import { AddDermatologistComponent } from './components/add-dermatologist/add-de
 import { ListExaminationsComponent } from './components/list-examinations/list-examinations.component';
 import { AddExaminationComponent } from './components/add-examination/add-examination.component';
 import { PharmaciesComponent } from './components/pharmacies/pharmacies.component';
+import { FinancialReportComponent } from './components/financial-report/financial-report.component';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { PharmacyAdminGuard } from './guards/pharmacyAdmin.guard';
+import { PatientGuard } from './guards/patient.guard';
+import { NonAuthorizedComponent } from './components/non-authorized/non-authorized.component';
+import { NonAuthenticatedComponent } from './components/non-authenticated/non-authenticated.component';
+import { ErrorComponent } from './components/error/error.component';
 
 //import { ErrorInterceptor } from './interceptors/error.interceptor';
 
@@ -63,6 +70,10 @@ import { PharmaciesComponent } from './components/pharmacies/pharmacies.componen
     ListExaminationsComponent,
     AddExaminationComponent,
     PharmaciesComponent,
+    FinancialReportComponent,
+    NonAuthorizedComponent,
+    NonAuthenticatedComponent,
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,8 +94,11 @@ import { PharmaciesComponent } from './components/pharmacies/pharmacies.componen
     MatInputModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
-    //{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    PharmacyAdminGuard,
+    PatientGuard
+    
   ],
   bootstrap: [AppComponent]
 })

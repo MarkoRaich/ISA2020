@@ -16,12 +16,12 @@ public class DrugQuantity {
     @Min(0)
     private int quantity;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
 	@MapsId("drugId")
 	@JoinColumn(name = "drug_id", referencedColumnName = "id")
 	private Drug drug;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     @MapsId("pharmacyId")
 	@JoinColumn(name = "pharmacy_id", referencedColumnName = "id")
     private Pharmacy pharmacy;
@@ -37,12 +37,13 @@ public class DrugQuantity {
 	}
 
 
-	public DrugQuantity(Pharmacy pharmacy, Drug drug, int quantity, EntityStatus status) {
+	public DrugQuantity(PharmDrugQuantityKey id, Pharmacy pharmacy, Drug drug, int quantity, EntityStatus status) {
 		super();
 		this.pharmacy = pharmacy;
 		this.drug = drug;
 		this.quantity = quantity;
 		this.status = status;
+		this.id=id;
 	}
 
 	//GETERI I SETERI
@@ -93,6 +94,13 @@ public class DrugQuantity {
 
 	public void setStatus(EntityStatus status) {
 		this.status = status;
+	}
+
+
+	@Override
+	public String toString() {
+		return "DrugQuantity [id=" + id + ", quantity=" + quantity + ", drug=" + drug + ", pharmacy=" + pharmacy
+				+ ", status=" + status + "]";
 	}
 
 }

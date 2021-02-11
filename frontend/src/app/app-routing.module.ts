@@ -13,6 +13,11 @@ import { UserChangePasswordComponent } from './components/user-change-password/u
 import { ListDermatologistsComponent } from './components/list-dermatologists/list-dermatologists.component';
 import { ListExaminationsComponent } from './components/list-examinations/list-examinations.component';
 import {PharmaciesComponent} from './components/pharmacies/pharmacies.component';
+import { FinancialReportComponent } from './components/financial-report/financial-report.component';
+import { NonAuthorizedComponent } from './components/non-authorized/non-authorized.component';
+import { NonAuthenticatedComponent } from './components/non-authenticated/non-authenticated.component';
+import { ErrorComponent } from './components/error/error.component';
+import { PharmacyAdminGuard } from './guards/pharmacyAdmin.guard';
 
 
 const routes: Routes = [
@@ -36,6 +41,21 @@ const routes: Routes = [
     component: RegisterComponent,
     pathMatch: 'full'
   },
+  //***************** GRESKE i PRAVA PRISTUPA******************************
+
+  {
+    path: 'error/non-authenticated',
+    component: NonAuthenticatedComponent,
+  },
+  {
+    path: 'error/non-authorized',
+    component: NonAuthorizedComponent
+  },
+  {
+    path: '**',
+    component: ErrorComponent,
+  },
+
 
   //***************** SVI KORISNICI*****************************
 
@@ -56,32 +76,44 @@ const routes: Routes = [
 
   {
     path: 'pharmacy-admin/edit-pharmacy-profile',
-    component: EditPharmacyProfileComponent
+    component: EditPharmacyProfileComponent,
+    canActivate: [PharmacyAdminGuard]
   },
 
   {
     path: 'pharmacy-admin/edit-admin-profile',
-    component: EditPharmAdminProfileComponent
+    component: EditPharmAdminProfileComponent,
+    canActivate: [PharmacyAdminGuard]
   },
 
   {
     path: 'pharmacy-admin/list-pharmacists',
-    component: ListPharmacistsComponent
+    component: ListPharmacistsComponent,
+    canActivate: [PharmacyAdminGuard]
   },
 
   {
     path: 'pharmacy-admin/list-dermatologists',
-    component: ListDermatologistsComponent
+    component: ListDermatologistsComponent,
+    canActivate: [PharmacyAdminGuard]
   },
 
   {
     path: 'pharmacy-admin/list-drugs',
-    component: ListDrugsComponent
+    component: ListDrugsComponent,
+    canActivate: [PharmacyAdminGuard]
   },
 
   {
     path: 'pharmacy-admin/examinations',
-    component : ListExaminationsComponent
+    component : ListExaminationsComponent,
+    canActivate: [PharmacyAdminGuard]
+  },
+
+  {
+    path: 'pharmacy-admin/financial-report',
+    component: FinancialReportComponent,
+    canActivate: [PharmacyAdminGuard]
   },
   //***************** PATIENT *****************
 

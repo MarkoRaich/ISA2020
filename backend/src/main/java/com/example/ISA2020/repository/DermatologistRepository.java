@@ -26,5 +26,7 @@ public interface DermatologistRepository extends JpaRepository<Dermatologist, Lo
 	
 	List<Dermatologist> findByOrderByRating();
 
+	List<Dermatologist> findByStatus(UserStatus status);
+
 	//List<Dermatologist> findByPharmacyIdAndStatusNot(Long pharmId, UserStatus deleted);
 }

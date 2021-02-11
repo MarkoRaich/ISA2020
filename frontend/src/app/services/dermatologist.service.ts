@@ -10,9 +10,6 @@ import { Dermatologist } from "../models/dermatologist";
 })
 export class DermatologistService {
  
- 
-   
-
     url = environment.baseUrl + environment.dermatologist;
 
     dermatologistsForAdmin: BehaviorSubject<Dermatologist[]> = new BehaviorSubject<Dermatologist[]>([]);
@@ -40,7 +37,20 @@ export class DermatologistService {
         return this.http.get(this.url + "/available", { params: params });
       }
 
-
+      getOtherDermatologists() {
+        this.http.get(this.url + "/other").subscribe(
+          (data : Dermatologist[]) => {
+              this.dermatologistsForAdmin.next(data);
+          },
+          (error: Dermatologist) => {}
+        );
+      return this.dermatologistsForAdmin.asObservable();
+      }
+     
+      addDermatologistToPharmacy(derm: Dermatologist) {
+        return this.http.post(this.url, derm);
+      }
+       
       deleteDermatologist(id: number) {
         return this.http.delete(this.url + '/' + id);
       }

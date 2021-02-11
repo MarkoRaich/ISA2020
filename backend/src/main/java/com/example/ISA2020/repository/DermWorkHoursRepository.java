@@ -13,4 +13,10 @@ public interface DermWorkHoursRepository extends JpaRepository<DermWorkHours, Lo
 
 	DermWorkHours findByPharmacyIdAndDermatologistId(Long pharmacyId, Long id);
 
+	List<DermWorkHours> findByPharmacyIdNotAndStatusNot(Long id, EntityStatus status);
+
+	List<DermWorkHours> findByDermatologistIdAndStatusNot(Long id, EntityStatus status);
+
+	List<DermWorkHours> findByStatus(EntityStatus status);
+
 }

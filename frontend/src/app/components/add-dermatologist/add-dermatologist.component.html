@@ -1,1 +1,45 @@
-<p>add-dermatologist works!</p>
+<h1 mat-dialog-title>Dodavanje dermatologa u apoteku</h1>
+<mat-dialog-content class="dialog-class">
+    <form [formGroup]="addDermatologistForm" class="form-full-width">  
+        <mat-form-field class="form-full-width">
+            <mat-label>Dermatolozi</mat-label>
+            <mat-select formControlName="dermatologist">
+                <mat-option>None</mat-option>
+                <mat-option *ngFor="let derm of derms" [value]="derm">
+                    {{derm.firstName}} {{derm.lastName}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <h6 class="form-full-width mt-2">Radno vreme</h6>
+        <table class="form-full-width mt-3" cellspacing="0">
+            <tr>
+                <td>Od:</td>
+                <td>
+                    <div class="form-full-width-td">
+                        <input matInput type="time" formControlName="workHoursFrom">
+                    </div>
+                </td>
+                <td>Do:</td>
+                <td>
+                    <div class="form-full-width-td ml-2">
+                        <input matInput type="time" formControlName="workHoursTo">
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <mat-error *ngIf="(addDermatologistForm.get('workHoursFrom').errors && addDermatologistForm.get('workHoursFrom').errors['required']) || 
+            (addDermatologistForm.get('workHoursTo').errors && addDermatologistForm.get('workHoursTo').errors['required']) ">
+           Unesite radno vreme dermatologa.
+        </mat-error>
+        <mat-error
+            *ngIf="addDermatologistForm.get('workHoursTo').errors && addDermatologistForm.get('workHoursTo').errors['timeError']">
+            Početak radnog vremena mora biti pre kraja radnog vremena.
+        </mat-error>
+       
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="mt-2 mb-1">
+    <button mat-raised-button color="primary" (click)="add()" [disabled]="!addDermatologistForm.valid">Dodaj</button>
+</mat-dialog-actions>

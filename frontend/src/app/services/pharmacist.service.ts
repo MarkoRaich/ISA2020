@@ -10,8 +10,6 @@ import { Pharmacist } from "../models/pharmacist";
 })
 export class PharmacistService {
  
- 
-  
   url = environment.baseUrl + environment.pharmacist;
 
   pharmacistsForAdmin: BehaviorSubject<Pharmacist[]> = new BehaviorSubject<Pharmacist[]>([]);

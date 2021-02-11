@@ -1,5 +1,6 @@
 package com.example.ISA2020.controller;
 
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -11,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.ISA2020.dto.AddDermatologistDTO;
 import com.example.ISA2020.dto.DermatologistDTO;
 import com.example.ISA2020.dto.PharmacistDTO;
 import com.example.ISA2020.entity.users.PharmacyAdmin;
@@ -54,9 +54,19 @@ public class DermatologistController {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         return new ResponseEntity<>(dermatologistService.getAllAvailableDermatologists(pharmacyAdmin.getPharmacy(), startDateTime, endDateTime), HttpStatus.OK);
-    	
-    	 
     }
+    
+    @GetMapping(value = "/other")
+    //@PreAuthorize("hasRole('PHARMACY_ADMIN')")
+    public ResponseEntity<List<DermatologistDTO>> getOtherDermatologistsForAdmin() {
+    	
+        PharmacyAdmin pharmacyAdmin = pharmacyAdminService.getLoginAdmin();
+        if (pharmacyAdmin == null) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        return new ResponseEntity<>(dermatologistService.findAllDermatologistsNotInPharmacy(pharmacyAdmin.getPharmacy()), HttpStatus.OK);
+    }
+    
     
     @GetMapping(value = "/search")
 	//@PreAuthorize("hasRole('PHARMACY_ADMIN')")
@@ -68,6 +78,29 @@ public class DermatologistController {
 	        }
         return new ResponseEntity<>(dermatologistService.searchDermatologistsInPharmacy(pharmacyAdmin.getPharmacy().getId(), firstName, lastName), HttpStatus.OK);
     }
+    
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	//@PreAuthorize("hasRole('PHARMACY_ADMIN')")
+    public ResponseEntity<DermatologistDTO> addDermatologToPharmacy(@Valid @RequestBody DermatologistDTO dermatologistDTO ) {
+	  	
+    	
+	  	 PharmacyAdmin pharmacyAdmin = pharmacyAdminService.getLoginAdmin();
+	       if (pharmacyAdmin == null) {
+	           return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+	       }
+	      try {
+	    	  DermatologistDTO derm = dermatologistService.addDermatologistToPharmacy(dermatologistDTO, pharmacyAdmin);
+	          if (derm == null) {
+	        	 
+	              return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	          }
+	          return new ResponseEntity<>(derm, HttpStatus.CREATED);
+	          
+	      } catch (DateTimeParseException ex) {
+	    	  System.out.println("esi ovo vratio a");
+	          return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	      }
+	  }
     
     
     @DeleteMapping("/{id}")
@@ -90,24 +123,7 @@ public class DermatologistController {
    
     
     
-//  @PostMapping(value="/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//  //@PreAuthorize("hasRole('PHARMACY_ADMIN')")
-//  public ResponseEntity<DermatologistDTO> addDermatolog( @PathVariable("id") Long id, @Valid @RequestBody AddDermatologistDTO dermatologistDTO ) {
-//  	
-//  	 PharmacyAdmin pharmacyAdmin = pharmacyAdmiService.getLoginAdmin();
-//       if (pharmacyAdmin == null) {
-//           return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-//       }
-//      try {
-//          DoctorDTO createdDoctor = dermatologistService.addDermatologistToPharmacy(dermatologistDTO, pharmacyAdmin);
-//          if (createdDoctor == null) {
-//              return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//          }
-//          return new ResponseEntity<>(createdDoctor, HttpStatus.CREATED);
-//      } catch (DateTimeParseException ex) {
-//          return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//      }
-//  }
+	
   
     
     

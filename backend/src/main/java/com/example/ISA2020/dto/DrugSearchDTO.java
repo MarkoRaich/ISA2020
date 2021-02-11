@@ -40,10 +40,14 @@ public class DrugSearchDTO {
 	
 	
 
-	public DrugSearchDTO(DrugQuantity save) {
-		this.quantity=save.getQuantity();
+	public DrugSearchDTO(DrugQuantity drugQ) {
+		this.id = drugQ.getDrug().getId();
+		this.name=drugQ.getDrug().getName();
+		this.code=drugQ.getDrug().getCode();
+		this.quantity=drugQ.getQuantity();
 	}
 
+	
 	public Long getId() {
 		return id;
 	}

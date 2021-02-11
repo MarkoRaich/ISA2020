@@ -22,5 +22,7 @@ public interface DrugQuantityRepository extends JpaRepository<DrugQuantity, Long
 
 	List<DrugQuantity> findByPharmacyIdAndStatusNotAndDrugNameContainsIgnoringCase(Long pharmId, EntityStatus status, String name);
 
+	List<DrugQuantity> findByPharmacyIdAndStatus(Long pharmId, EntityStatus status);
+
 	//DrugQuantity findById(Long id, Long id2);
 }

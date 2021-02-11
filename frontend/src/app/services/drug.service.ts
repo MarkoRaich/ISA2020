@@ -10,12 +10,15 @@ import { DrugWithQuantity } from "../models/drugWithQuantity";
 })
 export class DrugService {
  
-    
+   
     url = environment.baseUrl + environment.drugQ;
     
     drugsInPharmacy: BehaviorSubject<DrugWithQuantity[]> = new BehaviorSubject<DrugWithQuantity[]>([]);
+    drugsNotInPharmacy: BehaviorSubject<DrugWithQuantity[]> = new BehaviorSubject<DrugWithQuantity[]>([]);
     searchDrugsInPharmacy: BehaviorSubject<DrugWithQuantity[]> = new BehaviorSubject<DrugWithQuantity[]>([]);
     addSuccessEmitter = new Subject<DrugWithQuantity>();
+    changeSuccessEmitter = new Subject<DrugWithQuantity>();
+
 
     constructor(private http: HttpClient, private router: Router) { }
 
@@ -28,6 +31,17 @@ export class DrugService {
 
             });
     return this.drugsInPharmacy.asObservable();
+    }
+
+    getDrugsNotInPharmacy() {
+       this.http.get(this.url + "/other").subscribe(
+           (data : DrugWithQuantity[]) => {
+            this.drugsNotInPharmacy.next(data);
+        },
+            (error: HttpResponseBase) => {
+
+            });
+    return this.drugsNotInPharmacy.asObservable();
     }
 
     public deleteDrugFromPharmacy(id: number): any {
@@ -47,4 +61,16 @@ export class DrugService {
             });
         return this.searchDrugsInPharmacy.asObservable();
     }
+
+
+
+    addDrugWithQuantityToPharmacy(drugWithQ: DrugWithQuantity) {
+        return this.http.post(this.url, drugWithQ);
+      }
+     
+    changeDrugQuantityInPharmacy(drugWithQ: DrugWithQuantity) {
+        return this.http.put(this.url, drugWithQ);
+      }
+
+   
 }

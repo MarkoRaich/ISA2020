@@ -2,9 +2,12 @@ package com.example.ISA2020.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.example.ISA2020.dto.DermatologistDTO;
 import com.example.ISA2020.entity.Pharmacy;
 import com.example.ISA2020.entity.users.Dermatologist;
+import com.example.ISA2020.entity.users.PharmacyAdmin;
 
 public interface DermatologistService {
 	
@@ -25,6 +28,10 @@ public interface DermatologistService {
 	List<DermatologistDTO> getAllActiveDermatologists();
 
 	List<DermatologistDTO> searchDermatologistsInPharmacy(Long id, String firstName, String lastName);
+
+	List<DermatologistDTO> findAllDermatologistsNotInPharmacy(Pharmacy pharmacy);
+
+	DermatologistDTO addDermatologistToPharmacy(@Valid DermatologistDTO dermatologistDTO, PharmacyAdmin pharmacyAdmin);
 
 
 }
