@@ -25,14 +25,14 @@ import {ExaminationDerm} from './models/ExaminationDerm';
 import {ListExaminationsBookedComponent} from './components/list-examinations-booked/list-examinations-booked.component';
 import {ListExaminationsAvailableComponent} from './components/list-examinations-available/list-examinations-available.component';
 import {ListConsultationsBookedComponent} from './components/list-consultations-booked/list-consultations-booked.component';
-<<<<<<< Updated upstream
+
 import { PharmacyProfileComponent } from './components/pharmacy-profile/pharmacy-profile.component';
-=======
+
 import {ListConsultationsNotDoneCanceledComponent} from './components/list-consultations-not-done-canceled/list-consultations-not-done-canceled.component';
 import {ListAllDrugsComponent} from './components/list-all-drugs/list-all-drugs.component';
 import {GuestDrugsComponent} from './components/guest-drugs/guest-drugs.component';
 import {GuestPharmaciesComponent} from './components/guest-pharmacies/guest-pharmacies.component';
->>>>>>> Stashed changes
+
 
 const routes: Routes = [
 

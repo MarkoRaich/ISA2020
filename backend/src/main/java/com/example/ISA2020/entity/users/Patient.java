@@ -29,6 +29,7 @@ import com.example.ISA2020.entity.Consultation;
 import com.example.ISA2020.entity.Drug;
 import com.example.ISA2020.entity.Examination;
 import com.example.ISA2020.entity.Grade;
+import com.example.ISA2020.entity.Pharmacy;
 import com.example.ISA2020.entity.Prescription;
 import com.example.ISA2020.entity.Promotion;
 import com.example.ISA2020.entity.Reservation;
@@ -281,12 +282,13 @@ public class Patient implements UserDetails {
 		this.complaints = complaints;
 	}
 
-	public Set<Promotion> getPromotions() {
-		return promotions;
+
+	public Set<Pharmacy> getPharmacySubscriptions() {
+		return pharmacySubscriptions;
 	}
 
-	public void setPromotions(Set<Promotion> promotions) {
-		this.promotions = promotions;
+	public void setPharmacySubscriptions(Set<Pharmacy> pharmacySubscriptions) {
+		this.pharmacySubscriptions = pharmacySubscriptions;
 	}
 
 	public int getPoints() {

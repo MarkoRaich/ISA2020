@@ -11,14 +11,7 @@ import {ExaminationDerm} from '../models/ExaminationDerm';
     providedIn: 'root'
 })
 export class DrugService {
-<<<<<<< Updated upstream
-   
- 
-   
-=======
 
-
->>>>>>> Stashed changes
     url = environment.baseUrl + environment.drugQ;
 
     urlDrug = environment.baseUrl + '/api/drug';
@@ -48,20 +41,20 @@ export class DrugService {
     return this.drugsInPharmacy.asObservable();
     }
 
-<<<<<<< Updated upstream
+
     getDrugsWithQuantityInPharmacy(pharmId: string){
         let params = new HttpParams();
         params = params.append('pharmId', pharmId );
-    
+
         return this.http.get(this.url + "/inPharmacy", { params: params })
       }
-=======
+
 
   public getAllDrugs() {
     console.log("usao je u servis");
     return this.http.get(this.urlDrug + '/getAll');
   }
->>>>>>> Stashed changes
+
 
     getDrugsNotInPharmacy() {
        this.http.get(this.url + "/other").subscribe(
