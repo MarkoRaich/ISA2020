@@ -53,6 +53,9 @@ import { GuestDrugsComponent } from './components/guest-drugs/guest-drugs.compon
 import { GuestPharmaciesComponent } from './components/guest-pharmacies/guest-pharmacies.component';
 import { PatientPharmaciesComponent } from './components/patient-pharmacies/patient-pharmacies.component';
 import { CreatePromotionComponent } from './components/create-promotion/create-promotion.component';
+import { ListPurchaseOrdersComponent } from './components/list-purchase-orders/list-purchase-orders.component';
+import { AddPurchaseOrderComponent } from './components/add-purchase-order/add-purchase-order.component';
+import { ListOrderItemsComponent } from './components/list-order-items/list-order-items.component';
 
 
 
@@ -101,6 +104,9 @@ import { CreatePromotionComponent } from './components/create-promotion/create-p
     GuestPharmaciesComponent,
     PatientPharmaciesComponent,
     CreatePromotionComponent,
+    ListPurchaseOrdersComponent,
+    AddPurchaseOrderComponent,
+    ListOrderItemsComponent,
 
   ],
   imports: [

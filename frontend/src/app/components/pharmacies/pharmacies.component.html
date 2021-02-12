@@ -24,7 +24,7 @@
         <th></th>
         <th></th>
         <th>
-          <button class="btn-search" id="btn-search"  type="submit">
+          <button class="btn btn-primary" id="btn-search"  type="submit">
             SEARCH
           </button>
         </th>
@@ -48,8 +48,8 @@
     <td>{{pharmacy.rating}}</td>
     <td>{{pharmacy.address}}</td>
     <td>{{pharmacy.description}}</td>
-    <th><button class="btn-add" (click)="prikaziFarmaceute(pharmacy.id)">Farmaceuti</button></th>
-    <th><button class="btn-add" (click)="showPharmacyProfile(pharmacy.id)">Informacije</button></th>
+    <th><button type="button" class="btn btn-primary" (click)="prikaziFarmaceute(pharmacy.id)">Farmaceuti</button></th>
+    <th><button type="button" class="btn btn-primary" (click)="showPharmacyProfile(pharmacy.id)">Profil Apoteke</button></th>
   </tr>
 
 
