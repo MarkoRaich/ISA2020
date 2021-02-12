@@ -53,6 +53,13 @@ public class DrugServiceImpl implements DrugService {
 			dto.setId(d.getId());
 			dto.setName(d.getName());
 			dto.setCode(d.getCode());
+			dto.setComposition(d.getComposition());
+			dto.setForm(d.getForm().toString());
+			dto.setManufacturer(d.getManufacturer());
+			dto.setNotes(d.getNotes());
+			dto.setPrescription(d.getPrescription().toString());
+			dto.setType(d.getType().toString());
+
 			drugsDTO.add(dto);
 		}
 		return drugsDTO;

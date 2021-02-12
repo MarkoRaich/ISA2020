@@ -19,6 +19,10 @@ export class ExaminationDermService {
 
   allExaminationsBooked = new Subject<ExaminationDerm>();
 
+  successCancelExamination = new Subject<ExaminationDerm>();
+
+  successBookExamination = new Subject<ExaminationDerm>();
+
   constructor(private http: HttpClient, private router: Router) {}
 
   public getAllExaminationsBooked() {

@@ -1,0 +1,90 @@
+<div class="page-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-caption">
+          <h1 class="page-title">Svi lekovi</h1>
+          <div class="text-center mt-4">
+            <!-- <button mat-raised-button color="primary" (click)="openCreatingDialog()">
+               Kreiraj slobodan termin za pregled
+             </button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.page-header-->
+
+<!-- page-content -->
+<div class="card-section">
+  <div class="container">
+    <div class="card-block bg-white mb30">
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+          <!-- section-title -->
+          <div class="section-title mb-0">
+            <table mat-table [dataSource]="drugsDataSource" class="mat-elevation-z8 table" matSort>
+
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Naziv </th>
+                <td mat-cell *matCellDef="let element">
+                  {{element.name}}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="code">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Sifra </th>
+                <td mat-cell *matCellDef="let element">
+                  {{element.code}}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="manufacturer">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Proizvodjac </th>
+                <td mat-cell *matCellDef="let element">
+                  {{element.manufacturer}}
+                </td>
+              </ng-container>
+              <!--
+                          <ng-container matColumnDef="composition">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Sastav </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{element.composition}}
+                            </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="notes">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Napomene </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{element.notes}}
+                            </td>
+                          </ng-container> -->
+
+              <ng-container matColumnDef="form">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Forma </th>
+                <td mat-cell *matCellDef="let element">
+                  {{element.form}}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tip </th>
+                <td mat-cell *matCellDef="let element">
+                  {{element.type}}
+                </td>
+              </ng-container>
+
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [pageSize]=itemsPerPage class=" table" showFirstLastButtons></mat-paginator>
+          </div>
+          <!-- /.section-title -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.page-content -->

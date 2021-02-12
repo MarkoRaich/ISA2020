@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="page-caption">
-          <h1 class="page-title">Reservisani lekovi</h1>
+          <h1 class="page-title">Svi lekovi</h1>
           <div class="text-center mt-4">
             <!-- <button mat-raised-button color="primary" (click)="openCreatingDialog()">
                Kreiraj slobodan termin za pregled
@@ -24,71 +24,61 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
           <!-- section-title -->
           <div class="section-title mb-0">
-            <table mat-table [dataSource]="examinationsDataSource" class="mat-elevation-z8 table" matSort>
-
-              <ng-container matColumnDef="pharmacy">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Apoteka </th>
-                <td mat-cell *matCellDef="let element">
-                  {{element.pharmacyName}}
-                </td>
-              </ng-container>
+            <table mat-table [dataSource]="drugsDataSource" class="mat-elevation-z8 table" matSort>
 
               <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Lek </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Naziv </th>
                 <td mat-cell *matCellDef="let element">
-                  {{element.drugName}}
+                  {{element.name}}
                 </td>
               </ng-container>
 
               <ng-container matColumnDef="code">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Sifra </th>
                 <td mat-cell *matCellDef="let element">
-                  {{element.drugCode}}
+                  {{element.code}}
                 </td>
               </ng-container>
 
-              <ng-container matColumnDef="quantity">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Kolicina </th>
+              <ng-container matColumnDef="manufacturer">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Proizvodjac </th>
                 <td mat-cell *matCellDef="let element">
-                  {{element.quantity}}
+                  {{element.manufacturer}}
                 </td>
               </ng-container>
-
-<!--
-              <ng-container matColumnDef="date">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Datum </th>
-                <td mat-cell *matCellDef=" let element">
-                  {{element.startDateTime | date:"dd.MM.yyyy."}}
-                </td>
-              </ng-container>
-
-              <ng-container matColumnDef="time">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Vreme pregleda </th>
-                <td mat-cell *matCellDef=" let element">
-                  {{element.startDateTime | date:"HH:mm"}}
-                  - &nbsp; {{element.endDateTime | date:"HH:mm"}}
-                </td>
-              </ng-container>
--->
-
-              <ng-container matColumnDef="status">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-                <td mat-cell *matCellDef=" let element">
-                  {{element.status}}
-                </td>
-              </ng-container>
-
-              <ng-container matColumnDef="generatedKey">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Kljuc </th>
+  <!--
+              <ng-container matColumnDef="composition">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Sastav </th>
                 <td mat-cell *matCellDef="let element">
-                  {{element.generatedKey}}
+                  {{element.composition}}
                 </td>
               </ng-container>
 
-              <ng-container matColumnDef="otkazi">
+              <ng-container matColumnDef="notes">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Napomene </th>
+                <td mat-cell *matCellDef="let element">
+                  {{element.notes}}
+                </td>
+              </ng-container> -->
+
+              <ng-container matColumnDef="form">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Forma </th>
+                <td mat-cell *matCellDef="let element">
+                  {{element.form}}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tip </th>
+                <td mat-cell *matCellDef="let element">
+                  {{element.type}}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="dodaj">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
                 <td mat-cell *matCellDef=" let element">
-                  <button mat-raised-button color="primary" (click)="cancelReservation(element.id)">Otkazi</button>
+                  <button mat-raised-button color="primary" (click)="addAlergie(element.id)">Dodaj Alergiju</button>
                 </td>
               </ng-container>
 

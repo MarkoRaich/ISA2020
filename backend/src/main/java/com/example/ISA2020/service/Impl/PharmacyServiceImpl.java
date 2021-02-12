@@ -2,6 +2,7 @@ package com.example.ISA2020.service.Impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -48,8 +49,25 @@ public class PharmacyServiceImpl implements PharmacyService {
 	}
 
 	@Override
-	public List<Pharmacy> getAllPharmacies() {
-		return pharmacyRepository.findAll();
+	public List<PharmacyDTO> getAllPharmacies() {
+		List<Pharmacy> pharmacies =  pharmacyRepository.findAll();
+		
+		List<PharmacyDTO> dtos = new ArrayList<>();
+		
+		for(Pharmacy p : pharmacies) {
+			PharmacyDTO dto = new PharmacyDTO();
+			dto.setId(p.getId());
+			dto.setAddress(p.getAddress());
+			dto.setName(p.getName());
+			dto.setPharmacyRating(p.getRating());
+			dto.setDescription(p.getDescription());
+			dto.setPrice(0);
+			
+			dtos.add(dto);
+		}
+		
+		return dtos;
+		
 	}
 
 	@Override

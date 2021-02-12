@@ -31,8 +31,10 @@ public interface PatientService {
 	
 	PatientDTO editPersonalInformation(EditPatientDTO editPatientDTO);
 	
-	Patient addAlergie(String drugName);
+	//Patient addAlergie(String drugName);
 
 	void save(Patient patient);
+
+	PatientDTO addAlergie(Long drugId);
 
 }

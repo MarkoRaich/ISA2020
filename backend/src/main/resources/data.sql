@@ -195,7 +195,10 @@ INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, i
 INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije specijalne', 'Saveti za lekove', 2, 1, 1, 6);
 INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije specijalne', 'Konsultacije u vreme pavze', 1, 1, 1, 4);
 
-
+INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije specijelne', 'Konsultacije u vezi sporta', 1, 1, 3, 7);
+INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije specijalne', 'Konsultacije u vezi ishrane', 1, 1, 4, 6);
+INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije specijalne', 'Konsultacije u vezi psihickog zravlja', 1, 1, 4, 5);
+INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije specijalne', 'Konsultacije u vezi fizickog zdravlja', 1, 1, 3, 3);
 -- CENE SAVETOVANJA
 
 INSERT INTO consultation_price(consultation_id, pharmacy_id, price, interval_id) VALUES (1, 1, 4000.0, 3);
@@ -219,6 +222,10 @@ INSERT INTO consultation_price(consultation_id, pharmacy_id, price, interval_id)
 INSERT INTO consultation_price(consultation_id, pharmacy_id, price, interval_id) VALUES (18, 1, 450, 2);
 INSERT INTO consultation_price(consultation_id, pharmacy_id, price, interval_id) VALUES (19, 1, 880.0, 4);
 
+INSERT INTO consultation_price(consultation_id, pharmacy_id, price, interval_id) VALUES (20, 1, 920.0, 4);
+INSERT INTO consultation_price(consultation_id, pharmacy_id, price, interval_id) VALUES (21, 2, 390.0, 7);
+INSERT INTO consultation_price(consultation_id, pharmacy_id, price, interval_id) VALUES (22, 2, 1500.0, 5);
+INSERT INTO consultation_price(consultation_id, pharmacy_id, price, interval_id) VALUES (23, 1, 2200.0, 2);
 
 -- REZERVACIJE LEKOVA
 

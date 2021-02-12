@@ -27,4 +27,8 @@ export class PatientService {
   }
 
 
+  // public getPatientInfo(id: number) {
+  //   return this.httpClient.get(this.url + '/' + id);
+  // }
+
 }

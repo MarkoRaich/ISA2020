@@ -25,6 +25,7 @@ export class ListExaminationsBookedComponent implements OnInit {
   displayedColumns: string[] = [ 'name', 'date', 'time', 'price', 'status', 'otkazi'];
   numberOfItems: number;
   itemsPerPage = environment.itemsPerPage;
+  cancelExaminationSuccess: Subscription;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -48,6 +49,12 @@ export class ListExaminationsBookedComponent implements OnInit {
   ngOnInit() {
 
     this.getAllExaminationsBooked();
+
+    this.cancelExaminationSuccess =  this.examinationDermService.successCancelExamination.subscribe(
+      () => {
+        this.getAllExaminationsBooked();
+      }
+    );
   }
 
 

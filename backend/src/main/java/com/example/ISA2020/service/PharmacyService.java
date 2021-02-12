@@ -18,7 +18,7 @@ public interface PharmacyService {
 	
 	Pharmacy createPharmacy(PharmacyDTO pharmacyDTO);
 	
-	List<Pharmacy> getAllPharmacies();
+	List<PharmacyDTO> getAllPharmacies();
 
 	EditPharmacyDTO edit(@Valid EditPharmacyDTO pharmacyDTO, Long pharmId);
 	

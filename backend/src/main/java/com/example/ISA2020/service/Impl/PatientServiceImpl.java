@@ -2,6 +2,7 @@ package com.example.ISA2020.service.Impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,7 +15,6 @@ import com.example.ISA2020.dto.PatientDTO;
 import com.example.ISA2020.dto.PatientWithIdDTO;
 import com.example.ISA2020.entity.Drug;
 import com.example.ISA2020.entity.users.Patient;
-import com.example.ISA2020.enumeration.UserStatus;
 import com.example.ISA2020.repository.DrugRepository;
 import com.example.ISA2020.repository.PatientRepository;
 import com.example.ISA2020.service.PatientService;
@@ -112,24 +112,39 @@ public class PatientServiceImpl implements PatientService{
 	}
 	
 	@Override
-	public Patient addAlergie(String drugName) { //promeni sta vraca na dto
+	public PatientDTO addAlergie(Long drugId) { //promeni sta vraca na dto
 		Patient patient = getLoginPatient();
 		
 		if(patient == null) {
 			return null;
 		}
 		
-		List<Drug> drugs = drugRepo.findAll();
+		Drug drug = drugRepo.findOneById(drugId);
+		if(drug == null) {
+			return null;
+		}
+		
+		Set<Drug> drugs = patient.getAlergies();
 		
 		for(Drug d : drugs) {
-			if(d.getName().toLowerCase().contains(drugName.toLowerCase())) {
-				patient.getAlergies().add(d);			
+			if(d.getId() == drug.getId()) {
+				return null;
 			}
 		}
 		
+		if(drug == null) {
+			return null;
+		} else {
+			patient.getAlergies().add(drug);
+		}
+		
+		
 		patientRepo.save(patient);
 		
-		return patient;
+		PatientDTO patientDTO = new PatientDTO(patient);
+
+		
+		return patientDTO;
 		
 	}
 

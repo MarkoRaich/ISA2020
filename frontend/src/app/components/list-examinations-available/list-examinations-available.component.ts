@@ -8,6 +8,7 @@ import {FormBuilder} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {ExaminationDermService} from '../../services/examination-derm.service';
 import {ToastrService} from 'ngx-toastr';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-list-examinations-available',
@@ -21,6 +22,8 @@ export class ListExaminationsAvailableComponent implements OnInit {
   displayedColumns: string[] = [ 'name', 'date', 'time', 'price', 'status', 'zakazi'];
   numberOfItems: number;
   itemsPerPage = environment.itemsPerPage;
+
+  bookExaminationSuccess: Subscription;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -44,6 +47,12 @@ export class ListExaminationsAvailableComponent implements OnInit {
   ngOnInit() {
 
     this.getAllExaminationsAvailable();
+
+    this.bookExaminationSuccess =  this.examinationDermService.successBookExamination.subscribe(
+      () => {
+        this.getAllExaminationsAvailable();
+      }
+    );
   }
 
 

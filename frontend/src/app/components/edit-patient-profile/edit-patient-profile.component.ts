@@ -7,6 +7,7 @@ import {error} from '@angular/compiler/src/util';
 import {Patient} from 'src/app/models/Patient';
 import {PatientService} from '../../services/patient.service';
 import {PharmacyAdmin} from '../../models/PharmacyAdmin';
+import {PatientInfo} from '../../models/PatientInfo';
 
 @Component({
   selector: 'app-edit-patient-profile',
@@ -16,7 +17,7 @@ import {PharmacyAdmin} from '../../models/PharmacyAdmin';
 export class EditPatientProfileComponent implements OnInit {
 
   PatientForm : FormGroup;
-  loggedPatient : Patient = new Patient(-1,"","","","","");
+  loggedPatient : PatientInfo = new PatientInfo(-1,"","","","","", "", "", -1, -1);
 
   constructor(private formBuilder : FormBuilder,
               private toastr: ToastrService,
@@ -25,21 +26,29 @@ export class EditPatientProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.PatientForm = this.formBuilder.group({
+      username: new FormControl(null, [Validators.required, Validators.maxLength(30)]),
+      //password: new FormControl(null, [Validators.required, Validators.maxLength(30)]),
       firstName: new FormControl(null, [Validators.required, Validators.maxLength(30)]),
       lastName: new FormControl(null, [Validators.required, Validators.maxLength(30)]),
       phoneNumber: new FormControl(null, [Validators.required, Validators.minLength(9), Validators.maxLength(10), Validators.pattern("[0-9]+")]),
       address: new FormControl(null, [Validators.required, Validators.maxLength(30)]),
+      points: new FormControl(null, [Validators.required, Validators.maxLength(30)]),
+      penalties: new FormControl(null, [Validators.required, Validators.maxLength(30)]),
+
     });
 
     this.patientService.get(this.userService.getLoggedInUser().id).subscribe(
-      (responseData: Patient) => {
+      (responseData: PatientInfo) => {
         this.loggedPatient = responseData;
         this.PatientForm.patchValue(
           {
+            'username': this.loggedPatient.username,
             'firstName': this.loggedPatient.firstName,
             'lastName': this.loggedPatient.lastName,
             'phoneNumber': this.loggedPatient.phoneNumber,
-            'address': this.loggedPatient.address
+            'address': this.loggedPatient.address,
+            'points' : this.loggedPatient.points,
+            'penalties' : this.loggedPatient.penalties
           }
         );
       },

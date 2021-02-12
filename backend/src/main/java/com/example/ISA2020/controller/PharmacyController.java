@@ -64,8 +64,8 @@ public class PharmacyController {
     }
 	
 	@GetMapping(value="/getAll")
-	public ResponseEntity<List<Pharmacy>> getAllPharmacies() {
-		List<Pharmacy> pharmacies = pharmacyService.getAllPharmacies();
+	public ResponseEntity<List<PharmacyDTO>> getAllPharmacies() {
+		List<PharmacyDTO> pharmacies = pharmacyService.getAllPharmacies();
 	
 		return new ResponseEntity<>(pharmacies, HttpStatus.OK);
 	}

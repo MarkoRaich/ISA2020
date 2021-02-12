@@ -100,10 +100,10 @@ public class PatientController {
 		return new ResponseEntity<>(patientDTO, HttpStatus.CREATED);
 	}
 	
-	@PutMapping("/addAlergie")
+	@PutMapping("/addAlergie/{drugId}")
     //@PreAuthorize("hasRole('PATIENT')") //ROLE_PATIENT??
-	public ResponseEntity<Patient> addAlergie(@RequestParam("drugName") String drugName) {
-		Patient patient = patientService.addAlergie(drugName);
+	public ResponseEntity<PatientDTO> addAlergie(@PathVariable("drugId") Long drugId) {
+		PatientDTO patient = patientService.addAlergie(drugId);
 		if(patient == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
@@ -306,6 +306,15 @@ public class PatientController {
 	@GetMapping("/getAllConsultationsBooked")
 	public ResponseEntity<List<ConsultationPriceAddressDTO>> getAllConsultationsBooked() {
 		List<ConsultationPriceAddressDTO> dtos = consultationPriceService.getAllConsultationsBooked();
+		if(dtos == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(dtos, HttpStatus.OK);
+	}
+	
+	@GetMapping("/getAllConsultationsForPatient")
+	public ResponseEntity<List<ConsultationPriceAddressDTO>> getAllConsultationsForPatient() {
+		List<ConsultationPriceAddressDTO> dtos = consultationPriceService.getAllConsultationsForPatient();
 		if(dtos == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}

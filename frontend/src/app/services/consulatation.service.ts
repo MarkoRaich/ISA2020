@@ -25,6 +25,11 @@ export class ConsultationService {
     return this.http.get(this.urlPatient + '/getAllConsultationsBooked');
   }
 
+  public getAllConsultationsDoneCanceled() {
+    console.log("usao je u servis");
+    return this.http.get(this.urlPatient + '/getAllConsultationsForPatient');
+  }
+
   // public getAllExaminationsAvailable() {
   //   console.log("usao je u servis");
   //   return this.http.get(this.urlPatient + '/getAllExaminationsAvailabe');

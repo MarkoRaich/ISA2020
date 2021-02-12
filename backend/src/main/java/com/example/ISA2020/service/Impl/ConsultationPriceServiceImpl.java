@@ -736,7 +736,7 @@ public class ConsultationPriceServiceImpl implements ConsultationPriceService {
 		if(consultation.getStatus() == ConsultationStatus.BOOKED) {
 			//consultation.setStatus(ConsultationStatus.CANCELED);
 			if (d.isBefore(consultation.getInterval().getEndDateTime())) {
-				consultation.setStatus(ConsultationStatus.CANCELED); //CANCELED???? PREDEF_BOOKED???
+				consultation.setStatus(ConsultationStatus.AVAILABLE); //CANCELED???? PREDEF_BOOKED???
 				//consultation.setPatient(null);
 				consultationRepo.save(consultation);
 				
@@ -787,6 +787,51 @@ public class ConsultationPriceServiceImpl implements ConsultationPriceService {
 		
 
 				
+	}
+
+	@Override
+	public List<ConsultationPriceAddressDTO> getAllConsultationsForPatient() {
+		Patient patient = patientService.getLoginPatient();
+		if(patient == null) {
+			return null;
+		}
+		
+		Set<Consultation> consultations = patient.getConsultations();
+		List<ConsultationPriceAddressDTO> consultationsDTO = new ArrayList<>();
+		
+		List<ConsultationPrice> prices = consultationPriceRepo.findAll();
+		
+		
+		for(Consultation c : consultations) {
+			if(c.getStatus() == ConsultationStatus.DONE || c.getStatus() == ConsultationStatus.CANCELED) {
+				ConsultationPriceAddressDTO dto = new ConsultationPriceAddressDTO();
+				
+				//ConsultationPrice price = consultationPriceRepo.findOneById(c.getId());
+				
+				
+				dto.setConsultationId(c.getId());
+				
+				dto.setConsultationName(c.getName());
+				dto.setPharmacyName(c.getPharmacist().getPharmacy().getName());
+				dto.setPharmacyAddress(c.getPharmacist().getPharmacy().getAddress());
+				dto.setPharmacyRating(c.getPharmacist().getPharmacy().getRating());
+				dto.setStartDateTime(c.getInterval().getStartDateTime().toString());
+				dto.setEndDateTime(c.getInterval().getEndDateTime().toString());
+				//dto.setPrice(price.getPrice());
+				consultationsDTO.add(dto);
+			}
+		}
+		
+		for(ConsultationPrice p : prices) {
+			for(ConsultationPriceAddressDTO c : consultationsDTO) {
+				if(p.getConsultation().getId() == c.getConsultationId()) {
+					c.setPrice(p.getPrice());
+				}
+			}
+		}
+		
+		
+		return consultationsDTO;
 	}
 	
 	

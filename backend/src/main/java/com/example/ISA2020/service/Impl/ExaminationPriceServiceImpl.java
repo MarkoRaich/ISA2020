@@ -390,7 +390,7 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 			//if( )   PROVERA 24H!!!!
 			if (d.isBefore(examination.getInterval().getEndDateTime())) {
 	 			//System.out.println("2");
-				examination.setStatus(ExaminationStatus.CANCELED); //CANCELED???? PREDEF_BOOKED???
+				examination.setStatus(ExaminationStatus.AVAILABLE); //CANCELED???? PREDEF_BOOKED???
 				examinationRepo.save(examination);
 				//examinationRepo.save(examination.getExamination());
 				

@@ -77,7 +77,7 @@
                         Unesite Vašu adresu.
                       </mat-error>
                       <mat-error
-                        *ngIf="PatientForm.get('lastName').errors && PatientForm.get('lastName').errors['maxlength']">
+                        *ngIf="PatientForm.get('address').errors && PatientForm.get('address').errors['maxlength']">
                         Maksimalan broj slova je 30.
                       </mat-error>
                     </mat-form-field>
@@ -100,8 +100,27 @@
                       <mat-error
                         *ngIf="PatientForm.get('phoneNumber').errors && (PatientForm.get('phoneNumber').errors['minlength']
                                                 || PatientForm.get('phoneNumber').errors && PatientForm.get('phoneNumber').errors['maxlength'])">
-                        Broj telefona ima iymedju 9 i 10 cifara.
+                        Broj telefona ima izmedju 9 i 10 cifara.
                       </mat-error>
+                    </mat-form-field>
+
+                  </td>
+                </tr>
+                <tr>
+                  <td><label>Poeni</label></td>
+                  <td>
+                    <mat-form-field class="form-full-width-td">
+                      <input matInput [readonly] = "true" formControlName="points">
+
+                    </mat-form-field>
+
+                  </td>
+                </tr>
+                <tr>
+                  <td><label>Penali</label></td>
+                  <td>
+                    <mat-form-field class="form-full-width-td">
+                      <input matInput [readonly] = "true" formControlName="penalties">
                     </mat-form-field>
 
                   </td>
