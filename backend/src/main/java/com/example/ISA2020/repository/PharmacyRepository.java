@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.ISA2020.entity.Pharmacy;
+import com.example.ISA2020.entity.users.Pharmacist;
+import com.example.ISA2020.enumeration.UserStatus;
 
 public interface PharmacyRepository extends JpaRepository<Pharmacy, Long> {
 	
@@ -25,4 +27,7 @@ public interface PharmacyRepository extends JpaRepository<Pharmacy, Long> {
 	List<Pharmacy> findByOrderByRating();
 	
 	Pharmacy findByPharmacistsId(Long id);
+	
+	List<Pharmacy> findByIdAndNameContainsIgnoringCaseAndAddressContainsIgnoringCase(
+			Long id, String name, String address);
 }

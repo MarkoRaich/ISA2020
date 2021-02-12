@@ -10,6 +10,7 @@ import {DrugService} from '../../services/drug.service';
 import {ToastrService} from 'ngx-toastr';
 import {DrugInfo} from '../../models/DrugInfo';
 import {AddDrugInPharmacyComponent} from '../add-drug-in-pharmacy/add-drug-in-pharmacy.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-list-all-drugs',
@@ -20,7 +21,7 @@ export class ListAllDrugsComponent implements OnInit {
 
 
   drugsDataSource: MatTableDataSource<DrugInfo>;
-  displayedColumns: string[] = [ 'name', 'code', 'manufacturer', 'form', 'type', 'dodaj'];
+  displayedColumns: string[] = [ 'name', 'code', 'manufacturer', 'form', 'type', 'dodaj', 'oceni'];
   searchString: string;
   searchName: string = '';
   numberOfItems: number;
@@ -33,8 +34,10 @@ export class ListAllDrugsComponent implements OnInit {
 
   drugs: DrugInfo[] = [];
 
+  grade: number;
 
-  constructor(public dialog: MatDialog, private drugService: DrugService, public toastr: ToastrService) { }
+
+  constructor(public dialog: MatDialog, private drugService: DrugService, public toastr: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
     this.getAllDrugs();
@@ -60,6 +63,14 @@ export class ListAllDrugsComponent implements OnInit {
   public addAlergie(drugId: number): void {
     this.toastr.success('Dodata je alergija na lek ' + drugId , 'Alergija');
     this.drugService.addAlergie(drugId).subscribe();
+  }
+
+  public makeReservation(): void {
+    this.router.navigate(['/patient/make-drug-reservation']);
+  }
+
+  public setGrade(drugId: number) {
+    this.drugService.setGrade(drugId, this.grade).subscribe();
   }
 
 }

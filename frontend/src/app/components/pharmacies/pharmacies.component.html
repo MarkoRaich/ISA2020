@@ -1,7 +1,8 @@
 
+<div id="apoteke>" [hidden]="!hidePharmatists">
 <form (ngSubmit)="searchPharmaties()">
   <div class="form-group">
-    <table align="center">
+    <table align="center" style="width:100%">
       <tr>
         <th>Datum</th>
         <th>Pocetno vreme</th>
@@ -31,9 +32,9 @@
       </tr>
     </table>
   </div>
+</form>
 
-
-<table class="table-main" align="center">
+<table class="table-main" align="center" style="width:100%">
   <tr>
   <tr bgcolor = green >
     <th><button (click)="sortByName()" class="btn-add">Ime</button></th>
@@ -56,9 +57,12 @@
 </table>
 
 
+</div>
 
+<div id="divFarmaceuti" [hidden]="hidePharmatists">
 
-  <table class="table-main" align="center">
+  <button class="btn-search" (click)="hideFarmaceuti()">Back</button>
+  <table class="table-main" align="center" style="width:100%">
     <tr>
     <tr bgcolor = green >
       <th><button (click)="sortByName()" class="btn-add">Ime</button></th>
@@ -76,4 +80,5 @@
 
 
   </table>
-</form>
+
+</div>

@@ -410,17 +410,12 @@ public class ConsultationPriceServiceImpl implements ConsultationPriceService {
 		String replacement = " ";
 		String startTimeProcessed = startTime2.replace(target, replacement);
 		System.out.println(startTimeProcessed);
-		
-		//assertTrue(startTimeProcessed.contains(replacement));
-		//assertFalse(startTimeProcessed.contains(target));
+
 		
 		String endTime2 = endTime;
-		//String target = "%20";
-		//String replacement = " ";
 		String endTimeProcessed = endTime2.replace(target, replacement);
 		System.out.println(endTimeProcessed);
-		//assertTrue(endTimeProcessed.contains(replacement));
-		//assertFalse(endTimeProcessed.contains(target));
+
 		
 		List<ConsultationPrice> prices = consultationPriceRepo.findAll();
 		

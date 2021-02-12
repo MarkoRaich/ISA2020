@@ -168,6 +168,12 @@ INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, phar
 INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 2,    1, 1, 8, 1, 2); -- postavlja se prilikom zakazivanja pregleda
 INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 3, 	  1, 1, 8, 1, 3);
 
+INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 2, 	  1, 3, 8, 1, 2);
+INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 1, 	  1, 3, 4, 2, 3);
+INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 2, 	  1, 3, 9, 1, 2);
+INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 1, 	  1, 3, 5, 2, 1);
+INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 3, 	  1, 3, 6, 2, 3);
+INSERT INTO examination( dermatologist_id, patient_id, status, interval_id, pharmacy_id, exam_type_id) values ( 1, 	  1, 3, 7, 1, 3);
 
 -- SAVETOVANJA
 

@@ -19,14 +19,18 @@ import com.example.ISA2020.entity.users.Dermatologist;
 import com.example.ISA2020.entity.users.Patient;
 import com.example.ISA2020.entity.users.Pharmacist;
 import com.example.ISA2020.enumeration.ReservationStatus;
+import com.example.ISA2020.repository.ConsultationRepository;
 import com.example.ISA2020.repository.DermatologistRepository;
 import com.example.ISA2020.repository.DrugRepository;
+import com.example.ISA2020.repository.ExaminationRepository;
 import com.example.ISA2020.repository.GradeRepository;
 import com.example.ISA2020.repository.PharmacistRepository;
 import com.example.ISA2020.repository.PharmacyRepository;
 import com.example.ISA2020.repository.ReservationRepository;
 import com.example.ISA2020.service.GradeService;
 import com.example.ISA2020.service.PatientService;
+
+import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
 
 @Service
 public class GradeServiceImpl implements GradeService {
@@ -40,6 +44,12 @@ public class GradeServiceImpl implements GradeService {
 	
 	@Autowired
 	private PharmacyRepository pharmacyRepo;
+	
+	@Autowired 
+	private ConsultationRepository consultationRepo;
+	
+	@Autowired 
+	private ExaminationRepository examinationRepo;
 	
 	
 	@Autowired
@@ -286,7 +296,14 @@ public class GradeServiceImpl implements GradeService {
 			return null;
 		}
 		
-		Dermatologist dermatologist = dermatologistRepo.findOneById(id);
+		Examination examination = examinationRepo.findOneById(id);
+		if(examination == null) {
+			System.out.println("Examination je null");
+			return null;
+		}
+		
+		
+		Dermatologist dermatologist = examination.getDermatologist();
 		if(dermatologist == null) {
 			System.out.println("Dermatologist nije pronadjen.");
 			return null;
@@ -381,7 +398,15 @@ public class GradeServiceImpl implements GradeService {
 			return null;
 		}
 		
-		Pharmacist pharmacist = pharmacistRepo.findOneById(id);
+		Consultation consultation = consultationRepo.findOneById(id);
+		if(consultation == null) {
+			System.out.println("Consultation nije prnadjen");
+			return null;
+			
+		}
+		
+		
+		Pharmacist pharmacist = consultation.getPharmacist();
 		if(pharmacist == null) {
 			System.out.println("Pharmacist nije pronadjen.");
 			return null;
@@ -395,7 +420,7 @@ public class GradeServiceImpl implements GradeService {
 					return null;
 				}
 			}
-		}  // NE RAZUMEM ZASTO PUCA KOD OVIH PROVERA
+		}  // NE RAZUMEM ZASTO PUCA KOD OVIH PROVERA -> DONE
 		
 		boolean status = false; 
 		//provera da li je imao bar jedan pregled kod tog dermatologa

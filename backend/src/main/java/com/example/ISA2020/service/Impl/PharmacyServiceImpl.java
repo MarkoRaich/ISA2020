@@ -11,8 +11,11 @@ import org.springframework.stereotype.Service;
 
 import com.example.ISA2020.dto.DrugPricePharmacyNameAddressRatingDTO;
 import com.example.ISA2020.dto.EditPharmacyDTO;
+import com.example.ISA2020.dto.PharmacistDTO;
 import com.example.ISA2020.dto.PharmacyDTO;
 import com.example.ISA2020.entity.Pharmacy;
+import com.example.ISA2020.entity.users.Pharmacist;
+import com.example.ISA2020.enumeration.UserStatus;
 import com.example.ISA2020.repository.PharmacyRepository;
 import com.example.ISA2020.service.PharmacyService;
 
@@ -159,18 +162,22 @@ public class PharmacyServiceImpl implements PharmacyService {
 	
 	//3.31 pretraga i sortiranje apoteka
 	@Override
-	public List<DrugPricePharmacyNameAddressRatingDTO> getAllPharmaciesSortedByAddressForAddress(String pharmacyAddress){
+	public List<PharmacyDTO> getAllPharmaciesSortedByAddressForAddress(String pharmacyAddress){
 		
 		List<Pharmacy> pharmacies = pharmacyRepository.findByOrderByAddressAsc();
 		
-		List<DrugPricePharmacyNameAddressRatingDTO> pharmaciesDTO = new ArrayList<>();
+		List<PharmacyDTO> pharmaciesDTO = new ArrayList<>();
 		
 		for(Pharmacy p : pharmacies) {
 			if(p.getAddress().toLowerCase().contains(pharmacyAddress.toLowerCase())) {
-				DrugPricePharmacyNameAddressRatingDTO dto = new DrugPricePharmacyNameAddressRatingDTO();
-				dto.setPharmacyName(p.getName());
-				dto.setPharmacyAddress(p.getAddress());
+				PharmacyDTO dto = new PharmacyDTO();
+				dto.setName(p.getName());
+				dto.setAddress(p.getAddress());
 				dto.setPharmacyRating(p.getRating());
+				dto.setDescription(p.getDescription());
+				dto.setId(p.getId());
+				dto.setPrice(0);
+				
 				
 				pharmaciesDTO.add(dto);
 			}
@@ -180,18 +187,21 @@ public class PharmacyServiceImpl implements PharmacyService {
 	}
 	
 	@Override
-	public List<DrugPricePharmacyNameAddressRatingDTO> getAllPharmaciesSortedByNameForName(String pharmacyName) {
+	public List<PharmacyDTO> getAllPharmaciesSortedByNameForName(String pharmacyName) {
 		
 		List<Pharmacy> pharmacies = pharmacyRepository.findByOrderByNameAsc();
 		
-		List<DrugPricePharmacyNameAddressRatingDTO> pharmaciesDTO = new ArrayList<>();
+		List<PharmacyDTO> pharmaciesDTO = new ArrayList<>();
 		
 		for(Pharmacy p : pharmacies) {
 			if(p.getName().toLowerCase().contains(pharmacyName.toLowerCase())) {
-				DrugPricePharmacyNameAddressRatingDTO dto = new DrugPricePharmacyNameAddressRatingDTO();
-				dto.setPharmacyName(p.getName());
-				dto.setPharmacyAddress(p.getAddress());
+				PharmacyDTO dto = new PharmacyDTO();
+				dto.setName(p.getName());
+				dto.setAddress(p.getAddress());
 				dto.setPharmacyRating(p.getRating());
+				dto.setDescription(p.getDescription());
+				dto.setId(p.getId());
+				dto.setPrice(0);
 				
 				pharmaciesDTO.add(dto);
 			}
@@ -199,6 +209,20 @@ public class PharmacyServiceImpl implements PharmacyService {
 		
 		return pharmaciesDTO;
 	}
+	
+	@Override
+	public List<PharmacyDTO> searchPharmaciesByNameAndAddress(Long id, String name, String address) {
+		return convertToDTO(pharmacyRepository.findByIdAndNameContainsIgnoringCaseAndAddressContainsIgnoringCase(id, name, address));
+										   
+	}
+	
+	private List<PharmacyDTO> convertToDTO(List<Pharmacy> pharmacies) {
+        List<PharmacyDTO> pharmaciesDTOs = new ArrayList<>();
+        for (Pharmacy p : pharmacies) {
+        	pharmaciesDTOs.add(new PharmacyDTO(p));
+        }
+        return pharmaciesDTOs;
+    }
 	
 	
 	

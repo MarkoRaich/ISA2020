@@ -1,0 +1,83 @@
+<mat-dialog-content class="dialog-class">
+  <div class="page-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+          <div class="page-caption">
+            <h1 class="page-title">Apoteke pretraga</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.page-header-->
+
+  <!-- page-content -->
+  <div class="card-section">
+    <div class="container">
+      <div class="card-block bg-white mb30">
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <!-- section-title -->
+            <div class="section-title mb-0">
+              <div class="row">
+                <div class="col-3">
+                  <mat-form-field class="full-width-field">
+                    <mat-label>Pretraži po nazivu</mat-label>
+                    <input matInput [(ngModel)]="searchName">
+                    <button mat-button matPrefix mat-icon-button>
+                      <mat-icon>search</mat-icon>
+                    </button>
+                  </mat-form-field>
+                </div>
+                <div class="col-3">
+                  <mat-form-field class="full-width-field">
+                    <mat-label>Pretraži po adresi</mat-label>
+                    <input matInput [(ngModel)]="searchAddress">
+                    <button mat-button matPrefix mat-icon-button>
+                      <mat-icon>search</mat-icon>
+                    </button>
+                  </mat-form-field>
+
+                </div>
+                <div class="col-3 btn-position">
+                  <button mat-raised-button color="primary" (click)="searchByName()">Pretraga naziv</button>
+                </div>
+                <div class="col-3 btn-position">
+                  <button mat-raised-button color="primary" (click)="searchByAddress()">Pretraga adresa</button>
+                </div>
+              </div>
+
+              <table mat-table [dataSource]="dermatologistsDataSource" matSort class="mat-elevation-z8 table">
+
+                <ng-container matColumnDef="pharmacyName">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Naziv </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{element.name}}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="pharmacyAddress">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Adresa </th>
+                  <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="pharmacyRating">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Ocena </th>
+                  <td mat-cell *matCellDef=" let element"> {{element.pharmacyRating}} </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+              <mat-paginator [pageSize]=itemsPerPage class=" table" showFirstLastButtons></mat-paginator>
+            </div>
+            <!-- /.section-title -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.page-content -->
+</mat-dialog-content>

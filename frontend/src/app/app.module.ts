@@ -56,6 +56,12 @@ import { CreatePromotionComponent } from './components/create-promotion/create-p
 import { ListPurchaseOrdersComponent } from './components/list-purchase-orders/list-purchase-orders.component';
 import { AddPurchaseOrderComponent } from './components/add-purchase-order/add-purchase-order.component';
 import { ListOrderItemsComponent } from './components/list-order-items/list-order-items.component';
+import { ListPharmaciesComponent } from './components/list-pharmacies/list-pharmacies.component';
+import { ListAllComplaintsComponent } from './components/list-all-complaints/list-all-complaints.component';
+import { MakeComplaintComponent } from './components/make-complaint/make-complaint.component';
+import { DrugReservationComponent } from './components/drug-reservation/drug-reservation.component';
+import { ListDrugReservationComponent } from './components/list-drug-reservation/list-drug-reservation.component';
+import { ListExaminationsDoneComponent } from './components/list-examinations-done/list-examinations-done.component';
 
 
 
@@ -107,6 +113,12 @@ import { ListOrderItemsComponent } from './components/list-order-items/list-orde
     ListPurchaseOrdersComponent,
     AddPurchaseOrderComponent,
     ListOrderItemsComponent,
+    ListPharmaciesComponent,
+    ListAllComplaintsComponent,
+    MakeComplaintComponent,
+    DrugReservationComponent,
+    ListDrugReservationComponent,
+    ListExaminationsDoneComponent,
 
   ],
   imports: [

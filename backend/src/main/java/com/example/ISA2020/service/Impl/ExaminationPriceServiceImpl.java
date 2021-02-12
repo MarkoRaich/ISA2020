@@ -137,12 +137,12 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 			return null;
 		}
 		
-		List<ExaminationPrice> prices = examinationPriceRepo.findAll();
-		List<ExaminationPrice> patientExaminations = new ArrayList<>();
+		List<Examination> prices = examinationRepo.findAll();
+		List<Examination> patientExaminations = new ArrayList<>();
 		
-		for(ExaminationPrice e : prices) {
-			if(e.getExamination().getPatient() != null && (e.getExamination().getPatient().getId() == patient.getId())) {
-				if(e.getExamination().getStatus().equals(ExaminationStatus.DONE)) {
+		for(Examination e : prices) {
+			if(e.getPatient() != null && (e.getPatient().getId() == patient.getId())) {
+				if(e.getStatus().equals(ExaminationStatus.DONE)) {
 					patientExaminations.add(e);
 				}
 			}
@@ -150,18 +150,18 @@ public class ExaminationPriceServiceImpl implements ExaminationPriceService {
 		
 		List<ExaminationPriceDTO> dtos = new ArrayList<>();
 		
-		for(ExaminationPrice e : patientExaminations) {
+		for(Examination e : patientExaminations) {
 			ExaminationPriceDTO dto = new ExaminationPriceDTO();
 			/*PharmacyExaminationKey k = e.getId();    
 			String idString = k.toString().toLowerCase();
 			Long id = Long.parseLong(idString);*/
-			dto.setExaminationId(e.getExamination().getId()); 
-			dto.setExaminationName(e.getExamination().getExamType().getName());
+			dto.setExaminationId(e.getId()); 
+			dto.setExaminationName(e.getExamType().getName());
 			dto.setPharmacyName(e.getPharmacy().getName());
-			dto.setPrice(e.getExamination().getExamType().getPrice());
-			dto.setStartDateTime(e.getExamination().getInterval().getStartDateTime().toString());
-			dto.setEndDateTime(e.getExamination().getInterval().getEndDateTime().toString());
-			dto.setStatus(e.getExamination().getStatus().toString());
+			dto.setPrice(e.getExamType().getPrice());
+			dto.setStartDateTime(e.getInterval().getStartDateTime().toString());
+			dto.setEndDateTime(e.getInterval().getEndDateTime().toString());
+			dto.setStatus(e.getStatus().toString());
 			dtos.add(dto);
 		}
 		

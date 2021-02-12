@@ -47,4 +47,10 @@ export class ConsultationService {
   //   return this.http.put<any>(this.urlPatient + '/makeExaminationReservation/' + id, {}, {});
   // }
 
+  public setGrade(consultationId: number, grade: number) {
+    let params = new HttpParams().set("consultationId", consultationId.toString()).set("grade", grade.toString());
+
+    return this.http.put<any>(this.urlPatient + '/setPharmacistGrade/', {}, {params: params});
+  }
+
 }

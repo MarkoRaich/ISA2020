@@ -24,9 +24,12 @@ export class PharmaciesComponent implements OnInit {
   public startTime: string;
   public endTime: string;
 
+  public hidePharmatists: boolean;
+
+
   ngOnInit(): void {
     this.pharmaties = new Set<Pharmacy>();
-
+    this.hidePharmatists = true;
     this.getAllPharmaties();
   }
 
@@ -65,9 +68,13 @@ export class PharmaciesComponent implements OnInit {
       this.router.navigate(['patient/pharmacy-profile', pharmId ]);
   }
 
+  public hideFarmaceuti(): void {
+    this.hidePharmatists = true;
+  }
+
   public prikaziFarmaceute(id: number): void {
     this.toastr.success('Odabrana je apoteka: ' + id, 'Apoteka');
-
+    this.hidePharmatists = false;
     this.pharmacyService.searchPharmatists(id, this.date + '..' + this.startTime, this.date + '..' + this.endTime).subscribe(
       response => {
         this.pharmatists = response;
@@ -78,6 +85,7 @@ export class PharmaciesComponent implements OnInit {
   bookAReservation(pharmacistId: number, pharmacyId: number): void {
     this.toastr.success('Zakazano je savetovanje' + pharmacistId + " " + pharmacyId, 'Savetovanje');
     this.pharmacyService.bookAReservation(pharmacistId, pharmacyId).subscribe();
+    this.router.navigate(['/patient/all-consultations-booked']);
   }
 
 

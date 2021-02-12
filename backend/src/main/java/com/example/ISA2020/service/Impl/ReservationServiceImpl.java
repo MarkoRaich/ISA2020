@@ -104,6 +104,14 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public ReservationDTO makeDrugReservation(Long pharmacyId, Long drugId, int quantity, String endTime) { //treba jos i krajnji datum do preuzimanja da se posalje! -> DONE
 		
+		String target = "..";
+		String replacement = " ";
+		
+		String endTime2 = endTime;
+		String endTimeProcessed = endTime2.replace(target, replacement);
+		System.out.println(endTimeProcessed);
+		
+		
 		Patient patient = patientService.getLoginPatient();
 		if(patient == null) {
 			return null;
@@ -124,7 +132,7 @@ public class ReservationServiceImpl implements ReservationService {
 		interval.setStartDateTime(LocalDateTime.now());
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); 
-		LocalDateTime dateTime = LocalDateTime.parse(endTime, formatter);
+		LocalDateTime dateTime = LocalDateTime.parse(endTimeProcessed, formatter);
 		if(dateTime.isBefore(LocalDateTime.now())) {
 			System.out.println("Ne moze endTime biti pre startTime.");
 			return null;
@@ -222,6 +230,8 @@ public class ReservationServiceImpl implements ReservationService {
 		
 		for(DrugQuantity d : drugQuantities) {
 			DrugQuantityDTO dto = new DrugQuantityDTO();
+			dto.setDrugId(d.getDrug().getId());
+			dto.setPharmacyId(d.getPharmacy().getId());
 			dto.setDrugName(d.getDrug().getName());
 			dto.setDrugCode(d.getDrug().getCode());
 			dto.setPharmacyName(d.getPharmacy().getName());
