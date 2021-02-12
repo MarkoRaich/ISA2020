@@ -25,14 +25,12 @@ import {ExaminationDerm} from './models/ExaminationDerm';
 import {ListExaminationsBookedComponent} from './components/list-examinations-booked/list-examinations-booked.component';
 import {ListExaminationsAvailableComponent} from './components/list-examinations-available/list-examinations-available.component';
 import {ListConsultationsBookedComponent} from './components/list-consultations-booked/list-consultations-booked.component';
-
 import { PharmacyProfileComponent } from './components/pharmacy-profile/pharmacy-profile.component';
-
 import {ListConsultationsNotDoneCanceledComponent} from './components/list-consultations-not-done-canceled/list-consultations-not-done-canceled.component';
 import {ListAllDrugsComponent} from './components/list-all-drugs/list-all-drugs.component';
 import {GuestDrugsComponent} from './components/guest-drugs/guest-drugs.component';
 import {GuestPharmaciesComponent} from './components/guest-pharmacies/guest-pharmacies.component';
-
+import { CreatePromotionComponent } from './components/create-promotion/create-promotion.component';
 
 const routes: Routes = [
 
@@ -174,6 +172,11 @@ const routes: Routes = [
   {
     path: 'pharmacy-admin/financial-report',
     component: FinancialReportComponent,
+    canActivate: [PharmacyAdminGuard]
+  },
+  {
+    path: 'pharmacy-admin/create-promotion',
+    component: CreatePromotionComponent,
     canActivate: [PharmacyAdminGuard]
   },
   //***************** PATIENT *****************

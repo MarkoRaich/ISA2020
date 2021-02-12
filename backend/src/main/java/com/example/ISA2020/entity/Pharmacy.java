@@ -6,7 +6,7 @@ import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import com.example.ISA2020.entity.users.Dermatologist;
+import com.example.ISA2020.entity.users.Patient;
 import com.example.ISA2020.entity.users.Pharmacist;
 import com.example.ISA2020.entity.users.PharmacyAdmin;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -78,7 +78,9 @@ public class Pharmacy {
     @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<ExaminationType> examTypes = new HashSet<>();
     
-
+	@JsonIgnore			// veza pacijenata koji su pretplaceni na promocije ove apoteke!
+	@ManyToMany
+	private Set<Patient> subscribers =new HashSet<>();
 
 	public Pharmacy() {
 		super();
@@ -229,6 +231,18 @@ public class Pharmacy {
 
 	public void setExaminations(Set<Examination> examinations) {
 		this.examinations = examinations;
+	}
+
+
+
+	public Set<Patient> getSubscribers() {
+		return subscribers;
+	}
+
+
+
+	public void setSubscribers(Set<Patient> subscribers) {
+		this.subscribers = subscribers;
 	}
 
 	

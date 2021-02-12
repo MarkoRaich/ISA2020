@@ -12,6 +12,11 @@ import {ExaminationDerm} from '../models/ExaminationDerm';
 })
 export class DrugService {
 
+   
+ 
+   
+
+
     url = environment.baseUrl + environment.drugQ;
 
     urlDrug = environment.baseUrl + '/api/drug';

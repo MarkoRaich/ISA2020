@@ -52,6 +52,7 @@ import { ListAllDrugsComponent } from './components/list-all-drugs/list-all-drug
 import { GuestDrugsComponent } from './components/guest-drugs/guest-drugs.component';
 import { GuestPharmaciesComponent } from './components/guest-pharmacies/guest-pharmacies.component';
 import { PatientPharmaciesComponent } from './components/patient-pharmacies/patient-pharmacies.component';
+import { CreatePromotionComponent } from './components/create-promotion/create-promotion.component';
 
 
 
@@ -99,6 +100,7 @@ import { PatientPharmaciesComponent } from './components/patient-pharmacies/pati
     GuestDrugsComponent,
     GuestPharmaciesComponent,
     PatientPharmaciesComponent,
+    CreatePromotionComponent,
 
   ],
   imports: [

@@ -122,7 +122,7 @@ public class Patient implements UserDetails {
 			name = "patient_subscription",
 			joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(name = "pharmacy_id", referencedColumnName = "id") )
-	private Set<Pharmacy> pharmacySubscriptions = new HashSet<>();
+	private Set<Pharmacy> subscriptions = new HashSet<>();
 	
 	
 	//Jedan pacijent moze da napravi vise rezervacija leka 
@@ -212,6 +212,14 @@ public class Patient implements UserDetails {
 
 	public Long getId() {
 		return id;
+	}
+
+	public Set<Pharmacy> getSubscriptions() {
+		return subscriptions;
+	}
+
+	public void setSubscriptions(Set<Pharmacy> subscriptions) {
+		this.subscriptions = subscriptions;
 	}
 
 	public void setId(Long id) {
