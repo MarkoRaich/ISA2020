@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.example.ISA2020.dto.DrugDTO;
 import com.example.ISA2020.entity.users.Dermatologist;
 import com.example.ISA2020.enumeration.DrugForm;
 import com.example.ISA2020.enumeration.DrugType;
@@ -105,6 +106,7 @@ public class Drug {
 		this.rating = 0.0;
 
 	}
+
 
 	//GETERI I SETERI
 	public Long getId() {

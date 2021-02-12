@@ -31,6 +31,7 @@ import {ListAllDrugsComponent} from './components/list-all-drugs/list-all-drugs.
 import {GuestDrugsComponent} from './components/guest-drugs/guest-drugs.component';
 import {GuestPharmaciesComponent} from './components/guest-pharmacies/guest-pharmacies.component';
 import { CreatePromotionComponent } from './components/create-promotion/create-promotion.component';
+import { ListPurchaseOrdersComponent } from './components/list-purchase-orders/list-purchase-orders.component';
 
 const routes: Routes = [
 
@@ -177,6 +178,12 @@ const routes: Routes = [
   {
     path: 'pharmacy-admin/create-promotion',
     component: CreatePromotionComponent,
+    canActivate: [PharmacyAdminGuard]
+  },
+
+  {
+    path: 'pharmacy-admin/purchase-orders',
+    component: ListPurchaseOrdersComponent,
     canActivate: [PharmacyAdminGuard]
   },
   //***************** PATIENT *****************

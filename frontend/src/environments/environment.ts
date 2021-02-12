@@ -23,7 +23,8 @@ export const environment = {
   examination         : "/api/examination",
   examinationType     : "/api/examination-type",
   patient             : "/api/patient",
-  promotion           : "/api/promotion"
+  promotion           : "/api/promotion",
+  purchaseOrder       : "/api/purchase-order"
 };
 
 /*

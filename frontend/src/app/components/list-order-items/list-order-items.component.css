@@ -1,0 +1,64 @@
+
+@import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
+
+.page-header { 
+    position: relative; 
+    background-size: cover; 
+}
+
+.page-caption { 
+    padding-top: 150px; 
+    padding-bottom: 150px; 
+}
+
+.page-title { 
+    font-size: 60px; 
+    line-height: 1;  
+    text-align: center; 
+    font-family: 'Ubuntu', cursive; 
+    font-weight: 600; 
+}
+
+h1 {
+    display: table;
+    margin: 0px auto 0px auto;
+    padding: 10px;
+    color: #34495E;
+    background-color: rgba(255,255,255,0.7);
+    box-shadow: 0 0 5px 5px rgba(255,255,255,0.7);
+}
+
+.card-section { 
+    position: relative; 
+    bottom: 60px; 
+}
+
+.card-block { 
+    padding: 20px 40px 10px 40px;
+    width: 90%;    
+    margin: auto;
+}
+
+.section-title { 
+    margin-bottom: 60px; 
+}
+
+.btn-position {
+    margin-top: 9px;
+}
+
+.full-width-field {
+    width: 100%;
+}
+
+.mat-cell {
+    vertical-align: middle;
+}
+
+#search:hover, #search:active {
+    cursor: pointer;
+}
+
+.dialog-class {
+    width: 1000px;
+}

@@ -50,6 +50,14 @@ INSERT INTO pharmacy (name, address, description, rating) VALUES ('Betty', 'Beog
 INSERT INTO pharmacy (name, address, description, rating) VALUES ('Zlatni Lav', 'Zrenjanin Balkanska 20', 'Jel imate mozda...? Imamo.', 3.8);
 
 
+-- APOTEKA I PACIJETNI PRETPLATIOCI NA PROMOCIJE
+
+INSERT INTO patient_subscription (patient_id, pharmacy_id) VALUES (1,1);
+INSERT INTO patient_subscription (patient_id, pharmacy_id) VALUES (1,2);
+INSERT INTO patient_subscription (patient_id, pharmacy_id) VALUES (2,1);
+INSERT INTO patient_subscription (patient_id, pharmacy_id) VALUES (2,4);
+
+
 -- KOLICINA LEKOVA U APOTEKAMA
 
 INSERT INTO drug_quantity (drug_id, pharmacy_id, quantity, status) VALUES ( 1, 1, 200, 'ACTIVE');
@@ -124,13 +132,6 @@ INSERT INTO dermatologist (username, password, first_name, last_name,  phone_num
 INSERT INTO dermatologist_authority(user_id, authority_id) VALUES (3,3);
 
 
--- DERMATOLOZI I APOTEKE U KOJIMA RADE
-
--- INSERT INTO pharmacy_dermatologist(pharmacy_id, dermatologist_id) VALUES (1,1);
--- INSERT INTO pharmacy_dermatologist(pharmacy_id, dermatologist_id) VALUES (2,2);
--- INSERT INTO pharmacy_dermatologist(pharmacy_id, dermatologist_id) VALUES (3,3);
-
-
 -- RADNO VREME DERMATOLOGA I GERUND IZMEDJU APOTEKE I DERMATOLOGA
 
 INSERT INTO derm_work_hours(pharmacy_id, dermatologist_id, status, time_from, time_to) VALUES (1,1, 'ACTIVE', '08:00','16:00');
@@ -141,17 +142,13 @@ INSERT INTO derm_work_hours(pharmacy_id, dermatologist_id, status, time_from, ti
 
 -- CENA PREGLEDA TIP
 
--- INSERT INTO examination_price(examination_id, pharmacy_id, price, interval_id) VALUES (1, 1, 4000.0, 1);
--- INSERT INTO examination_price(examination_id, pharmacy_id, price, interval_id) VALUES (2, 2, 5000.0, 2);
--- INSERT INTO examination_price(examination_id, pharmacy_id, price, interval_id) VALUES (3, 3, 4230.0, 3);
--- INSERT INTO examination_price(examination_id, pharmacy_id, price, interval_id) VALUES (4, 3, 7730.0, 4);
--- INSERT INTO examination_price(examination_id, pharmacy_id, price, interval_id) VALUES (5, 2, 5670.0, 5);
--- INSERT INTO examination_price(examination_id, pharmacy_id, price, interval_id) VALUES (6, 1, 1430.0, 1);
--- INSERT INTO examination_price(examination_id, pharmacy_id, price, interval_id) VALUES (7, 1, 2200.0, 1);
-
 INSERT INTO examination_type(name, description, price, pharmacy_id) VALUES ('Opsti pregled', 'Opsti pregled pacijenta', 2000, 1);
 INSERT INTO examination_type(name, description, price, pharmacy_id) VALUES ('Pregled sa Dermoskopom ', 'Pregled pacijenta sa Dermoskopom', 3500, 1);
 INSERT INTO examination_type(name, description, price, pharmacy_id) VALUES ('Dermoskopija', 'Dermoskopija za pacijenta', 4000, 1);
+INSERT INTO examination_type(name, description, price, pharmacy_id) VALUES ('Opsti pregled', 'Opsti pregled pacijenta', 1450, 2);
+INSERT INTO examination_type(name, description, price, pharmacy_id) VALUES ('Pregled sa Dermoskopom ', 'Pregled pacijenta sa Dermoskopom', 5000, 2);
+INSERT INTO examination_type(name, description, price, pharmacy_id) VALUES ('Dermoskopija', 'Dermoskopija za pacijenta', 2500, 2);
+
 
 -- PREGLEDI
 
@@ -199,6 +196,8 @@ INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, i
 INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije specijalne', 'Konsultacije u vezi ishrane', 1, 1, 4, 6);
 INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije specijalne', 'Konsultacije u vezi psihickog zravlja', 1, 1, 4, 5);
 INSERT INTO consultation(description, name, pharmacist_id, patient_id, status, interval_id) values ('Konsultacije specijalne', 'Konsultacije u vezi fizickog zdravlja', 1, 1, 3, 3);
+
+
 -- CENE SAVETOVANJA
 
 INSERT INTO consultation_price(consultation_id, pharmacy_id, price, interval_id) VALUES (1, 1, 4000.0, 3);
@@ -227,6 +226,7 @@ INSERT INTO consultation_price(consultation_id, pharmacy_id, price, interval_id)
 INSERT INTO consultation_price(consultation_id, pharmacy_id, price, interval_id) VALUES (22, 2, 1500.0, 5);
 INSERT INTO consultation_price(consultation_id, pharmacy_id, price, interval_id) VALUES (23, 1, 2200.0, 2);
 
+
 -- REZERVACIJE LEKOVA
 
 INSERT INTO reservation(generated_key, status, drug_id, interval_id, patient_id, pharmacy_id, quantity) VALUES ('12345', 0, 1, 1, 1, 1, 19);
@@ -243,5 +243,20 @@ INSERT INTO reservation(generated_key, status, drug_id, interval_id, patient_id,
 INSERT INTO promotion(content, period_id, pharmacy_id) VALUES ('Brufen -20%', 1, 1);
 INSERT INTO promotion(content, period_id, pharmacy_id) VALUES ('Paracetamol -30%', 2, 1);
 INSERT INTO promotion(content, period_id, pharmacy_id) VALUES ('Aspirin -10%', 2, 2);
-INSERT INTO promotion(content, period_id, pharmacy_id) VALUES ('Bromazepam -15%', 3, 3);
-INSERT INTO promotion(content, period_id, pharmacy_id) VALUES ('Cafetin -20%', 1, 4);
+
+-- NARUDZBENICE
+
+INSERT INTO purchase_order(status, pharmacy_id, deadline) VALUES ( 'AWAITING', 1, '2021.04.10 09:00');
+INSERT INTO purchase_order(status, pharmacy_id, deadline) VALUES ( 'AWAITING', 1, '2021.03.11 19:00');
+
+-- STAVKE NARUDZBENICE
+
+INSERT INTO purchase_order_item(quantity, drug_id, purchase_order_id) VALUES (5, 2, 1);
+INSERT INTO purchase_order_item(quantity, drug_id, purchase_order_id) VALUES (7, 1, 1);
+INSERT INTO purchase_order_item(quantity, drug_id, purchase_order_id) VALUES (11, 6, 1);
+INSERT INTO purchase_order_item(quantity, drug_id, purchase_order_id) VALUES (3, 3, 2);
+INSERT INTO purchase_order_item(quantity, drug_id, purchase_order_id) VALUES (50, 4, 1);
+
+
+
+

@@ -137,6 +137,7 @@ export class PharmacyProfileComponent implements OnInit {
 }
 
 subscribe(){
+  
   this.toastr.success("Pretplatili ste se na promocije apoteke: " + this.pharmacy.name, "Pretplata" )
 }
 }

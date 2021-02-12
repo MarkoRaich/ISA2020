@@ -120,7 +120,7 @@ public class Patient implements UserDetails {
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(
 			name = "patient_subscription",
-			joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+			joinColumns = @JoinColumn(name = "patient_id", referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(name = "pharmacy_id", referencedColumnName = "id") )
 	private Set<Pharmacy> subscriptions = new HashSet<>();
 	
@@ -291,13 +291,6 @@ public class Patient implements UserDetails {
 	}
 
 
-	public Set<Pharmacy> getPharmacySubscriptions() {
-		return pharmacySubscriptions;
-	}
-
-	public void setPharmacySubscriptions(Set<Pharmacy> pharmacySubscriptions) {
-		this.pharmacySubscriptions = pharmacySubscriptions;
-	}
 
 	public int getPoints() {
 		return points;

@@ -1,0 +1,59 @@
+<h1 mat-dialog-title>Kreiranje narudžbenice</h1>
+
+<mat-dialog-content class="dialog-class">
+    <mat-vertical-stepper [linear]="true" #stepper>
+        <mat-step [stepControl]="dateTimeTypeForm">
+            <form [formGroup]="dateTimeTypeForm" class="form-full-width">
+                <ng-template matStepLabel>Odaberite rok za ponude</ng-template>
+                <mat-form-field class="form-full-width">
+                    <input matInput [matDatepicker]=" picker" placeholder="Datum" formControlName="date" readonly
+                        [min]="minDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker disabled="false"></mat-datepicker>
+                </mat-form-field>
+            </form>
+            <mat-dialog-actions class="mt-2">
+                <button mat-raised-button color="primary" (click)="next()" [disabled]="!dateTimeTypeForm.valid"
+                    matStepperNext>Dalje</button>
+            </mat-dialog-actions>
+        </mat-step>
+
+
+        <mat-step [stepControl]="addItemsForm">
+            <form [formGroup]="addItemsForm" class="form-full-width">
+                <mat-form-field class="form-full-width">
+                    <mat-label>Lek</mat-label>
+                    <mat-select formControlName="drug">
+                        <mat-option>None</mat-option>
+                        <mat-option *ngFor="let drug of drugs" [value]="drug">
+                            {{drug.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="addItemsForm.get('drug').invalid">
+                       Odaberite lek.
+                    </mat-error>
+                </mat-form-field>
+    
+                <mat-form-field class="form-full-width-td ml-2">
+                    <input matInput type="number" placeholder="Količina" formControlName="quantity">
+                    <mat-error
+                        *ngIf="addItemsForm.get('quantity').errors && addItemsForm.get('quantity').errors['required']">
+                        Unesite količinu.
+                    </mat-error>
+                    <mat-error
+                        *ngIf="addItemsForm.get('quantity').errors && addItemsForm.get('quantity').errors['min']">
+                        Minimalna količina je 1.
+                    </mat-error>
+                </mat-form-field>
+            </form>
+
+            <mat-dialog-actions class="mt-2 mb-1">
+                <button mat-raised-button color="primary" (click)="addOrderItem()"
+                    [disabled]="!addItemsForm.valid">Dodaj lek</button>
+                <button mat-raised-button color="primary" (click)="createPurchaseOrder()"
+                    [disabled]="!addItemsForm.valid">Kreiraj narudžbenicu </button>
+            </mat-dialog-actions>
+        </mat-step>
+    </mat-vertical-stepper>
+
+</mat-dialog-content>

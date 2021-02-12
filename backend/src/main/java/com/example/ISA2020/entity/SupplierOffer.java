@@ -15,7 +15,7 @@ public class SupplierOffer {
 	private Long id;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "purchaseorder_id", referencedColumnName = "id")
+	@JoinColumn(name = "purchase_order_id", referencedColumnName = "id")
 	private PurchaseOrder purchaseOrder;
 	
 	@OneToMany
