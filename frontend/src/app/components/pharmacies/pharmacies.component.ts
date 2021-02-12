@@ -80,9 +80,6 @@ export class PharmaciesComponent implements OnInit {
     this.pharmacyService.bookAReservation(pharmacistId, pharmacyId).subscribe();
   }
 
-  public prikaziInformacije(id: number): void {
-
-  }
 
 
 }

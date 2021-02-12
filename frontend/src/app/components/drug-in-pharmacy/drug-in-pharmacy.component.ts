@@ -20,7 +20,7 @@ export class DrugInPharmacyComponent implements OnInit {
 
 
   drugsDataSource: MatTableDataSource<DrugWithQuantity>;
-  displayedColumns: string[] = [ 'name', 'code', 'quantity'];
+  displayedColumns: string[] = [ 'name', 'code', 'reserve', 'check'];
   searchString: string;
   searchName: string = '';
   numberOfItems: number;
@@ -50,6 +50,12 @@ export class DrugInPharmacyComponent implements OnInit {
       })
   }
 
-  search(){}
 
+  reserve(drug: DrugWithQuantity){
+    this.toastr.success("Rezervisali ste lek","Rezervacija leka");
+  }
+
+  chechAvailability(drug: DrugWithQuantity){
+    this.toastr.success("Provera u toku","Provera dostupnosti leka");
+  }
 }

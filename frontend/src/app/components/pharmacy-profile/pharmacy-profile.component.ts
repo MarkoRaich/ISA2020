@@ -135,4 +135,8 @@ export class PharmacyProfileComponent implements OnInit {
     };
     this.dialog.open(ExaminationInPharmacyComponent, dialogConfig);
 }
+
+subscribe(){
+  this.toastr.success("Pretplatili ste se na promocije apoteke: " + this.pharmacy.name, "Pretplata" )
+}
 }

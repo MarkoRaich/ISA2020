@@ -26,7 +26,7 @@ export class DermatologistInPharmacyComponent implements OnInit {
   itemsPerPage = environment.itemsPerPage;
 
   @ViewChild(MatSort, { static: false }) sort: MatSort;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   constructor(public toastr: ToastrService,
               public dermatologistService: DermatologistService,

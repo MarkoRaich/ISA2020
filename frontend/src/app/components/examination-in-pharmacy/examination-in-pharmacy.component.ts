@@ -6,6 +6,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { AvailableExamination } from 'src/app/models/availableExamination';
+import { Examination } from 'src/app/models/examination';
+import { ExaminationDermService } from 'src/app/services/examination-derm.service';
 import { ExaminationService } from 'src/app/services/examination.service';
 import { environment } from 'src/environments/environment';
 
@@ -20,7 +22,7 @@ export class ExaminationInPharmacyComponent implements OnInit {
 
 
   examinationsDataSource: MatTableDataSource<AvailableExamination>;
-  displayedColumns: string[] = [ 'id', 'dermatologist', 'date', 'time', 'price'];
+  displayedColumns: string[] = [ 'id', 'dermatologist', 'date', 'time', 'price', 'book'];
   numberOfItems: number;
   itemsPerPage = environment.itemsPerPage;
 
@@ -31,6 +33,7 @@ export class ExaminationInPharmacyComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private examinationService: ExaminationService,
               public toastr: ToastrService,
+              private examinationDermService: ExaminationDermService,
               private dialogRef: MatDialogRef<ExaminationInPharmacyComponent>,
               @Inject(MAT_DIALOG_DATA) data) {
 
@@ -48,5 +51,9 @@ export class ExaminationInPharmacyComponent implements OnInit {
 
   }
 
-  search(){}
+
+  book(id: number): void {
+    this.toastr.success('Zakazan je pregled' + id , 'Pregled');
+    this.examinationDermService.bookExamination(id).subscribe();
+  }
 }

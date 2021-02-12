@@ -4,10 +4,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule } from '@angular/material/input';
-
-
-import { MatFormFieldModule } from "@angular/material/form-field";
 import { HomeComponent } from './components/home/home.component';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { ToastrModule } from 'ngx-toastr';
@@ -46,20 +42,17 @@ import { ReservationComponent } from './components/reservation/reservation.compo
 import { ListExaminationsBookedComponent } from './components/list-examinations-booked/list-examinations-booked.component';
 import { ListExaminationsAvailableComponent } from './components/list-examinations-available/list-examinations-available.component';
 import { ListConsultationsBookedComponent } from './components/list-consultations-booked/list-consultations-booked.component';
-<<<<<<< Updated upstream
 import { PharmacyProfileComponent } from './components/pharmacy-profile/pharmacy-profile.component';
 import { PharmacistInPharmacyComponent } from './components/pharmacist-in-pharmacy/pharmacist-in-pharmacy.component';
 import { DermatologistInPharmacyComponent } from './components/dermatologist-in-pharmacy/dermatologist-in-pharmacy.component';
 import { DrugInPharmacyComponent } from './components/drug-in-pharmacy/drug-in-pharmacy.component';
 import { ExaminationInPharmacyComponent } from './components/examination-in-pharmacy/examination-in-pharmacy.component';
-=======
 import { ListConsultationsNotDoneCanceledComponent } from './components/list-consultations-not-done-canceled/list-consultations-not-done-canceled.component';
 import { ListAllDrugsComponent } from './components/list-all-drugs/list-all-drugs.component';
 import { GuestDrugsComponent } from './components/guest-drugs/guest-drugs.component';
 import { GuestPharmaciesComponent } from './components/guest-pharmacies/guest-pharmacies.component';
+import { PatientPharmaciesComponent } from './components/patient-pharmacies/patient-pharmacies.component';
 
->>>>>>> Stashed changes
-//import { ErrorInterceptor } from './interceptors/error.interceptor';
 
 
 
@@ -96,18 +89,17 @@ import { GuestPharmaciesComponent } from './components/guest-pharmacies/guest-ph
     ListExaminationsBookedComponent,
     ListExaminationsAvailableComponent,
     ListConsultationsBookedComponent,
-<<<<<<< Updated upstream
     PharmacyProfileComponent,
     PharmacistInPharmacyComponent,
     DermatologistInPharmacyComponent,
     DrugInPharmacyComponent,
     ExaminationInPharmacyComponent,
-=======
     ListConsultationsNotDoneCanceledComponent,
     ListAllDrugsComponent,
     GuestDrugsComponent,
     GuestPharmaciesComponent,
->>>>>>> Stashed changes
+    PatientPharmaciesComponent,
+
   ],
   imports: [
     BrowserModule,

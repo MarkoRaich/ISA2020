@@ -114,14 +114,14 @@ public class Patient implements UserDetails {
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Consultation> consultations = new HashSet<>();
 
-	//lista promocija na koje se pacijent pretplatio
+	//lista apoteka na cije se promocije pacijent pretplatio
     @JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(
-			name = "patient_promotion",
+			name = "patient_subscription",
 			joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-			inverseJoinColumns = @JoinColumn(name = "promotion_id", referencedColumnName = "id") )
-	private Set<Promotion> promotions = new HashSet<>();
+			inverseJoinColumns = @JoinColumn(name = "pharmacy_id", referencedColumnName = "id") )
+	private Set<Pharmacy> pharmacySubscriptions = new HashSet<>();
 	
 	
 	//Jedan pacijent moze da napravi vise rezervacija leka 
