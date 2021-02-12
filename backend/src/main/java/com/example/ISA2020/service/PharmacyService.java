@@ -28,8 +28,10 @@ public interface PharmacyService {
 	
 	List<DrugPricePharmacyNameAddressRatingDTO> getAllPharmaciesSortedByPharmacyRating();
 	
-	List<DrugPricePharmacyNameAddressRatingDTO> getAllPharmaciesSortedByAddressForAddress(String pharmacyAddress);
+	List<PharmacyDTO> getAllPharmaciesSortedByAddressForAddress(String pharmacyAddress);
 	
-	List<DrugPricePharmacyNameAddressRatingDTO> getAllPharmaciesSortedByNameForName(String pharmacyName);
+	List<PharmacyDTO> getAllPharmaciesSortedByNameForName(String pharmacyName);
+
+	List<PharmacyDTO> searchPharmaciesByNameAndAddress(Long id, String name, String address);
 	
 }

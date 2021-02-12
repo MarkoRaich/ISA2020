@@ -394,8 +394,8 @@ public class PatientController {
 	
 	@PutMapping("/setDermatologistGrade")
     //@PreAuthorize("hasRole('PATIENT')") //ROLE_PATIENT??
-	public ResponseEntity<GradeDermPharmDTO> setDermatologistGrade(@RequestParam("dermatologistId") Long dermatologistId, @RequestParam("grade") double grade) {
-		GradeDermPharmDTO dto = gradeService.setGradeForDermatologist(dermatologistId, grade);
+	public ResponseEntity<GradeDermPharmDTO> setDermatologistGrade(@RequestParam("examinationId") Long examinationId, @RequestParam("grade") double grade) {
+		GradeDermPharmDTO dto = gradeService.setGradeForDermatologist(examinationId, grade);
 		if(dto == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
@@ -404,8 +404,8 @@ public class PatientController {
 	
 	@PutMapping("/setPharmacistGrade")
     //@PreAuthorize("hasRole('PATIENT')") //ROLE_PATIENT??
-	public ResponseEntity<GradeDermPharmDTO> setPharmacistGrade(@RequestParam("pharmacistId") Long pharmacistId, @RequestParam("grade") double grade) {
-		GradeDermPharmDTO dto = gradeService.setGradeForPharmacist(pharmacistId, grade);
+	public ResponseEntity<GradeDermPharmDTO> setPharmacistGrade(@RequestParam("consultationId") Long consultationId, @RequestParam("grade") double grade) {
+		GradeDermPharmDTO dto = gradeService.setGradeForPharmacist(consultationId, grade);
 		if(dto == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}

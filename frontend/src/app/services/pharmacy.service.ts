@@ -1,15 +1,16 @@
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { Router } from '@angular/router';
-import { Subject } from "rxjs";
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import { environment } from "src/environments/environment";
 import { Pharmacy } from "../models/Pharmacy";
+import {Dermatologist} from '../models/dermatologist';
 
 @Injectable({
     providedIn: 'root'
 })
 export class PharmacyService {
- 
+
 
 
     url = environment.baseUrl + environment.pharmacy;
@@ -20,8 +21,11 @@ export class PharmacyService {
     addPharmacyAdressEmiter = new Subject<Pharmacy>();
     addSearchAddresPharmacyEmitter = new Subject<Pharmacy>();
 
+  searchPharmacyName: BehaviorSubject<Pharmacy[]> = new BehaviorSubject<Pharmacy[]>([]);
+  searchPharmacyAddress: BehaviorSubject<Pharmacy[]> = new BehaviorSubject<Pharmacy[]>([]);
 
-    constructor(private http: HttpClient, private router: Router) {}
+
+  constructor(private http: HttpClient, private router: Router) {}
 
 
 
@@ -68,6 +72,25 @@ export class PharmacyService {
      let params = new HttpParams().set("pharmacistId", pharmacistId.toString()).set("pharmacyId", pharmacyId.toString()); //Create new HttpParams
      return this.http.put(this.urlPatient + '/makeConsultationReservation',{}, {params: params})
    }
+
+
+
+
+   public searchPharmacyByName(pharmacyName: string) {
+     let params = new HttpParams().set("pharmacyName", pharmacyName); //Create new HttpParams
+
+     return this.http.get(this.url + "/noAuth/getAllPharmaciesSortedByNameForName", {
+       params: params});
+   }
+
+
+   public searchPharmacyByAddress(pharmacyAddress: string) {
+     let params = new HttpParams().set("pharmacyAddress", pharmacyAddress); //Create new HttpParams
+
+     return this.http.get(this.url + "/noAuth/getAllPharmaciesSortedByAddressForAddress", {
+       params: params});
+   }
+
 
 
 }

@@ -18,7 +18,7 @@ export class ListConsultationsNotDoneCanceledComponent implements OnInit {
 
   examinationsDataSource: MatTableDataSource<Consultation>;
 
-  displayedColumns: string[] = [ 'name', 'pharmacy', 'rating',  'price', 'status'];
+  displayedColumns: string[] = [ 'name', 'pharmacy', 'rating',  'price', 'status', 'oceni'];
   numberOfItems: number;
   itemsPerPage = environment.itemsPerPage;
 
@@ -42,6 +42,8 @@ export class ListConsultationsNotDoneCanceledComponent implements OnInit {
   public pharmacyAddress: String;
   public status: String;
 
+  grade: number;
+
   ngOnInit() {
 
     this.getAllConsultationsBooked();
@@ -56,5 +58,10 @@ export class ListConsultationsNotDoneCanceledComponent implements OnInit {
         this.examinationsDataSource.sort = this.sort;
         this.examinationsDataSource.paginator = this.paginator;
       });
+  }
+
+  public setGrade(consultationId: number) {
+    //console.log(status);
+    this.consultationService.setGrade(consultationId, this.grade).subscribe();
   }
 }

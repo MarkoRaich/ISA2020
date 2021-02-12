@@ -1,0 +1,54 @@
+
+<div id="apoteke">
+  <form>
+    <div class="form-group">
+      <table align="center" style="width:100%">
+        <tr>
+          <th>Datum</th>
+          <th>Krajnje vreme</th>
+          <th>Kolicina</th>
+        </tr>
+        <tr>
+          <th>
+            <input type="date" id="date" class="form-control" [(ngModel)]="date" [ngModelOptions]="{standalone: true}">
+          </th>
+          <th>
+            <input type="time" id="endTime" class="form-control" [(ngModel)]="endTime" [ngModelOptions]="{standalone: true}">
+          </th>
+          <th>
+            <input type="number" id="quantity" class="form-control" [(ngModel)]="quantity" [ngModelOptions]="{standalone: true}">
+          </th>
+        </tr>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </table>
+    </div>
+  </form>
+
+  <table class="table-main" align="center" style="width:100%">
+    <tr>
+    <tr bgcolor = blue >
+      <!--<th><button (click)="sortByName()" class="btn-add">Ime</button></th>
+      <th><button (click)="sortByRating()" class="btn-add">Ocena</button></th> -->
+      <th>Ime</th>
+      <th>Sifra</th>
+      <th>Apoteka</th>
+
+  </tr>
+
+    <tr *ngFor="let drug of drugs" >
+      <td>{{drug.drugName}}</td>
+      <td>{{drug.drugCode}}</td>
+      <td>{{drug.pharmacyName}}</td>
+      <th><button class="btn-add" (click)="makeReservation(drug.drugId, drug.pharmacyId)">Napravi Rezervaciju</button></th>
+    </tr>
+
+
+  </table>
+
+
+</div>

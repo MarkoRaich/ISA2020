@@ -2,29 +2,27 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {ExaminationDerm} from '../../models/ExaminationDerm';
 import {environment} from '../../../environments/environment';
+import {Subscription} from 'rxjs';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {FormBuilder} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {ExaminationDermService} from '../../services/examination-derm.service';
 import {ToastrService} from 'ngx-toastr';
-import {Subscription} from 'rxjs';
-import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-list-examinations-available',
-  templateUrl: './list-examinations-available.component.html',
-  styleUrls: ['./list-examinations-available.component.css']
+  selector: 'app-list-examinations-done',
+  templateUrl: './list-examinations-done.component.html',
+  styleUrls: ['./list-examinations-done.component.css']
 })
-export class ListExaminationsAvailableComponent implements OnInit {
+export class ListExaminationsDoneComponent implements OnInit {
 
   examinationsDataSource: MatTableDataSource<ExaminationDerm>;
 
-  displayedColumns: string[] = [ 'name', 'date', 'time', 'price', 'status', 'zakazi'];
+  displayedColumns: string[] = [ 'name', 'date', 'time', 'price', 'status', 'oceni'];
   numberOfItems: number;
   itemsPerPage = environment.itemsPerPage;
-
-  bookExaminationSuccess: Subscription;
+  cancelExaminationSuccess: Subscription;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -32,8 +30,7 @@ export class ListExaminationsAvailableComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               public dialog: MatDialog,
               private examinationDermService: ExaminationDermService,
-              public toastr: ToastrService,
-              public router: Router) { }
+              public toastr: ToastrService) { }
 
   examinations: ExaminationDerm[] = [];
 
@@ -46,20 +43,22 @@ export class ListExaminationsAvailableComponent implements OnInit {
   public dermatologistRating: number;
   public status: string;
 
+  public grade: number;
+
   ngOnInit() {
 
-    this.getAllExaminationsAvailable();
+    this.getAllExaminationsBooked();
 
-    this.bookExaminationSuccess =  this.examinationDermService.successBookExamination.subscribe(
+    this.cancelExaminationSuccess =  this.examinationDermService.successCancelExamination.subscribe(
       () => {
-        this.getAllExaminationsAvailable();
+        this.getAllExaminationsBooked();
       }
     );
   }
 
 
-  getAllExaminationsAvailable() {
-    this.examinationDermService.getAllExaminationsAvailable().subscribe(
+  getAllExaminationsBooked() {
+    this.examinationDermService.getAllExaminationsDone().subscribe(
       (data: ExaminationDerm[]) => {
         this.examinations = data;
         this.examinationsDataSource = new MatTableDataSource(data);
@@ -68,10 +67,11 @@ export class ListExaminationsAvailableComponent implements OnInit {
       });
   }
 
-  public bookExamination(id: number): void {
-    this.toastr.success('Zakazan je pregled' + id , 'Pregled');
-    this.router.navigate(['/patient/all-examinations-booked']);
-    this.examinationDermService.bookExamination(id).subscribe();
+  public setGrade(examinationId: number) {
+    //console.log(status);
+    this.examinationDermService.setGrade(examinationId, this.grade).subscribe();
   }
+
+
 
 }

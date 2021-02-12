@@ -55,6 +55,11 @@ export class DrugService {
     return this.http.get(this.urlDrug + '/getAll');
   }
 
+  public getAllDrugQuantities() {
+    console.log("usao je u servis");
+    return this.http.get(this.urlPatient + '/getAllDrugQuantities');
+  }
+
 
     getDrugsNotInPharmacy() {
        this.http.get(this.url + "/other").subscribe(
@@ -100,5 +105,17 @@ export class DrugService {
     return this.http.put<any>(this.urlPatient + '/addAlergie/' + drugId, {}, {});
   }
 
+  public makeReservationWithQuantity(drugId: number, pharmacyId: number, quantity: number, endTime: string) {
+    console.log(drugId);
+    let params = new HttpParams().set("drugId", drugId.toString()).set("pharmacyId", pharmacyId.toString()).set("quantity", quantity.toString()).set("endTime", endTime); //Create new HttpParams
+
+    return this.http.put<any>(this.urlPatient + '/makeDrugReservation/', {}, {params: params});
+  }
+
+  public setGrade(drugId: number, grade: number) {
+    let params = new HttpParams().set("drugId", drugId.toString()).set("grade", grade.toString());
+
+    return this.http.put<any>(this.urlPatient + '/setDrugGrade/', {}, {params: params});
+  }
 
 }

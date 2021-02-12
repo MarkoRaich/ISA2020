@@ -5,9 +5,17 @@
         <div class="page-caption">
           <h1 class="page-title">Svi lekovi</h1>
           <div class="text-center mt-4">
-            <!-- <button mat-raised-button color="primary" (click)="openCreatingDialog()">
-               Kreiraj slobodan termin za pregled
-             </button> -->
+                <th>
+                  <button mat-raised-button align="right" color="primary" (click)="makeReservation()">Napravi rezervaciju</button>
+                </th>
+
+                <th class="blank_row">
+                  <td bgcolor="#FFFFFF" colspan="1">&nbsp;</td>
+
+                <th>  Ocena: </th>
+                <th>
+                  <input type="number" id="grade"  class="form-control" [(ngModel)]="grade" [ngModelOptions]="{standalone: true}">
+                </th>
           </div>
         </div>
       </div>
@@ -81,6 +89,14 @@
                   <button mat-raised-button color="primary" (click)="addAlergie(element.id)">Dodaj Alergiju</button>
                 </td>
               </ng-container>
+
+              <ng-container matColumnDef="oceni">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                <td mat-cell *matCellDef=" let element">
+                  <button mat-raised-button color="primary" (click)="setGrade(element.id)">Oceni lek</button>
+                </td>
+              </ng-container>
+
 
 
               <tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></tr>

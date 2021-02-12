@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {AvailableExamination} from '../models/availableExamination';
-import {HttpClient, HttpResponseBase} from '@angular/common/http';
+import {HttpClient, HttpParams, HttpResponseBase} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {ExaminationDerm} from '../models/ExaminationDerm';
 import {Reservation} from '../models/Reservation';
@@ -35,6 +35,11 @@ export class ExaminationDermService {
     return this.http.get(this.urlPatient + '/getAllExaminationsAvailabe');
   }
 
+  public getAllExaminationsDone() {
+    console.log("usao je u servis");
+    return this.http.get(this.urlPatient + '/getAllExaminationsSortedByPrice');
+  }
+
 
   public cancelExamination(id: number) {
     console.log(id);
@@ -44,6 +49,12 @@ export class ExaminationDermService {
   public bookExamination(id: number) {
     console.log(id);
     return this.http.put<any>(this.urlPatient + '/makeExaminationReservation/' + id, {}, {});
+  }
+
+  public setGrade(examinationId: number, grade: number) {
+    let params = new HttpParams().set("examinationId", examinationId.toString()).set("grade", grade.toString());
+
+    return this.http.put<any>(this.urlPatient + '/setDermatologistGrade/', {}, {params: params});
   }
 
 }

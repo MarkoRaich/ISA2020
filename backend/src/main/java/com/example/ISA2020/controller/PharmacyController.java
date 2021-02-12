@@ -22,6 +22,7 @@ import com.example.ISA2020.dto.DrugPricePharmacyNameAddressRatingDTO;
 import com.example.ISA2020.dto.EditPharmacyDTO;
 import com.example.ISA2020.dto.ExaminationPriceDTO;
 import com.example.ISA2020.dto.ExaminationPriceDermatologistDTO;
+import com.example.ISA2020.dto.PharmacistDTO;
 import com.example.ISA2020.dto.PharmacistSimpleDTO;
 import com.example.ISA2020.dto.PharmacyDTO;
 import com.example.ISA2020.entity.Pharmacy;
@@ -192,21 +193,32 @@ public class PharmacyController {
 	
 	//3.31 unosi se addressa ----------------------------------------------------------- omoguci pristup svim korisnicima
 	@GetMapping("/noAuth/getAllPharmaciesSortedByAddressForAddress")
-	public ResponseEntity<List<DrugPricePharmacyNameAddressRatingDTO>> getAllPharmaciesSortedByAddressForAddress(@RequestParam("pharmacyAddress") String address) {
-		List<DrugPricePharmacyNameAddressRatingDTO> dtos = pharmacyService.getAllPharmaciesSortedByAddressForAddress(address);
+	public ResponseEntity<List<PharmacyDTO>> getAllPharmaciesSortedByAddressForAddress(@RequestParam("pharmacyAddress") String address) {
+		List<PharmacyDTO> dtos = pharmacyService.getAllPharmaciesSortedByAddressForAddress(address);
 		if(dtos == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<List<DrugPricePharmacyNameAddressRatingDTO>>(dtos, HttpStatus.OK);
+		return new ResponseEntity<List<PharmacyDTO>>(dtos, HttpStatus.OK);
 	}
 	
 	//unosi se ime
 	@GetMapping("/noAuth/getAllPharmaciesSortedByNameForName")
-	public ResponseEntity<List<DrugPricePharmacyNameAddressRatingDTO>> getAllPharmaciesSortedByNameForName(@RequestParam("pharmacyName") String name) {
-		List<DrugPricePharmacyNameAddressRatingDTO> dtos = pharmacyService.getAllPharmaciesSortedByNameForName(name);
+	public ResponseEntity<List<PharmacyDTO>> getAllPharmaciesSortedByNameForName(@RequestParam("pharmacyName") String name) {
+		List<PharmacyDTO> dtos = pharmacyService.getAllPharmaciesSortedByNameForName(name);
 		if(dtos == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<List<DrugPricePharmacyNameAddressRatingDTO>>(dtos, HttpStatus.OK);
+		return new ResponseEntity<List<PharmacyDTO>>(dtos, HttpStatus.OK);
 	}
+	
+	/*@GetMapping(value = "/search")
+	//@PreAuthorize("hasRole('PHARMACY_ADMIN')")
+    public ResponseEntity<List<PharmacyDTO>> searchPharmacistsInPharmacy(@RequestParam(value = "firstName") String firstName, @RequestParam(value = "lastName") String lastName ) {
+		 
+		PharmacyAdmin pharmacyAdmin = pharmacyService.getLoginAdmin();
+	        if (pharmacyAdmin == null) {
+	            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+	        }
+        return new ResponseEntity<>(pharmacyService.searchPharmaciesByNameAndAddress(id, name, address)(pharmacyAdmin.getPharmacy().getId(), firstName, lastName), HttpStatus.OK);
+    } */
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.ISA2020.dto.ComplaintDTO;
 import com.example.ISA2020.dto.PatientDTO;
 import com.example.ISA2020.entity.Complaint;
 import com.example.ISA2020.service.ComplaintService;
@@ -21,7 +22,7 @@ import com.example.ISA2020.service.PatientService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "/api/auth/complaint")
+@RequestMapping(value = "/api/complaint")
 public class ComplaintController {
 	
 	@Autowired
@@ -30,10 +31,10 @@ public class ComplaintController {
 	@Autowired 
 	private PatientService patientService;
 	
-	@PostMapping("/create/{id}")
-	public ResponseEntity<Complaint> create(@RequestBody Complaint complaint, @PathVariable Long patientId){
+	@PostMapping("/create")
+	public ResponseEntity<Complaint> create(@RequestBody ComplaintDTO complaintDTO){
 		try {
-			Complaint comp = complaintService.create(complaint, patientId);
+			Complaint comp = complaintService.create(complaintDTO);
 			if(comp == null) {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
@@ -45,12 +46,12 @@ public class ComplaintController {
 	}
 	
 	@GetMapping("/getAll")
-	public ResponseEntity<List<Complaint>> getAll() {
-		List<Complaint> complaints = complaintService.getAllComplaints();
+	public ResponseEntity<List<ComplaintDTO>> getAll() {
+		List<ComplaintDTO> complaints = complaintService.getAllComplaints();
 		if(complaints == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<List<Complaint>>(complaints, HttpStatus.OK);
+		return new ResponseEntity<List<ComplaintDTO>>(complaints, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
@@ -70,19 +71,19 @@ public class ComplaintController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
-		List<Complaint> complaints = complaintService.getAllComplaints();
+		List<ComplaintDTO> complaints = complaintService.getAllComplaints();
 		List<Complaint> patientComplaints = new ArrayList<>();
 		
-		for(Complaint c : complaints) {
-			if(c.getPatient() != null) {
-				if(c.getPatient().getId() == id) {
-					patientComplaints.add(c);
-				}
-			}else {
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-			}
-		}
-		
+//		for(ComplaintDTO c : complaints) {
+//			if(c.getPatient() != null) {
+//				if(c.getPatient().getId() == id) {
+//					patientComplaints.add(c);
+//				}
+//			}else {
+//				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//			}
+//		}
+//		
 		return new ResponseEntity<List<Complaint>>(patientComplaints, HttpStatus.OK);
 	}
 	

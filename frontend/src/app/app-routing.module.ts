@@ -32,6 +32,11 @@ import {ListConsultationsNotDoneCanceledComponent} from './components/list-consu
 import {ListAllDrugsComponent} from './components/list-all-drugs/list-all-drugs.component';
 import {GuestDrugsComponent} from './components/guest-drugs/guest-drugs.component';
 import {GuestPharmaciesComponent} from './components/guest-pharmacies/guest-pharmacies.component';
+import {ListPharmaciesComponent} from './components/list-pharmacies/list-pharmacies.component';
+import {ListAllComplaintsComponent} from './components/list-all-complaints/list-all-complaints.component';
+import {MakeComplaintComponent} from './components/make-complaint/make-complaint.component';
+import {ListDrugReservationComponent} from './components/list-drug-reservation/list-drug-reservation.component';
+import {ListExaminationsDoneComponent} from './components/list-examinations-done/list-examinations-done.component';
 
 
 const routes: Routes = [
@@ -128,6 +133,30 @@ const routes: Routes = [
   {
     path: 'patient/all-drugs',
     component: ListAllDrugsComponent,
+  },
+
+  {
+    path: 'patient/pharmacy-search',
+    component: ListPharmaciesComponent,
+  },
+
+  {
+    path: 'patient/complaints',
+    component: ListAllComplaintsComponent,
+  },
+  {
+    path: 'patient/make-complaint',
+    component: MakeComplaintComponent,
+  },
+
+  {
+    path: 'patient/make-drug-reservation',
+    component: ListDrugReservationComponent,
+  },
+
+  {
+    path: 'patient/list-examinations-done',
+    component: ListExaminationsDoneComponent,
   },
 
 

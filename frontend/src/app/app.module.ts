@@ -52,6 +52,12 @@ import { ListAllDrugsComponent } from './components/list-all-drugs/list-all-drug
 import { GuestDrugsComponent } from './components/guest-drugs/guest-drugs.component';
 import { GuestPharmaciesComponent } from './components/guest-pharmacies/guest-pharmacies.component';
 import { PatientPharmaciesComponent } from './components/patient-pharmacies/patient-pharmacies.component';
+import { ListPharmaciesComponent } from './components/list-pharmacies/list-pharmacies.component';
+import { ListAllComplaintsComponent } from './components/list-all-complaints/list-all-complaints.component';
+import { MakeComplaintComponent } from './components/make-complaint/make-complaint.component';
+import { DrugReservationComponent } from './components/drug-reservation/drug-reservation.component';
+import { ListDrugReservationComponent } from './components/list-drug-reservation/list-drug-reservation.component';
+import { ListExaminationsDoneComponent } from './components/list-examinations-done/list-examinations-done.component';
 
 
 
@@ -99,6 +105,12 @@ import { PatientPharmaciesComponent } from './components/patient-pharmacies/pati
     GuestDrugsComponent,
     GuestPharmaciesComponent,
     PatientPharmaciesComponent,
+    ListPharmaciesComponent,
+    ListAllComplaintsComponent,
+    MakeComplaintComponent,
+    DrugReservationComponent,
+    ListDrugReservationComponent,
+    ListExaminationsDoneComponent,
 
   ],
   imports: [

@@ -1,0 +1,112 @@
+<!-- page-header -->
+<div class="page-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-caption">
+          <h1 class="page-title">Napravi zalbu</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- page-content -->
+<div class="card-section">
+  <div class="container">
+    <div class="card-block bg-white mb30">
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+          <!-- section-title -->
+          <div class="section-title mb-0">
+
+            <form [formGroup]="ComplaintForm" class="mat-elevation-z8 form">
+              <table class="form-full-width table-font" cellspacing="0">
+                <tr>
+                  <td><label>Naslov</label></td>
+                  <td>
+                    <mat-form-field class="form-full-width-td">
+                      <input matInput formControlName="subject">
+                      <i matSuffix class="material-icons">edit</i>
+                      <mat-error
+                        *ngIf="ComplaintForm.get('subject').errors && ComplaintForm.get('subject').errors['required']">
+                        Unesite Naslov zalbe.
+                      </mat-error>
+                      <mat-error
+                        *ngIf="ComplaintForm.get('subject').errors && ComplaintForm.get('subject').errors['maxlength']">
+                        Maksimalan broj slova je 30.
+                      </mat-error>
+
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td><label>Sadrzaj</label></td>
+                  <td>
+                    <mat-form-field class="form-full-width-td">
+                      <input matInput formControlName="message">
+                      <i matSuffix class="material-icons">edit</i>
+                      <mat-error
+                        *ngIf="ComplaintForm.get('message').errors && ComplaintForm.get('message').errors['required']">
+                        Unesite sadrzaj zalbe.
+                      </mat-error>
+                      <mat-error
+                        *ngIf="ComplaintForm.get('message').errors && ComplaintForm.get('message').errors['maxlength']">
+                        Maksimalan broj slova je 250.
+                      </mat-error>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td><label>Ime doktora</label></td>
+                  <td>
+                    <mat-form-field class="form-full-width-td">
+                      <input matInput formControlName="doctorName">
+                      <i matSuffix class="material-icons">edit</i>
+                      <mat-error
+                        *ngIf="ComplaintForm.get('doctorName').errors && ComplaintForm.get('doctorName').errors['required']">
+                        Unesite Naslov zalbe.
+                      </mat-error>
+                      <mat-error
+                        *ngIf="ComplaintForm.get('doctorName').errors && ComplaintForm.get('doctorName').errors['maxlength']">
+                        Maksimalan broj slova je 30.
+                      </mat-error>
+
+                    </mat-form-field>
+                  </td>
+                <tr>
+                <tr>
+                  <td><label>Pregled</label></td>
+                  <td>
+                    <mat-form-field class="form-full-width-td">
+                      <input matInput formControlName="examination">
+                      <i matSuffix class="material-icons">edit</i>
+                      <mat-error
+                        *ngIf="ComplaintForm.get('examination').errors && ComplaintForm.get('examination').errors['required']">
+                        Unesite Naslov zalbe.
+                      </mat-error>
+                      <mat-error
+                        *ngIf="ComplaintForm.get('examination').errors && ComplaintForm.get('examination').errors['maxlength']">
+                        Maksimalan broj slova je 30.
+                      </mat-error>
+
+                    </mat-form-field>
+                  </td>
+              </tr>
+
+
+
+              </table>
+              <div align="end">
+                <button mat-raised-button color="primary" (click)="saveChanges()"
+                        [disabled]="!ComplaintForm.valid">Posalji</button>
+              </div>
+            </form>
+          </div>
+          <!-- /.section-title -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.page-content -->
