@@ -18,4 +18,4 @@ Projekat iz kursa Internet Softverske Arhitekture 2020
 Baza podataka će se popuniti sql skriptom data.sql koja se nalazi u resource datototeci. Šifre za korisnike : 123 (hešovane u skripti)
 
 
-- Frontend : NPM alatom dobaviti zavisne datoteke pokrenuti sa ng serve
+- Frontend : NPM alatom (npm install) dobaviti zavisne datoteke pokrenuti sa ng serve, aplikacija ce biti aktivna na http://localhost:4200/
