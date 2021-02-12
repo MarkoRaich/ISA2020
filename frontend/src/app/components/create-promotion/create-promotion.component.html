@@ -1,0 +1,70 @@
+<!-- page-header -->
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-caption">
+                    <h1 class="page-title">Kreiraj promociju</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- page-content -->
+<div class="card-section">
+    <div class="container">
+        <div class="card-block bg-white mb30">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <!-- section-title -->
+                    <div class="section-title mb-0">
+        
+                        <form [formGroup]="createpromotionForm" class="mat-elevation-z8 form">
+                            <table class="form-full-width table-font" cellspacing="0">
+                                <tr>
+                                    <td><label>Datum od</label></td>
+                                    <td>
+                                        <mat-form-field class="form-full-width">
+                                            <input matInput [matDatepicker]=" picker1" placeholder="Datum od" formControlName="dateFrom" readonly
+                                                [min]="minDate">
+                                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label>Datum do</label></td>
+                                    <td>
+                                        <mat-form-field class="form-full-width">
+                                            <input matInput [matDatepicker]=" picker2" placeholder="Datum do" formControlName="dateTo" readonly
+                                                [min]="minDate">
+                                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker2 disabled="false"></mat-datepicker>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label>Sadržaj</label></td>
+                                    <td>
+                                        <mat-form-field class="form-full-width-td">
+                                            <input matInput formControlName="content">
+                                        
+                                            <mat-error
+                                                *ngIf="createpromotionForm.get('content').errors && createpromotionForm.get('content').errors['required']">
+                                                Unesite sadržaj.
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div align="end">
+                                <button mat-raised-button color="primary" (click)="createPromotion()"
+                                    [disabled]="!createpromotionForm.valid">Kreiraj</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

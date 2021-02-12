@@ -29,6 +29,7 @@ import com.example.ISA2020.entity.Consultation;
 import com.example.ISA2020.entity.Drug;
 import com.example.ISA2020.entity.Examination;
 import com.example.ISA2020.entity.Grade;
+import com.example.ISA2020.entity.Pharmacy;
 import com.example.ISA2020.entity.Prescription;
 import com.example.ISA2020.entity.Promotion;
 import com.example.ISA2020.entity.Reservation;
@@ -121,7 +122,7 @@ public class Patient implements UserDetails {
 			name = "patient_subscription",
 			joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(name = "pharmacy_id", referencedColumnName = "id") )
-	private Set<Pharmacy> pharmacySubscriptions = new HashSet<>();
+	private Set<Pharmacy> subscriptions = new HashSet<>();
 	
 	
 	//Jedan pacijent moze da napravi vise rezervacija leka 
@@ -213,6 +214,14 @@ public class Patient implements UserDetails {
 		return id;
 	}
 
+	public Set<Pharmacy> getSubscriptions() {
+		return subscriptions;
+	}
+
+	public void setSubscriptions(Set<Pharmacy> subscriptions) {
+		this.subscriptions = subscriptions;
+	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -281,13 +290,7 @@ public class Patient implements UserDetails {
 		this.complaints = complaints;
 	}
 
-	public Set<Promotion> getPromotions() {
-		return promotions;
-	}
-
-	public void setPromotions(Set<Promotion> promotions) {
-		this.promotions = promotions;
-	}
+	
 
 	public int getPoints() {
 		return points;

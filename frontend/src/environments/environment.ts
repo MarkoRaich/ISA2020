@@ -22,7 +22,8 @@ export const environment = {
   drugQ               : "/api/drug-quantity",
   examination         : "/api/examination",
   examinationType     : "/api/examination-type",
-  patient             : "/api/patient"
+  patient             : "/api/patient",
+  promotion           : "/api/promotion"
 };
 
 /*

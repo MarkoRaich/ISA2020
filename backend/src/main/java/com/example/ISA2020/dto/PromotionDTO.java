@@ -1,16 +1,25 @@
 package com.example.ISA2020.dto;
 
+import javax.validation.constraints.NotEmpty;
+
+import com.example.ISA2020.entity.DateTimeInterval;
+import com.example.ISA2020.entity.Promotion;
+
 public class PromotionDTO {
 	
 	private Long id;
 	
 	private String content;
 	
-	private String pharmacyName;
-	
-	private String startDate;
+	@NotEmpty(message = "Start date and time is empty.")
+    private String startDateTime;
 
-	private String endDate;
+    @NotEmpty(message = "End date and time is empty.")
+    private String endDateTime;
+	
+	private PharmacyDTO pharmacyDTO;
+	
+	
 	
 	
 	
@@ -20,54 +29,23 @@ public class PromotionDTO {
 
 
 
-	public PromotionDTO(Long id, String content, String pharmacyName, String startDate, String endDate) {
+
+
+	public PromotionDTO(Long id, String content, String startDateTime, String endDateTime, PharmacyDTO pharmacyDTO) {
 		super();
-		this.content = content;
-		this.pharmacyName = pharmacyName;
-		this.startDate = startDate;
-		this.endDate = endDate;
 		this.id = id;
-	}
-
-
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
 		this.content = content;
+		this.startDateTime=startDateTime;
+		this.endDateTime=endDateTime;
+		this.pharmacyDTO = pharmacyDTO;
 	}
 
-	public String getPharmacyName() {
-		return pharmacyName;
-	}
-
-
-	public void setPharmacyName(String pharmacyName) {
-		this.pharmacyName = pharmacyName;
-	}
-
-
-	public String getEndDate() {
-		return endDate;
-	}
-
-
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
-	}
-
-
-
-	public String getStartDate() {
-		return startDate;
-	}
-
-
-
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
+	public PromotionDTO(Promotion promotion) {
+		this.id=promotion.getId();
+		this.content=promotion.getContent();
+		this.startDateTime=promotion.getPeriod().getStartDateTime().toString();
+		this.endDateTime=promotion.getPeriod().getEndDateTime().toString();
+		this.pharmacyDTO=new PharmacyDTO(promotion.getPharmacy());
 	}
 
 
@@ -78,11 +56,84 @@ public class PromotionDTO {
 
 
 
+
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+
+
+
+
+	public String getContent() {
+		return content;
+	}
+
+
+
+
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+
+
+
+
+	
+
+
+
+
+	public String getStartDateTime() {
+		return startDateTime;
+	}
+
+
+
+
+
+	public void setStartDateTime(String startDateTime) {
+		this.startDateTime = startDateTime;
+	}
+
+
+
+
+
+	public String getEndDateTime() {
+		return endDateTime;
+	}
+
+
+
+
+
+	public void setEndDateTime(String endDateTime) {
+		this.endDateTime = endDateTime;
+	}
+
+
+
+
+
+	public PharmacyDTO getPharmacyDTO() {
+		return pharmacyDTO;
+	}
+
+
+
+
+
+	public void setPharmacyDTO(PharmacyDTO pharmacyDTO) {
+		this.pharmacyDTO = pharmacyDTO;
+	}
+
 	
 	
 	
 	
+
 }
