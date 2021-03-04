@@ -1,0 +1,137 @@
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-caption">
+                    <h1 class="page-title">Zahtevi za godišnje odmore</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- page-content -->
+<div class="card-section">
+    <div class="container">
+        <div class="card-block bg-white mb30">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <!-- section-title -->
+                    <div class="section-title mb-0">
+                        <table mat-table [dataSource]="vacationRequestPharmDataSource" #sortPharm="matSort" class="mat-elevation-z8 table" matSort>
+
+                          
+
+                            <ng-container matColumnDef="pharmacist">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Farmaceut</th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.pharmacist["firstName"]}} {{element.pharmacist["lastName"]}}
+                                 </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="dateFrom">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Datum početka </th>
+                                <td mat-cell *matCellDef=" let element">
+                                    {{element.interval["startDateTime"] | date:"dd.MM.yyyy."}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="dateTo">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Datum kraja </th>
+                                <td mat-cell *matCellDef=" let element">
+                                    {{element.interval["endDateTime"] | date:"dd.MM.yyyy."}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="status">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                                <td mat-cell *matCellDef=" let element">
+                                    {{element.status}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="approve">
+                                <th mat-header-cell *matHeaderCellDef> </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <button mat-raised-button mat-raised-button class="approve-btn" [disabled]="isDisabled(element)"
+                                        (click)="ApproveRequestPharm(element)">Prihvati</button>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="deny">
+                                <th mat-header-cell *matHeaderCellDef> </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <button mat-raised-button mat-raised-button class="deny-btn" [disabled]="isDisabled(element)"
+                                        (click)="DenyRequestPharm(element)">Odbij</button>
+                                </td>
+                            </ng-container>
+
+                           
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsPharm sticky: true"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsPharm;"></tr>
+                        </table>
+                        <mat-paginator #paginatorPharm="matPaginator" [pageSize]=itemsPerPage class=" table" showFirstLastButtons></mat-paginator>
+                    </div>
+
+                    <div class="section-title mb-0">
+                        <table mat-table [dataSource]="vacationRequestDermDataSource" #sortDerm="matSort" class="mat-elevation-z8 table" matSort>
+
+                          
+
+                            <ng-container matColumnDef="dermatologist">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Dermatolog</th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.dermatologist["firstName"]}} {{element.dermatologist["lastName"]}}
+                                 </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="dateFrom">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Datum početka </th>
+                                <td mat-cell *matCellDef=" let element">
+                                    {{element.interval["startDateTime"] | date:"dd.MM.yyyy."}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="dateTo">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Datum kraja </th>
+                                <td mat-cell *matCellDef=" let element">
+                                    {{element.interval["endDateTime"] | date:"dd.MM.yyyy."}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="status">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                                <td mat-cell *matCellDef=" let element">
+                                    {{element.status}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="approve">
+                                <th mat-header-cell *matHeaderCellDef> </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <button mat-raised-button mat-raised-button class="approve-btn" [disabled]="isDisabled(element)"
+                                        (click)="ApproveRequestDerm(element)">Prihvati</button>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="deny">
+                                <th mat-header-cell *matHeaderCellDef> </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <button mat-raised-button mat-raised-button class="deny-btn" [disabled]="isDisabled(element)"
+                                        (click)="DenyRequestDerm(element)">Odbij</button>
+                                </td>
+                            </ng-container>
+                           
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsDerm sticky: true"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsDerm;"></tr>
+                        </table>
+                        <mat-paginator #paginatorDerm="matPaginator" [pageSize]=itemsPerPage class=" table" showFirstLastButtons></mat-paginator>
+                    </div>
+                    <!-- /.section-title -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.page-content -->
+

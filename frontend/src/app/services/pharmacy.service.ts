@@ -10,9 +10,9 @@ import {Dermatologist} from '../models/dermatologist';
     providedIn: 'root'
 })
 export class PharmacyService {
-
-
-
+ 
+  
+ 
     url = environment.baseUrl + environment.pharmacy;
 
     urlPatient = environment.baseUrl + '/api/patient';
@@ -27,7 +27,9 @@ export class PharmacyService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-
+    getPharmacyRating() {
+      return this.http.get(this.url + '/pharmacy-rating');
+    }
 
     public getPharmacyInWhichPharmacyAdminWorks() {
      return this.http.get(this.url + "/pharmacy-of-admin");
@@ -91,6 +93,39 @@ export class PharmacyService {
        params: params});
    }
 
+   getMothlyStatistic() {
+    return this.http.get(this.url + '/monthly-statistic'); 
+  }
+ 
+   getQuartalStatistic() {
+     return this.http.get(this.url + '/quartal-statistic');
+   }
 
+   getYearStatistic() {
+    return this.http.get(this.url + '/year-statistic');
+   }
+
+   getMothlyStatisticDrugs() {
+    return this.http.get(this.url + '/monthly-statistic-drugs'); 
+  }
+ 
+  getQuartalStatisticDrugs() {
+    return this.http.get(this.url + '/quartal-statistic-drugs');
+  }
+
+  getYearStatisticDrugs() {
+   return this.http.get(this.url + '/year-statistic-drugs');
+  }
+
+
+  getPharmacyIncomeForPeriod(startDate: any, endDate: any) {
+    let params = new HttpParams();
+    params = params.append('startDate', startDate);
+    params = params.append('endDate', endDate);
+
+    return this.http.get(this.url + '/income', {
+      params: params
+    });
+  }
 
 }

@@ -12,6 +12,7 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.example.ISA2020.dto.PromotionDTO;
@@ -97,9 +98,9 @@ public class PromotionServiceImpl implements PromotionService {
 		//slanje emaila svim pretplacenim pacijentima
 		
 		Set<Patient> subscribers = pharmacyAdmin.getPharmacy().getSubscribers();
-		
 		for(Patient sub : subscribers) {
 			
+			System.out.println("Slanje emaila korisniku: " + sub.getUsername());
 			sendEmailPromotion(sub.getUsername(), promotion);
 		}
 		
@@ -110,17 +111,20 @@ public class PromotionServiceImpl implements PromotionService {
 	
 	
 	//pomocne metode
+	@Async
 	private void sendEmailPromotion(String email, Promotion promotion) {
 		
 		String subject = "Nova promocija u Vašoj apoteci: " + promotion.getPharmacy().getName();
 		
 		StringBuilder sb = new StringBuilder();
-        sb.append("Postovani, posetite nas na našoj adresi " + promotion.getPharmacy().getAddress());
-        sb.append(" i iskoristite promociju " + promotion.getContent());
+        sb.append("Postovani, posetite nas na našoj adresi " + promotion.getPharmacy().getAddress() + "\n");
+        sb.append(" i iskoristite promociju " + promotion.getContent() + "\n");
         sb.append("Promocija važi od " + promotion.getPeriod().getStartDateTime() + " do " + promotion.getPeriod().getEndDateTime());
         sb.append(System.lineSeparator());
         String text = sb.toString();
 		
+        System.out.println(text);
+        
 		emailNotificationService.sendEmail(email, subject, text);
 	}
 	

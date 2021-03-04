@@ -25,7 +25,7 @@ public class Consultation {		//SAVETOVANJE KOD FARMACEUTA
     private String description;
     
 	
-	@Enumerated
+	@Enumerated(EnumType.STRING)
 	private ConsultationStatus status;
 
 

@@ -37,11 +37,12 @@ public class PurchaseOrderItem {
 	public PurchaseOrderItem() {}
 
 
-	public PurchaseOrderItem( @Min(1) int quantity, Drug drug) {
+	public PurchaseOrderItem( @Min(1) int quantity, Drug drug, PurchaseOrder order) {
 		super();
 	
 		this.quantity = quantity;
 		this.drug = drug;
+		this.purchaseOrder = order;
 	}
 
 
@@ -73,6 +74,13 @@ public class PurchaseOrderItem {
 
 	public void setDrug(Drug drug) {
 		this.drug = drug;
+	}
+
+
+	@Override
+	public String toString() {
+		return "PurchaseOrderItem [id=" + id + ", quantity=" + quantity + ", drug=" + drug + ", purchaseOrder="
+				+ purchaseOrder + "]";
 	}
 	
 	

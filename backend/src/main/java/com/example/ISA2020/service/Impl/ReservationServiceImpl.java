@@ -3,6 +3,7 @@ package com.example.ISA2020.service.Impl;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -24,6 +25,7 @@ import com.example.ISA2020.repository.ReservationRepository;
 import com.example.ISA2020.service.EmailNotificationService;
 import com.example.ISA2020.service.PatientService;
 import com.example.ISA2020.service.ReservationService;
+
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
@@ -53,8 +55,38 @@ public class ReservationServiceImpl implements ReservationService {
 		return reservationRepo.findAll();
 	}
 	
+	@Override
+	public List<ReservationDTO> getCompletedReservationsForPharmacy(Long pharmId) {
+		
+		return convertToDTO(reservationRepo.findByPharmacyIdAndStatus(pharmId, ReservationStatus.COMPLETED));
+		
+	}
 	
 	
+	@Override
+	public List<Reservation> getReservationsCompletedForPharmacy(Long pharmId) {
+		
+		return reservationRepo.findByPharmacyIdAndStatus(pharmId, ReservationStatus.COMPLETED);
+	}
+
+	
+	@Override
+	public List<Reservation> getPharmacyReservations(Long pharmId, LocalDateTime startDate, LocalDateTime endDate) {
+		return reservationRepo.findByPharmacyIdAndStatusAndIntervalStartDateTimeGreaterThanEqualAndIntervalEndDateTimeLessThanOrderByIntervalStartDateTime(pharmId, ReservationStatus.COMPLETED, startDate, endDate );
+	}
+
+	
+	private List<ReservationDTO> convertToDTO(List<Reservation> reservations) {
+		
+		List<ReservationDTO> returnList = new ArrayList<ReservationDTO>();
+		
+		for(Reservation reservation: reservations) {
+			returnList.add(new ReservationDTO(reservation));
+		}
+		
+		return returnList;
+	}
+
 	//3.9 za rezervacije
 	@Override
 	public List<ReservationDTO> getAllReservationsActive() {
@@ -344,5 +376,9 @@ public class ReservationServiceImpl implements ReservationService {
 		return null;
 		
 	}
+
+	
+
+	
 	
 }

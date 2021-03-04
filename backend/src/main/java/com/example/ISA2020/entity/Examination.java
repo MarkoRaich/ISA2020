@@ -18,17 +18,8 @@ public class Examination {		//PREGLED KOD DERMATOLOGA
 	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-//    @NotNull(message = "Name cannot be null.")
-//    @Column(nullable = false)
-//    private String name;
-//    
-//    @NotNull(message = "Description cannot be null.")
-//    @Column(nullable = false)
-//    private String description;
-//    
     
-	@Enumerated
+	@Enumerated(EnumType.STRING)
 	private ExaminationStatus status;
 
 	//Pocetak i kraj pregleda

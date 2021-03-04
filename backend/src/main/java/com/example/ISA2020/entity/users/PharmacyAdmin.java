@@ -1,6 +1,7 @@
 package com.example.ISA2020.entity.users;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.ISA2020.entity.Authority;
 import com.example.ISA2020.entity.Pharmacy;
+import com.example.ISA2020.entity.PurchaseOrder;
 import com.example.ISA2020.enumeration.UserStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -46,7 +48,8 @@ public class PharmacyAdmin implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserStatus status;
 
-    
+    @OneToMany(mappedBy = "pharmacyAdmin", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<PurchaseOrder> orders = new HashSet<PurchaseOrder>();
     
     
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -66,19 +69,41 @@ public class PharmacyAdmin implements UserDetails {
     }
     
     
-	public PharmacyAdmin(@NotNull(message = "Username cannot be null.") String username,
+
+
+	public PharmacyAdmin(Long id, @NotNull(message = "Username cannot be null.") String username,
 			@NotNull(message = "Password cannot be null.") String password, String firstName, String lastName,
-			 String phoneNumber, Pharmacy pharmacy, Set<Authority> authorities) {
+			String phoneNumber, UserStatus status, Set<PurchaseOrder> orders, Pharmacy pharmacy,
+			Set<Authority> authorities) {
 		super();
+		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phoneNumber = phoneNumber;
+		this.status = status;
+		this.orders = orders;
 		this.pharmacy = pharmacy;
 		this.authorities = authorities;
-		this.status = UserStatus.NEVER_LOGGED_IN;
 	}
+
+
+
+
+	public Set<PurchaseOrder> getOrders() {
+		return orders;
+	}
+
+
+
+
+	public void setOrders(Set<PurchaseOrder> orders) {
+		this.orders = orders;
+	}
+
+
+
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() { return authorities; }

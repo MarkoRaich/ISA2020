@@ -6,14 +6,19 @@
                 <div class="page-caption">
                     <h1 class="page-title">Profil apoteke</h1>
                     <div class="text-center mt-4">
+                        <button mat-raised-button class="mr-3" color="primary" (click)="subscribe()" >Pretplati me</button>
+                    </div>
+                    <div class="text-center mt-4">
                         <button mat-raised-button class="mr-3" color="primary" (click)="openPharmacistDialog()" >Farmaceuti</button>
                         <button mat-raised-button class="mr-3"color="primary" (click)="openDermatologistDialog()" >Dermatolozi</button>
                         <button mat-raised-button class="mr-3"color="primary" (click)="openDrugDialog()" >Lekovi</button>
-                        <button mat-raised-button class="mr-3"color="primary" (click)="openExaminationDialog()" >Slobodni termini</button>
                     </div>
                     <div class="text-center mt-4">
-                        <button mat-raised-button class="mr-3" color="primary" (click)="subscribe()" >Pretplati me</button>
+                        <button mat-raised-button class="mr-3"color="primary" (click)="openExaminationDialog()" >Termini kod dermatologa</button>
+                        <button mat-raised-button class="mr-3"color="primary" >Termini kod farmaceuta</button>
                     </div>
+                   
+                   
                 </div>
             </div>
         </div>
@@ -34,8 +39,7 @@
                                 <input matInput [readonly] = "true" placeholder="Ime" formControlName="name">
                             </mat-form-field>
                             <mat-form-field class="form-full-width mt-2">
-                                <input matInput [readonly] = "true" placeholder="Adresa" formControlName="address"
-                                    (focusout)="addressFocusOut()">
+                                <input matInput [readonly] = "true" placeholder="Adresa" formControlName="address">
                             </mat-form-field>
                             <mat-form-field class="form-full-width mt-2">
                                 <textarea matInput [readonly] = "true" placeholder="Opis" formControlName="description"

@@ -14,6 +14,7 @@ export class DermatologistService {
     url = environment.baseUrl + environment.dermatologist;
 
     dermatologistsForAdmin: BehaviorSubject<Dermatologist[]> = new BehaviorSubject<Dermatologist[]>([]);
+    newDermatologists: BehaviorSubject<Dermatologist[]> = new BehaviorSubject<Dermatologist[]>([]);
     searchDermatologistsForAdmin: BehaviorSubject<Dermatologist[]> = new BehaviorSubject<Dermatologist[]>([]);
     searchDermatologistsInPharm: BehaviorSubject<Dermatologist[]> = new BehaviorSubject<Dermatologist[]>([]);
     createSuccessEmitter = new Subject<Dermatologist>();
@@ -50,11 +51,11 @@ export class DermatologistService {
       getOtherDermatologists() {
         this.http.get(this.url + "/other").subscribe(
           (data : Dermatologist[]) => {
-              this.dermatologistsForAdmin.next(data);
+              this.newDermatologists.next(data);
           },
           (error: Dermatologist) => {}
         );
-      return this.dermatologistsForAdmin.asObservable();
+      return this.newDermatologists.asObservable();
       }
      
       addDermatologistToPharmacy(derm: Dermatologist) {

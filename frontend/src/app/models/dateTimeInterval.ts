@@ -6,7 +6,7 @@ export class DateTimeInterval {
     startDateTime: DateTime;
     endDateTime: DateTime;
     
-    constructor(id: number, startDateTime: DateTime, endDateTime: DateTime) {
+    constructor(startDateTime: DateTime, endDateTime: DateTime, id?: number) {
         this.id = id;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;

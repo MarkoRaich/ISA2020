@@ -1,3 +1,4 @@
+import { Offer } from "./offer";
 import { OrderItem } from "./orderItem";
 import { Pharmacy } from "./Pharmacy";
 
@@ -7,13 +8,15 @@ export class PurchaseOrder {
     status: String;
     pharmacy : Pharmacy;
     orderitems: OrderItem[];
-    deadline: String;
+    deadline: string;
+    offers: Offer[];
 
-    constructor( status: String, orderitems: OrderItem[], deadline: String, pharmacy?: Pharmacy, id?: number){
+    constructor( status: String, orderitems: OrderItem[], deadline: string, offers: Offer[], pharmacy?: Pharmacy, id?: number){
        
         this.status=status;
         this.pharmacy=pharmacy;
         this.orderitems=orderitems;
+        this.offers = offers;
         this.deadline=deadline;
         this.id=id;
     }

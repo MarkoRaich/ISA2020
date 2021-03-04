@@ -2,6 +2,8 @@ package com.example.ISA2020.dto;
 
 import java.time.LocalDateTime;
 
+import com.example.ISA2020.entity.Examination;
+
 public class ExaminationPriceDermatologistDTO {
 	
 	private Long examinationId;
@@ -37,6 +39,19 @@ public class ExaminationPriceDermatologistDTO {
 		this.dermatologistRating = dermatologistRating;
 		this.examinationId = examinationId;
 		this.status = status;
+	}
+
+	public ExaminationPriceDermatologistDTO(Examination examination) {
+		super();
+		this.examinationId = examination.getId();
+		this.examinationName = examination.getExamType().getName();
+		this.dermatologistName = examination.getDermatologist().getFirstName() + " " +  examination.getDermatologist().getLastName();
+		this.price = examination.getExamType().getPrice();
+		this.startDateTime = examination.getInterval().getStartDateTime().toString();
+		this.endDateTime = examination.getInterval().getEndDateTime().toString();
+		this.dermatologistRating = examination.getDermatologist().getRating();
+		this.status = examination.getStatus().toString();
+		
 	}
 
 	public String getExaminationName() {

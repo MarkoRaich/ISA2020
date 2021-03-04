@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import com.example.ISA2020.dto.DrugPricePharmacyNameAddressRatingDTO;
 import com.example.ISA2020.dto.EditPharmacyDTO;
+import com.example.ISA2020.dto.IncomeListDTO;
 import com.example.ISA2020.dto.PharmacyDTO;
 import com.example.ISA2020.entity.Drug;
 import com.example.ISA2020.entity.Pharmacy;
@@ -33,5 +34,19 @@ public interface PharmacyService {
 	List<PharmacyDTO> getAllPharmaciesSortedByNameForName(String pharmacyName);
 
 	List<PharmacyDTO> searchPharmaciesByNameAndAddress(Long id, String name, String address);
+
+	int[] getMonthlyStatistic(Long id);
+
+	int[] getQuartalStatistic(Long id);
+
+	int[] getYearStatistic(Long pharmId);
+
+	int[] getMonthlyStatisticDrugs(Long id);
+
+	int[] getQuartalStatisticDrugs(Long id);
+
+	int[] getYearStatisticDrugs(Long id);
+
+	IncomeListDTO getPharmacyIncome(Long id, String startDateTime, String endDateTime);
 	
 }

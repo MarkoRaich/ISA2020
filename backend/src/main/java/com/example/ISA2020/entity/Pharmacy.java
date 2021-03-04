@@ -42,19 +42,15 @@ public class Pharmacy {
 	@JsonIgnore
     @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Pharmacist> pharmacists = new HashSet<>();  //farmaceut radi samo u jednoj apoteci
-	
-//	@JsonIgnore									NE MOZE OVAKO DIREKTNO JER IMAJU RAZLICITO RADNO VREME U APOTEKAMA!
-//	@ManyToMany(fetch = FetchType.LAZY)		
-//    @JoinTable(
-//    			name="pharmacy_dermatologist",
-//    			joinColumns = @JoinColumn(name ="pharmacy_id", referencedColumnName = "id"),
-//    			inverseJoinColumns = @JoinColumn(name = "dermatologist_id", referencedColumnName = "id")
-//    		  )
-//    private Set<Dermatologist> dermatologists = new HashSet<>();
+
 	
 	@JsonIgnore
     @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<DermWorkHours> dermsWithWorkHours = new HashSet<>();
+	private Set<DermatologistWorkHours> dermsWithWorkHours = new HashSet<>();
+	
+	@JsonIgnore
+    @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<DrugQuantity> drugsWithQunatity = new HashSet<>();
 	
 	
 	@JsonIgnore
@@ -79,7 +75,11 @@ public class Pharmacy {
 	private Set<ExaminationType> examTypes = new HashSet<>();
     
 	@JsonIgnore			// veza pacijenata koji su pretplaceni na promocije ove apoteke!
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "pharmacy_subscriber",
+			joinColumns = @JoinColumn(name = "pharmacy_id", referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(name = "subscriber_id", referencedColumnName = "id") )
 	private Set<Patient> subscribers =new HashSet<>();
 
 	public Pharmacy() {
@@ -89,6 +89,40 @@ public class Pharmacy {
 
 
 	
+
+
+
+
+	public Pharmacy(Long id, @NotNull(message = "Name cannot be null.") String name,
+			@NotNull(message = "Address cannot be null.") String address, String description, Double rating,
+			Set<Grade> grades, Set<Pharmacist> pharmacists, Set<DermatologistWorkHours> dermsWithWorkHours,
+			Set<DrugQuantity> drugsWithQunatity, Set<PharmacyAdmin> admins, Set<PurchaseOrder> purchaseOrders,
+			Set<Reservation> reservations, Set<Examination> examinations, Set<ExaminationType> examTypes,
+			Set<Patient> subscribers) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.description = description;
+		this.rating = rating;
+		this.grades = grades;
+		this.pharmacists = pharmacists;
+		this.dermsWithWorkHours = dermsWithWorkHours;
+		this.drugsWithQunatity = drugsWithQunatity;
+		this.admins = admins;
+		this.purchaseOrders = purchaseOrders;
+		this.reservations = reservations;
+		this.examinations = examinations;
+		this.examTypes = examTypes;
+		this.subscribers = subscribers;
+	}
+
+
+
+
+
+
+
 	public Pharmacy(@NotNull(message = "Name cannot be null.") String name,
 			@NotNull(message = "Address cannot be null.") String address, String description, double rating) {
 		super();
@@ -164,13 +198,13 @@ public class Pharmacy {
 
 	
 
-	public Set<DermWorkHours> getDermsWithWorkHours() {
+	public Set<DermatologistWorkHours> getDermsWithWorkHours() {
 		return dermsWithWorkHours;
 	}
 
 
 
-	public void setDermsWithWorkHours(Set<DermWorkHours> dermsWithWorkHours) {
+	public void setDermsWithWorkHours(Set<DermatologistWorkHours> dermsWithWorkHours) {
 		this.dermsWithWorkHours = dermsWithWorkHours;
 	}
 
@@ -243,6 +277,46 @@ public class Pharmacy {
 
 	public void setSubscribers(Set<Patient> subscribers) {
 		this.subscribers = subscribers;
+	}
+
+
+
+
+
+
+
+	public Set<DrugQuantity> getDrugsWithQunatity() {
+		return drugsWithQunatity;
+	}
+
+
+
+
+
+
+
+	public void setDrugsWithQunatity(Set<DrugQuantity> drugsWithQunatity) {
+		this.drugsWithQunatity = drugsWithQunatity;
+	}
+
+
+
+
+
+
+
+	public Set<ExaminationType> getExamTypes() {
+		return examTypes;
+	}
+
+
+
+
+
+
+
+	public void setExamTypes(Set<ExaminationType> examTypes) {
+		this.examTypes = examTypes;
 	}
 
 	

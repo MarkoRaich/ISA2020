@@ -61,26 +61,17 @@ export class PharmacyProfileComponent implements OnInit {
                     'rating' : this.pharmacy.rating
                   }
                 );
+                this.addressFocusOut();
               }
             );
           }
     );
-
-    this.searchAdress = this.pharmacyService.searchAddressPharmacyEmitter.subscribe(
-      (pharmacy: Pharmacy) => {
-        this.pharmacy.address = pharmacy.address;
-        this.pharmacyForm.patchValue(
-          {
-            'address': this.pharmacy.address
-          }
-        );        
-      }
-    );
+   
   }
 
   addressFocusOut() {
     const pharmacy = new Pharmacy(this.pharmacyForm.value.name, this.pharmacyForm.value.address,
-      this.pharmacyForm.value.description, this.pharmacy.id);
+                                  this.pharmacyForm.value.description, this.pharmacy.id);
 
     this.pharmacyService.editPharmacyEmitter.next(pharmacy);
   }

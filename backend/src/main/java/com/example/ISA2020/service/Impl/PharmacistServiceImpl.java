@@ -22,7 +22,6 @@ import com.example.ISA2020.entity.users.Pharmacist;
 import com.example.ISA2020.enumeration.ConsultationStatus;
 import com.example.ISA2020.enumeration.UserStatus;
 import com.example.ISA2020.repository.ConsultationPriceRepository;
-import com.example.ISA2020.repository.ExaminationPriceRepository;
 import com.example.ISA2020.repository.PharmacistRepository;
 import com.example.ISA2020.service.AuthService;
 import com.example.ISA2020.service.ConsultationPriceService;
@@ -45,8 +44,7 @@ public class PharmacistServiceImpl implements PharmacistService{
 	@Autowired
     private PasswordEncoder passwordEncoder;
 	
-	@Autowired 
-	private ExaminationPriceRepository examinationPriceRepo;
+	
 	
 	@Autowired 
 	private ConsultationPriceService consultationPriceService;

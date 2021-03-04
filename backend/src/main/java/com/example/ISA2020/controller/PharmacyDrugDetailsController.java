@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.ISA2020.dto.DrugSearchDTO;
 import com.example.ISA2020.dto.PharmacyDTO;
 import com.example.ISA2020.entity.DrugQuantity;
-import com.example.ISA2020.entity.PharmDrugQuantityKey;
+import com.example.ISA2020.entity.compositeKeys.KeyDrugPharmacyQuantity;
 import com.example.ISA2020.service.DrugService;
 import com.example.ISA2020.service.PharmacyDrugDetailsService;
 import com.example.ISA2020.service.PharmacyService;
@@ -48,7 +48,7 @@ public class PharmacyDrugDetailsController {
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<DrugQuantity> getOneById(@PathVariable PharmDrugQuantityKey id){
+	public ResponseEntity<DrugQuantity> getOneById(@PathVariable KeyDrugPharmacyQuantity id){
 		DrugQuantity pharmacyDrugDetails = pharmacyDrugDetailsService.findById(id);
 		if(pharmacyDrugDetails == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

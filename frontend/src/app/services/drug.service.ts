@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpParams, HttpResponseBase } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponseBase } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { BehaviorSubject, Observable, Subject } from "rxjs";
@@ -6,16 +6,12 @@ import { environment } from "src/environments/environment";
 import { DrugWithQuantity } from "../models/drugWithQuantity";
 import {DrugInfo} from '../models/DrugInfo';
 import {ExaminationDerm} from '../models/ExaminationDerm';
+import { DrugWithPrice } from "../models/drugWithPrice";
 
 @Injectable({
     providedIn: 'root'
 })
 export class DrugService {
-
-   
- 
-   
-
 
     url = environment.baseUrl + environment.drugQ;
 
@@ -23,12 +19,16 @@ export class DrugService {
 
     urlPatient = environment.baseUrl + '/api/patient';
 
+    urlDrugPrice = environment.baseUrl + '/api/drugPrice';
+
     drugsInPharmacy: BehaviorSubject<DrugWithQuantity[]> = new BehaviorSubject<DrugWithQuantity[]>([]);
     drugsNotInPharmacy: BehaviorSubject<DrugWithQuantity[]> = new BehaviorSubject<DrugWithQuantity[]>([]);
     searchDrugsInPharmacy: BehaviorSubject<DrugWithQuantity[]> = new BehaviorSubject<DrugWithQuantity[]>([]);
     addSuccessEmitter = new Subject<DrugWithQuantity>();
     changeSuccessEmitter = new Subject<DrugWithQuantity>();
-
+    
+    succesCreatedPricelist = new Subject<DrugWithPrice>();
+    
     drugsAll: BehaviorSubject<DrugInfo[]> = new BehaviorSubject<DrugInfo[]>([]);
 
     successAddAlergie = new Subject<DrugInfo>();
@@ -56,12 +56,12 @@ export class DrugService {
 
 
   public getAllDrugs() {
-    console.log("usao je u servis");
+   
     return this.http.get(this.urlDrug + '/getAll');
   }
 
   public getAllDrugQuantities() {
-    console.log("usao je u servis");
+    
     return this.http.get(this.urlPatient + '/getAllDrugQuantities');
   }
 
@@ -95,7 +95,9 @@ export class DrugService {
         return this.searchDrugsInPharmacy.asObservable();
     }
 
-
+    getAllDrugPricesForPharmacy() {
+     return this.http.get(this.urlDrugPrice + "/getAll");
+    }
 
     addDrugWithQuantityToPharmacy(drugWithQ: DrugWithQuantity) {
         return this.http.post(this.url, drugWithQ);
@@ -104,6 +106,10 @@ export class DrugService {
     changeDrugQuantityInPharmacy(drugWithQ: DrugWithQuantity) {
         return this.http.put(this.url, drugWithQ);
       }
+
+    changeDrugPriceInPharmacy(drugWithPrice: DrugWithPrice) {
+      return this.http.put(this.urlDrugPrice, drugWithPrice);
+    }
 
   public addAlergie(drugId: number) {
     console.log(drugId);
@@ -122,5 +128,9 @@ export class DrugService {
 
     return this.http.put<any>(this.urlPatient + '/setDrugGrade/', {}, {params: params});
   }
+
+  createPriceList(drugsWithPrice: DrugWithPrice[]) {
+    return this.http.post(this.urlDrugPrice + '/create-pricelist', JSON.stringify({"pricelist" : drugsWithPrice}), {headers: new HttpHeaders().set('Content-Type', 'application/json')});   
+}
 
 }

@@ -17,16 +17,18 @@ import com.example.ISA2020.dto.AvailableExaminationDTO;
 import com.example.ISA2020.dto.ConsultationPriceDTO;
 import com.example.ISA2020.dto.ExaminationDTO;
 import com.example.ISA2020.dto.ExaminationPriceDTO;
+import com.example.ISA2020.dto.ExaminationPriceDermatologistDTO;
 import com.example.ISA2020.dto.ExaminationTypeDTO;
 import com.example.ISA2020.entity.ConsultationPrice;
 import com.example.ISA2020.entity.DateTimeInterval;
 import com.example.ISA2020.entity.Examination;
-import com.example.ISA2020.entity.ExaminationPrice;
 import com.example.ISA2020.entity.ExaminationType;
 import com.example.ISA2020.entity.users.Dermatologist;
+import com.example.ISA2020.entity.users.Patient;
 import com.example.ISA2020.entity.users.PharmacyAdmin;
 import com.example.ISA2020.enumeration.ConsultationStatus;
 import com.example.ISA2020.enumeration.ExaminationStatus;
+import com.example.ISA2020.enumeration.ReservationStatus;
 import com.example.ISA2020.repository.ExaminationRepository;
 import com.example.ISA2020.service.DermatologistService;
 import com.example.ISA2020.service.ExaminationService;
@@ -120,6 +122,57 @@ public class ExaminationServiceImpl implements ExaminationService {
 
 	        return examinationRepository.findByDermatologistIdAndStatusNotAndIntervalStartDateTimeGreaterThanEqualAndIntervalStartDateTimeLessThan(dermId, ExaminationStatus.CANCELED, greater, less);
 			
+		}
+
+		@Override
+		public List<Examination> getFinishedExaminationsForPharmacy(Long pharmId) {
+			
+			return this.examinationRepository.findByPharmacyIdAndStatus(pharmId, ExaminationStatus.DONE);
+		}
+
+		@Override
+		public List<Examination> getPharmacyExaminations(Long pharmId, LocalDateTime startDate, LocalDateTime endDate) {
+
+			return this.examinationRepository.findByPharmacyIdAndStatusAndIntervalStartDateTimeGreaterThanEqualAndIntervalEndDateTimeLessThanOrderByIntervalStartDateTime(pharmId, ExaminationStatus.DONE, startDate, endDate );
+
+		}
+
+		@Override
+		public List<ExaminationPriceDTO> getAllBookedExaminationsForPatient(Patient patient) {
+			
+			List<Examination> examinations = examinationRepository.findByPatientIdAndStatus(patient.getId(), ExaminationStatus.BOOKED);
+			
+			List<ExaminationPriceDTO> returnList = new ArrayList<>();
+			for(Examination examination: examinations) {
+				returnList.add(new ExaminationPriceDTO(examination));
+			}
+			
+			return returnList;
+		}
+
+		@Override
+		public List<ExaminationPriceDermatologistDTO> getAllAvailableExaminations() {
+			
+			List<Examination> examinations = examinationRepository.findByStatus(ExaminationStatus.AVAILABLE);
+			
+			List<ExaminationPriceDermatologistDTO> returnList = new ArrayList<>();
+			for(Examination examination: examinations) {
+				returnList.add(new ExaminationPriceDermatologistDTO(examination));
+			}
+			
+			return returnList;
+		}
+
+		@Override
+		public List<ExaminationPriceDTO> getAllDoneExaminationsForPatient(Patient patient) {
+			List<Examination> examinations = examinationRepository.findByPatientIdAndStatus(patient.getId(), ExaminationStatus.DONE);
+			
+			List<ExaminationPriceDTO> returnList = new ArrayList<>();
+			for(Examination examination: examinations) {
+				returnList.add(new ExaminationPriceDTO(examination));
+			}
+			
+			return returnList;
 		}
 	
 	/*

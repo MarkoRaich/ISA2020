@@ -3,6 +3,7 @@ package com.example.ISA2020.entity;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -32,7 +33,7 @@ public class Reservation {
 	@Column 
 	private Integer quantity;
 	
-	@Enumerated
+	@Enumerated(EnumType.STRING)
 	private ReservationStatus status;
 	
 	//Vise rezervacija leka mogu biti povezani sa jednim pacijentom
@@ -53,6 +54,9 @@ public class Reservation {
 	@Column 
 	private String generatedKey;
 	
+	@Column
+	private double sellingPrice;		//pri kompletiranju rezervacije ovde se upisuje prodajna cena
+	
 	
 	//KONSTRUKTORI
 	public Reservation() {
@@ -61,7 +65,7 @@ public class Reservation {
 	}
 
 	public Reservation(ReservationStatus status, Patient patient, Drug drug, DateTimeInterval interval,
-			String generatedKey, Integer quantity) {
+			String generatedKey, Integer quantity, double sellingPrice) {
 		super();
 		this.status = status;
 		this.patient = patient;
@@ -69,6 +73,7 @@ public class Reservation {
 		this.interval = interval;
 		this.generatedKey = randomStringGenerator();
 		this.quantity = quantity;
+		this.sellingPrice=sellingPrice;
 	}
 
 	//metoda koja generise random string za preuzimanje leka koji je rezervisan (salje se potvrdom na mail)
@@ -150,6 +155,14 @@ public class Reservation {
 
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
+	}
+
+	public double getSellingPrice() {
+		return sellingPrice;
+	}
+
+	public void setSellingPrice(double sellingPrice) {
+		this.sellingPrice = sellingPrice;
 	}
 	
 	

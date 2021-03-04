@@ -7,7 +7,7 @@ import javax.validation.Valid;
 import com.example.ISA2020.dto.DrugDTO;
 import com.example.ISA2020.dto.DrugSearchDTO;
 import com.example.ISA2020.entity.DrugQuantity;
-import com.example.ISA2020.entity.PharmDrugQuantityKey;
+import com.example.ISA2020.entity.compositeKeys.KeyDrugPharmacyQuantity;
 import com.example.ISA2020.entity.Pharmacy;
 
 public interface DrugQuantityService {
@@ -20,7 +20,7 @@ public interface DrugQuantityService {
 
 	DrugSearchDTO deleteDrugFromPharmacy(Long pharmId, Long drugId);
 
-	DrugQuantity findById(PharmDrugQuantityKey id);
+	DrugQuantity findById(KeyDrugPharmacyQuantity id);
 
 	List<DrugSearchDTO> searchDrugsInPharmacy(Long id, String name);
 

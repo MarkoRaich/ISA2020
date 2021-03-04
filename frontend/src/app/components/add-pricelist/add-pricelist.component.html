@@ -1,0 +1,77 @@
+<h1 mat-dialog-title>Kreiranje cenovnika</h1>
+
+<mat-dialog-content class="dialog-class">
+    <mat-vertical-stepper [linear]="true" #stepper>
+        <mat-step [stepControl]="dateForm">
+            <form [formGroup]="dateForm" class="form-full-width">
+                <ng-template matStepLabel>Odaberite datum, vreme i tip pregleda</ng-template>
+                
+                <mat-form-field class="form-full-width">
+                    <input matInput [matDatepicker]=" picker1" placeholder="Datum od" formControlName="dateFrom" readonly [min]="minDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field class="form-full-width">
+                    <input matInput [matDatepicker]=" picker2" placeholder="Datum do" formControlName="dateTo" readonly [min]="minDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2 disabled="false"></mat-datepicker>
+                </mat-form-field>
+
+                <mat-error *ngIf="(dateForm.get('dateFrom').errors && dateForm.get('dateFrom').errors['required']) || 
+                (dateForm.get('dateTo').errors && dateForm.get('dateTo').errors['required']) ">
+                    Odaberite početni i krajnji datum važenja cenovnika.
+                </mat-error>
+                <mat-error
+                    *ngIf="dateForm.get('dateTo').errors && dateForm.get('dateTo').errors['timeError']">
+                    Početni datum mora biti pre krajnjeg datuma važenja cenovnika.
+                </mat-error>
+            </form>
+            <mat-dialog-actions class="mt-2">
+                <button mat-raised-button color="primary" (click)="next()" [disabled]="!dateForm.valid"
+                    matStepperNext>Dalje</button>
+            </mat-dialog-actions>
+        </mat-step>
+
+
+        <mat-step [stepControl]="drugsDataSource">
+            <div class="section-title mb-0">
+                <table mat-table matSort [dataSource]="drugsDataSource" class="mat-elevation-z8 table" matSort>
+
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Naziv Leka</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.drug["name"]}}
+                         </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="interval">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Interval </th>
+                        <td mat-cell *matCellDef=" let element">
+                            {{element.startDate | date:"dd.MM.yyyy."}} -  
+                            {{element.endDate | date:"dd.MM.yyyy."}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="price">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Cena </th>
+                        <td mat-cell *matCellDef=" let element">
+                            <input [(ngModel)]="element.price"> RSD
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <mat-paginator [pageSize]=itemsPerPage class=" table" showFirstLastButtons></mat-paginator>
+            </div>
+
+            <mat-dialog-actions class="mt-2 mb-1">
+                <button mat-raised-button color="primary" matStepperPrevious>Nazad</button>
+                <button mat-raised-button color="primary" (click)="create()"
+                   >Kreiraj</button>
+            </mat-dialog-actions>
+        </mat-step>
+    </mat-vertical-stepper>
+
+</mat-dialog-content>

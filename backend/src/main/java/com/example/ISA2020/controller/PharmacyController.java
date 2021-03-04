@@ -1,5 +1,6 @@
 package com.example.ISA2020.controller;
 
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,15 +24,17 @@ import com.example.ISA2020.dto.DrugPricePharmacyNameAddressRatingDTO;
 import com.example.ISA2020.dto.EditPharmacyDTO;
 import com.example.ISA2020.dto.ExaminationPriceDTO;
 import com.example.ISA2020.dto.ExaminationPriceDermatologistDTO;
+import com.example.ISA2020.dto.IncomeListDTO;
 import com.example.ISA2020.dto.PharmacistDTO;
 import com.example.ISA2020.dto.PharmacistSimpleDTO;
 import com.example.ISA2020.dto.PharmacyDTO;
 import com.example.ISA2020.entity.Pharmacy;
 import com.example.ISA2020.entity.users.PharmacyAdmin;
 import com.example.ISA2020.service.ConsultationPriceService;
-import com.example.ISA2020.service.ExaminationPriceService;
 import com.example.ISA2020.service.PharmacyAdminService;
 import com.example.ISA2020.service.PharmacyService;
+
+
 import com.example.ISA2020.dto.PharmacistSimpleDTO;
 
 @RestController
@@ -43,8 +47,6 @@ public class PharmacyController {
 	@Autowired
 	private PharmacyAdminService pharmacyAdminService;
 	
-	@Autowired
-	private ExaminationPriceService examinationPriceService;
 	
 	@Autowired
 	private ConsultationPriceService consultationPriceService;
@@ -70,6 +72,21 @@ public class PharmacyController {
 	
 		return new ResponseEntity<>(pharmacies, HttpStatus.OK);
 	}
+	
+	 @GetMapping(value = "/pharmacy-rating")
+	 //@PreAuthorize("hasRole('PHARMACY_ADMIN')")
+	 public ResponseEntity<Double> getPharmacyRating() {
+		 PharmacyAdmin pharmacyAdmin = pharmacyAdminService.getLoginAdmin();
+	        if (pharmacyAdmin == null) {
+	            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+	        }
+	        
+	        Double pharmacyRating = pharmacyAdmin.getPharmacy().getRating();
+	        if (pharmacyRating < 0 || pharmacyRating > 5) {
+	            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	        }
+	        return new ResponseEntity<>(pharmacyRating, HttpStatus.OK);
+	    }
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Pharmacy> getOneById(@PathVariable Long id){
@@ -112,25 +129,25 @@ public class PharmacyController {
         return new ResponseEntity<>(changedPharmacy, HttpStatus.ACCEPTED);
     }
 	
-	//3.13
-	@GetMapping("/getAllExaminationPricesSortedByPriceForPharmacy")
-	public ResponseEntity<List<ExaminationPriceDermatologistDTO>> getAllExaminationsByPrice(@RequestParam("pharmacyId") Long id) {
-		List<ExaminationPriceDermatologistDTO> dtos = examinationPriceService.getAllExaminationPricesSortedByPriceForPharmacy(id);
-		if(dtos == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<List<ExaminationPriceDermatologistDTO>>(dtos, HttpStatus.OK);
-	}
-	
-	@GetMapping("/getAllExaminationPricesSortedByDermatologistRatingForPharmacy")
-	public ResponseEntity<List<ExaminationPriceDTO>> getAllExaminationsByDermatologistRating(@RequestParam("pharmacyId") Long id) {
-		List<ExaminationPriceDTO> dtos = examinationPriceService.getAllExaminationPricesSortedByDermatologistRatingForPharmacy(id);
-		if(dtos == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<List<ExaminationPriceDTO>>(dtos, HttpStatus.OK);
-	}
-	
+//	//3.13
+//	@GetMapping("/getAllExaminationPricesSortedByPriceForPharmacy")
+//	public ResponseEntity<List<ExaminationPriceDermatologistDTO>> getAllExaminationsByPrice(@RequestParam("pharmacyId") Long id) {
+//		List<ExaminationPriceDermatologistDTO> dtos = examinationPriceService.getAllExaminationPricesSortedByPriceForPharmacy(id);
+//		if(dtos == null) {
+//			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//		}
+//		return new ResponseEntity<List<ExaminationPriceDermatologistDTO>>(dtos, HttpStatus.OK);
+//	}
+//	
+//	@GetMapping("/getAllExaminationPricesSortedByDermatologistRatingForPharmacy")
+//	public ResponseEntity<List<ExaminationPriceDTO>> getAllExaminationsByDermatologistRating(@RequestParam("pharmacyId") Long id) {
+//		List<ExaminationPriceDTO> dtos = examinationPriceService.getAllExaminationPricesSortedByDermatologistRatingForPharmacy(id);
+//		if(dtos == null) {
+//			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//		}
+//		return new ResponseEntity<List<ExaminationPriceDTO>>(dtos, HttpStatus.OK);
+//	}
+//	
 	
 	//3.16 
 //	@GetMapping("/getAllConsultationPricesSortedByPriceForPharmacy")
@@ -221,4 +238,133 @@ public class PharmacyController {
 	        }
         return new ResponseEntity<>(pharmacyService.searchPharmaciesByNameAndAddress(id, name, address)(pharmacyAdmin.getPharmacy().getId(), firstName, lastName), HttpStatus.OK);
     } */
+	
+	@GetMapping(value = "/monthly-statistic")
+	//@PreAuthorize("hasRole('PHARMACY_ADMIN')")
+	public ResponseEntity<int[]> getMonthlyStatistic() {
+
+		PharmacyAdmin pharmacyAdmin = pharmacyAdminService.getLoginAdmin();
+		
+		if(pharmacyAdmin == null) {
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		}
+		
+        int[] statistic = pharmacyService.getMonthlyStatistic(pharmacyAdmin.getPharmacy().getId());
+        if (statistic == null || statistic.length != 12) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(statistic, HttpStatus.OK);
+    }
+
+	
+	@GetMapping(value = "/quartal-statistic")
+	//@PreAuthorize("hasRole('PHARMACY_ADMIN')")
+	public ResponseEntity<int[]> getQuartalStatistic() {
+
+		PharmacyAdmin pharmacyAdmin = pharmacyAdminService.getLoginAdmin();
+		
+		if(pharmacyAdmin == null) {
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		}
+		
+        int[] statistic = pharmacyService.getQuartalStatistic(pharmacyAdmin.getPharmacy().getId());
+        if (statistic == null || statistic.length != 4) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(statistic, HttpStatus.OK);
+    }
+
+	@GetMapping(value = "/year-statistic")
+	//@PreAuthorize("hasRole('PHARMACY_ADMIN')")
+	public ResponseEntity<int[]> getYearStatistic() {
+
+		PharmacyAdmin pharmacyAdmin = pharmacyAdminService.getLoginAdmin();
+		
+		if(pharmacyAdmin == null) {
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		}
+		
+        int[] statistic = pharmacyService.getYearStatistic(pharmacyAdmin.getPharmacy().getId());
+        if (statistic == null || statistic.length != 3) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(statistic, HttpStatus.OK);
+    }
+//____________________________________________________________________________________________________________
+	
+
+	@GetMapping(value = "/monthly-statistic-drugs")
+	//@PreAuthorize("hasRole('PHARMACY_ADMIN')")
+	public ResponseEntity<int[]> getMonthlyStatisticDrugs() {
+
+		PharmacyAdmin pharmacyAdmin = pharmacyAdminService.getLoginAdmin();
+		
+		if(pharmacyAdmin == null) {
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		}
+		
+        int[] statistic = pharmacyService.getMonthlyStatisticDrugs(pharmacyAdmin.getPharmacy().getId());
+        if (statistic == null || statistic.length != 12) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(statistic, HttpStatus.OK);
+    }
+
+	
+	@GetMapping(value = "/quartal-statistic-drugs")
+	//@PreAuthorize("hasRole('PHARMACY_ADMIN')")
+	public ResponseEntity<int[]> getQuartalStatisticDrugs() {
+
+		PharmacyAdmin pharmacyAdmin = pharmacyAdminService.getLoginAdmin();
+		
+		if(pharmacyAdmin == null) {
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		}
+		
+        int[] statistic = pharmacyService.getQuartalStatisticDrugs(pharmacyAdmin.getPharmacy().getId());
+        if (statistic == null || statistic.length != 4) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(statistic, HttpStatus.OK);
+    }
+
+	@GetMapping(value = "/year-statistic-drugs")
+	//@PreAuthorize("hasRole('PHARMACY_ADMIN')")
+	public ResponseEntity<int[]> getYearStatisticDrugs() {
+
+		PharmacyAdmin pharmacyAdmin = pharmacyAdminService.getLoginAdmin();
+		
+		if(pharmacyAdmin == null) {
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		}
+		
+        int[] statistic = pharmacyService.getYearStatisticDrugs(pharmacyAdmin.getPharmacy().getId());
+        if (statistic == null || statistic.length != 3) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(statistic, HttpStatus.OK);
+    }
+
+	
+	
+	 @GetMapping(value = "/income")
+	 //@PreAuthorize("hasRole('PHARMACY_ADMIN')")
+     public ResponseEntity<IncomeListDTO> getIncomeForPeriod(@RequestParam(value = "startDate", required = true) String startDateTime,
+	                                                   		 @RequestParam(value = "endDate",   required = true) String endDateTime   ) {
+		 
+		 PharmacyAdmin pharmacyAdmin = pharmacyAdminService.getLoginAdmin();
+			
+			if(pharmacyAdmin == null) {
+				return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+			}
+	        try {
+	        	IncomeListDTO income = pharmacyService.getPharmacyIncome(pharmacyAdmin.getPharmacy().getId(), startDateTime, endDateTime);
+
+	            return new ResponseEntity<>(income, HttpStatus.OK);
+	        } catch (DateTimeParseException ex) {
+	            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	        }
+	    }
+
+
 }

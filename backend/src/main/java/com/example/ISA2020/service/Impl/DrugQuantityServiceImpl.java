@@ -14,7 +14,7 @@ import com.example.ISA2020.dto.DrugSearchDTO;
 import com.example.ISA2020.dto.PharmacyDTO;
 import com.example.ISA2020.entity.Drug;
 import com.example.ISA2020.entity.DrugQuantity;
-import com.example.ISA2020.entity.PharmDrugQuantityKey;
+import com.example.ISA2020.entity.compositeKeys.KeyDrugPharmacyQuantity;
 import com.example.ISA2020.entity.Pharmacy;
 import com.example.ISA2020.entity.Reservation;
 import com.example.ISA2020.enumeration.EntityStatus;
@@ -36,7 +36,7 @@ public class DrugQuantityServiceImpl implements DrugQuantityService {
 	
 	
 	@Override
-	public DrugQuantity findById(PharmDrugQuantityKey id) {
+	public DrugQuantity findById(KeyDrugPharmacyQuantity id) {
 		
 		return drugQuantityRepo.findOneById(id);
 	}
@@ -95,7 +95,7 @@ public class DrugQuantityServiceImpl implements DrugQuantityService {
 	@Override
 	public DrugSearchDTO deleteDrugFromPharmacy(Long pharmId, Long drugId) {
 		
-		DrugQuantity drugQuantity = drugQuantityRepo.findOneById(new PharmDrugQuantityKey(pharmId, drugId));
+		DrugQuantity drugQuantity = drugQuantityRepo.findOneById(new KeyDrugPharmacyQuantity(pharmId, drugId));
 		if(drugQuantity == null) {
 			return null;
 		}
@@ -137,7 +137,7 @@ public class DrugQuantityServiceImpl implements DrugQuantityService {
 		
 		Drug drug = drugRepository.findOneById(drugDTO.getId());
 		
-		DrugQuantity newDrugQ = new DrugQuantity(new PharmDrugQuantityKey(), pharmacy, drug,drugDTO.getQuantity(), EntityStatus.ACTIVE);
+		DrugQuantity newDrugQ = new DrugQuantity(new KeyDrugPharmacyQuantity(), pharmacy, drug,drugDTO.getQuantity(), EntityStatus.ACTIVE);
 		
 		return new DrugSearchDTO(drugQuantityRepo.save(newDrugQ));
 		}

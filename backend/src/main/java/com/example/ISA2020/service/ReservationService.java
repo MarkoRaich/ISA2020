@@ -22,4 +22,10 @@ public interface ReservationService {
 	ReservationDTO cancelDrugReservation(Long reservationId);
 
 	ReservationDTO makeDrugReservation(Long pharmacyId, Long drugId, int quantity, String endTime);
+
+	List<ReservationDTO> getCompletedReservationsForPharmacy(Long id);
+
+	List<Reservation> getReservationsCompletedForPharmacy(Long pharmId);
+
+	List<Reservation> getPharmacyReservations(Long id, LocalDateTime startDate, LocalDateTime endDate);
 }

@@ -5,12 +5,12 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.ISA2020.entity.DrugQuantity;
-import com.example.ISA2020.entity.PharmDrugQuantityKey;
+import com.example.ISA2020.entity.compositeKeys.KeyDrugPharmacyQuantity;
 import com.example.ISA2020.enumeration.EntityStatus;
 
 public interface DrugQuantityRepository extends JpaRepository<DrugQuantity, Long> {
 
-	DrugQuantity findOneById(PharmDrugQuantityKey id);
+	DrugQuantity findOneById(KeyDrugPharmacyQuantity id);
 	
 	List<DrugQuantity> findAll();
 

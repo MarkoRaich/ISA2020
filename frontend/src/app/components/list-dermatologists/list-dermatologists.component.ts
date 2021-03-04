@@ -18,7 +18,7 @@ import { AddDermatologistComponent } from '../add-dermatologist/add-dermatologis
 export class ListDermatologistsComponent implements OnInit {
 
   dermatologistsDataSource: MatTableDataSource<Dermatologist>;
-  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'phoneNumber', 'workhours', 'obrisi'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'phoneNumber', 'workhours', 'rating', 'obrisi'];
   searchString: string;
   searchFirstName: string = '';
   searchLastName: string = '';
@@ -36,6 +36,9 @@ export class ListDermatologistsComponent implements OnInit {
   ngOnInit() {
 
     this.getDermatologistsForAdmin();
+
+    this.dermatologistsDataSource.filterPredicate = 
+    (data: Dermatologist, filter: string) => data.rating.toString().indexOf(filter) != -1;
     
     this.successCreatedDermatologist = this.dermatologistService.createSuccessEmitter.subscribe(
       () =>{
@@ -68,7 +71,9 @@ export class ListDermatologistsComponent implements OnInit {
   }
 
   applyFilter(filterValue: string) {
-    this.dermatologistsDataSource.filter = filterValue.trim().toLowerCase();
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.dermatologistsDataSource.filter = filterValue;
   }
 
   deleteDermatologist(dermatologist: Dermatologist) {

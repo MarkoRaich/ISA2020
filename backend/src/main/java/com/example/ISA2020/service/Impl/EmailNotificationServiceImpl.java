@@ -14,7 +14,8 @@ import com.example.ISA2020.service.EmailNotificationService;
 
 @Service
 public class EmailNotificationServiceImpl implements EmailNotificationService {
-    @Autowired
+    
+	@Autowired
     private JavaMailSender javaMailSender;
 
     @Autowired

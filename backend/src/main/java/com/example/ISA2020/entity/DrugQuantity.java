@@ -3,6 +3,7 @@ package com.example.ISA2020.entity;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 
+import com.example.ISA2020.entity.compositeKeys.KeyDrugPharmacyQuantity;
 import com.example.ISA2020.enumeration.EntityStatus;
 
 
@@ -10,7 +11,7 @@ import com.example.ISA2020.enumeration.EntityStatus;
 public class DrugQuantity {
 
     @EmbeddedId
-    private PharmDrugQuantityKey id;
+    private KeyDrugPharmacyQuantity id;
 
     @Column
     @Min(0)
@@ -37,7 +38,7 @@ public class DrugQuantity {
 	}
 
 
-	public DrugQuantity(PharmDrugQuantityKey id, Pharmacy pharmacy, Drug drug, int quantity, EntityStatus status) {
+	public DrugQuantity(KeyDrugPharmacyQuantity id, Pharmacy pharmacy, Drug drug, int quantity, EntityStatus status) {
 		super();
 		this.pharmacy = pharmacy;
 		this.drug = drug;
@@ -47,12 +48,12 @@ public class DrugQuantity {
 	}
 
 	//GETERI I SETERI
-	public PharmDrugQuantityKey getId() {
+	public KeyDrugPharmacyQuantity getId() {
 		return id;
 	}
 
 
-	public void setId(PharmDrugQuantityKey id) {
+	public void setId(KeyDrugPharmacyQuantity id) {
 		this.id = id;
 	}
 

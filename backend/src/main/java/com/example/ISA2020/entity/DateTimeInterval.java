@@ -32,12 +32,12 @@ public class DateTimeInterval {
     @Column(nullable = false)
     private LocalDateTime endDateTime;
     
+    
+    
     @OneToMany(mappedBy = "interval", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Reservation> reservations = new HashSet<>();
     
-    @OneToMany(mappedBy = "interval", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<ExaminationPrice> examinationPrices = new HashSet<>();
-    
+       
     @OneToMany(mappedBy = "interval", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<ConsultationPrice> consultationPrices = new HashSet<>();
     
@@ -107,18 +107,6 @@ public class DateTimeInterval {
 	}
 
 
-
-
-	public Set<ExaminationPrice> getExaminationPrices() {
-		return examinationPrices;
-	}
-
-
-
-
-	public void setExaminationPrices(Set<ExaminationPrice> examinationPrices) {
-		this.examinationPrices = examinationPrices;
-	}
 
 
 

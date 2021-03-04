@@ -14,4 +14,6 @@ public interface VacationRequestDermRepository extends JpaRepository<VacationReq
 	List<VacationRequestDerm> findAll();
 
 	List<VacationRequestDerm> findByDermatologistIdAndStatusNot(Long id, VacationRequestStatus status);
+
+	List<VacationRequestDerm> findByPharmacyId(Long pharmId);
 }

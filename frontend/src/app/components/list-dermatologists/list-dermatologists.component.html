@@ -47,6 +47,12 @@
                             <div class="col-3 btn-position">
                                 <button mat-raised-button color="primary" (click)="search()">Pretraga</button>
                             </div>
+                            <div class="col-3">
+                                <mat-form-field>
+                                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtriraj">
+                                </mat-form-field>        
+                            </div>
+
                         </div>
 
                         <table mat-table [dataSource]="dermatologistsDataSource" class="mat-elevation-z8 table" matSort>
@@ -78,6 +84,12 @@
                                 <th mat-header-cell *matHeaderCellDef> Radno vreme </th>
                                 <td mat-cell *matCellDef="let element">
                                     {{element.workHoursFrom }}&nbsp;—&nbsp;{{element.workHoursTo}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="rating">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Ocena </th>
+                                <td mat-cell *matCellDef=" let element"> {{element.rating}}
                                 </td>
                             </ng-container>
 

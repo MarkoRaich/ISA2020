@@ -37,4 +37,6 @@ public interface PatientService {
 
 	PatientDTO addAlergie(Long drugId);
 
+
+
 }

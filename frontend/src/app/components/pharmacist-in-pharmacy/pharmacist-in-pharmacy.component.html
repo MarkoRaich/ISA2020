@@ -44,6 +44,11 @@
                                 <div class="col-3 btn-position">
                                     <button mat-raised-button color="primary" (click)="search()">Pretraga</button>
                                 </div>
+                                <div class="col-3">
+                                    <mat-form-field>
+                                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtriraj">
+                                    </mat-form-field>        
+                                </div>
                             </div>
     
                             <table mat-table [dataSource]="pharmacistsDataSource" class="mat-elevation-z8 table" matSort>
