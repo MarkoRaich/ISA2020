@@ -23,6 +23,7 @@ import com.example.ISA2020.dto.ConsultationPriceDTO;
 import com.example.ISA2020.dto.DrugPricePharmacyNameAddressRatingDTO;
 import com.example.ISA2020.dto.DrugQuantityDTO;
 import com.example.ISA2020.dto.EditPatientDTO;
+import com.example.ISA2020.dto.ExaminationDTO;
 import com.example.ISA2020.dto.ExaminationPriceDTO;
 import com.example.ISA2020.dto.ExaminationPriceDermatologistDTO;
 import com.example.ISA2020.dto.GradeDermPharmDTO;
@@ -34,8 +35,9 @@ import com.example.ISA2020.dto.PharmacyDTO;
 import com.example.ISA2020.dto.PromotionDTO;
 import com.example.ISA2020.dto.ReservationDTO;
 import com.example.ISA2020.entity.users.Patient;
+import com.example.ISA2020.entity.users.PharmacyAdmin;
 import com.example.ISA2020.service.ConsultationPriceService;
-import com.example.ISA2020.service.ExaminationPriceService;
+import com.example.ISA2020.service.ExaminationService;
 import com.example.ISA2020.service.GradeService;
 import com.example.ISA2020.service.PatientService;
 import com.example.ISA2020.service.PharmacyService;
@@ -54,7 +56,8 @@ public class PatientController {
 	private PharmacyService pharmacyService;
 	
 	@Autowired
-	private ExaminationPriceService examinationPriceService;
+	private ExaminationService examinationService;
+	
 	
 	@Autowired
 	private ConsultationPriceService consultationPriceService;
@@ -142,23 +145,28 @@ public class PatientController {
 	
 	
 	
-	@GetMapping("/getAllExaminationsSortedByPrice")
+	@GetMapping("/getAllExaminationsSortedByPriceDone")
 	public ResponseEntity<List<ExaminationPriceDTO>> getAllExaminationsByPrice() {
-		List<ExaminationPriceDTO> dtos = examinationPriceService.getAllExaminationPricesSortedByPrice();
-		if(dtos == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<List<ExaminationPriceDTO>>(dtos, HttpStatus.OK);
+		Patient patient = patientService.getLoginPatient();
+	        if (patient == null) {
+	            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+	        }
+        List<ExaminationPriceDTO> dtos = examinationService.getAllDoneExaminationsForPatient(patient);
+			if(dtos == null) {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+
+     return new ResponseEntity<List<ExaminationPriceDTO>>(dtos, HttpStatus.OK);
 	}
 	
-	@GetMapping("/getAllExaminationsSortedByDate")
-	public ResponseEntity<List<ExaminationPriceDTO>> getAllExaminationsByDate() {
-		List<ExaminationPriceDTO> dtos = examinationPriceService.getAllExaminationPricesSortedByDate();
-		if(dtos == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<List<ExaminationPriceDTO>>(dtos, HttpStatus.OK);
-	}
+//	@GetMapping("/getAllExaminationsSortedByDate")
+//	public ResponseEntity<List<ExaminationPriceDTO>> getAllExaminationsByDate() {
+//		List<ExaminationPriceDTO> dtos = examinationPriceService.getAllExaminationPricesSortedByDate();
+//		if(dtos == null) {
+//			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//		}
+//		return new ResponseEntity<List<ExaminationPriceDTO>>(dtos, HttpStatus.OK);
+//	}
 	
 	@GetMapping("/getAllConsultationsSortedByPrice")
 	public ResponseEntity<List<ConsultationPriceDTO>> getAllConsultationsByPrice() {
@@ -178,25 +186,32 @@ public class PatientController {
 		return new ResponseEntity<List<ConsultationPriceDTO>>(dtos, HttpStatus.OK);
 	}
 	
-	//zakazani pregledi i savetovanja
+	
 	@GetMapping("/getAllExaminationsSortedByPriceBooked")
 	public ResponseEntity<List<ExaminationPriceDTO>> getAllExaminationsByPriceBooked() {
-		List<ExaminationPriceDTO> dtos = examinationPriceService.getAllExaminationPricesSortedByPriceBooked();
-		if(dtos == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<List<ExaminationPriceDTO>>(dtos, HttpStatus.OK);
+		
+		 Patient patient = patientService.getLoginPatient();
+	        if (patient == null) {
+	            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+	        }
+	     List<ExaminationPriceDTO> dtos = examinationService.getAllBookedExaminationsForPatient(patient);
+			if(dtos == null) {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+
+	     return new ResponseEntity<List<ExaminationPriceDTO>>(dtos, HttpStatus.OK);
+
 	}
 	
-	@GetMapping("/getAllExaminationsSortedByDateBooked")
-	public ResponseEntity<List<ExaminationPriceDTO>> getAllExaminationsByDateBooked() {
-		List<ExaminationPriceDTO> dtos = examinationPriceService.getAllExaminationPricesSortedByDateBooked();
-		if(dtos == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<List<ExaminationPriceDTO>>(dtos, HttpStatus.OK);
-	}
-	
+//	@GetMapping("/getAllExaminationsSortedByDateBooked")
+//	public ResponseEntity<List<ExaminationPriceDTO>> getAllExaminationsByDateBooked() {
+//		List<ExaminationPriceDTO> dtos = examinationPriceService.getAllExaminationPricesSortedByDateBooked();
+//		if(dtos == null) {
+//			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//		}
+//		return new ResponseEntity<List<ExaminationPriceDTO>>(dtos, HttpStatus.OK);
+//	}
+//	
 	@GetMapping("/getAllConsultationsSortedByPriceBooked")
 	public ResponseEntity<List<ConsultationPriceDTO>> getAllConsultationsByPriceBooked() {
 		List<ConsultationPriceDTO> dtos = consultationPriceService.getAllConsultationPricesSortedByPriceBooked();
@@ -238,33 +253,37 @@ public class PatientController {
 	
 	@GetMapping("/getAllExaminationsAvailabe") 
 	public ResponseEntity<List<ExaminationPriceDermatologistDTO>> getAllExaminationsAvailable() {
-		List<ExaminationPriceDermatologistDTO> dtos = examinationPriceService.getAllExaminationsAvailable();
+		Patient patient = patientService.getLoginPatient();
+	        if (patient == null) {
+	            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+	        }
+		List<ExaminationPriceDermatologistDTO> dtos = examinationService.getAllAvailableExaminations();
 		if(dtos == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<List<ExaminationPriceDermatologistDTO>>(dtos, HttpStatus.OK);
 	}
 	
-	//3.13 -----------------------------------------------------------
-	@PutMapping("/makeExaminationReservation/{id}")
-    //@PreAuthorize("hasRole('PATIENT')") //ROLE_PATIENT??
-	public ResponseEntity<ExaminationPriceDermatologistDTO> makeExaminationReservation(@PathVariable Long id) {
-		ExaminationPriceDermatologistDTO dto = examinationPriceService.makeExaminationReservation(id);
-		if(dto == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<>(dto, HttpStatus.CREATED);
-	}
-	
-	@PutMapping("/cancelExaminationReservation/{id}")
-    //@PreAuthorize("hasRole('PATIENT')") //ROLE_PATIENT??
-	public ResponseEntity<ExaminationPriceDermatologistDTO> cancelExaminationReservation(@PathVariable Long id) {
-		ExaminationPriceDermatologistDTO dto = examinationPriceService.cancelExaminationReservation(id);
-		if(dto == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<>(dto, HttpStatus.CREATED);
-	}
+//	//3.13 -----------------------------------------------------------
+//	@PutMapping("/makeExaminationReservation/{id}")
+//    //@PreAuthorize("hasRole('PATIENT')") //ROLE_PATIENT??
+//	public ResponseEntity<ExaminationPriceDermatologistDTO> makeExaminationReservation(@PathVariable Long id) {
+//		ExaminationPriceDermatologistDTO dto = examinationPriceService.makeExaminationReservation(id);
+//		if(dto == null) {
+//			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//		}
+//		return new ResponseEntity<>(dto, HttpStatus.CREATED);
+//	}
+//	
+//	@PutMapping("/cancelExaminationReservation/{id}")
+//    //@PreAuthorize("hasRole('PATIENT')") //ROLE_PATIENT??
+//	public ResponseEntity<ExaminationPriceDermatologistDTO> cancelExaminationReservation(@PathVariable Long id) {
+//		ExaminationPriceDermatologistDTO dto = examinationPriceService.cancelExaminationReservation(id);
+//		if(dto == null) {
+//			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//		}
+//		return new ResponseEntity<>(dto, HttpStatus.CREATED);
+//	}
 	
 	
 	//3.16 ------------------------
@@ -311,6 +330,8 @@ public class PatientController {
 		}
 		return new ResponseEntity<>(dtos, HttpStatus.OK);
 	}
+	
+
 	
 	@GetMapping("/getAllConsultationsForPatient")
 	public ResponseEntity<List<ConsultationPriceAddressDTO>> getAllConsultationsForPatient() {

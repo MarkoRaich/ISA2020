@@ -19,7 +19,7 @@ import { AddExaminationComponent } from '../add-examination/add-examination.comp
 export class ListExaminationsComponent implements OnInit {
 
     examinationsDataSource: MatTableDataSource<AvailableExamination>;
-    displayedColumns: string[] = [ 'id', 'dermatologist', 'date', 'time', 'price'];
+    displayedColumns: string[] = [ 'dermatologist', 'date', 'time', 'type', 'price'];
     numberOfItems: number;
     itemsPerPage = environment.itemsPerPage;
     addExaminationSuccess: Subscription;

@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
 
+import com.example.ISA2020.entity.compositeKeys.KeyPharmacyConsultationPrice;
+
 @Table(name="consultationPrice")
 @Entity
 public class ConsultationPrice {
@@ -22,7 +24,7 @@ public class ConsultationPrice {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
-    private PharmacyConsultationKey id;
+    private KeyPharmacyConsultationPrice id;
 	
     @Column 
     private double price;
@@ -53,11 +55,11 @@ public class ConsultationPrice {
 		this.pharmacy = pharmacy;
 	}
 
-	public PharmacyConsultationKey getId() {
+	public KeyPharmacyConsultationPrice getId() {
 		return id;
 	}
 
-	public void setId(PharmacyConsultationKey id) {
+	public void setId(KeyPharmacyConsultationPrice id) {
 		this.id = id;
 	}
 

@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Unesite razlog odbijanja</h1>
+<mat-dialog-content class="dialog-class">
+
+    <form [formGroup]="reasonForm" class="form-full-width">  
+        <mat-form-field class="form-full-width mt-3">
+            <input matInput placeholder="Razlog odbijanja" formControlName="reason">
+            <mat-error *ngIf="reasonForm.get('reason').errors">
+               Unesite razlog odbijanja zahteva.
+            </mat-error>
+        </mat-form-field>
+    </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions class="mt-2 mb-1">
+    <button mat-raised-button color="primary" (click)="deny()" [disabled]="!reasonForm.valid">Odbij</button>
+</mat-dialog-actions>

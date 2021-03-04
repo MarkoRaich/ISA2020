@@ -1,0 +1,21 @@
+<h1 class="primary">Izmeni cenu leka : {{drug.drug["name"]}}</h1>
+<mat-dialog-content class="dialog-class">
+    <form [formGroup]="changeDrugForm" class="form-full-width">
+            <mat-form-field class="form-full-width-td ml-2">
+                <input matInput type="number" placeholder="Trenutna cena: {{drug.price}}" formControlName="price">
+                <mat-error
+                    *ngIf="changeDrugForm.get('price').errors && changeDrugForm.get('price').errors['required']">
+                    Unesite cenu.
+                </mat-error>
+                <mat-error
+                    *ngIf="changeDrugForm.get('price').errors && changeDrugForm.get('price').errors['min']">
+                    Minimalna cena je 1.
+                </mat-error>
+            </mat-form-field>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="mt-2 mb-1">
+<button mat-raised-button color="primary" (click)="change()" [disabled]="!changeDrugForm.valid">Izmeni</button>
+</mat-dialog-actions>
+

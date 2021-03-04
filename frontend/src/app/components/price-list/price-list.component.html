@@ -1,0 +1,112 @@
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-caption">
+                    <h1 class="page-title">Cenovnik lekova i pregleda</h1>
+                    <div class="text-center mt-4">
+                        <button mat-raised-button color="primary" (click)="openCreatingDialog()">
+                            Kreiraj novi cenovnik za lekove
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.page-header-->
+
+<!-- page-content -->
+<div class="card-section">
+    <div class="container">
+        <div class="card-block bg-white mb30">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <!-- section-title -->
+                    <div class="section-title mb-0">
+                        <table mat-table matSort [dataSource]="drugPriceDataSource" #TableTwoSort="matSort" class="mat-elevation-z8 table" matSort>
+
+                            <ng-container matColumnDef="drug">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Naziv Leka</th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.drug["name"]}}
+                                 </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="interval">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Interval </th>
+                                <td mat-cell *matCellDef=" let element">
+                                    {{element.startDate | date:"dd.MM.yyyy."}} -  
+                                    {{element.endDate | date:"dd.MM.yyyy."}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="price">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Cena </th>
+                                <td mat-cell *matCellDef=" let element">
+                                    {{element.price}} RSD
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="change">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Cena </th>
+                                <td mat-cell *matCellDef=" let element">
+                                    <button mat-raised-button mat-raised-button class="change-btn" [disabled]="isDisabled(element)"
+                                        (click)="changePrice(element)">Izmeni</button>
+                                </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsDrug sticky: true"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsDrug;"></tr>
+                        </table>
+                        <mat-paginator [pageSize]=itemsPerPage  #TableTwoPaginator="matPaginator" class=" table" showFirstLastButtons></mat-paginator>
+                    </div>
+                    <!-- /.section-title -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card-section">
+    <div class="container">
+        <div class="card-block bg-white mb30">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <!-- section-title -->
+                    <div class="section-title mb-0">
+                        <table mat-table matSort [dataSource]="examinationTypesDataSource" #TableOneSort="matSort" class="mat-elevation-z8 table" >
+
+                            <ng-container matColumnDef="name">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Naziv Pregleda</th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.name}}
+                                 </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="description">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Opis </th>
+                                <td mat-cell *matCellDef=" let element">
+                                    {{element.description}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="price">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Cena </th>
+                                <td mat-cell *matCellDef=" let element">
+                                    {{element.price}} RSD
+                                </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsType sticky: true"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsType;"></tr>
+                        </table>
+                        <mat-paginator #TableOnePaginator="matPaginator" [pageSize]=itemsPerPage class=" table" showFirstLastButtons></mat-paginator>
+                    </div>
+                    <!-- /.section-title -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.page-content -->

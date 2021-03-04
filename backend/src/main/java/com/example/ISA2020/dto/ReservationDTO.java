@@ -1,5 +1,7 @@
 package com.example.ISA2020.dto;
 
+import com.example.ISA2020.entity.Reservation;
+
 public class ReservationDTO {
 	
 	private Long id;
@@ -31,6 +33,17 @@ public class ReservationDTO {
 		this.quantity = quantity;
 		this.id = id;
 		this.status = status;
+	}
+
+	public ReservationDTO(Reservation reservation) {
+		super();
+		this.id = reservation.getId();
+		this.pharmacyName = reservation.getPharmacy().getName();
+		this.drugName = reservation.getDrug().getName();
+		this.drugCode = reservation.getDrug().getCode();
+		this.generatedKey = reservation.getGeneratedKey();
+		this.quantity = reservation.getQuantity();
+		this.status = reservation.getStatus().toString();
 	}
 
 	public String getPharmacyName() {

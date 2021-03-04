@@ -17,7 +17,7 @@ public class VacationRequestPharm { //odobrava administrator sistema
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private DateTimeInterval interval;
 
-	@Enumerated
+	@Enumerated(EnumType.STRING)
 	private VacationRequestStatus status;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

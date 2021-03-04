@@ -10,6 +10,7 @@ import {FormBuilder} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Pharmacy} from '../../models/pharmacy';
 import {PharmacyService} from '../../services/pharmacy.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-pharmacies',
@@ -21,7 +22,7 @@ export class ListPharmaciesComponent implements OnInit {
   pharmId: string;
 
   dermatologistsDataSource: MatTableDataSource<Pharmacy>;
-  displayedColumns: string[] = ['pharmacyName', 'pharmacyAddress', 'pharmacyRating'];
+  displayedColumns: string[] = ['pharmacyName', 'pharmacyAddress', 'pharmacyRating', 'view'];
   searchString: string;
   searchName: string = '';
   searchAddress: string = '';
@@ -34,6 +35,7 @@ export class ListPharmaciesComponent implements OnInit {
 
   constructor(public toastr: ToastrService,
               public pharmacyService: PharmacyService,
+              public router : Router,
               private fb: FormBuilder) {
 
     //this.pharmId = data.id;
@@ -69,5 +71,9 @@ export class ListPharmaciesComponent implements OnInit {
         this.dermatologistsDataSource.paginator = this.paginator;
       });
   }
+
+  showPharmacyProfile(pharmId: number){
+    this.router.navigate(['patient/pharmacy-profile', pharmId ]);
+}
 
 }

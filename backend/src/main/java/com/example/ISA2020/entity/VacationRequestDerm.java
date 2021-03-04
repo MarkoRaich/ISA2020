@@ -16,12 +16,15 @@ public class VacationRequestDerm { //odobrava admin apoteke
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private DateTimeInterval interval;
 
-	@Enumerated
+	@Enumerated(EnumType.STRING)
 	private VacationRequestStatus status;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "dermatologist_id", referencedColumnName = "id")
 	private Dermatologist dermatologist;
+	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Pharmacy pharmacy;
 
 	
 	//KONSTRUKTORI
@@ -29,11 +32,12 @@ public class VacationRequestDerm { //odobrava admin apoteke
 		super();
 	}
 	
-	public VacationRequestDerm(DateTimeInterval interval, VacationRequestStatus status, Dermatologist dermatologist) {
+	public VacationRequestDerm(DateTimeInterval interval, VacationRequestStatus status, Dermatologist dermatologist, Pharmacy pharmacy) {
 		super();
 		this.interval = interval;
 		this.status = status;
 		this.dermatologist = dermatologist;
+		this.pharmacy=pharmacy;
 	}
 	
 	//GETERI I SETERI
@@ -67,6 +71,14 @@ public class VacationRequestDerm { //odobrava admin apoteke
 
 	public void setDermatologist(Dermatologist dermatologist) {
 		this.dermatologist = dermatologist;
+	}
+
+	public Pharmacy getPharmacy() {
+		return pharmacy;
+	}
+
+	public void setPharmacy(Pharmacy pharmacy) {
+		this.pharmacy = pharmacy;
 	}
 
 	

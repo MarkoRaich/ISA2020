@@ -2,27 +2,30 @@ package com.example.ISA2020.entity;
 
 import javax.persistence.*;
 
+import com.example.ISA2020.dto.DrugPriceDTO;
+import com.example.ISA2020.entity.compositeKeys.*;
+
 @Table(name="drugPrice")
 @Entity
 public class DrugPrice {
 	
-	@EmbeddedId
-	private PharmDrugPriceKey id;
+	@Id
+	@Column
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	@Column
 	private double price;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private DateTimeInterval interval; //moramo skontati kako da ovo ubacujemo u bazu posto meni puca -> valjda sam resio
+	private DateTimeInterval interval;
 
 
 	@ManyToOne
-	@MapsId("drugId")
 	@JoinColumn(name = "drug_id", referencedColumnName = "id")
 	private Drug drug;
 
 	@ManyToOne
-	@MapsId("pharmacyId")
 	@JoinColumn(name = "pharmacy_id", referencedColumnName = "id")
 	private Pharmacy pharmacy;
 
@@ -40,6 +43,15 @@ public class DrugPrice {
 		this.pharmacy = pharmacy;
 	}
 
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 
 	public double getPrice() {

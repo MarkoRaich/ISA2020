@@ -710,6 +710,8 @@ public class ConsultationPriceServiceImpl implements ConsultationPriceService {
 		
 	}
 	
+	
+	
 	//3.18 otkazivanje savetovanja
 	@Override
 	public ConsultationPriceAddressDTO cancelConsultationReservation(Long consultationId) {
@@ -828,6 +830,15 @@ public class ConsultationPriceServiceImpl implements ConsultationPriceService {
 		
 		return consultationsDTO;
 	}
+
+	@Override
+	public Double getPriceForPharmacyAndConsultation(Long pharmId, Long consultationId) {
+		
+		ConsultationPrice consultationPrice = consultationPriceRepo.findByPharmacyIdAndConsultationId(pharmId, consultationId);
+		return consultationPrice.getPrice();
+	}
+
+	
 	
 	
 

@@ -10,6 +10,8 @@ public class PurchaseOrderItemDTO {
 	
 	private DrugDTO drug;
 
+	
+	
 	public PurchaseOrderItemDTO(Long id, int quantity, DrugDTO drug) {
 		super();
 		this.id = id;

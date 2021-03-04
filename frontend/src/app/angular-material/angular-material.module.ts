@@ -20,14 +20,18 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
-import { MatSortModule } from '@angular/material/sort';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
+
 
 
 
 
 @NgModule( {
     imports: [
-       
+        BrowserModule,
+        BrowserAnimationsModule,
         MatMenuModule,
         MatSidenavModule,
         MatBadgeModule,
@@ -59,7 +63,9 @@ import { MatSortModule } from '@angular/material/sort';
         MatDialogModule,
         MatStepperModule,
         MatSelectModule,
-        MatDatepickerModule
+        MatSortModule,
+        MatDatepickerModule,
+        MatSort
     ],
     providers: [
         MatDatepickerModule,

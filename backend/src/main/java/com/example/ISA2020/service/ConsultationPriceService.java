@@ -56,5 +56,11 @@ public interface ConsultationPriceService {
 	ConsultationPriceAddressDTO cancelConsultationReservation(Long consultationId);
 
 	List<ConsultationPriceAddressDTO> getAllConsultationsForPatient();
+
+	Double getPriceForPharmacyAndConsultation(Long pharmId, Long consultationId);
+
+	
+
+
 	
 }

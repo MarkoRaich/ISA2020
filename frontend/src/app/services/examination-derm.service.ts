@@ -26,18 +26,15 @@ export class ExaminationDermService {
   constructor(private http: HttpClient, private router: Router) {}
 
   public getAllExaminationsBooked() {
-    console.log("usao je u servis");
     return this.http.get(this.urlPatient + '/getAllExaminationsSortedByPriceBooked');
   }
 
   public getAllExaminationsAvailable() {
-    console.log("usao je u servis");
     return this.http.get(this.urlPatient + '/getAllExaminationsAvailabe');
   }
 
   public getAllExaminationsDone() {
-    console.log("usao je u servis");
-    return this.http.get(this.urlPatient + '/getAllExaminationsSortedByPrice');
+    return this.http.get(this.urlPatient + '/getAllExaminationsSortedByPriceDone');
   }
 
 

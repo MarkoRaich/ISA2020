@@ -13,6 +13,8 @@ import javax.validation.Valid;
 
 import com.example.ISA2020.dto.PurchaseOrderDTO;
 import com.example.ISA2020.dto.PurchaseOrderItemDTO;
+import com.example.ISA2020.entity.users.PharmacyAdmin;
+import com.example.ISA2020.enumeration.EntityStatus;
 import com.example.ISA2020.enumeration.PurchaseOrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -30,6 +32,10 @@ public class PurchaseOrder {
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "pharmacy_id", referencedColumnName = "id")
 	private Pharmacy pharmacy;
+	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "pharmacy_admin_id", referencedColumnName = "id")
+	private PharmacyAdmin pharmacyAdmin;
 
 	@OneToMany(mappedBy = "purchaseOrder", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<PurchaseOrderItem> orderItems = new HashSet<>();
@@ -43,24 +49,26 @@ public class PurchaseOrder {
 
 	
 	
-	
-	
-	
 	public PurchaseOrder() {
 		super();
 	}
 
-	public PurchaseOrder(Long id, PurchaseOrderStatus status, Pharmacy pharmacy, Set<PurchaseOrderItem> orderItems,
-			Set<SupplierOffer> offers, LocalDateTime deadline) {
+
+	
+	public PurchaseOrder(Long id, PurchaseOrderStatus status, Pharmacy pharmacy, PharmacyAdmin pharmacyAdmin,
+			Set<PurchaseOrderItem> orderItems, Set<SupplierOffer> offers, LocalDateTime deadline) {
 		super();
 		this.id = id;
 		this.status = status;
 		this.pharmacy = pharmacy;
+		this.pharmacyAdmin = pharmacyAdmin;
 		this.orderItems = orderItems;
 		this.offers = offers;
 		this.deadline = deadline;
 	}
-	
+
+
+
 	public PurchaseOrder(PurchaseOrderStatus status, Pharmacy pharmacy, Set<PurchaseOrderItem> orderItems,
 			 LocalDateTime deadline) {
 		super();
@@ -118,6 +126,14 @@ public class PurchaseOrder {
 
 	public void setDeadline(LocalDateTime deadline) {
 		this.deadline = deadline;
+	}
+
+	public PharmacyAdmin getPharmacyAdmin() {
+		return pharmacyAdmin;
+	}
+
+	public void setPharmacyAdmin(PharmacyAdmin pharmacyAdmin) {
+		this.pharmacyAdmin = pharmacyAdmin;
 	}
 	
 	

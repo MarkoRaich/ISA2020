@@ -20,7 +20,7 @@ export class ListExaminationsAvailableComponent implements OnInit {
 
   examinationsDataSource: MatTableDataSource<ExaminationDerm>;
 
-  displayedColumns: string[] = [ 'name', 'date', 'time', 'price', 'status', 'zakazi'];
+  displayedColumns: string[] = [ 'name', 'date', 'time', 'price', 'status', 'dermatologist', 'dermRating', 'zakazi'];
   numberOfItems: number;
   itemsPerPage = environment.itemsPerPage;
 

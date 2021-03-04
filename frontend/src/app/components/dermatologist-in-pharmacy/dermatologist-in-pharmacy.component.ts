@@ -56,5 +56,9 @@ export class DermatologistInPharmacyComponent implements OnInit {
     })
   }
 
+  applyFilter(filterValue: string) {
+    this.dermatologistsDataSource.filter = filterValue.trim().toLowerCase();
+  }
+
 
 }

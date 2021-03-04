@@ -30,7 +30,7 @@ import com.example.ISA2020.entity.Examination;
 import com.example.ISA2020.entity.Grade;
 import com.example.ISA2020.entity.Pharmacy;
 import com.example.ISA2020.entity.VacationRequestDerm;
-import com.example.ISA2020.entity.DermWorkHours;
+import com.example.ISA2020.entity.DermatologistWorkHours;
 import com.example.ISA2020.enumeration.UserStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -76,7 +76,7 @@ public class Dermatologist implements UserDetails {
     
     @JsonIgnore
     @OneToMany(mappedBy = "dermatologist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<DermWorkHours> workHours;
+    private Set<DermatologistWorkHours> workHours;
 	
 	//prosecna ocena Dermatologa
 	@Column
@@ -170,11 +170,11 @@ public class Dermatologist implements UserDetails {
     
    
 
-	public Set<DermWorkHours> getWorkHours() {
+	public Set<DermatologistWorkHours> getWorkHours() {
 		return workHours;
 	}
 
-	public void setWorkHours(Set<DermWorkHours> workHours) {
+	public void setWorkHours(Set<DermatologistWorkHours> workHours) {
 		this.workHours = workHours;
 	}
 

@@ -1,0 +1,75 @@
+<mat-dialog-content class="dialog-class">
+    <div class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="page-caption">
+                        <h1 class="page-title">Ponude</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.page-header-->
+    
+    <!-- page-content -->
+    <div class="card-section">
+        <div class="container">
+            <div class="card-block bg-white mb30">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <!-- section-title -->
+                        <div class="section-title mb-0">
+                           
+                            <table mat-table [dataSource]="offersDataSource" class="mat-elevation-z8 table" matSort>
+    
+                                <ng-container matColumnDef="supplier">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Dobavljač </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        {{element.supplier["firstName"]}}  {{element.supplier["lastName"]}}
+                                    </td>
+                                </ng-container>
+    
+                                <ng-container matColumnDef="offer">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Ponuda </th>
+                                    <td mat-cell *matCellDef="let element"> 
+                                        {{element.offer}}
+                                     </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="deliveryDeadline">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Krajnji datum isporuke </th>
+                                    <td mat-cell *matCellDef=" let element">
+                                        {{element.deliveryDeadline | date:"dd.MM.yyyy."}}
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="status">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                                    <td mat-cell *matCellDef="let element"> 
+                                        {{element.status}}
+                                     </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="accept">
+                                    <th mat-header-cell *matHeaderCellDef> </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <button mat-raised-button mat-raised-button class="accept-btn" [disabled]="isDisabled"
+                                            (click)="acceptOffer(element)">Prihvati</button>
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+                            <mat-paginator [pageSize]=itemsPerPage class=" table" showFirstLastButtons></mat-paginator>
+                        </div>
+                        <!-- /.section-title -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.page-content -->
+
+</mat-dialog-content>

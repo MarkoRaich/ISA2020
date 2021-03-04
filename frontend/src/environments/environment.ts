@@ -24,7 +24,10 @@ export const environment = {
   examinationType     : "/api/examination-type",
   patient             : "/api/patient",
   promotion           : "/api/promotion",
-  purchaseOrder       : "/api/purchase-order"
+  purchaseOrder       : "/api/purchase-order",
+  vacationPharm       : "/api/vacation-pharm",
+  vacationDerm        : "/api/vacation-derm"
+
 };
 
 /*

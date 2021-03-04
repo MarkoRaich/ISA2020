@@ -18,7 +18,7 @@ import { PharmacistService } from '../../services/pharmacist.service';
 export class ListPharmacistsComponent implements OnInit {
 
   pharmacistsDataSource: MatTableDataSource<Pharmacist>;
-  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'phoneNumber', 'workhours', 'obrisi'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'phoneNumber', 'workhours', 'rating', 'obrisi'];
   searchString: string;
   searchFirstName: string = '';
   searchLastName: string = '';

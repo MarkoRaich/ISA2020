@@ -118,10 +118,6 @@ public class Patient implements UserDetails {
 	//lista apoteka na cije se promocije pacijent pretplatio
     @JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(
-			name = "patient_subscription",
-			joinColumns = @JoinColumn(name = "patient_id", referencedColumnName = "id"),
-			inverseJoinColumns = @JoinColumn(name = "pharmacy_id", referencedColumnName = "id") )
 	private Set<Pharmacy> subscriptions = new HashSet<>();
 	
 	

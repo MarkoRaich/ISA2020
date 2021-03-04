@@ -3,16 +3,7 @@
     <div class="row">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="page-caption">
-          <h1 class="page-title">Zavrseni pregledi</h1>
-          <div class="text-center mt-4">
-            <!-- <button mat-raised-button color="primary" (click)="openCreatingDialog()">
-               Kreiraj slobodan termin za pregled
-             </button> -->
-            <th>  Ocena: </th>
-            <th>
-              <input type="number" id="grade"  class="form-control" [(ngModel)]="grade" [ngModelOptions]="{standalone: true}">
-            </th>
-          </div>
+          <h1 class="page-title">Zavrseni pregledi</h1> 
         </div>
       </div>
     </div>
@@ -25,6 +16,10 @@
   <div class="container">
     <div class="card-block bg-white mb30">
       <div class="row">
+         <div class="col-3">
+            Ocena: 
+            <input type="number" id="grade"  class="form-control" [(ngModel)]="grade" [ngModelOptions]="{standalone: true}">
+          </div>
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
           <!-- section-title -->
           <div class="section-title mb-0">

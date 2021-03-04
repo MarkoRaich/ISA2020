@@ -4,7 +4,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HomeComponent } from './components/home/home.component';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { ToastrModule } from 'ngx-toastr';
 import { AppComponent } from './app.component';
@@ -17,6 +16,8 @@ import { EditPharmacyProfileComponent } from './components/edit-pharmacy-profile
 import { EditPharmAdminProfileComponent } from './components/edit-pharm-admin-profile/edit-pharm-admin-profile.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { MapComponent } from './components/map/map.component';
+import { RatingModule } from 'ng-starrating';
+import { ChartsModule } from 'ng2-charts';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ListPharmacistsComponent } from './components/list-pharmacists/list-pharmacists.component';
@@ -62,6 +63,20 @@ import { MakeComplaintComponent } from './components/make-complaint/make-complai
 import { DrugReservationComponent } from './components/drug-reservation/drug-reservation.component';
 import { ListDrugReservationComponent } from './components/list-drug-reservation/list-drug-reservation.component';
 import { ListExaminationsDoneComponent } from './components/list-examinations-done/list-examinations-done.component';
+import { PriceListComponent } from './components/price-list/price-list.component';
+import { AddOrderItemComponent } from './components/add-order-item/add-order-item.component';
+import { ListOffersComponent } from './components/list-offers/list-offers.component';
+import { MonthlyStatisticComponent } from './components/charts/monthly-statistic/monthly-statistic.component';
+import { QuartalStatisticComponent } from './components/charts/quartal-statistic/quartal-statistic.component';
+import { YearStatisticComponent } from './components/charts/year-statistic/year-statistic.component';
+import { MonthStatDrugsComponent } from './components/charts/month-stat-drugs/month-stat-drugs.component';
+import { QuartalStatDrugsComponent } from './components/charts/quartal-stat-drugs/quartal-stat-drugs.component';
+import { YearStatDrugsComponent } from './components/charts/year-stat-drugs/year-stat-drugs.component';
+import { IncomeStatComponent } from './components/charts/income-stat/income-stat.component';
+import { ListVacationsComponent } from './components/list-vacations/list-vacations.component';
+import { DenialReasonComponent } from './components/denial-reason/denial-reason.component';
+import { AddPricelistComponent } from './components/add-pricelist/add-pricelist.component';
+import { ChangeDrugPriceComponent } from './components/change-drug-price/change-drug-price.component';
 
 
 
@@ -70,7 +85,6 @@ import { ListExaminationsDoneComponent } from './components/list-examinations-do
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     LoginComponent,
     RegisterComponent,
     PatientProfileComponent,
@@ -119,6 +133,20 @@ import { ListExaminationsDoneComponent } from './components/list-examinations-do
     DrugReservationComponent,
     ListDrugReservationComponent,
     ListExaminationsDoneComponent,
+    PriceListComponent,
+    AddOrderItemComponent,
+    ListOffersComponent,
+    MonthlyStatisticComponent,
+    QuartalStatisticComponent,
+    YearStatisticComponent,
+    MonthStatDrugsComponent,
+    QuartalStatDrugsComponent,
+    YearStatDrugsComponent,
+    IncomeStatComponent,
+    ListVacationsComponent,
+    DenialReasonComponent,
+    AddPricelistComponent,
+    ChangeDrugPriceComponent
 
   ],
   imports: [
@@ -130,6 +158,8 @@ import { ListExaminationsDoneComponent } from './components/list-examinations-do
     LayoutModule,
     MatNativeDateModule,
     BrowserAnimationsModule,
+    RatingModule,
+    ChartsModule,
     ToastrModule.forRoot({
       timeOut: 2000,
       positionClass: 'toast-top-right',

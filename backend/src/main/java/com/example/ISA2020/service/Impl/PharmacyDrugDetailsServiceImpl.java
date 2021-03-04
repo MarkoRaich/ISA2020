@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.ISA2020.entity.DrugQuantity;
-import com.example.ISA2020.entity.PharmDrugQuantityKey;
+import com.example.ISA2020.entity.compositeKeys.KeyDrugPharmacyQuantity;
 import com.example.ISA2020.repository.PharmacyDrugDetailsRepository;
 import com.example.ISA2020.service.PharmacyDrugDetailsService;
 
@@ -17,7 +17,7 @@ public class PharmacyDrugDetailsServiceImpl implements PharmacyDrugDetailsServic
     private PharmacyDrugDetailsRepository pharmacyDrugDetailsRepository;
 	
 	@Override
-	public DrugQuantity findById(PharmDrugQuantityKey id) {
+	public DrugQuantity findById(KeyDrugPharmacyQuantity id) {
 		return pharmacyDrugDetailsRepository.findOneById(id);
 	}
 	

@@ -17,7 +17,7 @@ export class ChangeDrugQuantityComponent implements OnInit {
   changeDrugForm: FormGroup;
   drug: DrugWithQuantity;
 
-  constructor( private router: Router,
+  constructor(private router: Router,
               private toastr: ToastrService,
               private drugService: DrugService,
               private formBuilder: FormBuilder,

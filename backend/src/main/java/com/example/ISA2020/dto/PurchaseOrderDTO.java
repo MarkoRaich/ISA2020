@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.example.ISA2020.entity.PurchaseOrder;
 import com.example.ISA2020.entity.PurchaseOrderItem;
+import com.example.ISA2020.entity.SupplierOffer;
 
 public class PurchaseOrderDTO {
 
@@ -16,6 +17,8 @@ public class PurchaseOrderDTO {
 	
 	private Set<PurchaseOrderItemDTO> orderitems;
 	
+	private Set<OfferDTO> offers;
+	
 	private String deadline;
 
 	
@@ -25,29 +28,46 @@ public class PurchaseOrderDTO {
 		super();
 	}
 
+
+
 	public PurchaseOrderDTO(Long id, String status, PharmacyDTO pharmacy, Set<PurchaseOrderItemDTO> orderitems,
-			String deadline) {
+			Set<OfferDTO> offers, String deadline) {
 		super();
 		this.id = id;
 		this.status = status;
 		this.pharmacy = pharmacy;
 		this.orderitems = orderitems;
+		this.offers = offers;
 		this.deadline = deadline;
 	}
 
-	public PurchaseOrderDTO(PurchaseOrder order) {
-		this(order.getId(),
-			 order.getStatus().toString(),
-			 new PharmacyDTO(order.getPharmacy()),
-			 convertToDTO(order.getOrderItems()),
-			 order.getDeadline().toString()	);
+
+
+	public PurchaseOrderDTO(PurchaseOrder order) {		 this(order.getId(),
+														 order.getStatus().toString(),
+														 new PharmacyDTO(order.getPharmacy()),
+														 convertToDTO(order.getOrderItems()),
+														 convert(order.getOffers()),
+														 order.getDeadline().toString()	);
 	}
 
+	
+	
 	private static Set<PurchaseOrderItemDTO> convertToDTO(Set<PurchaseOrderItem> items) {
 		Set<PurchaseOrderItemDTO> returnSet = new HashSet<PurchaseOrderItemDTO>();
 		
 		for(PurchaseOrderItem item: items) {
 			returnSet.add(new PurchaseOrderItemDTO(item));
+		}
+		
+		return returnSet;
+	}
+	
+	private static Set<OfferDTO> convert(Set<SupplierOffer> offers){
+		Set<OfferDTO> returnSet = new HashSet<OfferDTO>();
+		
+		for(SupplierOffer offer: offers) {
+			returnSet.add(new OfferDTO(offer));
 		}
 		
 		return returnSet;
@@ -92,6 +112,20 @@ public class PurchaseOrderDTO {
 	public void setDeadline(String deadline) {
 		this.deadline = deadline;
 	}
+
+	
+	
+	public Set<OfferDTO> getOffers() {
+		return offers;
+	}
+
+
+
+	public void setOffers(Set<OfferDTO> offers) {
+		this.offers = offers;
+	}
+
+
 
 	@Override
 	public String toString() {

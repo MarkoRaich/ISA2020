@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { HomeComponent } from './components/home/home.component';
 import { PatientProfileComponent } from './components/patient-profile/patient-profile.component';
 
 import { EditPharmacyProfileComponent } from './components/edit-pharmacy-profile/edit-pharmacy-profile.component';
@@ -37,6 +36,9 @@ import {ListAllComplaintsComponent} from './components/list-all-complaints/list-
 import {MakeComplaintComponent} from './components/make-complaint/make-complaint.component';
 import {ListDrugReservationComponent} from './components/list-drug-reservation/list-drug-reservation.component';
 import {ListExaminationsDoneComponent} from './components/list-examinations-done/list-examinations-done.component';
+import { PriceListComponent } from './components/price-list/price-list.component';
+import { AddPurchaseOrderComponent } from './components/add-purchase-order/add-purchase-order.component';
+import { ListVacationsComponent } from './components/list-vacations/list-vacations.component';
 
 
 const routes: Routes = [
@@ -46,7 +48,7 @@ const routes: Routes = [
 
   {
     path: '',
-    component: HomeComponent,
+    component: GuestDrugsComponent,
     pathMatch: 'full'
   },
 
@@ -214,6 +216,24 @@ const routes: Routes = [
   {
     path: 'pharmacy-admin/purchase-orders',
     component: ListPurchaseOrdersComponent,
+    canActivate: [PharmacyAdminGuard]
+  },
+
+  {
+    path: 'pharmacy-admin/price-list',
+    component: PriceListComponent,
+    canActivate: [PharmacyAdminGuard]
+  },
+
+  {
+    path: 'pharmacy-admin/add-purchase-order',
+    component: AddPurchaseOrderComponent,
+    canActivate: [PharmacyAdminGuard]
+  },
+
+  {
+    path: 'pharmacy-admin/list-vacations',
+    component: ListVacationsComponent,
     canActivate: [PharmacyAdminGuard]
   },
   //***************** PATIENT *****************

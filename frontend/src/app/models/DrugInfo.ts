@@ -9,7 +9,15 @@ export class DrugInfo {
   type: String;
   prescription: String;
 
-  constructor(  id: number, name: String, code: String, manufacturer: String, composition: String, notes: String, form: String, type: String, prescription: String) {
+  constructor(  id: number,
+                name: String,
+                code: String,
+                manufacturer?: String,
+                composition?: String, 
+                notes?: String,
+                form?: String,
+                type?: String, 
+                prescription?: String) {
     this.id = id;
     this.name = name;
     this.code = code;

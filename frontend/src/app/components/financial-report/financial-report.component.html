@@ -1,1 +1,141 @@
-<p>financial-report works!</p>
+<!-- page-header -->
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-caption">
+                    <h1 class="page-title-caption">Izveštaj o poslovanju</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.page-header-->
+
+<!-- page-content -->
+<div class="card-section">
+    <div class="container">
+        <div class="card-block bg-white mb30">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <!-- section-title -->
+                    <div class="row">
+                        <div class="col-4">
+                            <label class="labelRaiting page-title"> Prosečna ocena apoteke</label>
+                        </div>
+                        <div class="col-4">
+                            <star-rating class="rating-style" totalstars=" 5" checkedcolor="#FD8711"
+                                uncheckedcolor="black" size="35px" [value]="pharmacyRating">
+                            </star-rating>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-4">
+                            <label class="labelRaiting page-title"> Izaberi dermatologa</label>
+                        </div>
+                        <div class="col-4">
+                            <mat-form-field class="form-full-width">
+                                <mat-label>Dermatolog</mat-label>
+                                <mat-select [(ngModel)]="selectedDermatologist" (selectionChange)="changeSelectionDerm()">
+                                    <mat-option *ngFor="let dermatologist of dermatologists" [value]="dermatologist">
+                                        {{dermatologist.firstName}} {{dermatologist.lastName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-4">
+                            <label class="labelRaiting page-title"> Ocena dermatologa</label>
+                        </div>
+                        <div class="col-4">
+                            <star-rating class="rating-style" totalstars=" 5" checkedcolor="#FD8711"
+                                uncheckedcolor="black" size="35px" [value]="dermatologistRating">
+                            </star-rating>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-4">
+                            <label class="labelRaiting page-title"> Izaberi farmaceuta</label>
+                        </div>
+                        <div class="col-4">
+                            <mat-form-field class="form-full-width">
+                                <mat-label>Farmaceut</mat-label>
+                                <mat-select [(ngModel)]="selectedPharmacist" (selectionChange)="changeSelectionPharm()">
+                                    <mat-option *ngFor="let pharmacist of pharmacists" [value]="pharmacist">
+                                        {{pharmacist.firstName}} {{pharmacist.lastName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-4">
+                            <label class="labelRaiting page-title"> Ocena farmaceuta</label>
+                        </div>
+                        <div class="col-4">
+                            <star-rating class="rating-style" totalstars=" 5" checkedcolor="#FD8711"
+                                uncheckedcolor="black" size="35px" [value]="pharmacistRating">
+                            </star-rating>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row">
+                        <div class="col-8">
+                            <label class="labelRaiting page-title"> Prikaz statistike pregleda</label>
+                        </div>
+                    </div>
+                    <br>
+                    <div>
+                        <app-monthly-statistic></app-monthly-statistic>
+                    </div>
+                    <br>
+                    <div>
+                        <app-quartal-statistic></app-quartal-statistic>
+                    </div>
+                    <br>
+                    <div>
+                        <app-year-statistic></app-year-statistic>
+                    </div>
+
+                    <br>
+                    <div class="row">
+                        <div class="col-8">
+                            <label class="labelRaiting page-title"> Prikaz statistike prodatih lekova</label>
+                        </div>
+                    </div>
+                    <br>
+                    <div>
+                        <app-month-stat-drugs></app-month-stat-drugs>
+                    </div>
+                    <br>
+                    <div>
+                        <app-quartal-stat-drugs></app-quartal-stat-drugs>
+                    </div>
+                    <br>
+                    <div>
+                        <app-year-stat-drugs></app-year-stat-drugs>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-8">
+                            <label class="labelRaiting page-title"> Prikaz ukupnih prihoda apoteke u vremenskom periodu</label>
+                        </div>
+                    </div>
+                    <br>
+                    <div>
+                        <app-income-stat></app-income-stat>
+                    </div>
+                    <br>
+                    <!-- /.section-title -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.page-content -->

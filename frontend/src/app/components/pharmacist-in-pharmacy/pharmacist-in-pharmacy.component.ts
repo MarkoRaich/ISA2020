@@ -51,6 +51,10 @@ export class PharmacistInPharmacyComponent implements OnInit {
     )
   }
 
+  applyFilter(filterValue: string) {
+    this.pharmacistsDataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   search(){
     this.pharmacistService.searchPharmacistsInPharmacy(this.searchFirstName, this.searchLastName, this.pharmId).subscribe(
       (data) => {

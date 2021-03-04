@@ -114,7 +114,7 @@ export class AddExaminationComponent implements OnInit {
         this.examinationService.successCreatedExamination.next(availableExamination);
       },
       () => {
-        this.toastr.error('greška pri kreiranju slobodnog termina.', 'Kreiranje slobodnog termina');
+        this.toastr.error('Greška pri kreiranju slobodnog termina.', 'Kreiranje slobodnog termina');
       }
     );
   }
